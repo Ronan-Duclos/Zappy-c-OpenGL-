@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/07 22:25:46 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 19:09:54 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 # include <common.h>
 # include "libft.h"
 
-# define XV(err,res,str)	(x_void(err,res,str,__FILE__,__LINE__))
-# define X(err,res,str)		(x_int(err,res,str,__FILE__,__LINE__))
-# define OPT		"nph"
-# define FD_SRV		1
-# define FD_CLT		2
-# define FD_FREE	0
-# define MAX_CHANS	100
+# define XV(err,res,str)	(x_void(err,res,str,__FILE__))
+# define X(err,res,str)		(x_int(err,res,str,__FILE__))
+# define OPT				"nph"
+# define FD_SRV				1
+# define FD_CLT				2
+# define FD_FREE			0
+# define MAX_CHANS			100
 
 typedef struct s_env	t_env;
 typedef struct s_user	t_user;
@@ -44,7 +44,7 @@ typedef struct			s_opt
 	char				*host;
 }						t_opt;
 
-typedef int (*t_fct_opt)(char **, t_opt *);
+typedef int				(*t_fct_opt)(char **, t_opt *);
 
 struct					s_user
 {
@@ -68,7 +68,7 @@ struct					s_env
 /*
 **	c_opt.c
 */
-int				get_clt_opt(t_opt *opt, int argc, char **argv);
+int						get_clt_opt(t_opt *opt, int argc, char **argv);
 /*
 **	c_client.c
 */
@@ -91,7 +91,7 @@ void					init_clt(t_env *e);
 /*
 **	error.c
 */
-int		x_int(int err, int res, char *str, char *file, int line);
-void	*x_void(void *err, void *res, char *str, char *file, int line);
+int						x_int(int err, int res, char *str, char *file);
+void					*x_void(void *err, void *res, char *str, char *file);
 
 #endif

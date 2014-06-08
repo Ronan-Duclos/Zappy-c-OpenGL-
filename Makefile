@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/08 21:30:59 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/08 21:34:43 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ CLT_H=$(INCLUDES)client.h
 SERV_H=$(INCLUDES)serveur.h
 DIROBJ=objs/
 DIRSRC=srcs/
+
 SERV_SRC=s_main.c \
 	s_opt1.c \
 	s_generate_map.c \

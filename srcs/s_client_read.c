@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 22:44:12 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/08 23:34:57 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		accept_gamer(t_env *e, int cs)
 	tmp = ft_itoa(e->opt.x);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 0);
 	free(tmp);
+	char_to_bc(&e->users[cs]->buf_write, ' ');
 	tmp = ft_itoa(e->opt.y);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);

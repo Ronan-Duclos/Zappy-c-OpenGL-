@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 23:31:05 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 23:40:06 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "stdio.h"
 
 # define NB_STONE	6
-# define BC_SIZE	20
+# define BC_SIZE	40960
 # define BC_SIZE2	BC_SIZE - 1
 
 enum				e_stone
@@ -58,7 +58,7 @@ char	*type_to_str(int id);
 void	init_bc(t_buf *buf);
 int		verify_bsn(t_buf *buf);
 void	tmp_to_bc(t_buf *buf, char *str, int type);
-void	char_tmp_to_c(t_buf *buf, char c);
+void			char_to_bc(t_buf *buf, char c);
 void	bc_to_tmp(t_buf *buf, char *tmp);
 
 #endif

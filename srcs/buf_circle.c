@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 23:25:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 23:43:38 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 
 	i = -1;
 	j = 0;
+	
 	while (str[++i] != '\0')
 	{
 		if (str[i] == '\n')
@@ -80,10 +81,11 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 	buf->head2 = buf->head2 + j;
 }
 
-void			char_tmp_to_c(t_buf *buf, char c)
+void			char_to_bc(t_buf *buf, char c)
 {
 	int	i;
 
+	printf("CHAR : %d\n", c);
 	buf->head2[0] = c;
 	buf->tail = buf->head2;
 	i = verify_end(buf, 1);

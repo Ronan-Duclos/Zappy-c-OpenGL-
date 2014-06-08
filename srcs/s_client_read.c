@@ -6,20 +6,31 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/07 22:05:58 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 22:44:12 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "serveur.h"
 #include "libft.h"
 
 int		accept_gamer(t_env *e, int cs)
 {
+	char		*tmp;
+
+
 	e->users[cs]->ig = 1;
 	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read.head);
-	tmp_to_bc(&e->users[cs]->buf_write, ft_itoa(cs), 1);
-	tmp_to_bc(&e->users[cs]->buf_write, ft_itoa(e->users[cs]->player.x), 0);
-	tmp_to_bc(&e->users[cs]->buf_write, ft_itoa(e->users[cs]->player.y), 1);
+	tmp = ft_itoa(cs);
+	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
+	free(tmp);
+	tmp = ft_itoa(e->opt.x);
+	tmp_to_bc(&e->users[cs]->buf_write, tmp, 0);
+	free(tmp);
+	tmp = ft_itoa(e->opt.y);
+	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
+	free(tmp);
+	send_inv(e, cs);
 	return (1);
 }
 

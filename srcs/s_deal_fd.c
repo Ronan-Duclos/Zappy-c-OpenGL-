@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/07 17:55:18 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 22:39:04 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	create_clt(t_env *e, int s)
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
 	init_pos(e->users[cs], e->opt.x, e->opt.y);
-	/*init_inv(e->users[cs]);*/
+	bzero(&e->users[cs]->player.inv, sizeof(t_inv));
+	e->users[cs]->player.inv[_food] = 10;
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
 	printf("Client connected : %d\n", cs);
 }

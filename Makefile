@@ -6,43 +6,52 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/08 21:34:43 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/08 23:15:23 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=Scappy
 SERV_NAME=serveur
 CLT_NAME=client
+GFX_NAME=gfx
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb
+FLAG_OPENGL=-framework GLUT -framework OpenGL -framework Cocoa -Wno-deprecated \
+	-Wno-deprecated-declarations
 LIB=libft/
 INCLUDES=includes/
 CLT_H=$(INCLUDES)client.h
 SERV_H=$(INCLUDES)serveur.h
+GFX_H=$(INCLUDES)gfx.h \
+	$(INCLUDES)mdx.h
 DIROBJ=objs/
 DIRSRC=srcs/
-
 SERV_SRC=s_main.c \
 	s_opt1.c \
 	s_generate_map.c \
 	s_init.c \
 	s_client_read.c \
 	s_client_write.c \
-	s_deal_fd.c 
+	s_deal_fd.c \
+	s_inv.c
 CLT_SRC=c_main.c \
 	c_init.c \
 	c_opt.c \
 	c_tools1.c
+GFX_SRC=srcs/g_main.c \
+	srcs/g_parsemdx.c \
+	srcs/parseMDX/mdx_parser.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c
 SERV_OBJ=$(SERV_SRC:%.c=$(DIROBJ)%.o)
 CLT_OBJ=$(CLT_SRC:%.c=$(DIROBJ)%.o)
+GFX_OBJ=$(GFX_SRC:%.c=$(DIROBJ)%.o)
 COMMON_OBJ=$(COMMON_SRC:%.c=$(DIROBJ)%.o)
 
 all: init $(NAME) end
 
-$(NAME): $(SERV_NAME) $(CLT_NAME)
+$(NAME): $(SERV_NAME) $(CLT_NAME) $(GFX_NAME)
 
 end :
 	@echo "\033[2K\t\033[1;36mScappy\t\t\033[0;32m[Ready]\033[0m"
@@ -65,19 +74,28 @@ $(CLT_NAME): $(CLT_OBJ) $(COMMON_OBJ)
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(CLT_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
+$(GFX_NAME):
+	@echo "==> Compiling $(GFX_NAME) : "
+	@$(CC) $(FLAG_OPENGL) -o $@ $(GFX_SRC) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft -g
+	@tput cuu1
+	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
+
 $(DIROBJ)%.o: $(DIRSRC)%.c $(INCLUDES)
 	@echo "--> Linking  $<"
-	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 clean:
 	@make -s -C libft $@
 	@rm -f $(SERV_OBJ)
 	@rm -f $(CLT_OBJ)
+	@rm -f $(GFX_OBJ)
+	@rm -f $(COMMON_OBJ)
 
 fclean: clean
 	@make -s -C libft $@
 	@rm -f $(CLT_NAME)
 	@rm -f $(SERV_NAME)
+	@rm -f $(GFX_NAME)
 
 re: fclean all

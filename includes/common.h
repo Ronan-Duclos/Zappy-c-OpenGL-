@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/07 23:07:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 22:02:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "stdio.h"
 
 # define NB_STONE	6
-# define BC_SIZE	20
+# define BC_SIZE	4096
 # define BC_SIZE2	BC_SIZE - 1
 
 enum				e_stone
@@ -50,6 +50,7 @@ typedef struct		s_buf
 */
 int		rand_int(int min, int max);
 int		get_vision_nb_cell(int level);
+char				*type_to_str(int id);
 /*
 **	buf_circle.c
 */

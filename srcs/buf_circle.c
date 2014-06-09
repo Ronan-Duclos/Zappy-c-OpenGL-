@@ -64,7 +64,6 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 
 	i = -1;
 	j = 0;
-	
 	while (str[++i] != '\0')
 	{
 		if (str[i] == '\n')
@@ -85,7 +84,6 @@ void			char_to_bc(t_buf *buf, char c)
 {
 	int	i;
 
-	printf("CHAR : %d\n", c);
 	buf->head2[0] = c;
 	buf->tail = buf->head2;
 	i = verify_end(buf, 1);
@@ -109,7 +107,8 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 	j = -1;
 	while (buf->nb_cmd != 0)
 	{
-		tmp[++j] = buf->head[i];
+		if (buf->head[i] != '\0')
+			tmp[++j] = buf->head[i];
 		buf->head[i] = '\0';
 		if (buf->head + i == buf->end)
 		{

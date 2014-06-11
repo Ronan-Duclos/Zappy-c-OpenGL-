@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 12:07:03 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 13:57:33 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,6 @@ void				init_serv(t_env *e);
 */
 void				run_serv(t_env *e);
 int					main(int ac, char **av);
-/*
-**error.c
-*/
-int					x_int(int err, int res, char *str, char *file);
-void				*x_void(void *err, void *res, char *str, char *file);
 
 void				send_inv(t_env *e, int id);
 

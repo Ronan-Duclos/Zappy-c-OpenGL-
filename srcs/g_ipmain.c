@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/11 13:41:31 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/11 13:52:36 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void		get_opt(t_ipv *ipv, int ac, char **av)
 {
 	if (ac != 3)
 	{
-		dprintf(2, "Usage: %s <addr> <port>\nAnd Fuck You\n", &av[0]);
+		fprintf(stderr, "Usage: %s <addr> <port>\nAnd Fuck You\n", av[0]);
 		exit(1);
 	}
 	ipv->port = atoi(av[2]);
 	if (ipv->port <= 0 || ipv->port > 99999)
 	{
-		dprintf(2, "%s: invalid port argument\n", av[0]);
+		fprintf(stderr, "%s: invalid port argument\n", av[0]);
 		exit(1);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/11 11:49:14 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/11 13:58:14 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,8 @@ SERV_NAME=serveur
 CLT_NAME=client
 GFX_NAME=gfx
 CC=	gcc
-FLAGS=-Wall -Wextra -Werror -ggdb
-FLAG_OPENGL=-framework GLUT -framework OpenGL -framework Cocoa -Wno-deprecated \
-	-Wno-deprecated-declarations
+FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations=
+FLAG_OPENGL=-framework GLUT -framework OpenGL -framework Cocoa
 LIB=libft/
 INCLUDES=includes/
 CLT_H=$(INCLUDES)client.h
@@ -38,9 +37,7 @@ CLT_SRC=c_main.c \
 	c_init.c \
 	c_opt.c \
 	c_tools1.c
-GFX_SRC=srcs/g_main.c \
-	srcs/g_parsemdx.c \
-	srcs/g_mdx_parser.c
+GFX_SRC=g_ipmain.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c
@@ -74,15 +71,15 @@ $(CLT_NAME): $(CLT_OBJ) $(COMMON_OBJ)
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(CLT_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
-$(GFX_NAME):
+$(GFX_NAME): $(GFX_OBJ)
 	@echo "==> Compiling $(GFX_NAME) : "
-	@$(CC) $(FLAG_OPENGL) -o $@ $(GFX_SRC) -I$(INCLUDES) -L$(LIB) -lft
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ $(GFX_OBJ) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
 $(DIROBJ)%.o: $(DIRSRC)%.c $(INCLUDES)
 	@echo "--> Linking  $<"
-	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
+	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 clean:

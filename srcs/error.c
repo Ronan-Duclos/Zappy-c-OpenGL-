@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_error.c                                          :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/04 19:16:41 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 12:08:25 by rbernand         ###   ########.fr       */
+/*   Created: 2014/06/11 13:54:10 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/11 13:56:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur.h"
-#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
 int		x_int(int err, int res, char *str, char *file)
 {

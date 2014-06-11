@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 12:02:35 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 13:57:31 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,13 @@ char	*type_to_str(int id);
 void	init_bc(t_buf *buf);
 int		verify_bsn(t_buf *buf);
 void	tmp_to_bc(t_buf *buf, char *str, int type);
-void			char_to_bc(t_buf *buf, char c);
+void	char_to_bc(t_buf *buf, char c);
 void	bc_to_tmp(t_buf *buf, char *tmp);
+/*
+**error.c
+*/
+int					x_int(int err, int res, char *str, char *file);
+void				*x_void(void *err, void *res, char *str, char *file);
+
 
 #endif

@@ -6,10 +6,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <strings.h>
-#include <libft.h>
+#include <time.h>
 #include "testopengl.h"
 #include "common.h"
 #include "mdx.h"
+
+#define FPS	60
 
 void	normalize(GLdouble vec[3])
 {
@@ -28,104 +30,6 @@ void	getdir(GLdouble o[3], GLdouble dir[3])
 	dir[2] -= o[2];
 }
 
-void	ft_color_white(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.9, 0.9, 0.9, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
-
-	glNewList(g_env->colors[_white], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
-void	ft_color_red(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.9, 0.0, 0.0, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.5, 0.2, 0.2, 1.0 };
-
-	glNewList(g_env->colors[_red], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
-void	ft_color_blue(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.0, 0.0, 0.9, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.2, 0.2, 0.5, 1.0 };
-
-	glNewList(g_env->colors[_blue], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
-void	ft_color_green(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.0, 0.9, 0.0, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.2, 0.5, 0.2, 1.0 };
-
-	glNewList(g_env->colors[_green], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
-void	ft_color_yellow(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.9, 0.9, 0.0, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.5, 0.5, 0.2, 1.0 };
-
-	glNewList(g_env->colors[_yellow], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
-void	ft_color_pink(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.9, 0.0, 0.9, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.5, 0.2, 0.5, 1.0 };
-
-	glNewList(g_env->colors[_pink], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
-void	ft_color_cyan(void)
-{
-	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.0, 0.9, 0.9, 1.0 };
-	static	GLfloat mat_ambient[] = { 0.2, 0.5, 0.5, 1.0 };
-
-	glNewList(g_env->colors[_cyan], GL_COMPILE);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
-	glEndList();
-}
-
 void	map_intersection(GLdouble *inter, GLdouble *a, GLdouble *b)
 {
 	double	t;
@@ -138,9 +42,42 @@ void	map_intersection(GLdouble *inter, GLdouble *a, GLdouble *b)
 	inter[2] = a[2] + b[2] * t;
 }
 
-/*
-**
-*/
+int		ft_time_frame(void)
+{
+	static double	oldtime = 0;
+	static double	spf = 1.0 / FPS;
+	double			time;
+
+	if (oldtime == 0)
+		oldtime = (double)clock() / CLOCKS_PER_SEC;
+	time = (double)clock() / CLOCKS_PER_SEC;
+	if (time - oldtime >= spf)
+	{
+		oldtime += spf;
+		return (0);
+	}
+	return (1);
+}
+
+void	ft_anim_rock(t_anim *a)
+{
+	double	i;
+
+	if (a->dead)
+	{
+		a->frame = 0;
+		a->dead = 0;
+		return ;
+	}
+	i = (double)a->frame;
+	glTranslatef(0.0, 0.0, 0.5 * i);
+	glScalef(1.0 - i / 500, 1.0 - i / 500, 1.0 - i / 500);
+	glRotatef(2.0 * i, 0.0, 0.0, 1.0);
+	a->frame++;
+	if (a->frame >= a->maxframe)
+		a->dead = 1;
+}
+
 void    pos(void)
 {
 	GLdouble	model[16];
@@ -172,12 +109,16 @@ void    pos(void)
 **	appeler la liste des modifications de matrices, et je draw. Eh ouais.
 */
 
-void	display_egg(int i)
+void	display_egg(int i, int testo) // Attention
 {
+	static t_anim test = {0, 500, NULL, 0}; // A virer
+
 	glPushMatrix();
 	glTranslatef(1.9 / 16.0 * (i % 16) + 0.1, 0.0, 1.9 / 16 * (i / 16) + 0.1);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbo_indx);
 	glCallList(g_env->lists);
+	if (testo)
+		ft_anim_rock(&test); //// Idem
 	glDrawElements(GL_TRIANGLES, g_mdx.chunks[_pvtx].nb, GL_UNSIGNED_SHORT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glPopMatrix();
@@ -200,7 +141,10 @@ void	display_items(int sq)
 		{
 			if (g_env->sq[sq].grid[i] == j)
 			{
-				display_egg(i);
+				if (sq == g_env->selectcase) // pareil
+					display_egg(i, 1);
+				else
+					display_egg(i, 0);
 			}
 			i++;
 		}
@@ -257,18 +201,6 @@ void	display_square(int i)
 
 void	display_all_squares(void)
 {
-
-}
-/*
-**	Boucle d'affichage de la map.
-**	Je push une matrice, c'est a dire que qu'elle va se mettre en haut
-**	de la pile et copier celle du dessous et devenir la matrice courante.
-**	Je la modifie, je m'en sers, je la pop et elle se casse.
-**	Ca permet de se situer plus precisement de repere en repere,
-**	sans modifier les reperes precdents.
-*/
-void	display_map(void)
-{
 	int	i;
 
 	i = 0;
@@ -280,13 +212,22 @@ void	display_map(void)
 	while (i < g_env->mapw * g_env->maph)
 	{
 		glPushMatrix();
+		if (i == g_env->selectcase)
+			glCallList(g_env->colors[_highlight]);
 		glTranslatef(i % g_env->mapw * 2.0, 0.0, i / g_env->mapw * 2.0);
 		display_square((int)g_env->sq[i].tile);
+		if (i == g_env->selectcase)
+			glCallList(g_env->colors[_white]);
 		glPopMatrix();
 		i++;
 	}
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+}
+
+void	display_all_grid(void)
+{
+	int		i;
 
 	i = 0;
 	glLineWidth(2.0);
@@ -303,7 +244,21 @@ void	display_map(void)
 	}
 	glEnable(GL_LIGHTING);
 	glDisableClientState(GL_VERTEX_ARRAY);
+}
+/*
+**	Boucle d'affichage de la map.
+**	Je push une matrice, c'est a dire que qu'elle va se mettre en haut
+**	de la pile et copier celle du dessous et devenir la matrice courante.
+**	Je la modifie, je m'en sers, je la pop et elle se casse.
+**	Ca permet de se situer plus precisement de repere en repere,
+**	sans modifier les reperes precdents.
+*/
+void	display_map(void)
+{
+	int		i;
 
+	display_all_squares();
+	display_all_grid();
 	i = 0;
 	glDisable(GL_TEXTURE_2D);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -358,7 +313,7 @@ GLuint	ft_load_tex(char *file)
 		return (1);
 	glGenTextures(1, &g_env->maptex);
 	glBindTexture(GL_TEXTURE_2D, g_env->maptex);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, *(int *)(data + 4), *(int *)(data + 8),
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, *(int *)(data + 4), *(int *)(data + 8),
 				0, GL_BGR, GL_UNSIGNED_BYTE, &data[*offset - 14]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -431,7 +386,7 @@ void	display(void)
 {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glRotatef(20.0, 1.0, 0.0, 0.0);
+	glRotatef(40.0, 1.0, 0.0, 0.0);
 	glTranslatef(g_env->camtrans[0], g_env->camtrans[1], g_env->camtrans[2]);
 	display_map();
 	glutSwapBuffers();
@@ -518,6 +473,7 @@ void	init_colors(void)
 	g_env->colors[_yellow] = glGenLists(1);
 	g_env->colors[_pink] = glGenLists(1);
 	g_env->colors[_cyan] = glGenLists(1);
+	g_env->colors[_highlight] = glGenLists(1);
 	ft_color_white();
 	ft_color_red();
 	ft_color_blue();
@@ -525,6 +481,7 @@ void	init_colors(void)
 	ft_color_yellow();
 	ft_color_pink();
 	ft_color_cyan();
+	ft_color_highlight();
 }
 
 void	init(void)
@@ -552,17 +509,43 @@ void	init(void)
 
 void	idle(void)
 {
-	if (g_env->keys & FLAG_RIGHT)
-		g_env->camtrans[0] += -0.2;
-	if (g_env->keys & FLAG_LEFT)
-		g_env->camtrans[0] += 0.2;
-	if (g_env->keys & FLAG_UP)
-		g_env->camtrans[2] += 0.2;
-	if (g_env->keys & FLAG_DOWN)
-		g_env->camtrans[2] += -0.2;
-	if (g_env->keys)
-		pos();
-	glutPostRedisplay();
+	if (!ft_time_frame())
+	{
+		if (g_env->keys & FLAG_RIGHT)
+			g_env->camtrans[0] += -0.2;
+		if (g_env->keys & FLAG_LEFT)
+			g_env->camtrans[0] += 0.2;
+		if (g_env->keys & FLAG_UP)
+			g_env->camtrans[2] += 0.2;
+		if (g_env->keys & FLAG_DOWN)
+			g_env->camtrans[2] += -0.2;
+		if (g_env->keys)
+			pos();
+		glutPostRedisplay();
+	}
+}
+
+void	motion(int x, int y)
+{
+	GLdouble	model[16];
+	GLdouble	proj[16];
+	GLint		view[4];
+	GLdouble	posz0[3];
+	GLdouble	posz1[3];
+	GLdouble	pos[3];
+
+	glGetDoublev(GL_MODELVIEW_MATRIX, model);
+	glGetDoublev(GL_PROJECTION_MATRIX, proj);
+	glGetIntegerv(GL_VIEWPORT, view);
+	gluUnProject(x, g_env->winy - y, 0, model, proj, view, posz0 + 0, posz0 + 1, posz0 + 2);
+	gluUnProject(x, g_env->winy - y, 1, model, proj, view, posz1 + 0, posz1 + 1, posz1 + 2);
+	map_intersection(pos, posz0, posz1);
+	x = (int)((pos[0] + 1) / 2);
+	y = (int)((pos[2] + 1) / 2);
+	if (x > g_env->mapw - 1 || y > g_env->maph - 1 || x < 0 || y < 0)
+		g_env->selectcase = -1;
+	else
+		g_env->selectcase = x + y * g_env->mapw;
 }
 
 /*
@@ -580,6 +563,7 @@ void	init_glut(int ac, char **av)
 	glutReshapeFunc(reshape);
 	glutSpecialFunc(speckey);
 	glutSpecialUpFunc(speckeyup);
+	glutPassiveMotionFunc(motion);
 	glutIdleFunc(idle);
 }
 
@@ -627,25 +611,21 @@ void	ft_vbo_from_mdx(t_mdx *mdx)
 
 int		main(int ac, char **av)
 {
-	t_env		env;
-	t_mdx		mdx;
-	char		*tmp;
+	t_env	env;
+	t_mdx	mdx;
 
 	srand(time(NULL));
 	bzero(&env, sizeof(t_env)); ////Attation
 	g_env = &env;
+	env.selectcase = -1;
 	if (get_params(ac, av))
 		return (1);
 	init_glut(ac, av);
 	test_init_map();
-	tmp = ft_strjoin(INC_FILES, "Lords_grassDark2.bmp");
-	ft_load_tex(tmp);
-	free(tmp);
-	tmp = ft_strjoin(INC_FILES, "CrystalShard.mdx");
-	get_model_from_mdx(tmp, &g_mdx);
-	free(tmp);
-	ft_vbo_from_mdx(&g_mdx);
 	init();
+	ft_load_tex("data/Lords_GrassDark2.bmp");
+	get_model_from_mdx("data/CrystalShard.mdx", &g_mdx);
+	ft_vbo_from_mdx(&g_mdx);
 	glutMainLoop();
 	return (0);
 }

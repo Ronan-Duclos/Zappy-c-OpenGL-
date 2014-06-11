@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 19:26:03 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/11 22:43:21 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ void	check_team(t_env *e, int cs)
 	}
 }
 
+void	ma_fct_cmd(t_env *e, int cs)
+{
+	x = e->users[cs]->player.x;
+	y = e->users[cs]->player.y;
+	if (e->users[cs]->player.direc == NORTH)
+		e->users[cs]->player.y++;
+	tmp_to_bc(e->users[cs]->buf_write, "O", 0);
+	tmp_to_bc(e->users[cs]->buf_write, "K", 1);
+}
+
 void	make_cmd(t_env *e, int cs)
 {
 	char	*tmp;
@@ -68,7 +78,18 @@ void	make_cmd(t_env *e, int cs)
 	tmp[0] = '\0';
 	if (e->users[cs]->ig != 1)
 		check_team(e, cs);
-	/*else*/
+	/*else if (e->users[cs]->type == FD_CLT)
+	  {
+		Remplissage du calendrier :
+
+		time = ft_user_time;
+		time += valeur temps de laction * 1000000 / e->opt.time
+		i = e->users[cs]->player.cur_awrite;
+		e->users[cs]->player.acts[i].time = time;
+		e->users[cs]->player.acts[i].ftc_cmd = ma_fct_cmd(e, cs);
+	  }
+*/
+	
 }
 
 void	client_read(t_env *e, int cs)

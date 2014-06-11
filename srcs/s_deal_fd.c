@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 19:36:36 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/11 22:32:18 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	check_actions(t_env *e, int cs)
 	double		now;
 	int			nb_acts;
 
-	acts = &e->users[cs]->player.acts[e->users[cs]->player.cur_aread];
-	now = ft_usec_time();
 	nb_acts = e->users[cs]->player.cur_aread;
+	acts = &e->users[cs]->player.acts[nb_acts];
+	now = ft_usec_time();
 	if (acts->time != 0 && acts->time <= now)
 	{
 		e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 22:39:04 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 19:07:50 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	destroy_clt(t_env *e, int sock)
 	e->users[sock]->buf_read_tmp[0] = '\0';
 	e->users[sock]->buf_write_tmp[0] = '\0';
 	e->users[sock]->ig = 0;
+	e->users[sock]->gfx = 0;
 	printf("Client disconnected : %d\n", sock);
 }
 

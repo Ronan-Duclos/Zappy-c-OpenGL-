@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 12:06:48 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 14:07:29 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,5 @@ void					rcv_serveur(t_env *e);
 **	c_init.c
 */
 void					init_clt(t_env *e);
-/*
-**	error.c
-*/
-int						x_int(int err, int res, char *str, char *file);
-void					*x_void(void *err, void *res, char *str, char *file);
 
 #endif

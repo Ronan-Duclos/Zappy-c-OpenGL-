@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 23:34:57 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/11 17:37:59 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ void	check_team(t_env *e, int cs)
 
 	i = 0;
 	j = 0;
+	if (!ft_strcmp(e->users[cs]->buf_read_tmp, "GRAPHIC"))
+	{
+		gfx_init(e, cs);
+		return ;
+	}
 	while (e->opt.name[i] != NULL)
 	{
 		if (ft_strcmp(e->users[cs]->buf_read_tmp, e->opt.name[i]) == 0)
@@ -50,7 +55,6 @@ void	check_team(t_env *e, int cs)
 	}
 	if (j == 0)
 	{
-		tmp_to_bc(&e->users[cs]->buf_write, "Wrong team name.", 1);
 		close(cs);
 		destroy_clt(e, cs);
 	}
@@ -84,8 +88,16 @@ void	client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			printf("Receive : %s", e->users[cs]->buf_read_tmp);
-			make_cmd(e, cs);
+			if (e->users[cs]->gfx)
+			{
+				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
+//				gfx_cmd
+			}
+			else
+			{
+				printf("Receive : %s", e->users[cs]->buf_read_tmp);
+				make_cmd(e, cs);
+			}
 			e->users[cs]->buf_read_tmp[0] = '\0';
 		}
 	}

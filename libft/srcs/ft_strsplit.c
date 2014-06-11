@@ -3,76 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/22 19:58:45 by rduclos           #+#    #+#             */
-/*   Updated: 2014/03/27 22:24:22 by rduclos          ###   ########.fr       */
+/*   Created: 2013/11/22 15:37:31 by caupetit          #+#    #+#             */
+/*   Updated: 2014/01/13 18:38:19 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <string.h>
 #include "libft.h"
 
-static int		ft_count_char(const char *str, size_t i, char c)
+static int	ft_get_line_nb(char const *s, char c)
 {
-	while (str[i] == c && str[i] != '\0')
-		i++;
-	return (i);
+	size_t	zl;
+
+	zl = 0;
+	while (*s)
+	{
+		while (*s && *s == c)
+			s++;
+		while (*s && *s != c)
+			s++;
+		if (*s)
+			zl++;
+	}
+	if (*(s - 1) != c)
+		zl++;
+	return (zl);
 }
 
-static int		ft_cbc(const char *str, size_t i, char c)
+static void	ft_deltab(char **tab, int nb)
 {
-	while (str[i] != c && str[i] != '\0')
-		i++;
-	return (i);
-}
-
-static int		ft_count_word(const char *str, char c)
-{
-	size_t		i;
-	size_t		j;
+	int		i;
 
 	i = 0;
-	j = 0;
-	while (str[i] != '\0')
+	while (i < nb)
 	{
-		ft_count_char(str, i, c);
-		if (str[i] != c && str[i] != '\0')
-		{
-			ft_cbc(str, i, c);
-			j++;
-		}
+		ft_strdel(&tab[i]);
 		i++;
 	}
-	return (j);
+	ft_memdel((void **)tab);
 }
 
-char			**ft_strsplit(const char *s, char c)
+static int	ft_getcnum(char const *s, int c)
 {
-	size_t		i;
-	size_t		j;
-	size_t		k;
-	char		**dest;
+	int		i;
 
 	i = 0;
-	k = 0;
-	dest = (char **)malloc(sizeof(char *) * ft_count_word(s, c) + 1);
-	if (ft_count_word(s, c) == 0)
-		dest[i] = NULL;
-	while (s[k] != '\0' && ft_count_word(s, c) != 0)
+	while (s[i] && s[i] == c)
+		i++;
+	return (i);
+}
+
+char		**ft_strsplit(char const *s, char c)
+{
+	int		i;
+	int		j;
+	size_t	zl;
+	char	**s1;
+
+	i = 0;
+	zl = ft_get_line_nb(s, c);
+	if (!(s1 = (char **)malloc(zl * sizeof(char *) + 1)))
+		return (NULL);
+	while (i < (int)zl)
 	{
+		s += ft_getcnum(s, c);
 		j = 0;
-		k = ft_count_char(s, k, c);
-		dest[i] = ft_strnew(ft_cbc(s, k, c));
-		while (s[k] != c && s[k] != '\0')
-		{
-			dest[i][j] = s[k];
+		while (s[j] && s[j] != c)
 			j++;
-			k++;
+		if (!(s1[i] = ft_strsub(s, 0, j)))
+		{
+			ft_deltab(s1, i);
+			return (NULL);
 		}
-		dest[i++][j] = '\0';
+		i++;
+		s += j;
 	}
-	dest[i] = NULL;
-	return (dest);
+	s1[i] = '\0';
+	return (s1);
 }

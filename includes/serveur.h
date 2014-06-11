@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 13:57:33 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/11 17:37:35 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_opt
 typedef struct		s_user
 {
 	int				type;
+	int				gfx;
 	t_buf			buf_read;
 	t_buf			buf_write;
 	int				ig;
@@ -90,31 +91,39 @@ t_map				generate_map(t_env *env, int x, int y);
 **client_read.c
 */
 void				client_read(t_env *e, int cs);
+
 /*
-**client_write.c
+**	client_write.c
 */
 void				client_write(t_env *e, int cs);
+
 /*
-**deal_fd.c
+**	deal_fd.c
 */
 void				create_clt(t_env *e, int s);
 void				destroy_clt(t_env *e, int sock);
 void				init_fd(t_env *e);
 void				check_fd(t_env *e);
+
 /*
-**init.c
+**	init.c
 */
 int					init_sock(int port, t_env *e);
 void				init_inv(t_user *user);
 void				init_pos(t_user *user, int width, int height);
 void				init_users(t_env *e);
 void				init_serv(t_env *e);
+
 /*
-**serveur.c
+**	serveur.c
 */
 void				run_serv(t_env *e);
 int					main(int ac, char **av);
-
 void				send_inv(t_env *e, int id);
+
+/*
+**	s_gfx.c
+*/
+void				gfx_init(t_env *e, int cs);
 
 #endif

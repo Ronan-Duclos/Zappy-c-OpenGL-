@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 22:36:46 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 12:07:03 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,14 @@
 # include <stdlib.h>
 # include <time.h>
 # include <sys/select.h>
-# include <conf.h>
 # include <common.h>
 
 # define					OPT			"pxynct"
-
-# define XV(err,res,str)	(x_void(err,res,str,__FILE__))
-# define X(err,res,str)		(x_int(err,res,str,__FILE__))
 
 # define FD_SRV				1
 # define FD_CLT				2
 # define FD_GFX				3
 # define FD_FREE			0
-
-# define NORTH				0
-# define EST				1
-# define SOUTH				2
-# define WEST				3
 
 typedef t_inv**		t_map;
 typedef t_buf		s_buf;

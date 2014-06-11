@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 23:40:06 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/11 12:02:35 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # define NB_STONE	6
 # define BC_SIZE	40960
 # define BC_SIZE2	BC_SIZE - 1
+
+# define XV(err,res,str)	(x_void(err,res,str,__FILE__))
+# define X(err,res,str)		(x_int(err,res,str,__FILE__))
+
+# define NORTH				0
+# define EST				1
+# define SOUTH				2
+# define WEST				3
 
 enum				e_stone
 {

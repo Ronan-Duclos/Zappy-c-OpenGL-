@@ -6,16 +6,16 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 22:15:06 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 12:06:19 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <libft.h>
 #include <common.h>
 #include <serveur.h>
-
-#include <stdio.h>
+#include <conf.h>
 
 int				put_one(t_env *env, int type_rate[2], int x, int y)
 {

@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 21:08:23 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/11 18:41:27 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/11 22:55:53 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +14,31 @@
 #include <stdlib.h>
 #include "png.h"
 
-int		load_png(char *name)
+char		*load_png(char *name)
 {
 	char			*data;
 	int				len;
-	t_png_chunk		*chunk;
-	t_png_header	*hd;
 
 	data = NULL;
 	load_file_2(name, &data, &len);
 	if (!data)
 	{
 		printf("Erreur suce ma bite\n");
-		return (1);
 	}
-	if (*(uint64_t *)data != *(uint64_t *)PNG_HEAD)
+	else if (*(uint64_t *)data != *(uint64_t *)PNG_HEAD)
 	{
 		printf("Error sale bouffon\n");
 		munmap(data, len);
-		return (1);
 	}
+	return (data);
+}
+
+
+int			fill_tex(char *data, GLuint *id)
+{
+	t_png_chunk		*chunk;
+	t_png_header	*hd;
+
 	chunk = (t_png_chunk *)(data + sizeof(double));
 	while (chunk->type != *(int *)PNG_IMAGE_END)
 	{
@@ -50,6 +54,10 @@ int		load_png(char *name)
 				return (1);
 			}
 		}
+		if (chunk->type == *(int *)PNG_IMAGE_DATA)
+		{
+
+		}
 		chunk = (t_png_chunk *)((char *)chunk + SWAP_32BITS(chunk->len) *
 								sizeof(char) + sizeof(int));
 		chunk += 1;
@@ -58,7 +66,13 @@ int		load_png(char *name)
 	return (0);
 }
 
-int		texture_from_png(char *name)
+GLuint		texture_from_png(char *name)
 {
+	GLuint	id;
+	char	*data;
 
+	data = load_png(name);
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
+	fill_tex(data, &id);
 }

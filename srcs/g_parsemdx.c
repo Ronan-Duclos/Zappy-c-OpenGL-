@@ -1,5 +1,6 @@
 /* Made by lebgdu03 */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "testopengl.h"
 #include "mdx.h"
@@ -7,6 +8,7 @@
 static int	data_type(int type)
 {
 	int				i;
+	int				*test;
 	static char		tab[][4] = {
 
 	MDX_VERTEX,
@@ -18,7 +20,8 @@ static int	data_type(int type)
 	MDX_MATRIX_GROUP,
 	MDX_MATRIX_INDEXES};
 	i = 0;
-	while (*(int *)tab[i] != type)
+	test = (int *)tab;
+	while (test[i] != type)
 		i++;
 	if (i == _vrtx || i == _nrms)
 		return (3 * sizeof(float));
@@ -51,7 +54,7 @@ void		get_model_geoset(t_mdxchunk *chunk, t_mdx *model)
 	int			i;
 
 	i = 0;
-	header = (t_mdxchunk *)((char *)chunk + sizeof(chunk) + sizeof(uint32_t));
+	header = (t_mdxchunk *)((char *)chunk + sizeof(*chunk) + sizeof(uint32_t));
 	while (header - chunk < chunk->size && header->size > 0)
 	{
 		jump = header->size * data_type(header->tag) + sizeof(*header);
@@ -72,7 +75,11 @@ int			get_model_from_mdx(char *name, t_mdx *model)
 	char		*file;
 	t_mdxchunk	*header;
 
-	file = load_file(name);
+	if (!(file = load_file(name)))
+	{
+		printf("Error load_file()\n");
+		exit(0);
+	}
 	model->model = file;
 	header = (t_mdxchunk *)file;
 	header = (t_mdxchunk *)(file + sizeof(uint32_t));

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/07 23:06:50 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 23:43:38 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void			init_bc(t_buf *buf)
 	buf->head = buf->start;
 	buf->head2 = buf->start;
 	buf->tail = buf->start;
+	buf->nb_cmd = 0;
 }
 
 int				verify_bsn(t_buf *buf)
@@ -65,6 +66,8 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 	j = 0;
 	while (str[++i] != '\0')
 	{
+		if (str[i] == '\n')
+			buf->nb_cmd++;
 		buf->head2[j] = str[i];
 		j = verify_end(buf, j);
 	}
@@ -72,15 +75,12 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 	{
 		buf->head2[j] = '\n';
 		j = verify_end(buf, j);
-		buf->head2[j] = '\0';
+		buf->nb_cmd++;
 	}
-	else
-		buf->head2[j] = ' ';
-	j = verify_end(buf, j);
 	buf->head2 = buf->head2 + j;
 }
 
-void			char_tmp_to_c(t_buf *buf, char c)
+void			char_to_bc(t_buf *buf, char c)
 {
 	int	i;
 
@@ -92,13 +92,10 @@ void			char_tmp_to_c(t_buf *buf, char c)
 
 static void		bc_to_tmp_end(t_buf *buf, int i)
 {
-	if (buf->head + i + 1 != buf->end)
-		if (buf->head + i + 2 != buf->end)
-			buf->head = buf->head + i + 2;
-		else
-			buf->head = buf->start;
+	if (buf->head + i != buf->end)
+		buf->head = buf->head + i;
 	else
-		buf->head = buf->start + 1;
+		buf->head = buf->start;
 }
 
 void			bc_to_tmp(t_buf *buf, char *tmp)
@@ -108,9 +105,10 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 
 	i = 0;
 	j = -1;
-	while (buf->head[i] != '\n')
+	while (buf->nb_cmd != 0)
 	{
-		tmp[++j] = buf->head[i];
+		if (buf->head[i] != '\0')
+			tmp[++j] = buf->head[i];
 		buf->head[i] = '\0';
 		if (buf->head + i == buf->end)
 		{
@@ -119,8 +117,9 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 		}
 		else
 			i++;
+		if (tmp[j] == '\n')
+			buf->nb_cmd--;
 	}
-	tmp[++j] = '\n';
 	tmp[++j] = '\0';
 	bc_to_tmp_end(buf, i);
 }

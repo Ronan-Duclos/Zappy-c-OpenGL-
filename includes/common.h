@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/07 23:07:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 23:40:06 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "stdio.h"
 
 # define NB_STONE	6
-# define BC_SIZE	20
+# define BC_SIZE	40960
+# define CMD_SIZE	BC_SIZE / 10
 # define BC_SIZE2	BC_SIZE - 1
 
 enum				e_stone
@@ -26,10 +27,20 @@ enum				e_stone
 
 typedef int			t_inv[NB_STONE + 1];
 
+typedef struct		s_actions
+{
+	double			time;
+	char			cmd[CMD_SIZE + 1];
+	void			(*fct_cmd)();
+}					t_actions;
+
 typedef struct		s_player
 {
 	char			*team;
 	t_inv			inv;
+	t_actions		acts[10];
+	int				cur_aread;
+	int				cur_awrite;
 	int				lvl;
 	int				x;
 	int				y;
@@ -43,6 +54,7 @@ typedef struct		s_buf
 	char			*head;
 	char			*head2;
 	char			*tail;
+	int				nb_cmd;
 }					t_buf;
 
 /*
@@ -50,13 +62,18 @@ typedef struct		s_buf
 */
 int		rand_int(int min, int max);
 int		get_vision_nb_cell(int level);
+char	*type_to_str(int id);
 /*
 **	buf_circle.c
 */
 void	init_bc(t_buf *buf);
 int		verify_bsn(t_buf *buf);
 void	tmp_to_bc(t_buf *buf, char *str, int type);
-void	char_tmp_to_c(t_buf *buf, char c);
+void			char_to_bc(t_buf *buf, char c);
 void	bc_to_tmp(t_buf *buf, char *tmp);
+/*
+**	my_time.h
+*/
+double		ft_usec_time(void);
 
 #endif

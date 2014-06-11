@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 19:13:45 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 22:36:46 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,18 @@
 
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
+
 # define FD_SRV				1
 # define FD_CLT				2
+# define FD_GFX				3
 # define FD_FREE			0
+
 # define NORTH				0
 # define EST				1
 # define SOUTH				2
 # define WEST				3
 
 typedef t_inv**		t_map;
-typedef t_buf		s_buf;
 
 typedef struct		s_opt
 {
@@ -83,7 +85,7 @@ typedef struct		s_env
 	t_opt			opt;
 	t_map			map;
 	t_srv			srv;
-	t_user			**users;
+pa	t_user			**users;
 }					t_env;
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
@@ -125,5 +127,7 @@ int					main(int ac, char **av);
 */
 int					x_int(int err, int res, char *str, char *file);
 void				*x_void(void *err, void *res, char *str, char *file);
+
+void				send_inv(t_env *e, int id);
 
 #endif

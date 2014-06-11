@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/07 18:29:34 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/08 22:15:06 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ int				put_one(t_env *env, int type_rate[2], int x, int y)
 	{
 		env->map[x][y][type_rate[0]]++;
 		r++;
-		type_rate[1] -= 10;
-		r += put_one(env, type_rate, x, y);
-		type_rate[1] += 5;
+		type_rate[1] -= 5;
 		if (x == 0)
 			r += put_one(env, type_rate, env->opt.x - 1, y);
 		else

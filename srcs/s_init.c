@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "serveur.h"
+#include "common.h"
 #include "libft.h"
 
 int		init_sock(int port, t_env *e)

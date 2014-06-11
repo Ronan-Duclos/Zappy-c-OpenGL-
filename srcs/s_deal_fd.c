@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 22:39:04 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 19:36:36 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ void	destroy_clt(t_env *e, int sock)
 	printf("Client disconnected : %d\n", sock);
 }
 
+void	check_actions(t_env *e, int cs)
+{
+	t_actions	*acts;
+	double		now;
+	int			nb_acts;
+
+	acts = &e->users[cs]->player.acts[e->users[cs]->player.cur_aread];
+	now = ft_usec_time();
+	nb_acts = e->users[cs]->player.cur_aread;
+	if (acts->time != 0 && acts->time <= now)
+	{
+		e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
+		if (e->users[cs]->player.cur_aread == 9)
+			e->users[cs]->player.cur_aread = 0;
+		else
+			e->users[cs]->player.cur_aread++;
+		acts->time = 0;
+	}
+}
+
 void	init_fd(t_env *e)
 {
 	int		i;
@@ -56,6 +76,8 @@ void	init_fd(t_env *e)
 	{
 		if (e->users[i]->type != FD_FREE)
 		{
+			if (e->users[i]->type == FD_CLT && e->users[i]->ig == 1)
+				check_actions(e, i);
 			FD_SET(i, &e->srv.fd_read);
 			if (verify_bsn(&e->users[i]->buf_write) == 1)
 				FD_SET(i, &e->srv.fd_write);
@@ -75,10 +97,10 @@ void	check_fd(t_env *e)
 	{
 		if (e->users[i]->type != FD_FREE)
 		{
-			if (FD_ISSET(i, &e->srv.fd_read) != 0)
-				e->users[i]->fct_read(e, i);
-			else if (FD_ISSET(i, &e->srv.fd_write) != 0)
+			if (FD_ISSET(i, &e->srv.fd_write) != 0)
 				e->users[i]->fct_write(e, i);
+			else if (FD_ISSET(i, &e->srv.fd_read) != 0)
+				e->users[i]->fct_read(e, i);
 			if (FD_ISSET(i, &e->srv.fd_read) != 0 ||
 				FD_ISSET(i, &e->srv.fd_write) != 0)
 				e->srv.r--;

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 13:57:31 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/11 19:54:06 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,19 @@ enum				e_stone
 
 typedef int			t_inv[NB_STONE + 1];
 
+typedef struct		s_actions
+{
+	double		time;
+	void		(*fct_cmd)();
+}
+
 typedef struct		s_player
 {
 	char			*team;
 	t_inv			inv;
+	t_actions		acts[10];
+	int				cur_aread;
+	int				cur_awrite;
 	int				lvl;
 	int				x;
 	int				y;
@@ -73,6 +82,10 @@ void	bc_to_tmp(t_buf *buf, char *tmp);
 */
 int					x_int(int err, int res, char *str, char *file);
 void				*x_void(void *err, void *res, char *str, char *file);
+/*
+**  my_time.h
+*/
+double      ft_usec_time(void);
 
 
 #endif

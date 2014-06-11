@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 17:09:45 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/07 17:52:37 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/11 11:34:13 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TESTOPENGL_H
 
 # include <GLUT/glut.h>
+
+# define				INC_FILES		"data/"
 
 # define FLAG_LEFT		0x01
 # define FLAG_DOWN		0x02

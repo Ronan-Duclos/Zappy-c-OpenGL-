@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/08 23:15:23 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/11 11:49:14 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ CLT_SRC=c_main.c \
 	c_tools1.c
 GFX_SRC=srcs/g_main.c \
 	srcs/g_parsemdx.c \
-	srcs/parseMDX/mdx_parser.c
+	srcs/g_mdx_parser.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c
@@ -55,10 +55,10 @@ $(NAME): $(SERV_NAME) $(CLT_NAME) $(GFX_NAME)
 
 end :
 	@echo "\033[2K\t\033[1;36mScappy\t\t\033[0;32m[Ready]\033[0m"
-	@cat end.txt
+	@cat data/end.txt
 
 init:
-	@cat intro.txt
+	@cat data/intro.txt
 	@make -s -C $(LIB)
 	@tput init
 
@@ -76,7 +76,7 @@ $(CLT_NAME): $(CLT_OBJ) $(COMMON_OBJ)
 
 $(GFX_NAME):
 	@echo "==> Compiling $(GFX_NAME) : "
-	@$(CC) $(FLAG_OPENGL) -o $@ $(GFX_SRC) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft -g
+	@$(CC) $(FLAG_OPENGL) -o $@ $(GFX_SRC) -I$(INCLUDES) -L$(LIB) -lft
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 

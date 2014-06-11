@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <libft.h>
 #include "testopengl.h"
 #include "common.h"
 #include "mdx.h"
@@ -430,7 +431,7 @@ void	display(void)
 {
 	glLoadIdentity();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glRotatef(40.0, 1.0, 0.0, 0.0);
+	glRotatef(20.0, 1.0, 0.0, 0.0);
 	glTranslatef(g_env->camtrans[0], g_env->camtrans[1], g_env->camtrans[2]);
 	display_map();
 	glutSwapBuffers();
@@ -626,8 +627,9 @@ void	ft_vbo_from_mdx(t_mdx *mdx)
 
 int		main(int ac, char **av)
 {
-	t_env	env;
-	t_mdx	mdx;
+	t_env		env;
+	t_mdx		mdx;
+	char		*tmp;
 
 	srand(time(NULL));
 	bzero(&env, sizeof(t_env)); ////Attation
@@ -636,8 +638,12 @@ int		main(int ac, char **av)
 		return (1);
 	init_glut(ac, av);
 	test_init_map();
-	ft_load_tex("Lords_GrassDark2.bmp");
-	get_model_from_mdx("parseMDX/CrystalShard.mdx", &g_mdx);
+	tmp = ft_strjoin(INC_FILES, "Lords_grassDark2.bmp");
+	ft_load_tex(tmp);
+	free(tmp);
+	tmp = ft_strjoin(INC_FILES, "CrystalShard.mdx");
+	get_model_from_mdx(tmp, &g_mdx);
+	free(tmp);
 	ft_vbo_from_mdx(&g_mdx);
 	init();
 	glutMainLoop();

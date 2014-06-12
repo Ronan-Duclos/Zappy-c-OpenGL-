@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 19:07:50 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/12 18:39:33 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ void	create_clt(t_env *e, int s)
 	e->users[cs]->type = FD_CLT;
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
+//	bzero(&e->users[cs]->player.inv, sizeof(t_inv));
+	bzero(&e->users[cs]->player, sizeof(t_player));
 	init_pos(e->users[cs], e->opt.x, e->opt.y);
-	bzero(&e->users[cs]->player.inv, sizeof(t_inv));
 	e->users[cs]->player.inv[_food] = 10;
+	e->users[cs]->player.direc = rand_int(NORTH, WEST);
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
 	printf("Client connected : %d\n", cs);
 }
@@ -41,6 +43,8 @@ void	destroy_clt(t_env *e, int sock)
 	e->users[sock]->buf_read_tmp[0] = '\0';
 	e->users[sock]->buf_write_tmp[0] = '\0';
 	e->users[sock]->ig = 0;
+	if (e->users[sock]->gfx)
+		glst_del_one(&e->srv.glst, sock);
 	e->users[sock]->gfx = 0;
 	printf("Client disconnected : %d\n", sock);
 }

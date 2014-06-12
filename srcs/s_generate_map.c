@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 20:00:04 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/12 15:06:07 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_map			malloc_map(int x, int y)
 	while (i < x)
 	{
 		map[i] = (t_inv *)malloc(sizeof(t_inv) * (y + 1));
-		ft_bzero(map[i], sizeof(t_inv *));
+		ft_bzero(map[i], sizeof(t_inv) * (y + 1));
 		i++;
 	}
 	map[x] = NULL;

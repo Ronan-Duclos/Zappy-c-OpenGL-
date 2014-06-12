@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/11 17:34:50 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/12 17:28:43 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ DIRSRC=srcs/
 SERV_SRC=s_main.c \
 	s_opt1.c \
 	s_gfx.c \
+	s_gfx_lst.c \
 	s_generate_map.c \
 	s_init.c \
 	s_client_read.c \

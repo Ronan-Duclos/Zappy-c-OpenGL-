@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 17:37:59 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/12 15:18:53 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int		accept_gamer(t_env *e, int cs)
 {
 	char		*tmp;
 
-
 	e->users[cs]->ig = 1;
-	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read.head);
+	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
 	tmp = ft_itoa(cs);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);

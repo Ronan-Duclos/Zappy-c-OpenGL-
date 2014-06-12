@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 17:37:35 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/12 18:32:09 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,16 @@
 # define FD_GFX				3
 # define FD_FREE			0
 
+# define BUF_SIZE			4096
+
 typedef t_inv**		t_map;
 typedef t_buf		s_buf;
+
+typedef struct		s_glst
+{
+	int				cs;
+	struct s_glst	*next;
+}					t_glst;
 
 typedef struct		s_opt
 {
@@ -69,6 +77,7 @@ typedef struct		s_srv
 	int				nb_p;
 	int				max;
 	int				r;
+	t_glst			*glst;
 	fd_set			fd_read;
 	fd_set			fd_write;
 }					t_srv;
@@ -126,4 +135,11 @@ void				send_inv(t_env *e, int id);
 */
 void				gfx_init(t_env *e, int cs);
 
+/*
+**	s_gfx_lst.c
+*/
+t_glst				*glst_new(int cs);
+void				glst_add(t_glst **lst, t_glst *new);
+void				glst_del_one(t_glst **lst, int cs);
+void				glst_put(t_glst **lst);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 22:39:04 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 22:32:18 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,18 @@ void	check_actions(t_env *e, int cs)
 {
 	t_actions	*acts;
 	double		now;
+	int			nb_acts;
 
-	acts = &e->users[cs]->player.acts[e->users[cs]->player.cur_acts];
+	nb_acts = e->users[cs]->player.cur_aread;
+	acts = &e->users[cs]->player.acts[nb_acts];
 	now = ft_usec_time();
 	if (acts->time != 0 && acts->time <= now)
 	{
-		fct_cmd(e, cs)
+		e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
 		if (e->users[cs]->player.cur_aread == 9)
-			e->users[cs]->player.cur_acts = 0;
+			e->users[cs]->player.cur_aread = 0;
 		else
-			e->users[cs]->player.cur_acts++;
+			e->users[cs]->player.cur_aread++;
 		acts->time = 0;
 	}
 }

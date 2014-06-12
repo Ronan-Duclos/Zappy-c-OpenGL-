@@ -187,13 +187,17 @@ void	display_square(int i)
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glBegin(GL_QUADS);
 	{
-		glTexCoord2f((float)(i % 8) / 8.0, (4.0 - i / 8) / 4.0);
+//		glTexCoord2f((float)(i % 8) / 8.0, (4.0 - i / 8) / 4.0);
+		glTexCoord2f(1.0, 1.0);
 		glArrayElement(0);
-		glTexCoord2f((float)(i % 8 + 1) / 8.0, (4.0 - i / 8) / 4.0);
+//		glTexCoord2f((float)(i % 8 + 1) / 8.0, (4.0 - i / 8) / 4.0);
+		glTexCoord2f(1.0, 0.0);
 		glArrayElement(1);
-		glTexCoord2f((float)(i % 8 + 1) / 8.0, (3.0 - i / 8) / 4.0);
+//		glTexCoord2f((float)(i % 8 + 1) / 8.0, (3.0 - i / 8) / 4.0);
+		glTexCoord2f(0.0, 0.0);
 		glArrayElement(2);
-		glTexCoord2f((float)(i % 8) / 8.0, (3.0 - i / 8) / 4.0);
+//		glTexCoord2f((float)(i % 8) / 8.0, (3.0 - i / 8) / 4.0);
+		glTexCoord2f(0.0, 1.0);
 		glArrayElement(3);
 	}
 	glEnd();
@@ -206,6 +210,7 @@ void	display_all_squares(void)
 	i = 0;
 	glCallList(g_env->colors[_white]);
 	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, g_env->maptex);
@@ -287,6 +292,19 @@ void	display_map(void)
 	glDisableClientState(GL_NORMAL_ARRAY | GL_VERTEX_ARRAY);
 }
 
+GLuint	ft_new_tex(int w, int h, char *data)
+{
+	GLuint	id;
+
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h,
+				 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	return (id);
+}
+
 /*
 **	J'ouvre un fichier BMP et je le parse degueulassement
 **	pour en faire une texture. C'est moche, faut le refaire
@@ -301,23 +319,19 @@ GLuint	ft_load_tex(char *file)
 	GLuint			tex;
 
 	if (!(fd = open(file, O_RDONLY)))
-		return (1);
+		return (0);
 	data = (unsigned char *)malloc(14 * sizeof(char));
 	if (!read(fd, data, 14))
-		return (1);
+		return (0);
 	offset = (int *)(data + 10);
 	size = (int *)(data + 2);
 	free(data);
 	data = (unsigned char *)malloc((*size - 14) * sizeof(char));
 	if (!read(fd, data, *size - 14))
-		return (1);
-	glGenTextures(1, &g_env->maptex);
-	glBindTexture(GL_TEXTURE_2D, g_env->maptex);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, *(int *)(data + 4), *(int *)(data + 8),
-				0, GL_BGR, GL_UNSIGNED_BYTE, &data[*offset - 14]);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	return (0);
+		return (0);
+	tex = ft_new_tex(*(int *)(data + 4), *(int *)(data + 8), &data[*offset - 14]);
+	free(data);
+	return (tex);
 }
 
 /*
@@ -371,6 +385,7 @@ void	test_init_map(void)
 		ft_put_stones(tab, &g_env->sq[i]);
 		j = rand() % 8;
 		g_env->sq[i].tile = j + 4 + (j / 2 * 6);
+//		g_env->sq[i].tile = 10;
 		i++;
 	}
 }
@@ -505,6 +520,9 @@ void	init(void)
 		glScalef(0.009, 0.009, 0.009);
 	}
 	glEndList();
+//	glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void	idle(void)
@@ -613,9 +631,10 @@ int		main(int ac, char **av)
 {
 	t_env	env;
 	t_mdx	mdx;
+	GLuint	test; /////GROSSE BITE DE MERDE
 
 	srand(time(NULL));
-	bzero(&env, sizeof(t_env)); ////Attation
+	bzero(&env, sizeof(t_env));
 	g_env = &env;
 	env.selectcase = -1;
 	if (get_params(ac, av))
@@ -623,7 +642,8 @@ int		main(int ac, char **av)
 	init_glut(ac, av);
 	test_init_map();
 	init();
-	ft_load_tex("data/Lords_GrassDark2.bmp");
+	env.maptex = texture_from_png("data/DirtGrass.png");
+//	env.maptex = ft_load_tex("data/Lords_GrassDark2.bmp");
 	get_model_from_mdx("data/CrystalShard.mdx", &g_mdx);
 	ft_vbo_from_mdx(&g_mdx);
 	glutMainLoop();

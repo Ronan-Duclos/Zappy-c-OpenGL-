@@ -6,12 +6,14 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 20:59:29 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/11 00:14:00 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/12 01:20:48 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PNG_H
 # define PNG_H
+
+# include <GLUT/glut.h>
 
 # define PNG_HEAD			"\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"
 
@@ -26,6 +28,8 @@
 # define B3(v)				((v >> 24) & 0x000000FF)
 
 # define SWAP_32BITS(v)		(B3(v) | B2(v) | B1(v) | B0(v))
+
+# define S32(v)				SWAP_32BITS((v))
 
 typedef struct	s_png_header
 {
@@ -49,5 +53,6 @@ typedef struct	s_png
 }				t_png;
 
 void			*load_file_2(char *b, char **data, int *l);
+GLuint			texture_from_png(char *n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 23:40:06 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 15:12:56 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@
 
 # define NB_STONE	6
 # define BC_SIZE	40960
-# define CMD_SIZE	BC_SIZE / 10
 # define BC_SIZE2	BC_SIZE - 1
+
+# define XV(err,res,str)	(x_void(err,res,str,__FILE__))
+# define X(err,res,str)		(x_int(err,res,str,__FILE__))
+
+# define NORTH				0
+# define EAST				1
+# define SOUTH				2
+# define WEST				3
 
 enum				e_stone
 {
@@ -30,7 +37,6 @@ typedef int			t_inv[NB_STONE + 1];
 typedef struct		s_actions
 {
 	double			time;
-	char			cmd[CMD_SIZE + 1];
 	void			(*fct_cmd)();
 }					t_actions;
 
@@ -69,11 +75,17 @@ char	*type_to_str(int id);
 void	init_bc(t_buf *buf);
 int		verify_bsn(t_buf *buf);
 void	tmp_to_bc(t_buf *buf, char *str, int type);
-void			char_to_bc(t_buf *buf, char c);
+void	char_to_bc(t_buf *buf, char c);
 void	bc_to_tmp(t_buf *buf, char *tmp);
 /*
-**	my_time.h
+**error.c
 */
-double		ft_usec_time(void);
+int					x_int(int err, int res, char *str, char *file);
+void				*x_void(void *err, void *res, char *str, char *file);
+/*
+**  my_time.h
+*/
+double      ft_usec_time(void);
+
 
 #endif

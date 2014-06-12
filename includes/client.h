@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/08 19:09:54 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 15:13:42 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@
 # include <common.h>
 # include "libft.h"
 
-# define XV(err,res,str)	(x_void(err,res,str,__FILE__))
-# define X(err,res,str)		(x_int(err,res,str,__FILE__))
 # define OPT				"nph"
+
 # define FD_SRV				1
 # define FD_CLT				2
 # define FD_FREE			0
@@ -50,6 +49,7 @@ struct					s_user
 {
 	int					sock;
 	int					ig;
+	t_player			player;
 	t_buf				buf_read;
 	t_buf				buf_write;
 	char				buf_read_tmp[BC_SIZE + 1];

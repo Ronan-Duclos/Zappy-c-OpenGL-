@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 23:34:57 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 15:15:29 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		accept_gamer(t_env *e, int cs)
 	i = -1;
 	e->users[cs]->ig = 1;
 	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
-	e->users[cs]->player.cur_acts = 0;
+	e->users[cs]->player.cur_aread = 0;
 	while (++i < 10)
 		e->users[cs]->player.acts[i].time = 0;
 	tmp = ft_itoa(cs);
@@ -60,6 +60,13 @@ void	check_team(t_env *e, int cs)
 	}
 }
 
+void	ma_fct_cmd(t_env *e, int cs)
+{
+	if (e->users[cs]->player.direc == NORTH)
+		e->users[cs]->player.y++;
+	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
+}
+
 void	make_cmd(t_env *e, int cs)
 {
 	char	*tmp;
@@ -68,7 +75,18 @@ void	make_cmd(t_env *e, int cs)
 	tmp[0] = '\0';
 	if (e->users[cs]->ig != 1)
 		check_team(e, cs);
-	/*else*/
+	/*else if (e->users[cs]->type == FD_CLT)
+	  {
+		Remplissage du calendrier :
+
+		time = ft_user_time;
+		time += valeur temps de laction * 1000000 / e->opt.time
+		i = e->users[cs]->player.cur_awrite;
+		e->users[cs]->player.acts[i].time = time;
+		e->users[cs]->player.acts[i].ftc_cmd = ma_fct_cmd(e, cs);
+	  }
+*/
+	
 }
 
 void	client_read(t_env *e, int cs)

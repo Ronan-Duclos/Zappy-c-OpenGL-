@@ -16,7 +16,7 @@ CLT_NAME=client
 GFX_NAME=gfx
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations=
-FLAG_OPENGL=-framework GLUT -framework OpenGL -framework Cocoa
+FLAG_OPENGL= #-framework GLUT -framework OpenGL -framework Cocoa
 LIB=libft/
 INCLUDES=includes/
 CLT_H=$(INCLUDES)client.h

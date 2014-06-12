@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/resource.h> //linux
 #include "serveur.h"
 #include "libft.h"
 

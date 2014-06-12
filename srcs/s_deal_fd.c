@@ -19,11 +19,11 @@ void	create_clt(t_env *e, int s)
 	unsigned int			len;
 	struct sockaddr_in		clt;
 
+	len = sizeof(clt); // linux
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
 	e->users[cs]->type = FD_CLT;
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
-//	bzero(&e->users[cs]->player.inv, sizeof(t_inv));
 	bzero(&e->users[cs]->player, sizeof(t_player));
 	init_pos(e->users[cs], e->opt.x, e->opt.y);
 	e->users[cs]->player.inv[_food] = 10;

@@ -50,12 +50,12 @@ char			*ft_itoa(int nb)
 		result = "0";
 		return (result);
 	}
-	else if (nb == -2147483648)
-	{
-		result = malloc(12);
-		result = "-2147483648\0";
-		return (result);
-	}
+	//	else if (nb == -2147483648)
+	//{
+	//		result = malloc(12);
+	//		result = "-2147483648\0";
+	//		return (result);
+	//	}
 	else if (nb == 2147483647)
 	{
 		result = malloc(12);

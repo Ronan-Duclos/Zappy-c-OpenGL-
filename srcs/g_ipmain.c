@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <string.h> // linux
 #include "gfx.h"
 
 void		dtab_put(char **tab)

@@ -48,6 +48,7 @@ void	send_serveur(t_env *e)
 void	ask_to_play(t_env *e)
 {
 	tmp_to_bc(&e->user->buf_write, e->me.name, 1);
+	printf("name: %s\n", e->me.name);//
 	e->user->ig = 1;
 }
 

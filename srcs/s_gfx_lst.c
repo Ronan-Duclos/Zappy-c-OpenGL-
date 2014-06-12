@@ -44,20 +44,25 @@ void		glst_del_one(t_glst **lst, int cs)
 	t_glst	*tmp;
 	t_glst	*prev;
 
-	tmp = *lst;
 	prev = NULL;
+	tmp = *lst;
+	if (tmp->cs == cs)
+	{
+		if (tmp->next)
+			prev = tmp->next;
+		free(tmp);
+		*lst = prev;
+		return ;
+	}
 	while (tmp && tmp->cs != cs)
 	{
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (tmp)
-	{
-		if (!prev)
-			prev = tmp;
-		prev->next = tmp->next;
-		free(tmp);
-	}
+	if (!tmp)
+		return ;
+	prev->next = tmp->next;
+	free(tmp);
 }
 
 void		glst_put(t_glst **lst)

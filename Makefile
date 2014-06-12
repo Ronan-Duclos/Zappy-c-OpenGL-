@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/12 15:16:06 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/12 18:35:00 by dmansour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SERV_SRC=s_main.c \
 	s_client_write.c \
 	s_deal_fd.c \
 	s_inv.c \
+	s_moove_forward.c \
 	my_time.c
 CLT_SRC=c_main.c \
 	c_init.c \

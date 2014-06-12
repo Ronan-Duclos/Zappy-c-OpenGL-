@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/12 17:52:10 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/12 18:30:39 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,10 @@ int					main(int ac, char **av);
 **	s_inv.c
 */
 void				send_inv(t_env *e, int id);
+
+/*
+ * * ICI, toutes les commandes client / serveur
+ */
+
 
 #endif

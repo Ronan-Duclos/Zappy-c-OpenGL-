@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 19:54:06 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 15:12:56 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
 
 # define NORTH				0
-# define EST				1
+# define EAST				1
 # define SOUTH				2
 # define WEST				3
 
@@ -36,9 +36,9 @@ typedef int			t_inv[NB_STONE + 1];
 
 typedef struct		s_actions
 {
-	double		time;
-	void		(*fct_cmd)();
-}
+	double			time;
+	void			(*fct_cmd)();
+}					t_actions;
 
 typedef struct		s_player
 {

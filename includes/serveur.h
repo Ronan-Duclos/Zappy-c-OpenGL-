@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 19:41:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 15:11:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <time.h>
 # include <sys/select.h>
 # include <common.h>
+# include <conf.h>
 
 # define					OPT			"pxynct"
 

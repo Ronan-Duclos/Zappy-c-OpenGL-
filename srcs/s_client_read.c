@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 22:43:21 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 15:15:29 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,9 @@ void	check_team(t_env *e, int cs)
 
 void	ma_fct_cmd(t_env *e, int cs)
 {
-	x = e->users[cs]->player.x;
-	y = e->users[cs]->player.y;
 	if (e->users[cs]->player.direc == NORTH)
 		e->users[cs]->player.y++;
-	tmp_to_bc(e->users[cs]->buf_write, "O", 0);
-	tmp_to_bc(e->users[cs]->buf_write, "K", 1);
+	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
 }
 
 void	make_cmd(t_env *e, int cs)

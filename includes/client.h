@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 12:06:48 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/12 15:13:42 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct					s_user
 {
 	int					sock;
 	int					ig;
+	t_player			player;
 	t_buf				buf_read;
 	t_buf				buf_write;
 	char				buf_read_tmp[BC_SIZE + 1];

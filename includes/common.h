@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/12 15:12:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 17:09:02 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef int			t_inv[NB_STONE + 1];
 
 typedef struct		s_actions
 {
+	int				cs;
 	double			time;
 	void			(*fct_cmd)();
 }					t_actions;

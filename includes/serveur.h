@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/12 15:11:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 17:52:10 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@
 # define FD_CLT				2
 # define FD_GFX				3
 # define FD_FREE			0
+
+# define AVANCE				7
+
+# define NBR_CMD			13
 
 typedef t_inv**		t_map;
 
@@ -79,6 +83,13 @@ typedef struct		s_env
 	t_srv			srv;
 	t_user			**users;
 }					t_env;
+
+typedef struct		s_ponf_cmd
+{
+	char			*str;
+	int				value;
+	void			(*fct_cmd)();
+}					t_ponf_cmd;
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
 

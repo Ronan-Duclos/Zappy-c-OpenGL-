@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/12 15:15:29 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 17:51:12 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,26 @@
 #include "serveur.h"
 #include "libft.h"
 
+void	ma_fct_cmd(t_env *e, int cs);
+
+t_ponf_cmd	g_tab[NBR_CMD] =
+{
+	{"avance", 7, ma_fct_cmd},
+	{"droite", 7, ma_fct_cmd},
+	{"gauche", 7, ma_fct_cmd},
+	{"voir", 7, ma_fct_cmd},
+	{"inventaire", 1, ma_fct_cmd},
+	{"prend", 7, ma_fct_cmd},
+	{"pose", 7, ma_fct_cmd},
+	{"expulse", 7, ma_fct_cmd},
+	{"broadcast", 7, ma_fct_cmd},
+	{"incantation", 300, ma_fct_cmd},
+	{"fork", 42, ma_fct_cmd},
+	{"connect_nbr", 0, ma_fct_cmd},
+	{"-", 0, ma_fct_cmd}
+};
+
+void	ma_fct_cmd(t_env *e, int cs);
 int		accept_gamer(t_env *e, int cs)
 {
 	char		*tmp;
@@ -60,11 +80,47 @@ void	check_team(t_env *e, int cs)
 	}
 }
 
+int		get_action_value(char *cmd, void (*fct_cmd)())
+{
+	int	i;
+
+	i = 0;
+	while (ft_strcmp(cmd, g_tab[i].str) && i < NBR_CMD)
+		i++;
+	fct_cmd = g_tab[i].fct_cmd;
+	return (g_tab[i].value);
+	fct_cmd(NULL, 1);
+	return (0);
+}
+
 void	ma_fct_cmd(t_env *e, int cs)
 {
+	ft_putendl("MERDE CACA BOITE COUCOU");
 	if (e->users[cs]->player.direc == NORTH)
 		e->users[cs]->player.y++;
 	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
+}
+
+void	queue_actions(t_env *e, int cs)
+{
+	int		i;
+	double	time;
+	double	tmp_time;
+	char	**cmd;
+
+	i = 0;
+	time = ft_usec_time();
+	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
+	while (cmd[i])
+	{
+		tmp_time = get_action_value(cmd[i], e->users[cs]->player.acts[i].fct_cmd);
+		time += tmp_time * 1000000 / e->opt.time;
+		e->users[cs]->player.acts[i].time = time;
+		e->users[cs]->player.acts[i].cs = cs;
+		e->users[cs]->player.acts[i].fct_cmd = ma_fct_cmd;
+		i++;
+	}
+	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
 }
 
 void	make_cmd(t_env *e, int cs)
@@ -75,18 +131,8 @@ void	make_cmd(t_env *e, int cs)
 	tmp[0] = '\0';
 	if (e->users[cs]->ig != 1)
 		check_team(e, cs);
-	/*else if (e->users[cs]->type == FD_CLT)
-	  {
-		Remplissage du calendrier :
-
-		time = ft_user_time;
-		time += valeur temps de laction * 1000000 / e->opt.time
-		i = e->users[cs]->player.cur_awrite;
-		e->users[cs]->player.acts[i].time = time;
-		e->users[cs]->player.acts[i].ftc_cmd = ma_fct_cmd(e, cs);
-	  }
-*/
-	
+	else if (e->users[cs]->type == FD_CLT)
+		queue_actions(e, cs);
 }
 
 void	client_read(t_env *e, int cs)

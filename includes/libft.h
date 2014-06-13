@@ -6,7 +6,7 @@
 /*   By: espiroux <espiroux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:22:00 by rduclos           #+#    #+#             */
-/*   Updated: 2014/05/02 18:57:20 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/13 12:07:24 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct			s_list
 	t_list		*next;
 };
 
+void			ft_tabdel(char ***t);
 int				ft_atoi(const char *str);
 void			ft_bzero(void *s, size_t n);
 int				ft_isalnum(int c);

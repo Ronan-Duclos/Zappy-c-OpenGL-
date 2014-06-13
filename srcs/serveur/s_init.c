@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/12 17:35:26 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/13 11:59:02 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ int		init_sock(int port, t_env *e)
 	X(-1, listen(sock, 42), "listen");
 	e->srv.max = sock;
 	return (sock);
-}
-
-void	init_pos(t_user *user, int width, int height)
-{
-	int		i;
-	int		j;
-
-	i = rand();
-	j = rand();
-	user->player.x = i % width;
-	user->player.y = j % height;
-	user->player.direc = i + j % 4;
 }
 
 void	init_users(t_env *e)

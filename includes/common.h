@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/12 18:30:51 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/13 11:56:32 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # define SOUTH				2
 # define WEST				3
 
-enum				e_stone
+enum				e_mat
 {
-	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame
+	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame, _player
 };
 
-typedef int			t_inv[NB_STONE + 1];
+typedef int			t_inv[NB_STONE + 2];
 
 typedef struct		s_actions
 {

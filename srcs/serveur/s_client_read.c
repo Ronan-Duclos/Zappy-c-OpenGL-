@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/13 12:23:20 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/13 20:58:11 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ int		get_action_value(char *cmd, void (*fct_cmd)())
 	while (i < NBR_CMD && !ft_strncmp(cmd, g_tab[i].str, ft_strlen(cmd)))
 		i++;
 	if (i == NBR_CMD)
+	{
 		printf("bad command : %s\n", cmd);
+		return (-1);
+	}
 	fct_cmd = g_tab[i].fct_cmd;
 	return (g_tab[i].value);
 	fct_cmd(NULL, 1);
@@ -99,9 +102,7 @@ int		get_action_value(char *cmd, void (*fct_cmd)())
 
 void	ma_fct_cmd(t_env *e, int cs)
 {
-	if (e->users[cs]->player.direc == NORTH)
-		e->users[cs]->player.y++;
-	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
+	tmp_to_bc(&e->users[cs]->buf_write, "Not down yet", 1);
 }
 
 char	*get_cmd_arg(char *cmd)
@@ -133,21 +134,26 @@ void	queue_actions(t_env *e, int cs)
 {
 	int		i;
 	double	time;
-	double	tmp_time;
+	int		ti_cmd;
 	char	**cmd;
+	int		ca;
 
 	time = ft_usec_time();
 	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	i = -1;
-	while (cmd[++i])
+	ca = e->users[cs]->player.cur_awrite;
+	while (cmd[++i] && e->users[cs]->player.acts[ca].time != 0)
 	{
-		tmp_time = get_action_value(cmd[i], e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].fct_cmd);
-		time += tmp_time * 1000000 / e->opt.time;
-		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].time = time;
-		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].cs = cs;
-		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].cmd = get_cmd_arg(cmd[i]);
-		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].fct_cmd = ma_fct_cmd;
-		e->users[cs]->player.cur_awrite += 1;
+		ca = e->users[cs]->player.cur_awrite;
+		ti_cmd = get_action_value(cmd[i], e->users[cs]->player.acts[ca].fct_cmd);
+		if (ti_cmd != -1)
+		{
+			time = ((time + ti_cmd) * 1000000) / e->opt.time;
+			e->users[cs]->player.acts[ca].time = time;
+			e->users[cs]->player.acts[ca].cs = cs;
+			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
+			e->users[cs]->player.cur_awrite++;
+		}
 	}
 	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
 	ft_tabdel(&cmd);

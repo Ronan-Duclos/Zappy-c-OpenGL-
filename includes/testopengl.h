@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 17:09:45 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/11 11:34:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/11 19:59:38 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define TESTOPENGL_H
 
 # include <GLUT/glut.h>
-
-# define				INC_FILES		"data/"
 
 # define FLAG_LEFT		0x01
 # define FLAG_DOWN		0x02
@@ -42,7 +40,24 @@ enum			e_colors
 	_green,
 	_yellow,
 	_pink,
-	_cyan
+	_cyan,
+	_highlight
+};
+
+typedef struct	s_anim	t_anim;
+
+typedef struct	s_moving
+{
+	GLfloat		pos[3];
+	GLfloat		dir[3];
+}				t_moving;
+
+struct			s_anim
+{
+	int			frame;
+	int			maxframe;
+	void		(*ft)(t_anim *);
+	char		dead;
 };
 
 typedef struct	s_square
@@ -64,12 +79,13 @@ typedef struct	s_env
 	GLuint		vbo_vrtx;
 	GLuint		vbo_nrms;
 	GLuint		vbo_indx;
-	GLuint		colors[7];
+	GLuint		colors[8];
 	GLdouble	winx;
 	GLdouble	winy;
 	GLdouble	realpos00[3];
 	GLdouble	realpos0y[3];
 	GLdouble	realposxy[3];
+	int			selectcase;
 }				t_env;
 
 t_env				*g_env;
@@ -78,5 +94,21 @@ static GLfloat		g_y = -10.1;
 static GLfloat		g_z = -30.0;
 
 void			*load_file(char *filename);
+
+/*
+**	colors1.c
+*/
+void			ft_color_white(void);
+void			ft_color_red(void);
+void			ft_color_blue(void);
+void			ft_color_green(void);
+void			ft_color_yellow(void);
+
+/*
+**	colors2.c
+*/
+void			ft_color_pink(void);
+void			ft_color_cyan(void);
+void			ft_color_highlight(void);
 
 #endif

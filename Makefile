@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/13 10:42:21 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/13 22:44:03 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SERV_SRC=s_main.c \
 	s_client_write.c \
 	s_deal_fd.c \
 	s_inv.c \
-	s_moove_forward.c \
+	s_move_forward.c \
 	s_turn_right.c \
 	s_turn_left.c \
 	s_take_item.c \

@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 18:24:39 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/12 18:34:42 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/13 22:45:18 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ void			turn_left(t_env *e, int cs)
 {
 	if (e->users[cs]->player.direc == NORTH)
 		e->users[cs]->player.direc = WEST;
-	if (e->users[cs]->player.direc == EAST)
-		e->users[cs]->player.direc = NORTH;
-	if (e->users[cs]->player.direc == SOUTH)
-		e->users[cs]->player.direc = EAST;
-	if (e->users[cs]->player.direc == WEST)
-		e->users[cs]->player.direc = SOUTH;
+	else
+		e->users[cs]->player.direc--;
 	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
 }

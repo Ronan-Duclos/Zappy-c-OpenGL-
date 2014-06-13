@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/13 20:58:11 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/13 23:23:29 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ma_fct_cmd(t_env *e, int cs);
 
 t_ponf_cmd	g_tab[NBR_CMD] =
 {
-	{"avance", 7, moove_forward},
+	{"avance", 7, move_forward},
 	{"droite", 7, turn_right},
 	{"gauche", 7, turn_left},
 	{"voir", 7, ma_fct_cmd},
@@ -30,7 +30,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"incantation", 300, ma_fct_cmd},
 	{"fork", 42, ma_fct_cmd},
 	{"connect_nbr", 0, ma_fct_cmd},
-	{"-", 0, ma_fct_cmd},
+	{"-", 0, ma_fct_cmd}
 };
 
 int		accept_gamer(t_env *e, int cs)
@@ -61,9 +61,12 @@ void	check_team(t_env *e, int cs)
 {
 	int		i;
 	int		j;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
+	tmp = ft_strchr(e->users[cs]->buf_read_tmp, '\n');
+	tmp[0] = '\0';
 	if (!ft_strcmp(e->users[cs]->buf_read_tmp, "GRAPHIC"))
 	{
 		gfx_init(e, cs);
@@ -82,7 +85,7 @@ void	check_team(t_env *e, int cs)
 	}
 }
 
-int		get_action_value(char *cmd, void (*fct_cmd)())
+int		get_action_value(char *cmd)
 {
 	int	i;
 
@@ -94,10 +97,7 @@ int		get_action_value(char *cmd, void (*fct_cmd)())
 		printf("bad command : %s\n", cmd);
 		return (-1);
 	}
-	fct_cmd = g_tab[i].fct_cmd;
-	return (g_tab[i].value);
-	fct_cmd(NULL, 1);
-	return (0);
+	return (i);
 }
 
 void	ma_fct_cmd(t_env *e, int cs)
@@ -134,7 +134,7 @@ void	queue_actions(t_env *e, int cs)
 {
 	int		i;
 	double	time;
-	int		ti_cmd;
+	int		j;
 	char	**cmd;
 	int		ca;
 
@@ -142,17 +142,17 @@ void	queue_actions(t_env *e, int cs)
 	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	i = -1;
 	ca = e->users[cs]->player.cur_awrite;
-	while (cmd[++i] && e->users[cs]->player.acts[ca].time != 0)
+	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
 	{
 		ca = e->users[cs]->player.cur_awrite;
-		ti_cmd = get_action_value(cmd[i], e->users[cs]->player.acts[ca].fct_cmd);
-		if (ti_cmd != -1)
+		j = get_action_value(cmd[i]);
+		if (j != -1)
 		{
-			time = ((time + ti_cmd) * 1000000) / e->opt.time;
+			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
 			e->users[cs]->player.acts[ca].time = time;
-			e->users[cs]->player.acts[ca].cs = cs;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
-			e->users[cs]->player.cur_awrite++;
+			e->users[cs]->player.acts[ca].fct_cmd = g_tab[i].fct_cmd;
+			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 	}
 	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
@@ -161,10 +161,6 @@ void	queue_actions(t_env *e, int cs)
 
 void	make_cmd(t_env *e, int cs)
 {
-	char	*tmp;
-
-	tmp = ft_strchr(e->users[cs]->buf_read_tmp, '\n');
-	tmp[0] = '\0';
 	if (e->users[cs]->ig != 1)
 		check_team(e, cs);
 	else if (e->users[cs]->type == FD_CLT)

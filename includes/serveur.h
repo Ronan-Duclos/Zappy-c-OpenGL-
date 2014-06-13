@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 10:46:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/13 22:42:37 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void				glst_put(t_glst **lst);
 **	Fonctions des différentes commandes client / server
 */
 
-void				moove_forward(t_env *e, int cs);
+void				move_forward(t_env *e, int cs);
 void				turn_right(t_env *e, int cs);
 void				turn_left(t_env *e, int cs);
 void				take_item(t_env *e, int cs);

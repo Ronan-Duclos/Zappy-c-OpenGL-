@@ -87,7 +87,7 @@ int		get_action_value(char *cmd, void (*fct_cmd)())
 	int	i;
 
 	i = 0;
-	while (i < NBR_CMD && !ft_strequ(cmd, g_tab[i].str))
+	while (i < NBR_CMD && !ft_strncmp(cmd, g_tab[i].str, ft_strlen(cmd)))
 		i++;
 	if (i == NBR_CMD)
 		printf("bad command : %s\n", cmd);
@@ -147,6 +147,7 @@ void	queue_actions(t_env *e, int cs)
 		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].cs = cs;
 		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].cmd = get_cmd_arg(cmd[i]);
 		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].fct_cmd = ma_fct_cmd;
+		e->users[cs]->player.cur_awrite += 1;
 	}
 	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
 	ft_tabdel(&cmd);

@@ -6,11 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-<<<<<<< HEAD:srcs/serveur/s_deal_fd.c
-/*   Updated: 2014/06/12 17:22:44 by dmansour         ###   ########.fr       */
-=======
-/*   Updated: 2014/06/12 18:39:33 by caupetit         ###   ########.fr       */
->>>>>>> gfx:srcs/s_deal_fd.c
+/*   Updated: 2014/06/13 10:51:01 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +19,7 @@ void	create_clt(t_env *e, int s)
 	unsigned int			len;
 	struct sockaddr_in		clt;
 
-	len = sizeof(clt); // linux
+//	len = sizeof(clt); // lin
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
 	e->users[cs]->type = FD_CLT;
 	e->users[cs]->fct_read = client_read;

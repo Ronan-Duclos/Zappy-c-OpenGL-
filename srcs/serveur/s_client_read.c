@@ -6,11 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-<<<<<<< HEAD:srcs/serveur/s_client_read.c
-/*   Updated: 2014/06/12 17:51:12 by dmansour         ###   ########.fr       */
-=======
-/*   Updated: 2014/06/12 15:18:53 by caupetit         ###   ########.fr       */
->>>>>>> gfx:srcs/s_client_read.c
+/*   Updated: 2014/06/13 10:59:14 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +39,12 @@ int		accept_gamer(t_env *e, int cs)
 	char		*tmp;
 	int			i;
 
-<<<<<<< HEAD:srcs/serveur/s_client_read.c
 	i = -1;
 	e->users[cs]->ig = 1;
 	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
 	e->users[cs]->player.cur_aread = 0;
 	while (++i < 10)
 		e->users[cs]->player.acts[i].time = 0;
-=======
-	e->users[cs]->ig = 1;
-	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
->>>>>>> gfx:srcs/s_client_read.c
 	tmp = ft_itoa(cs);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);
@@ -64,7 +55,6 @@ int		accept_gamer(t_env *e, int cs)
 	tmp = ft_itoa(e->opt.y);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);
-	send_inv(e, cs);
 	return (1);
 }
 

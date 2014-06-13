@@ -6,11 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-<<<<<<< HEAD:srcs/serveur/s_generate_map.c
-/*   Updated: 2014/06/12 17:01:21 by dmansour         ###   ########.fr       */
-=======
-/*   Updated: 2014/06/12 15:06:07 by caupetit         ###   ########.fr       */
->>>>>>> gfx:srcs/s_generate_map.c
+/*   Updated: 2014/06/13 10:48:05 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

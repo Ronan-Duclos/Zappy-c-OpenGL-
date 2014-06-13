@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 20:10:42 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 01:23:12 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void		env_init(t_env *env)
 	env->camtrans[0] = -0.5;
 	env->camtrans[1] = -10.1;
 	env->camtrans[2] = -30.0;
-	transpose();
 	lists_init(env);
 	list_item_init(env);
 	list_white_init();

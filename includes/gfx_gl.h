@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:42:17 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 01:46:16 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@
 
 # define CASE_MAX_ITEMS	256
 
-
-
 # define SCR_WID		640
 # define SCR_HGH		480
 # define FPS			60
+
+# define FOOD_PER_SQUARE		66
+# define LINEMATE_PER_SQUARE	60
+# define DERAUMERE_PER_SQUARE	50
+# define SIBUR_PER_SQUARE		35
+# define MENDIANE_PER_SQUARE	20
+# define PHIRAS_PER_SQUARE		15
+# define THYSTAME_PER_SQUARE	10
 
 # define SQUARE(v)		(v * v)
 # define MAG(va)		(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
@@ -69,10 +75,10 @@ struct			s_anim
 
 typedef struct	s_square
 {
-	char		tile;
-	char		grid[256];
-	int			itms[_itm_nb];
-}				t_square;
+	char			tile;
+	unsigned char	grid[256];
+	int				itms[_itm_nb];
+}					t_square;
 
 typedef struct	s_env
 {

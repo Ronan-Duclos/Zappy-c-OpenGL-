@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:45:06 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 21:00:05 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 01:45:57 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,37 @@ static void	display_egg(int i, int testo) // Attention
 	glPopMatrix();
 }
 
-void		display_items(int sq)
+void		display_items(int num)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
+	t_square	*sq;
+	unsigned char	*grid;
+	static int	tab[] = {
+		FOOD_PER_SQUARE,
+		LINEMATE_PER_SQUARE,
+		DERAUMERE_PER_SQUARE,
+		SIBUR_PER_SQUARE,
+		MENDIANE_PER_SQUARE,
+		PHIRAS_PER_SQUARE,
+		THYSTAME_PER_SQUARE};
 
+	sq = g_env->sq + num;
+	grid = sq->grid;
 	i = 0;
 	j = 0;
 	while (j < 7)
 	{
 		glCallList(g_env->lists[j]);
-		while (i < CASE_MAX_ITEMS)
+		while (i < sq->itms[j])
 		{
-			if (g_env->sq[sq].grid[i] == j)
-			{
-				if (sq == g_env->selectcase) // pareil
-					display_egg(i, 1);
-				else
-					display_egg(i, 0);
-			}
+			if (num == g_env->selectcase) // pareil
+				display_egg(grid[i], 1); // Putain
+			else
+				display_egg(grid[i], 0); // LOL le mec ...
 			i++;
 		}
+		grid += tab[j];
 		i = 0;
 		j++;
 	}

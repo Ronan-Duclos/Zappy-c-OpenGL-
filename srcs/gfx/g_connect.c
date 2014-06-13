@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 18:10:09 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 01:02:46 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	connect_sizes(t_ipv *ipv, char **tab, int *i)
 	{
 		cmd_sgt(tab[*i]);
 		*i += 1;
-		step += 1;	
+		step += 1;
 	}
 	if (step == 2)
 	{
@@ -89,7 +89,8 @@ void		cmd_connect(t_ipv *ipv, char **tab)
 		step += connect_sizes(ipv, &tab[i], &i);
 	if (step == 2)
 		step += connect_map(&tab[i], &i);
+	if (step == 3)
+		ipv->state = _draw;
 	printf("sizes: X: %d, Y: %d, Time: %d\n", g_env->mapw, g_env->maph, g_env->time);
 	printf("step: %d\n", step);
 }
-

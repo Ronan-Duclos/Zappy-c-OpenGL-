@@ -90,7 +90,7 @@ int		get_action_value(char *cmd)
 	int	i;
 
 	i = 0;
-	while (i < NBR_CMD && !ft_strncmp(cmd, g_tab[i].str, ft_strlen(cmd)))
+	while (i < NBR_CMD && ft_strncmp(cmd, g_tab[i].str, ft_strlen(cmd)) != 0)
 		i++;
 	if (i == NBR_CMD)
 	{
@@ -107,26 +107,18 @@ void	ma_fct_cmd(t_env *e, int cs)
 
 char	*get_cmd_arg(char *cmd)
 {
-	int		i;
-	int		j;
+	int			i;
 	char		*ret;
 
 	i = 0;
-	j = 0;
 	ret = NULL;
-	while (cmd[i] && cmd[i] != '<')
+	while (cmd[i] != '\0' && cmd[i] != ' ')
 		i++;
-	if (cmd[i])
-		j = i + 1;
+	if (cmd[i] != '\0')
+		i++;
 	else 
 		return (NULL);
-	while (cmd[i] && cmd[i] != '>')
-		i++;
-	if (cmd[i])
-	{
-		cmd[i] = 0;
-		ret = ft_strdup(cmd + j);
-	}
+	ret = ft_strdup(cmd + i);
 	return (ret);
 }
 
@@ -154,6 +146,8 @@ void	queue_actions(t_env *e, int cs)
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[i].fct_cmd;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
+		else
+			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 	}
 	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
 	ft_tabdel(&cmd);

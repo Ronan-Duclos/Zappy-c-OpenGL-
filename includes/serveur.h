@@ -151,4 +151,13 @@ t_glst				*glst_new(int cs);
 void				glst_add(t_glst **lst, t_glst *new);
 void				glst_del_one(t_glst **lst, int cs);
 void				glst_put(t_glst **lst);
+
+/*
+**	Fonctions des différentes commandes client / server
+*/
+
+void				moove_forward(t_env *e, int cs);
+void				turn_right(t_env *e, int cs);
+void				turn_left(t_env *e, int cs);
+
 #endif

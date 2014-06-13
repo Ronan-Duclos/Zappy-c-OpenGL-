@@ -18,9 +18,9 @@ void	ma_fct_cmd(t_env *e, int cs);
 
 t_ponf_cmd	g_tab[NBR_CMD] =
 {
-	{"avance", 7, ma_fct_cmd},
-	{"droite", 7, ma_fct_cmd},
-	{"gauche", 7, ma_fct_cmd},
+	{"avance", 7, moove_forward},
+	{"droite", 7, turn_right},
+	{"gauche", 7, turn_left},
 	{"voir", 7, ma_fct_cmd},
 	{"inventaire", 1, ma_fct_cmd},
 	{"prend", 7, ma_fct_cmd},
@@ -33,7 +33,6 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"-", 0, ma_fct_cmd},
 };
 
-void	ma_fct_cmd(t_env *e, int cs);
 int		accept_gamer(t_env *e, int cs)
 {
 	char		*tmp;

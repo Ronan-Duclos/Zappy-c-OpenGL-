@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/12 18:35:00 by dmansour         ###   ########.fr        #
+#    Updated: 2014/06/13 10:21:28 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,10 @@ COMMON_SRC=functions.c \
 SERV_OBJ=$(SERV_SRC:%.c=$(DIROBJ)%.o)
 CLT_OBJ=$(CLT_SRC:%.c=$(DIROBJ)%.o)
 GFX_OBJ=$(GFX_SRC:%.c=$(DIROBJ)%.o)
+COMMON_SRC2=$(GFX_SRC:%.c=$(GFX_NAME)/%.c)
+SERV_SRC2=$(SERV_SRC:%.c=$(SERV_NAME)/%.c)
+OBJ_SRC2=$(CLT_SRC:%.c=$(CLT_NAME)/%.c)
+GFX_SRC2=$(COMMON_SRC:%.c=$(SERV_NAME)/%.c)
 COMMON_OBJ=$(COMMON_SRC:%.c=$(DIROBJ)%.o)
 
 all: init $(NAME) end
@@ -79,7 +83,22 @@ $(GFX_NAME): $(GFX_OBJ)
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
-$(DIROBJ)%.o: $(DIRSRC)%.c $(INCLUDES)
+$(DIROBJ)s_%.o: $(DIRSRC)$(SERV_NAME)/s_%.c $(INCLUDES)
+	@echo "--> Linking  $<"
+	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
+	@tput cuu1
+
+$(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
+	@echo "--> Linking  $<"
+	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
+	@tput cuu1
+
+$(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
+	@echo "--> Linking  $<"
+	@$(CC) $(FLAGS) $(FLAGS_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
+	@tput cuu1
+
+$(DIROBJ)%.o: $(DIRSRC)common/%.c $(INCLUDES)
 	@echo "--> Linking  $<"
 	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1

@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_ipmain.c                                         :+:      :+:    :+:   */
+/*   g_item_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:40:12 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/13 18:42:59 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/13 19:09:49 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <time.h>
-#include "gfx.h"
+#include "gfx_gl.h"
 
-int			main(int ac, char **av)
+void		list_item_init(t_env *env)
 {
-	t_ipv	ipv;
-	t_env	env;
-
-	srand(time(NULL));
-	init_glut(ac, av);
-	env_init(&env);
-	resources_load(&env);
-	gl_init();
-	light_init();
-	ipv_init(&ipv, ac, av);
-	srv_connect(&ipv, av);
-	ipv_loop(&ipv);
-	return (0);
+	glNewList(env->lists[_init_item_pos], GL_COMPILE);
+	{
+		glTranslatef(-1.0, -0.7, -1.0);
+		glRotatef(-90.0, 1.0, 0.0, 0.0);
+		glScalef(0.009, 0.009, 0.009);
+	}
+	glEndList();
 }

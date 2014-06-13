@@ -6,13 +6,14 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 21:08:23 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/12 18:01:22 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/13 22:39:39 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
 #include "png.h"
 
 char		*load_png(char *name, int *rlen)

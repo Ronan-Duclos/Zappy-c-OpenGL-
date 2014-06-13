@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/21 12:03:16 by rduclos           #+#    #+#             */
-/*   Updated: 2014/03/27 22:14:59 by rduclos          ###   ########.fr       */
+/*   Created: 2013/11/22 15:01:17 by caupetit          #+#    #+#             */
+/*   Updated: 2013/11/25 11:26:03 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int			ft_atoi(const char *str)
 {
-	int		total;
-	int		neg;
-	size_t	i;
+	int		ret;
+	int		sign;
 
-	total = 0;
-	neg = 1;
-	i = 0;
-	while (str && !ft_isalnum(str[i]) && !(str[i] == '-'))
-		if (str[i++] == 0)
-			return (0);
-	if (str[i] == '-')
+	ret = 0;
+	sign = 1;
+	while (*str && !ft_isalnum(*str) && *str != '+' && *str != '-')
 	{
-		neg = -1;
-		i++;
+		str++;
+		if (*str == '\0')
+			return (ret);
 	}
-	while ((str && str[i] >= '0') && (str[i] <= '9'))
+	if (*str == '-')
 	{
-		total *= 10;
-		total += str[i] - '0';
-		i++;
+		sign *= -1;
+		str++;
 	}
-	return (neg * total);
+	else if (*str == '+')
+		str++;
+	while (ft_isdigit(*str))
+	{
+		ret *= 10;
+		ret += *str - '0';
+		str++;
+	}
+	return (ret * sign);
 }

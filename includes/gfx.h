@@ -6,17 +6,23 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/11 18:49:49 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/13 23:41:41 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GFX_H
 # define GFX_H
 
+# include "gfx_gl.h"
 # include "common.h"
 # include <sys/select.h>
 
 # define	BUF_SIZE	4096
+
+enum				e_states
+{
+	_connect, _draw
+};
 
 typedef struct		s_fd
 {
@@ -31,7 +37,7 @@ typedef struct		s_ipv
 	int		port;
 	int		sock;
 	int		r;
-	int		connected;
+	int		state;
 	t_fd	fd;
 	fd_set	fd_read;
 	fd_set	fd_write;
@@ -47,6 +53,8 @@ void		ipv_loop(t_ipv *i);
 /*
 **	g_serv.c
 */
+void		dtab_del(char **tab);
+void		dtab_put(char **tab);
 void		srv_read(t_ipv *ipv);
 void		srv_write(t_ipv *ipv);
 void		srv_connect(t_ipv *ipv, char **av);
@@ -57,7 +65,23 @@ void		srv_connect(t_ipv *ipv, char **av);
 void		fds_init(t_ipv *ipv);
 void		fds_check(t_ipv *ipv);
 
-void		dtab_put(char **tab);
-void		cmd_connect(t_ipv *ipv, char *buf);
+/*
+**	g_cmd.c
+*/
+int			get_next_int(int *nb, char *s);
+void		cmd_msz(char *cmd);
+void		cmd_sgt(char *cmd);
+void		cmd_bct(char *cmd);
+void		cmd_check(t_ipv *ipv, char *buf);
+
+/*
+**	g_connect.c (3 statics)
+*/
+void		cmd_connect(t_ipv *ipv, char **tab);
+
+/*
+**	g_map.c (1 static)
+*/
+void		map_init(void);
 
 #endif

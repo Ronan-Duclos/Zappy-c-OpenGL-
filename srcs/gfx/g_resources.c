@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_ipmain.c                                         :+:      :+:    :+:   */
+/*   g_resources.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:40:12 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/13 22:20:29 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/13 22:31:27 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <time.h>
-#include "gfx.h"
+#include "png.h"
+#include "mdx.h"
+#include "gfx_gl.h"
 
-int			main(int ac, char **av)
+void		resources_load(t_env *env)
 {
-	t_ipv	ipv;
-	t_env	env;
-
-	srand(time(NULL));
-	init_glut(ac, av);
-	env_init(&env);
-	resources_load(&env);
-	gl_init();
-	light_init();
-	ipv_init(&ipv, ac, av);
-	srv_connect(&ipv, av);
-	ipv_loop(&ipv);
-	return (0);
+	env->maptex = texture_from_png("data/DirtGrass.png");
+//	env.maptex = load_bmp_tex("data/Lords_GrassDark2.bmp");
+	get_model_from_mdx("data/CrystalShard.mdx", &g_mdx);
+	ft_vbo_from_mdx(&g_mdx);
 }

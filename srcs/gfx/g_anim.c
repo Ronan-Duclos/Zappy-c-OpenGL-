@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_ipmain.c                                         :+:      :+:    :+:   */
+/*   g_anim.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:40:12 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/13 20:59:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <time.h>
-#include "gfx.h"
+#include "gfx_gl.h"
 
-int			main(int ac, char **av)
+void	anim_rock(t_anim *a)
 {
-	t_ipv	ipv;
-	t_env	env;
+	double	i;
 
-	srand(time(NULL));
-	init_glut(ac, av);
-	env_init(&env);
-	resources_load(&env);
-	gl_init();
-	light_init();
-	ipv_init(&ipv, ac, av);
-	srv_connect(&ipv, av);
-	ipv_loop(&ipv);
-	return (0);
+	if (a->dead)
+	{
+		a->frame = 0;
+		a->dead = 0;
+		return ;
+	}
+	i = (double)a->frame;
+	glTranslatef(0.0, 0.0, 0.5 * i);
+	glScalef(1.0 - i / 500, 1.0 - i / 500, 1.0 - i / 500);
+	glRotatef(2.0 * i, 0.0, 0.0, 1.0);
+	a->frame++;
+	if (a->frame >= a->maxframe)
+		a->dead = 1;
 }

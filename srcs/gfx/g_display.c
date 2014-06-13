@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_ipmain.c                                         :+:      :+:    :+:   */
+/*   g_display.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:40:12 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/13 19:50:07 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/13 19:52:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <time.h>
-#include "gfx.h"
+#include "gfx_gl.h"
 
-int			main(int ac, char **av)
+void	display(void)
 {
-	t_ipv	ipv;
-	t_env	env;
-
-	srand(time(NULL));
-	init_glut(ac, av);
-	env_init(&env);
-	resources_load(&env);
-	gl_init();
-	light_init();
-	ipv_init(&ipv, ac, av);
-	srv_connect(&ipv, av);
-	ipv_loop(&ipv);
-	return (0);
+	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glRotatef(40.0, 1.0, 0.0, 0.0);
+	glTranslatef(g_env->camtrans[0], g_env->camtrans[1], g_env->camtrans[2]);
+	display_map();
+	glutSwapBuffers();
 }

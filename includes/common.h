@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/12 18:30:51 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/13 23:23:10 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 
 enum				e_stone
 {
-	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame
+	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame, _itm_nb
 };
 
-typedef int			t_inv[NB_STONE + 1];
+typedef int			t_inv[_itm_nb];
 
 typedef struct		s_actions
 {

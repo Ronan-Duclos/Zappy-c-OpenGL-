@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_ipmain.c                                         :+:      :+:    :+:   */
+/*   g_gl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:40:12 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/13 19:18:17 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/13 19:23:53 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <time.h>
-#include "gfx.h"
+#include "gfx_gl.h"
 
-int			main(int ac, char **av)
+void	gl_init(void)
 {
-	t_ipv	ipv;
-	t_env	env;
-
-	srand(time(NULL));
-	init_glut(ac, av);
-	env_init(&env);
-	resources_load(&env);
-	gl_init();
-	light_init();
-	ipv_init(&ipv, ac, av);
-	srv_connect(&ipv, av);
-	ipv_loop(&ipv);
-	return (0);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+	glClearColor (1.0, 1.0, 1.0, 0.0);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_RESCALE_NORMAL);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glClearDepth(1.0);
+//	glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/25 16:04:27 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/07 23:10:39 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/11 15:57:38 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	send_serveur(t_env *e)
 void	ask_to_play(t_env *e)
 {
 	tmp_to_bc(&e->user->buf_write, e->me.name, 1);
+	printf("name: %s\n", e->me.name);//
 	e->user->ig = 1;
 }
 

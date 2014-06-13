@@ -6,7 +6,11 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
+<<<<<<< HEAD:srcs/serveur/s_client_read.c
 /*   Updated: 2014/06/12 17:51:12 by dmansour         ###   ########.fr       */
+=======
+/*   Updated: 2014/06/12 15:18:53 by caupetit         ###   ########.fr       */
+>>>>>>> gfx:srcs/s_client_read.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +43,17 @@ int		accept_gamer(t_env *e, int cs)
 	char		*tmp;
 	int			i;
 
+<<<<<<< HEAD:srcs/serveur/s_client_read.c
 	i = -1;
 	e->users[cs]->ig = 1;
 	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
 	e->users[cs]->player.cur_aread = 0;
 	while (++i < 10)
 		e->users[cs]->player.acts[i].time = 0;
+=======
+	e->users[cs]->ig = 1;
+	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
+>>>>>>> gfx:srcs/s_client_read.c
 	tmp = ft_itoa(cs);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);
@@ -66,6 +75,11 @@ void	check_team(t_env *e, int cs)
 
 	i = 0;
 	j = 0;
+	if (!ft_strcmp(e->users[cs]->buf_read_tmp, "GRAPHIC"))
+	{
+		gfx_init(e, cs);
+		return ;
+	}
 	while (e->opt.name[i] != NULL)
 	{
 		if (ft_strcmp(e->users[cs]->buf_read_tmp, e->opt.name[i]) == 0)
@@ -74,7 +88,6 @@ void	check_team(t_env *e, int cs)
 	}
 	if (j == 0)
 	{
-		tmp_to_bc(&e->users[cs]->buf_write, "Wrong team name.", 1);
 		close(cs);
 		destroy_clt(e, cs);
 	}
@@ -152,8 +165,16 @@ void	client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			printf("Receive : %s", e->users[cs]->buf_read_tmp);
-			make_cmd(e, cs);
+			if (e->users[cs]->gfx)
+			{
+				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
+//				gfx_cmd
+			}
+			else
+			{
+				printf("Receive : %s", e->users[cs]->buf_read_tmp);
+				make_cmd(e, cs);
+			}
 			e->users[cs]->buf_read_tmp[0] = '\0';
 		}
 	}

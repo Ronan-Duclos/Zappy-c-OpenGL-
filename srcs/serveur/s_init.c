@@ -6,10 +6,11 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/07 22:29:34 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/12 17:35:26 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/resource.h> //linux
 #include "serveur.h"
 #include "common.h"
 #include "libft.h"
@@ -74,6 +75,7 @@ void	init_serv(t_env *e)
 {
 	int		i;
 
+	e->srv.glst = NULL;
 	i = init_sock(e->opt.port, e);
 	e->users[i]->type = FD_SRV;
 	e->users[i]->fct_read = create_clt;

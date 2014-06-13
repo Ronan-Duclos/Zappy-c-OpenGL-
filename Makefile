@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/13 10:21:28 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/13 10:42:21 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CLT_NAME=client
 GFX_NAME=gfx
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations=
-FLAG_OPENGL=-framework GLUT -framework OpenGL -framework Cocoa
+FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa
 LIB=libft/
 INCLUDES=includes/
 CLT_H=$(INCLUDES)client.h
@@ -27,6 +27,8 @@ DIROBJ=objs/
 DIRSRC=srcs/
 SERV_SRC=s_main.c \
 	s_opt1.c \
+	s_gfx.c \
+	s_gfx_lst.c \
 	s_generate_map.c \
 	s_init.c \
 	s_client_read.c \
@@ -39,7 +41,10 @@ CLT_SRC=c_main.c \
 	c_init.c \
 	c_opt.c \
 	c_tools1.c
-GFX_SRC=g_ipmain.c
+GFX_SRC=g_ipmain.c \
+	g_ipv.c \
+	g_serv.c \
+	g_fds.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c

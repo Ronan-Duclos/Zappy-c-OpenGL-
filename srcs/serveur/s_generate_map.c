@@ -6,7 +6,11 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
+<<<<<<< HEAD:srcs/serveur/s_generate_map.c
 /*   Updated: 2014/06/12 17:01:21 by dmansour         ###   ########.fr       */
+=======
+/*   Updated: 2014/06/12 15:06:07 by caupetit         ###   ########.fr       */
+>>>>>>> gfx:srcs/s_generate_map.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +105,7 @@ t_map			malloc_map(int x, int y)
 	while (i < x)
 	{
 		map[i] = (t_inv *)malloc(sizeof(t_inv) * (y + 1));
-		ft_bzero(map[i], sizeof(t_inv *));
+		ft_bzero(map[i], sizeof(t_inv) * (y + 1));
 		i++;
 	}
 	map[x] = NULL;

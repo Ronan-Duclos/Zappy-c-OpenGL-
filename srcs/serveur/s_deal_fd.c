@@ -6,7 +6,11 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
+<<<<<<< HEAD:srcs/serveur/s_deal_fd.c
 /*   Updated: 2014/06/12 17:22:44 by dmansour         ###   ########.fr       */
+=======
+/*   Updated: 2014/06/12 18:39:33 by caupetit         ###   ########.fr       */
+>>>>>>> gfx:srcs/s_deal_fd.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +23,15 @@ void	create_clt(t_env *e, int s)
 	unsigned int			len;
 	struct sockaddr_in		clt;
 
+	len = sizeof(clt); // linux
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
 	e->users[cs]->type = FD_CLT;
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
+	bzero(&e->users[cs]->player, sizeof(t_player));
 	init_pos(e->users[cs], e->opt.x, e->opt.y);
-	bzero(&e->users[cs]->player.inv, sizeof(t_inv));
 	e->users[cs]->player.inv[_food] = 10;
+	e->users[cs]->player.direc = rand_int(NORTH, WEST);
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
 	printf("Client connected : %d\n", cs);
 }
@@ -41,6 +47,9 @@ void	destroy_clt(t_env *e, int sock)
 	e->users[sock]->buf_read_tmp[0] = '\0';
 	e->users[sock]->buf_write_tmp[0] = '\0';
 	e->users[sock]->ig = 0;
+	if (e->users[sock]->gfx)
+		glst_del_one(&e->srv.glst, sock);
+	e->users[sock]->gfx = 0;
 	printf("Client disconnected : %d\n", sock);
 }
 

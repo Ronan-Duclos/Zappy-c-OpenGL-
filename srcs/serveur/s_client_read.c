@@ -22,8 +22,8 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"droite", 7, turn_right},
 	{"gauche", 7, turn_left},
 	{"voir", 7, ma_fct_cmd},
-	{"inventaire", 1, ma_fct_cmd},
-	{"prend", 7, ma_fct_cmd},
+	{"inventaire", 1, send_inv},
+	{"prend", 7, take_item},
 	{"pose", 7, ma_fct_cmd},
 	{"expulse", 7, ma_fct_cmd},
 	{"broadcast", 7, ma_fct_cmd},
@@ -99,10 +99,34 @@ int		get_action_value(char *cmd, void (*fct_cmd)())
 
 void	ma_fct_cmd(t_env *e, int cs)
 {
-	ft_putendl("MERDE CACA BOITE COUCOU");
 	if (e->users[cs]->player.direc == NORTH)
 		e->users[cs]->player.y++;
 	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
+}
+
+char	*get_cmd_arg(char *cmd)
+{
+	int		i;
+	int		j;
+	char		*ret;
+
+	i = 0;
+	j = 0;
+	ret = NULL;
+	while (cmd[i] && cmd[i] != '<')
+		i++;
+	if (cmd[i])
+		j = i + 1;
+	else 
+		return (NULL);
+	while (cmd[i] && cmd[i] != '>')
+		i++;
+	if (cmd[i])
+	{
+		cmd[i] = 0;
+		ret = ft_strdup(cmd + j);
+	}
+	return (ret);
 }
 
 void	queue_actions(t_env *e, int cs)
@@ -117,11 +141,12 @@ void	queue_actions(t_env *e, int cs)
 	i = -1;
 	while (cmd[++i])
 	{
-		tmp_time = get_action_value(cmd[i], e->users[cs]->player.acts[i].fct_cmd);
+		tmp_time = get_action_value(cmd[i], e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].fct_cmd);
 		time += tmp_time * 1000000 / e->opt.time;
-		e->users[cs]->player.acts[i].time = time;
-		e->users[cs]->player.acts[i].cs = cs;
-		e->users[cs]->player.acts[i].fct_cmd = ma_fct_cmd;
+		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].time = time;
+		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].cs = cs;
+		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].cmd = get_cmd_arg(cmd[i]);
+		e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].fct_cmd = ma_fct_cmd;
 	}
 	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
 	ft_tabdel(&cmd);
@@ -159,7 +184,7 @@ void	client_read(t_env *e, int cs)
 			if (e->users[cs]->gfx)
 			{
 				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
-//				gfx_cmd
+				//				gfx_cmd
 			}
 			else
 			{

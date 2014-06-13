@@ -159,5 +159,6 @@ void				glst_put(t_glst **lst);
 void				moove_forward(t_env *e, int cs);
 void				turn_right(t_env *e, int cs);
 void				turn_left(t_env *e, int cs);
+void				take_item(t_env *e, int cs);
 
 #endif

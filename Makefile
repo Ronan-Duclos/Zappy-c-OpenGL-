@@ -38,6 +38,7 @@ SERV_SRC=s_main.c \
 	s_moove_forward.c \
 	s_turn_right.c \
 	s_turn_left.c \
+	s_take_item.c \
 	my_time.c
 CLT_SRC=c_main.c \
 	c_init.c \

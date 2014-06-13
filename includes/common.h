@@ -37,6 +37,7 @@ typedef int			t_inv[NB_STONE + 2];
 typedef struct		s_actions
 {
 	int				cs;
+	char				*cmd;
 	double			time;
 	void			(*fct_cmd)();
 }					t_actions;

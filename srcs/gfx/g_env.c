@@ -6,10 +6,11 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 01:23:12 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/14 11:45:25 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>//
 #include <strings.h>
 #include "gfx_gl.h"
 
@@ -18,17 +19,20 @@ static void	lists_init(t_env *env)
 	int		i;
 	GLuint	val;
 
+	(void)env;
 	i = 0;
 	val = glGenLists(_lists_nb);
+	printf("val glGenList: %d\n", val);
 	while (i < _lists_nb)
 	{
-		env->lists[i] = val + i;
+		g_env->lists[i] = val + i;
 		i++;
 	}
 }
 
 void		env_init(t_env *env)
 {
+	g_env = env;
 	bzero(env, sizeof(*env));
 	env->selectcase = -1;
 	env->camtrans[0] = -0.5;
@@ -44,5 +48,4 @@ void		env_init(t_env *env)
 	list_pink_init();
 	list_cyan_init();
 	list_highlight_init();
-	g_env = env;
 }

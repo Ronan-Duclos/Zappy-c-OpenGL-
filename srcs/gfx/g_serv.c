@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:24:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 12:26:45 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 12:25:31 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		srv_read(t_ipv *ipv)
 		bzero(buf, BUF_SIZE);
 		bc_to_tmp(&ipv->fd.buf_read, buf);
 		cmd_check(ipv, buf);
+		printf("after cmd check\n");
 	}
 }
 

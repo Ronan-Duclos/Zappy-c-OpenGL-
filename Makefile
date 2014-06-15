@@ -38,6 +38,12 @@ SERV_SRC=s_main.c \
 	s_move_forward.c \
 	s_turn_right.c \
 	s_turn_left.c \
+	s_watch_east.c \
+	s_watch_west.c \
+	s_watch_north.c \
+	s_watch_south.c \
+	s_watch_sight.c \
+	s_drop_item.c \
 	s_take_item.c \
 	my_time.c
 CLT_SRC=c_main.c \

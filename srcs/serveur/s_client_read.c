@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/13 23:23:29 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/14 20:41:52 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"avance", 7, move_forward},
 	{"droite", 7, turn_right},
 	{"gauche", 7, turn_left},
-	{"voir", 7, ma_fct_cmd},
+	{"voir", 7, watch_sight},
 	{"inventaire", 1, send_inv},
 	{"prend", 7, take_item},
-	{"pose", 7, ma_fct_cmd},
+	{"pose", 7, drop_item},
 	{"expulse", 7, ma_fct_cmd},
 	{"broadcast", 7, ma_fct_cmd},
 	{"incantation", 300, ma_fct_cmd},
@@ -87,11 +87,14 @@ void	check_team(t_env *e, int cs)
 
 int		get_action_value(char *cmd)
 {
-	int	i;
+	int		i;
+	int		j;
 
 	i = 0;
-	while (i < NBR_CMD && ft_strncmp(cmd, g_tab[i].str, ft_strlen(cmd)) != 0)
-		i++;
+	j = ft_strlen(g_tab[i].str);
+	while (i < NBR_CMD && ft_strncmp(cmd, g_tab[i].str, j) != 0)
+		j = ft_strlen(g_tab[++i].str);
+	printf("%d\n", i);
 	if (i == NBR_CMD)
 	{
 		printf("bad command : %s\n", cmd);
@@ -143,7 +146,7 @@ void	queue_actions(t_env *e, int cs)
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
-			e->users[cs]->player.acts[ca].fct_cmd = g_tab[i].fct_cmd;
+			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 		else

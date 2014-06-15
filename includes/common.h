@@ -70,6 +70,7 @@ typedef struct		s_buf
 int		rand_int(int min, int max);
 int		get_vision_nb_cell(int level);
 char	*type_to_str(int id);
+int			str_to_type(char *str);
 /*
 **	buf_circle.c
 */

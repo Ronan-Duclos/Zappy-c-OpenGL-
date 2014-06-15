@@ -160,5 +160,16 @@ void				move_forward(t_env *e, int cs);
 void				turn_right(t_env *e, int cs);
 void				turn_left(t_env *e, int cs);
 void				take_item(t_env *e, int cs);
+void				drop_item(t_env *e, int cs);
+void				watch_sight(t_env *e, int cs);
+
+/*
+**	s_watch_sight
+*/
+void	send_one_case(t_env *e, t_buf *bc, int x, int y);
+void	watch_south(t_env *e, int cs);
+void	watch_north(t_env *e, int cs);
+void	watch_east(t_env *e, int cs);
+void	watch_west(t_env *e, int cs);
 
 #endif

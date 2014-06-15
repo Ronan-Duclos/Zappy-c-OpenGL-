@@ -16,7 +16,7 @@
 # include "stdio.h"
 
 # define NB_STONE	6
-# define BC_SIZE	40960
+# define BC_SIZE	131072
 # define BC_SIZE2	BC_SIZE - 1
 
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
@@ -74,6 +74,7 @@ int			str_to_type(char *str);
 /*
 **	buf_circle.c
 */
+void	display_bc(t_buf *bc);
 void	init_bc(t_buf *buf);
 int		verify_bsn(t_buf *buf);
 void	tmp_to_bc(t_buf *buf, char *str, int type);

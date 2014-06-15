@@ -94,7 +94,6 @@ int		get_action_value(char *cmd)
 	j = ft_strlen(g_tab[i].str);
 	while (i < NBR_CMD && ft_strncmp(cmd, g_tab[i].str, j) != 0)
 		j = ft_strlen(g_tab[++i].str);
-	printf("%d\n", i);
 	if (i == NBR_CMD)
 	{
 		printf("bad command : %s\n", cmd);

@@ -13,6 +13,24 @@
 #include "common.h"
 #include "libft.h"
 
+void			display_bc(t_buf *bc)
+{
+	int		i;
+	char	tmp;
+
+	i = 0;
+	tmp = bc->head;
+	while (tmp[i] != '\n')
+	{
+		ft_putchar(tmp[i]);
+		if (tmp + i == bc->end)
+			tmp = bc->start;
+		else
+			i++;
+	}
+	ft_putchar('\n');
+}
+
 void			init_bc(t_buf *buf)
 {
 	ft_bzero(buf->start, BC_SIZE);

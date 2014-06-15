@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 17:05:50 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/06 17:13:58 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/13 22:34:24 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ typedef struct	s_mdx
 	t_modchunk	chunks[9];
 }				t_mdx;
 
-t_mdx				g_mdx; // VIEILLE GLOBALE DEGUEULASSE
+t_mdx			g_mdx; // VIEILLE GLOBALE DEGUEULASSE
+
+/*
+**	g_parsemdx.c (3 statics)
+*/
+int				get_model_from_mdx(char *name, t_mdx *model);
 
 #endif

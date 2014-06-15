@@ -6,46 +6,30 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/11 18:56:12 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 12:16:52 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
-#include <string.h> // linux
+#include <time.h>
 #include "gfx.h"
-
-void		dtab_put(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("%d: %s\n", i + 1, tab[i]);
-		i++;
-	}
-}
-
-void		cmd_connect(t_ipv *ipv, char *buf)
-{
-	if (strcmp(buf, "BIENVENUE\n"))
-	{
-		fprintf(stderr, "Serveur tried to fuck us\n");
-		X(-1, close(ipv->sock), "close");
-		exit(0);
-	}
-	tmp_to_bc(&ipv->fd.buf_write, "GRAPHIC", 1);
-	ipv->connected = 1;
-}
 
 int			main(int ac, char **av)
 {
 	t_ipv	ipv;
+	t_env	env;
 
+	srand(time(NULL));
+	init_glut(ac, av);
+	env_init(&env);
+	resources_load(&env);
+	gl_init();
 	ipv_init(&ipv, ac, av);
+	light_init();
 	srv_connect(&ipv, av);
 	ipv_loop(&ipv);
+	printf("starting drawing\n");
+	glutMainLoop();
 	return (0);
 }

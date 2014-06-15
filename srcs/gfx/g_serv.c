@@ -6,38 +6,59 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:24:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/11 19:01:26 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/14 12:25:31 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <strings.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include "gfx.h"
 #include "libft.h"
 
+void		dtab_del(char **tab)
+{
+	int		i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		ft_strdel(&tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void		dtab_put(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		printf("%d: %s\n", i + 1, tab[i]);
+		i++;
+	}
+}
+
 void		srv_read(t_ipv *ipv)
 {
 	char	buf[BUF_SIZE];
 	int		r;
-	char	**tab;
 
 	X(-1, (r = recv(ipv->sock, buf, BUF_SIZE - 1, 0)), "srv_read");
 	buf[r] = '\0';
 	if (!r)
 		exit(0);
-	printf("SRV send: [%s]\n", buf);
 	tmp_to_bc(&ipv->fd.buf_read, buf, 0);
 	if (verify_bsn(&ipv->fd.buf_read) == 1)
 	{
 		bzero(buf, BUF_SIZE);
 		bc_to_tmp(&ipv->fd.buf_read, buf);
-		if (!ipv->connected)
-			cmd_connect(ipv, buf);
-		tab = ft_strsplit(buf, '\n');
-		dtab_put(tab);
+		cmd_check(ipv, buf);
+		printf("after cmd check\n");
 	}
 }
 

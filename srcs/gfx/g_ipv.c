@@ -6,11 +6,12 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:12:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/11 16:18:30 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/13 23:54:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <strings.h>
 #include "gfx.h"
 
 void		get_opt(t_ipv *ipv, int ac, char **av)
@@ -30,15 +31,16 @@ void		get_opt(t_ipv *ipv, int ac, char **av)
 
 void		ipv_init(t_ipv *ipv, int ac, char **av)
 {
+	bzero(ipv, sizeof(t_ipv));
 	get_opt(ipv, ac, av);
 	init_bc(&ipv->fd.buf_read);
 	init_bc(&ipv->fd.buf_write);
-	ipv->connected = 0;
+	ipv->state = _connect;
 }
 
 void		ipv_loop(t_ipv *i)
 {
-	while (42)
+	while (i->state == _connect)
 	{
 		fds_init(i);
 		i->r = select(i->sock + 1, &i->fd_read, &i->fd_write, NULL, NULL);

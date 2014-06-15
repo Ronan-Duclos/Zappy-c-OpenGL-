@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/12 18:36:15 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/13 14:25:27 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void		gfx_pnw(t_env *e, int cs)
 
 /*
 **	send create Egg action: egg_nb player X Y
-**	a faire quand les oeux seront geres dans le serveur.
+**	a faire quand les oeufs seront geres dans le serveur.
 */
 void		gfx_enw(t_env *e, int cs)
 {
@@ -129,16 +129,16 @@ void		gfx_enw(t_env *e, int cs)
 /*
 **	send player #cs positon.
 */
-void		gfx_ppo(t_env *e, int cs)
+void		gfx_ppo(t_env *e, int cs, int clt)
 {
 	char	buf[BUF_SIZE];
 
 	bzero(buf, BUF_SIZE);
-	sprintf(buf, "ppo #%d %d %d %d", cs,
-			e->users[cs]->player.x,
-			e->users[cs]->player.y,
-			e->users[cs]->player.direc);
-	tmp_to_bc(&e->users[7]->buf_write, buf, 1);
+	sprintf(buf, "ppo #%d %d %d %d", clt,
+			e->users[clt]->player.x,
+			e->users[clt]->player.y,
+			e->users[clt]->player.direc);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
 void		gfx_init(t_env *e, int cs)

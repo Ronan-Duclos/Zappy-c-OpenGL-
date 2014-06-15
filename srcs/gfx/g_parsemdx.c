@@ -1,8 +1,18 @@
-/* Made by lebgdu03 */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   g_parsemdx.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/06/13 22:32:44 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/13 22:40:00 by caupetit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "testopengl.h"
+#include "gfx_gl.h"
 #include "mdx.h"
 
 static int	data_type(int type)
@@ -34,7 +44,7 @@ static int	data_type(int type)
 	return (sizeof(uint32_t));
 }
 
-void		get_model_texture(t_mdxchunk *chunk, t_mdx *model)
+static void	get_model_texture(t_mdxchunk *chunk, t_mdx *model)
 {
 	t_mdxchunk	*header;
 	char		*tmp;
@@ -47,7 +57,7 @@ void		get_model_texture(t_mdxchunk *chunk, t_mdx *model)
 	model->chunks[_uvbs].data = header + 1;
 }
 
-void		get_model_geoset(t_mdxchunk *chunk, t_mdx *model)
+static void	get_model_geoset(t_mdxchunk *chunk, t_mdx *model)
 {
 	t_mdxchunk	*header;
 	int			jump;
@@ -60,7 +70,7 @@ void		get_model_geoset(t_mdxchunk *chunk, t_mdx *model)
 		jump = header->size * data_type(header->tag) + sizeof(*header);
 		model->chunks[i].nb = header->size;
 		model->chunks[i].data = header + 1;
-		if (header->tag == *(int *)MDX_MATRIX_INDEXES)
+		if (header->tag == *(uint32_t *)MDX_MATRIX_INDEXES)
 		{
 			get_model_texture((t_mdxchunk *)((char *)header + jump), model);
 			break ;
@@ -83,7 +93,7 @@ int			get_model_from_mdx(char *name, t_mdx *model)
 	model->model = file;
 	header = (t_mdxchunk *)file;
 	header = (t_mdxchunk *)(file + sizeof(uint32_t));
-	while (header->tag != *(int *)MDX_GEOSET)
+	while (header->tag != *(uint32_t *)MDX_GEOSET)
 	{
 		header = (t_mdxchunk *)((char *)(header + 1) + header->size);
 	}

@@ -3,66 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/27 12:20:40 by rduclos           #+#    #+#             */
-/*   Updated: 2014/04/16 19:51:33 by rduclos          ###   ########.fr       */
+/*   Created: 2013/11/22 15:39:03 by caupetit          #+#    #+#             */
+/*   Updated: 2014/03/08 22:26:48 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_itoa2(int nb)
+static int	ft_getsize(int n)
 {
-	char	*result;
 	int		i;
-	int		j;
-	int		neg;
 
 	i = 0;
-	j = 1;
-	neg = 1;
-	result = malloc(12);
-	if (nb < 0)
+	if (n < 0)
 	{
-		neg = -1;
-		nb *= (-1);
-	}
-	while ((nb / j) != 0)
-	{
-		result[i] = '0' + ((nb / j) % 10);
-		j *= 10;
+		n *= -1;
 		i++;
 	}
-	if (neg == -1)
-		result[i++] = '-';
-	result[i] = '\0';
-	return (result = ft_reverse_str(result));
+	while (n / 10 > 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (++i);
 }
 
-char			*ft_itoa(int nb)
+static char	*ft_reverse(char *s)
 {
-	char	*result;
+	char	*s1;
+	int		zs;
+	int		i;
 
-	if (nb == 0)
+	i = 0;
+	zs = ft_strlen(s);
+	s1 = ft_strdup(s);
+	if (*s == '-')
+		i++;
+	while (s[i])
 	{
-		result = malloc(2);
-		result = "0";
-		return (result);
+		s[i] = s1[zs - 1];
+		i++;
+		zs--;
 	}
-	//	else if (nb == -2147483648)
-	//{
-	//		result = malloc(12);
-	//		result = "-2147483648\0";
-	//		return (result);
-	//	}
-	else if (nb == 2147483647)
+	ft_strdel(&s1);
+	return (s);
+}
+
+char		*ft_itoa(int n)
+{
+	char	*s;
+	size_t	z;
+	int		i;
+
+	i = 0;
+	z = ft_getsize(n);
+	s = ft_strnew(ft_getsize(n));
+	if (!s)
+		return (NULL);
+	if (n == -2147483648)
+		return ("-2147483648");
+	if (n < 0)
 	{
-		result = malloc(12);
-		result = "2147483647\0";
-		return (result);
+		s[i++] = '-';
+		n *= -1;
 	}
-	else
-		result = ft_itoa2(nb);
-	return (result);
+	while (i < (int)z)
+	{
+		s[i++] = n % 10 + '0';
+		n = n / 10;
+	}
+	s[++i] = n % 10 + '0';
+	s = ft_reverse(s);
+	return (s);
 }

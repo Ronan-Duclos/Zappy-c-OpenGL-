@@ -6,20 +6,20 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 01:25:35 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/11 18:31:37 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/13 19:07:04 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <GLUT/glut.h>
-#include "testopengl.h"
+#include "gfx_gl.h"
 
-void	ft_color_pink(void)
+void	list_pink_init(void)
 {
 	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
 	static	GLfloat mat_diffuse[] = { 0.9, 0.0, 0.9, 1.0 };
 	static	GLfloat mat_ambient[] = { 0.5, 0.2, 0.5, 1.0 };
 
-	glNewList(g_env->colors[_pink], GL_COMPILE);
+	glNewList(g_env->lists[_pink], GL_COMPILE);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -27,13 +27,13 @@ void	ft_color_pink(void)
 	glEndList();
 }
 
-void	ft_color_cyan(void)
+void	list_cyan_init(void)
 {
 	static	GLfloat mat_specular[] = { 0.6, 0.6, 0.6, 1.0 };
 	static	GLfloat mat_diffuse[] = { 0.0, 0.9, 0.9, 1.0 };
 	static	GLfloat mat_ambient[] = { 0.2, 0.5, 0.5, 1.0 };
 
-	glNewList(g_env->colors[_cyan], GL_COMPILE);
+	glNewList(g_env->lists[_cyan], GL_COMPILE);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -41,13 +41,13 @@ void	ft_color_cyan(void)
 	glEndList();
 }
 
-void	ft_color_highlight(void)
+void	list_highlight_init(void)
 {
 	static	GLfloat mat_specular[] = { 0.4, 0.4, 0.4, 1.0 };
 	static	GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
 	static	GLfloat mat_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 
-	glNewList(g_env->colors[_highlight], GL_COMPILE);
+	glNewList(g_env->lists[_highlight], GL_COMPILE);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);

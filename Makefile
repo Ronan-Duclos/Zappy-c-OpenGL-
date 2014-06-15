@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/13 10:42:21 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/15 18:03:58 by tmielcza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,14 @@ SERV_NAME=serveur
 CLT_NAME=client
 GFX_NAME=gfx
 CC=	gcc
-FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations=
-FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa
+FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations
+FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L libpng-1.6.12 -I libpng-1.6.12/ -I/opt/X11/include/libpng15 -L/opt/X11/lib -lpng15 -L./zlib-1.2.8 -lz -I./zlib-1.2.8
 LIB=libft/
 INCLUDES=includes/
-CLT_H=$(INCLUDES)client.h
-SERV_H=$(INCLUDES)serveur.h
-GFX_H=$(INCLUDES)gfx.h \
-	$(INCLUDES)mdx.h
+# CLT_H=$(INCLUDES)client.h
+# SERV_H=$(INCLUDES)serveur.h
+# GFX_H=$(INCLUDES)gfx.h \
+#	$(INCLUDES)mdx.h
 DIROBJ=objs/
 DIRSRC=srcs/
 SERV_SRC=s_main.c \
@@ -44,7 +44,36 @@ CLT_SRC=c_main.c \
 GFX_SRC=g_ipmain.c \
 	g_ipv.c \
 	g_serv.c \
-	g_fds.c
+	g_fds.c \
+	g_cmd.c \
+	g_map.c \
+	g_connect.c \
+	g_colors1.c \
+	g_colors2.c \
+	g_env.c \
+	g_gl.c \
+	g_glut.c \
+	g_item_list.c \
+	g_light.c \
+	g_event.c \
+	g_input.c \
+	g_transpose.c \
+	g_vec.c \
+	g_time.c \
+	g_display.c \
+	g_display_map.c \
+	g_display_grid.c \
+	g_display_squares.c \
+	g_display_items.c \
+	g_anim.c \
+	g_bmp.c \
+	g_resources.c \
+	g_vbo.c \
+	g_parsemdx.c \
+	g_parse_png.c \
+	g_mdx_parser.c \
+	g_lists.c \
+	g_item_actions.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c
@@ -100,7 +129,7 @@ $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
 	@echo "--> Linking  $<"
-	@$(CC) $(FLAGS) $(FLAGS_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 $(DIROBJ)%.o: $(DIRSRC)common/%.c $(INCLUDES)

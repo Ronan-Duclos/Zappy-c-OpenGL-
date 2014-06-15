@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 11:56:32 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/15 23:11:02 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ enum				e_mat
 	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame, _player
 };
 
-typedef int			t_inv[NB_STONE + 2];
+enum				e_fuck_robin
+{
+	_itm_nb = 7
+};
+
+typedef int			t_inv[_itm_nb];
 
 typedef struct		s_actions
 {

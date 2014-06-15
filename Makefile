@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/13 23:42:42 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/15 01:58:58 by tmielcza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,9 @@ GFX_SRC=g_ipmain.c \
 	g_vbo.c \
 	g_parsemdx.c \
 	g_parse_png.c \
-	g_mdx_parser.c
+	g_mdx_parser.c \
+	g_lists.c \
+	g_item_actions.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c

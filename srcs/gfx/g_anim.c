@@ -6,11 +6,24 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 20:59:40 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 01:11:30 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "gfx_gl.h"
+
+t_anim	*new_anim(int frame, int time, void (*fct)(t_anim *))
+{
+	t_anim	*new;
+
+	new = (t_anim *)XV(NULL, malloc(sizeof(t_anim)), "malloc");
+	new->maxframe = time;
+	new->frame = frame;
+	new->dead = 0;
+	new->fct = fct;
+	return (new);
+}
 
 void	anim_rock(t_anim *a)
 {

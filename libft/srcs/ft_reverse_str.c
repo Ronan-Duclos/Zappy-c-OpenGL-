@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 11:25:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/04/16 19:48:25 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 19:54:44 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*ft_reverse_str(char *str)
 		j--;
 	}
 	reverse[i] = '\0';
-	str = ft_strcpy(str, reverse);
-	free(reverse);
-	return (str);
+	free(str);
+	return (reverse);
 }

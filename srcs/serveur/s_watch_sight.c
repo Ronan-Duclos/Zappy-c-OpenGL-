@@ -6,28 +6,31 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 19:25:34 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/14 20:10:40 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 18:15:18 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <serveur.h>
 #include <common.h>
 
-void	send_one_case(t_env *e, t_buf *bc, int x, int y)
+void	send_one_case(t_env *e, int cs, int x, int y)
 {
 	int		type;
 	int		quantity;
+	int		i;
 
 	type = -1;
-	while (++type < NB_STONE + 2)
+	i = 0;
+	while (++type < (NB_STONE + 2))
 	{
 		quantity = e->map[x][y][type];
 		while (quantity--)
 		{
-			tmp_to_bc(bc, type_to_str(type), 0);
-			if (type != NB_STONE + 1 && quantity != 0)
-				char_to_bc(bc, ' ');
-		}
+			if (i != 0)
+				char_to_bc(&e->users[cs]->buf_write, ' ');
+			tmp_to_bc(&e->users[cs]->buf_write, type_to_str(type), 0);
+			i++;
+		}		
 	}
 }
 

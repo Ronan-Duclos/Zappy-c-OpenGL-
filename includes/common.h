@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 23:16:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 19:42:15 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 # include "stdio.h"
 
-# define NB_STONE	6
-# define BC_SIZE	131072
-# define BC_SIZE2	BC_SIZE - 1
-
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
-
+# define NB_STONE			6
+# define BC_SIZE			8192
+# define BC_SIZE2			BC_SIZE - 1
 # define NORTH				0
 # define EAST				1
 # define SOUTH				2

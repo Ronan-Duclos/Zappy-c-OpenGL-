@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 22:42:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 17:34:01 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void				watch_sight(t_env *e, int cs);
 /*
 **	s_watch_sight
 */
-void	send_one_case(t_env *e, t_buf *bc, int x, int y);
+void	send_one_case(t_env *e, int cs, int x, int y);
 void	watch_south(t_env *e, int cs);
 void	watch_north(t_env *e, int cs);
 void	watch_east(t_env *e, int cs);

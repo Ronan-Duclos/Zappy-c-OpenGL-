@@ -6,13 +6,14 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 11:45:25 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 12:18:21 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>//
 #include <strings.h>
 #include "gfx_gl.h"
+
 
 static void	lists_init(t_env *env)
 {

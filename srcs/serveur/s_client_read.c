@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/13 11:45:41 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 20:48:48 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			if (e->users[cs]->gfx)
+			if (e->users[cs]->gfx.gfx)
 			{
 				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
 //				gfx_cmd

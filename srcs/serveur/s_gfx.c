@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 14:25:27 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 20:55:34 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,32 @@ void		gfx_bct(t_env *e, int cs, int x, int y)
 */
 void		gfx_mct(t_env *e, int cs)
 {
-	int		i;
-	int		j;
+	int			x;
 
-	i = -1;
-	while (++i < e->opt.x)
+	x = 0;
+	while (x < 20 && e->users[cs]->gfx.i < e->opt.x)
 	{
-		j = -1;
-		while (++j < e->opt.y)
-			gfx_bct(e, cs, i, j);
+		if (e->users[cs]->gfx.j >= e->opt.y)
+			e->users[cs]->gfx.i++;
+		if (e->users[cs]->gfx.j >= e->opt.y)
+			e->users[cs]->gfx.j = 0;
+		while (x < 20 && e->users[cs]->gfx.j < e->opt.y)
+		{
+			if (e->users[cs]->gfx.i < e->opt.x)
+				gfx_bct(e, cs, e->users[cs]->gfx.i, e->users[cs]->gfx.j);
+			x++;
+			e->users[cs]->gfx.j++;
+		}
+	}
+	if (x >= e->opt.x * e->opt.y)
+	{
+		e->users[cs]->ig = 1;
+		e->users[cs]->gfx.i = 0;
 	}
 }
 
 /*
-**	send team names
+**	Send team names
 */
 void		gfx_tna(t_env *e, int cs)
 {
@@ -102,7 +114,7 @@ void		gfx_pnw(t_env *e, int cs)
 	i = -1;
 	while (++i < e->srv.max_fd)
 	{
-		if (e->users[i]->type == FD_CLT && !e->users[i]->gfx)
+		if (e->users[i]->type == FD_CLT && !e->users[i]->gfx.gfx)
 		{
 			bzero(buf, BUF_SIZE);
 			sprintf(buf, "pnw #%d %d %d %d %d %s", i,
@@ -110,7 +122,7 @@ void		gfx_pnw(t_env *e, int cs)
 					e->users[i]->player.y,
 					e->users[i]->player.direc,
 					e->users[i]->player.lvl,
-					e->users[i]->player.team);	
+					e->users[i]->player.team);
 			tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 		}
 	}
@@ -141,21 +153,42 @@ void		gfx_ppo(t_env *e, int cs, int clt)
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
+void		gfx_end_init(t_env *e)
+{
+	t_glst	*tmp;
+
+	printf("in end\n");
+	tmp = e->srv.glst;
+	while (tmp)
+	{
+		if (!e->users[tmp->cs]->ig)
+			gfx_init(e, tmp->cs);
+		tmp = tmp->next;
+	}
+}
+
 void		gfx_init(t_env *e, int cs)
 {
-	t_glst	*new;
+	t_glst		*new;
 
-	new = NULL;
-	e->users[cs]->ig = 1;
-	e->users[cs]->gfx = 1;
-	e->users[cs]->player.team = NULL;
-	new = glst_new(cs);
-	glst_add(&e->srv.glst, new);
-	gfx_msz(e, cs);
-	gfx_sgt(e, cs);
-	gfx_mct(e, cs);
-	gfx_tna(e, cs);
-	gfx_pnw(e, cs);
-	gfx_enw(e, cs);
+	e->users[cs]->gfx.gfx = 1;
+	if (!e->users[cs]->gfx.state)
+	{
+		new = NULL;
+		e->users[cs]->player.team = NULL;
+		new = glst_new(cs);
+		glst_add(&e->srv.glst, new);
+		gfx_msz(e, cs);
+		gfx_sgt(e, cs);
+		e->users[cs]->gfx.state += 1;
+	}
+	if (e->users[cs]->gfx.state == 1 && !e->users[cs]->ig)
+		gfx_mct(e, cs);
+	else
+	{
+		gfx_tna(e, cs);
+		gfx_pnw(e, cs);
+		gfx_enw(e, cs);
+	}
 	glst_put(&e->srv.glst);
 }

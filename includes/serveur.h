@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 10:46:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/15 20:54:30 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,21 @@ typedef struct		s_opt
 	int				time;
 }					t_opt;
 
+typedef struct		s_gfx
+{
+	int		i;
+	int		j;
+	int		state;
+	int		gfx;
+}					t_gfx;
+
 typedef struct		s_user
 {
 	int				type;
-	int				gfx;
+	int				ig;
+	t_gfx			gfx;
 	t_buf			buf_read;
 	t_buf			buf_write;
-	int				ig;
 	t_player		player;
 	void			(*fct_read)();
 	void			(*fct_write)();
@@ -142,6 +150,7 @@ void				send_inv(t_env *e, int id);
 /*
 **	s_gfx.c
 */
+void				gfx_end_init(t_env *e);
 void				gfx_init(t_env *e, int cs);
 
 /*

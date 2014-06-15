@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 12:55:48 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 13:04:59 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	connect_map(char **tab, int *i)
 {
 	static int	step;
 
-	printf("In connect Map: I: %d\n", *i);
+	printf("In connect Map: tab[%d]: %s \n", *i, tab[*i]);
 	while (tab[*i] && !strncmp(tab[*i], "bct", 3))
 	{
 		printf("tab[%d]: %s\n", *i, tab[*i]);
@@ -72,7 +72,7 @@ static int	connect_map(char **tab, int *i)
 		*i += 1;
 	}
 	printf("total map: %d, step: %d\n", g_env->mapw * g_env->maph, step);
-	if (step == g_env->mapw * g_env->maph)
+	if (step >= g_env->mapw * g_env->maph)
 	{
 		step = 0;
 		return (1);
@@ -85,6 +85,7 @@ void		cmd_connect(t_ipv *ipv, char **tab)
 	static int	step;
 	int			i;
 
+	printf("In connect: step: %d\n", step);
 	i = 0;
 	if (!step)
 		step += connect_init(ipv, tab);

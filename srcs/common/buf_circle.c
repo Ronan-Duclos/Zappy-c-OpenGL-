@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/08 23:43:38 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 18:43:59 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				verify_bsn(t_buf *buf)
 
 	i = 0;
 	tmp = buf->head;
-	while (tmp[i] != '\0')
+	while (tmp + i != buf->head2)
 	{
 		if (tmp[i] == '\n')
 			return (1);

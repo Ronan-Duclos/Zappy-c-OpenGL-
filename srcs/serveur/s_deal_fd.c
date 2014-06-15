@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/13 11:58:58 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 20:53:49 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	destroy_clt(t_env *e, int sock)
 	e->users[sock]->buf_read_tmp[0] = '\0';
 	e->users[sock]->buf_write_tmp[0] = '\0';
 	e->users[sock]->ig = 0;
-	if (e->users[sock]->gfx)
+	if (e->users[sock]->gfx.gfx)
 		glst_del_one(&e->srv.glst, sock);
-	e->users[sock]->gfx = 0;
+	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
 	printf("Client disconnected : %d\n", sock);
 }
 
@@ -73,6 +73,7 @@ void	init_fd(t_env *e)
 {
 	int		i;
 
+	gfx_end_init(e);
 	i = 0;
 	FD_ZERO(&e->srv.fd_read);
 	FD_ZERO(&e->srv.fd_write);

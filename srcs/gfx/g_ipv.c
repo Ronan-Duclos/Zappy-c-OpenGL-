@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:12:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:54:45 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 12:24:58 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void		ipv_loop(t_ipv *i)
 {
 	while (i->state == _connect)
 	{
+		printf("00 i : %p \nread : %p\nwrite : %p\n", i, &i->fd_write, &i->fd_read );
 		fds_init(i);
+		printf("11 i : %p \nread : %p\nwrite : %p\n", i, &i->fd_write, &i->fd_read );
 		i->r = select(i->sock + 1, &i->fd_read, &i->fd_write, NULL, NULL);
+		printf("22 i : %p \nread : %p\nwrite : %p\n", i, &i->fd_write, &i->fd_read );
 		fds_check(i);
+		printf("AFTER FDS_CHECK i : %p, state: %d\n", i, i->state);
 	}
 }

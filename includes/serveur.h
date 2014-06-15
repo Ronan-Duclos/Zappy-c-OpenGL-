@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 17:34:01 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 23:30:34 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@
 # define NBR_CMD			13
 # define BUF_SIZE			4096
 
-typedef t_inv**		t_map;
+typedef struct		s_case
+{
+	t_inv			ground;
+	t_user			*player;
+}					t_case;
 
 typedef struct		s_glst
 {
@@ -63,6 +67,7 @@ typedef struct		s_opt
 typedef struct		s_user
 {
 	int				type;
+	int				sock;
 	int				gfx;
 	t_buf			buf_read;
 	t_buf			buf_write;
@@ -72,6 +77,7 @@ typedef struct		s_user
 	void			(*fct_write)();
 	char			buf_read_tmp[BC_SIZE + 1];
 	char			buf_write_tmp[BC_SIZE + 1];
+	struct s_user	next;
 }					t_user;
 
 typedef struct		s_srv
@@ -88,7 +94,7 @@ typedef struct		s_srv
 typedef struct		s_env
 {
 	t_opt			opt;
-	t_map			map;
+	t_case			**map;
 	t_srv			srv;
 	t_user			**users;
 }					t_env;

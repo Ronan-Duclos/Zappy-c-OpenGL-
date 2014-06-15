@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 19:42:15 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/15 23:30:35 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ enum				e_mat
 };
 
 typedef int			t_inv[NB_STONE + 2];
+
+
 
 typedef struct		s_actions
 {

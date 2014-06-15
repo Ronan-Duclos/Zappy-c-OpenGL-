@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 15:23:52 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 23:18:24 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <GLUT/glut.h>
 # include "mdx.h"
 # include "common.h"
+# include "libft.h"
 
 # define FLAG_LEFT		0x01
 # define FLAG_DOWN		0x02
@@ -39,6 +40,14 @@
 # define MENDIANE_PER_SQUARE	20
 # define PHIRAS_PER_SQUARE		15
 # define THYSTAME_PER_SQUARE	10
+
+# define FOOD_OFFSET			0
+# define LINEMATE_OFFSET		(FOOD_OFFSET + FOOD_PER_SQUARE)
+# define DERAUMERE_OFFSET		(LINEMATE_OFFSET + LINEMATE_PER_SQUARE)
+# define SIBUR_OFFSET			(DERAUMERE_OFFSET + DERAUMERE_PER_SQUARE)
+# define MENDIANE_OFFSET		(SIBUR_OFFSET + SIBUR_PER_SQUARE)
+# define PHIRAS_OFFSET			(MENDIANE_OFFSET + MENDIANE_PER_SQUARE)
+# define THYSTAME_OFFSET		(PHIRAS_OFFSET + PHIRAS_PER_SQUARE)
 
 # define SQUARE(v)		(v * v)
 # define MAG(va)		(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
@@ -65,11 +74,19 @@ typedef struct	s_moving
 	GLfloat		dir[3];
 }				t_moving;
 
+typedef struct	s_item
+{
+	GLuint		list;
+	GLuint		id_nb;
+	GLuint		vbo;
+	t_anim		*anim;
+}				t_item;
+
 struct			s_anim
 {
 	int			frame;
 	int			maxframe;
-	void		(*ft)(t_anim *);
+	void		(*fct)(t_anim *);
 	char		dead;
 };
 
@@ -78,6 +95,7 @@ typedef struct	s_square
 	char			tile;
 	unsigned char	grid[256];
 	int				itms[_itm_nb];
+	t_list			*anims;
 }					t_square;
 
 typedef struct	s_env
@@ -201,11 +219,12 @@ void			display_all_grid(void);
 **	g_display_items (1 static)
 */
 void			display_items(int sq);
-
+void			display_any(t_item *item);
 /*
 **	g_anim.c
 */
 void			anim_rock(t_anim *a);
+t_anim			*new_anim(int frame, int time, void (*fct)(t_anim *));
 
 /*
 **	g_bmp.c (1 static)
@@ -221,5 +240,17 @@ void			resources_load(t_env *e);
 **	g_vbo.c
 */
 void			ft_vbo_from_mdx(t_mdx *mdx);
+
+/*
+**	g_lists.c
+*/
+void			del_link(t_list *link, t_list **list);
+t_list			*new_link(t_list *next, void *content);
+
+/*
+**	g_item_actions.c
+*/
+t_item			*new_item(GLuint list, GLuint id_nb, GLuint vbo, t_anim *anim);
+void			take_stone(int square, int stone);
 
 #endif

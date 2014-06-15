@@ -6,12 +6,15 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:38:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/14 14:20:49 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 23:21:25 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONF_H
 # define CONF_H
+
+# define				NB_START_FOOD		10
+# define				TIME_FOOD			126
 
 # define				RATE_FOOD			80
 # define				RATE_LINEMATE		100

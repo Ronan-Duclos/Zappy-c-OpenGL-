@@ -6,14 +6,15 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 20:59:29 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/12 01:20:48 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/15 20:54:14 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PNG_H
-# define PNG_H
+#ifndef PNG2_H
+# define PNG2_H
 
 # include <GLUT/glut.h>
+# include "png.h"
 
 # define PNG_HEAD			"\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"
 
@@ -33,10 +34,10 @@
 
 typedef struct	s_png_header
 {
-	int			wid;
-	int			hgt;
-	char		bit_dpt;
-	char		col_type;
+	png_uint_32	wid;
+	png_uint_32	hgt;
+	int			bit_dpt;
+	int			col_type;
 	char		compr;
 	char		filtr;
 	char		inter;

@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/18 11:32:11 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/07 23:26:41 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/13 12:06:52 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC = 	ft_putchar.c ft_putstr.c ft_putnbr.c ft_strcat.c ft_strchr.c \
 		ft_lstadd.c ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstnew.c \
 		ft_putnbr_fd.c ft_nmatch.c ft_putlnbr.c ft_putpnbr.c \
 		ft_realloc_str.c ft_reverse_str.c ft_lstmap.c get_next_line.c \
-		ft_verify_word.c
+		ft_verify_word.c ft_tabdel.c
 OBJO=$(SRC:%.c=$(OBJDIR)%.o)
 i=10
 

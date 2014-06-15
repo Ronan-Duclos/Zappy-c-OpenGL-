@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/14 16:01:54 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/15 23:19:27 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ CLT_NAME=client
 GFX_NAME=gfx
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations
-FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa
+FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L libpng-1.6.12 -I libpng-1.6.12/ -I/opt/X11/include/libpng15 -L/opt/X11/lib -lpng15 -L./zlib-1.2.8 -lz -I./zlib-1.2.8
 LIB=libft/
 INCLUDES=includes/
-CLT_H=$(INCLUDES)client.h
-SERV_H=$(INCLUDES)serveur.h
-GFX_H=$(INCLUDES)gfx.h \
-	$(INCLUDES)mdx.h
+# CLT_H=$(INCLUDES)client.h
+# SERV_H=$(INCLUDES)serveur.h
+# GFX_H=$(INCLUDES)gfx.h \
+#	$(INCLUDES)mdx.h
 DIROBJ=objs/
 DIRSRC=srcs/
 SERV_SRC=s_main.c \
@@ -71,7 +71,9 @@ GFX_SRC=g_ipmain.c \
 	g_vbo.c \
 	g_parsemdx.c \
 	g_parse_png.c \
-	g_mdx_parser.c
+	g_mdx_parser.c \
+	g_lists.c \
+	g_item_actions.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c
@@ -127,7 +129,7 @@ $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
 	@echo "--> Linking  $<"
-	@$(CC) $(FLAGS) $(FLAGS_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 $(DIROBJ)%.o: $(DIRSRC)common/%.c $(INCLUDES)

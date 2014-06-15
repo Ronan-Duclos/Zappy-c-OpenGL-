@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 18:59:21 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/15 23:18:52 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,14 @@
 # define SOUTH				2
 # define WEST				3
 
-enum				e_stone
+enum				e_mat
 {
-	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame, _itm_nb
+	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame, _player
+};
+
+enum				e_fuck_robin
+{
+	_itm_nb = 7
 };
 
 typedef int			t_inv[_itm_nb];

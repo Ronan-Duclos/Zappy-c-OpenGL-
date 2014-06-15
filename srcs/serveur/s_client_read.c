@@ -3,10 +3,9 @@
 /*                                                        :::      ::::::::   */
 /*   s_client_read.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/15 20:48:48 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +29,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"incantation", 300, ma_fct_cmd},
 	{"fork", 42, ma_fct_cmd},
 	{"connect_nbr", 0, ma_fct_cmd},
-	{"-", 0, ma_fct_cmd}
+	{"-", 0, ma_fct_cmd},
 };
 
 void	ma_fct_cmd(t_env *e, int cs);
@@ -88,8 +87,10 @@ int		get_action_value(char *cmd, void (*fct_cmd)())
 	int	i;
 
 	i = 0;
-	while (ft_strcmp(cmd, g_tab[i].str) && i < NBR_CMD)
+	while (i < NBR_CMD && !ft_strequ(cmd, g_tab[i].str))
 		i++;
+	if (i == NBR_CMD)
+		printf("bad command : %s\n", cmd);
 	fct_cmd = g_tab[i].fct_cmd;
 	return (g_tab[i].value);
 	fct_cmd(NULL, 1);
@@ -111,19 +112,19 @@ void	queue_actions(t_env *e, int cs)
 	double	tmp_time;
 	char	**cmd;
 
-	i = 0;
 	time = ft_usec_time();
 	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
-	while (cmd[i])
+	i = -1;
+	while (cmd[++i])
 	{
 		tmp_time = get_action_value(cmd[i], e->users[cs]->player.acts[i].fct_cmd);
 		time += tmp_time * 1000000 / e->opt.time;
 		e->users[cs]->player.acts[i].time = time;
 		e->users[cs]->player.acts[i].cs = cs;
 		e->users[cs]->player.acts[i].fct_cmd = ma_fct_cmd;
-		i++;
 	}
 	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
+	ft_tabdel(&cmd);
 }
 
 void	make_cmd(t_env *e, int cs)

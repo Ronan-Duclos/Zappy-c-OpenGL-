@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:32:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 22:40:00 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 02:41:37 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	get_model_texture(t_mdxchunk *chunk, t_mdx *model)
 	header = (t_mdxchunk *)((char *)chunk + 10 * sizeof(uint32_t));
 	tmp = (char *)header;
 	header = (t_mdxchunk *)(tmp + (char)(*(int *)tmp * 6 * sizeof(float)) + sizeof(int) + 20);
-	header++;
 	model->chunks[_uvbs].nb = header->size;
 	model->chunks[_uvbs].data = header + 1;
 }

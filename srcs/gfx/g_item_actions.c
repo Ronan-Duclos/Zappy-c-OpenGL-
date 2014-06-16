@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/15 01:11:11 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/15 02:33:41 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/16 22:13:07 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		take_stone(int square, int stone)
 	}
 	glEndList();
 	anim = new_anim(0, 500, &anim_rock);
-	item = new_item(list, g_mdx.chunks[_pvtx].nb, g_env->vbo_indx, anim);
+	item = new_item(list, g_mdx.chunks[_pvtx].nb, g_env->vbos[_mod_stone][_vbo_indx], anim);
 	g_env->sq[square].anims = new_link(g_env->sq[square].anims, item);
 	g_env->sq[square].itms[stone]--;
 }

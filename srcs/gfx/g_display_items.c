@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:45:06 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/15 02:13:58 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/16 23:00:37 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ static void	display_egg(int i)
 {
 	glPushMatrix();
 	glTranslatef(1.9 / 16.0 * (i % 16) + 0.1, 0.0, 1.9 / 16 * (i / 16) + 0.1);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbo_indx);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[_mod_stone][_vbo_indx]);
 	glCallList(g_env->lists[_init_item_pos]);
-	glDrawElements(GL_TRIANGLES, g_mdx.chunks[_pvtx].nb, GL_UNSIGNED_SHORT, 0);
+	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_stone][_vbo_indx], GL_UNSIGNED_SHORT, 0);
+	printf("error = %d\n", g_env->vbosizes[_mod_stone][_vbo_indx]);
+//	printf("error = %d\n", glGetError());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glPopMatrix();
 }

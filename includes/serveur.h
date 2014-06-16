@@ -182,7 +182,7 @@ void				drop_item(t_env *e, int cs);
 void				watch_sight(t_env *e, int cs);
 void				my_fork(t_env *e, int cs);
 void				connect_nbr(t_env *e, int cs);
-
+void				incantation(t_env *e, int cs);
 /*
 **	s_watch_sight
 */

@@ -27,7 +27,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"pose", 7, drop_item},
 	{"expulse", 7, ma_fct_cmd},
 	{"broadcast", 7, ma_fct_cmd},
-	{"incantation", 300, ma_fct_cmd},
+	{"incantation", 300, incantation},
 	{"fork", 42, my_fork},
 	{"connect_nbr", 0, connect_nbr},
 	{"-", 0, ma_fct_cmd}

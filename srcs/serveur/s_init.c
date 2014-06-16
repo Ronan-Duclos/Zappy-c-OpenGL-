@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/13 11:59:02 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/16 23:10:28 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_player(t_env *e, int cs)
 	e->users[cs]->player.x = rand() % e->opt.x;
 	e->users[cs]->player.y = rand() % e->opt.y;
 	e->users[cs]->player.inv[_food] = NB_START_FOOD;
-	e->users[cs]->player.lvl = 1;
+	e->users[cs]->player.lvl = 8;
 	put_user_on_map(e, cs);
 }
 

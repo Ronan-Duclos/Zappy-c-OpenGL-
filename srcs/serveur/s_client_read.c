@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/14 20:41:52 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/16 23:11:16 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"inventaire", 1, send_inv},
 	{"prend", 7, take_item},
 	{"pose", 7, drop_item},
-	{"expulse", 7, ma_fct_cmd},
+	{"expulse", 7, expulse},
 	{"broadcast", 7, ma_fct_cmd},
 	{"incantation", 300, incantation},
 	{"fork", 42, my_fork},
@@ -33,7 +33,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"-", 0, ma_fct_cmd}
 };
 
-int		accept_gamer(t_env *e, int cs)
+int		accept_gamer(t_env *e, int cs, int nb_left)
 {
 	char		*tmp;
 	int			i;
@@ -45,7 +45,7 @@ int		accept_gamer(t_env *e, int cs)
 	e->users[cs]->player.cur_aread = 0;
 	while (++i < 10)
 		e->users[cs]->player.acts[i].time = 0;
-	tmp = ft_itoa(cs);
+	tmp = ft_itoa(nb_left);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);
 	tmp = ft_itoa(e->opt.x);
@@ -64,7 +64,7 @@ void	check_team(t_env *e, int cs)
 	int		j;
 	char	*tmp;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	tmp = ft_strchr(e->users[cs]->buf_read_tmp, '\n');
 	tmp[0] = '\0';
@@ -73,16 +73,13 @@ void	check_team(t_env *e, int cs)
 		gfx_init(e, cs);
 		return ;
 	}
-	while (e->opt.name[i] != NULL)
-	{
+	while (e->opt.name[++i] != NULL)
 		if (ft_strcmp(e->users[cs]->buf_read_tmp, e->team[i].name) == 0
 			&& e->team[i].member != 0)
 		{
-			j = accept_gamer(e, cs);
 			e->team[i].member--;
+			j = accept_gamer(e, cs, e->team[i].member);
 		}
-		i++;
-	}
 	if (j == 0)
 	{
 		close(cs);

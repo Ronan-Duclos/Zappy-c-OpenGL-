@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/13 22:44:03 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/16 22:16:54 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ GFX_H=$(INCLUDES)gfx.h \
 	$(INCLUDES)mdx.h
 DIROBJ=objs/
 DIRSRC=srcs/
-SERV_SRC=s_main.c \
+SERV_SRC=s_incantation.c \
+	s_main.c \
 	s_opt1.c \
 	s_gfx.c \
 	s_gfx_lst.c \
@@ -48,7 +49,7 @@ SERV_SRC=s_main.c \
 	my_time.c \
 	s_user_on_map.c \
 	s_connect_nbr.c \
-	s_incantation.c \
+	s_expulse.c \
 	s_fork.c
 CLT_SRC=c_main.c \
 	c_init.c \

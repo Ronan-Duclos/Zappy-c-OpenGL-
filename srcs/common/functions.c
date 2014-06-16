@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:35:59 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/14 20:10:51 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/16 23:31:49 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char		*type_to_str(int type)
 	else if (type == _mendiane)
 		return ("mendiane");
 	else if (type == _player)
-		return ("player");
+		return ("joueur");
 	return ("(error)");
 }
 

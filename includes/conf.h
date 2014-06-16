@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:38:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 12:28:43 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/16 23:29:13 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@
 # define				NB_SIBUR			14
 # define				NB_MENDIANE			20
 # define				NB_PHIRAS			25
-# define				NB_THYSTAME			30
+# define				NB_THYSTAME			60
 
 #endif

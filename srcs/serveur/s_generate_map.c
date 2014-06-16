@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 10:48:05 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/16 23:25:42 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				put_stones(t_env *env)
 			y = rand_int(0, env->opt.y);
 			c += put_one(env, type_rate, x, y);
 		}
-		printf("%d items de type %d ont ete poses.\n", c, type_rate[0]);
+		printf("%d %s ont ete poses.\n", c, type_to_str(type_rate[0]));
 		type_rate[0]++;
 	}
 	return (0);

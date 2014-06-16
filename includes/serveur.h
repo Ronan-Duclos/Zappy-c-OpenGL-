@@ -174,13 +174,14 @@ void				glst_put(t_glst **lst);
 /*
 **	Fonctions des différentes commandes client / server
 */
-
 void				move_forward(t_env *e, int cs);
 void				turn_right(t_env *e, int cs);
 void				turn_left(t_env *e, int cs);
 void				take_item(t_env *e, int cs);
 void				drop_item(t_env *e, int cs);
 void				watch_sight(t_env *e, int cs);
+void				my_fork(t_env *e, int cs);
+void				connect_nbr(t_env *e, int cs);
 
 /*
 **	s_watch_sight

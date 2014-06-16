@@ -28,8 +28,8 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"expulse", 7, ma_fct_cmd},
 	{"broadcast", 7, ma_fct_cmd},
 	{"incantation", 300, ma_fct_cmd},
-	{"fork", 42, ma_fct_cmd},
-	{"connect_nbr", 0, ma_fct_cmd},
+	{"fork", 42, my_fork},
+	{"connect_nbr", 0, connect_nbr},
 	{"-", 0, ma_fct_cmd}
 };
 

@@ -28,11 +28,11 @@ void			take_item(t_env *e, int cs)
 		tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 	else
 	{
-		if (e->map[player_x][player_y][resource] == 0)
+		if (e->map[player_x][player_y].ground[resource] == 0)
 			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 		else
 		{
-			e->map[player_x][player_y][resource]--;
+			e->map[player_x][player_y].ground[resource]--;
 			e->users[cs]->player.inv[resource]++;
 			tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
 		}

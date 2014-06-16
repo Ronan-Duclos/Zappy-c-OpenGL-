@@ -37,6 +37,7 @@ void	init_pos(t_env *e, int cs)
 	e->users[cs]->player.direc = rand() % 4;
 	e->users[cs]->player.x = rand() % e->opt.x;
 	e->users[cs]->player.y = rand() % e->opt.y;
+	put_user_on_map(e, cs);
 }
 
 void	init_users(t_env *e)

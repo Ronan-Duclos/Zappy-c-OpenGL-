@@ -42,12 +42,6 @@
 # define NBR_CMD			13
 # define BUF_SIZE			4096
 
-typedef struct		s_case
-{
-	t_inv			ground;
-	t_user			*player;
-}					t_case;
-
 typedef struct		s_glst
 {
 	int				cs;
@@ -77,8 +71,14 @@ typedef struct		s_user
 	void			(*fct_write)();
 	char			buf_read_tmp[BC_SIZE + 1];
 	char			buf_write_tmp[BC_SIZE + 1];
-	struct s_user	next;
+	struct s_user	*next;
 }					t_user;
+
+typedef struct		s_case
+{
+	t_inv			ground;
+	t_user			*player;
+}					t_case;
 
 typedef struct		s_srv
 {
@@ -110,7 +110,7 @@ typedef int			(*t_fct_opt)(char **, t_opt *);
 
 int					get_serv_opt(t_opt *opt, int argc, char **argv);
 
-t_map				generate_map(t_env *env, int x, int y);
+void				generate_map(t_env *env);
 
 /*
 **	s_client_read.c
@@ -144,6 +144,12 @@ void				init_serv(t_env *e);
 */
 void				run_serv(t_env *e);
 void				send_inv(t_env *e, int id);
+
+/*
+**	s_user_on_map.c
+*/
+void	put_user_on_map(t_env *e, int cs);
+void	remove_user_on_map(t_env *e, int cs);
 
 /*
 **	s_gfx.c

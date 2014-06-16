@@ -23,6 +23,7 @@ void	create_clt(t_env *e, int s)
 //	len = sizeof(clt); // lin
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
 	e->users[cs]->type = FD_CLT;
+	e->users[cs]->sock = cs;
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
 	bzero(&e->users[cs]->player, sizeof(t_player));
@@ -49,6 +50,7 @@ void	destroy_clt(t_env *e, int sock)
 	e->users[sock]->ig = 0;
 	if (e->users[sock]->gfx)
 		glst_del_one(&e->srv.glst, sock);
+	remove_user_on_map(e, sock);
 	e->users[sock]->gfx = 0;
 	printf("Client disconnected : %d\n", sock);
 }

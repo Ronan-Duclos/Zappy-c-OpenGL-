@@ -45,7 +45,8 @@ SERV_SRC=s_main.c \
 	s_watch_sight.c \
 	s_drop_item.c \
 	s_take_item.c \
-	my_time.c
+	my_time.c \
+	s_user_on_map.c
 CLT_SRC=c_main.c \
 	c_init.c \
 	c_opt.c \

@@ -32,8 +32,6 @@ enum				e_mat
 
 typedef int			t_inv[NB_STONE + 2];
 
-
-
 typedef struct		s_actions
 {
 	char			*cmd;

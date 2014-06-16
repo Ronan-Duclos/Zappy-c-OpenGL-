@@ -23,7 +23,7 @@ void	send_one_case(t_env *e, int cs, int x, int y)
 	i = 0;
 	while (++type < (NB_STONE + 2))
 	{
-		quantity = e->map[x][y][type];
+		quantity = e->map[x][y].ground[type];
 		while (quantity--)
 		{
 			if (i != 0)
@@ -47,5 +47,4 @@ void	watch_sight(t_env *e, int cs)
 	else if (e->users[cs]->player.direc == WEST)
 		watch_west(e, cs);
 	tmp_to_bc(&e->users[cs]->buf_write, "}", 1);
-	display_bc(&e->users[cs]->buf_write);
 }

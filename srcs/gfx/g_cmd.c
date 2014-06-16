@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/15 15:05:38 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 18:00:21 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void		cmd_msz(char *cmd)
 	int		i;
 
 	i = 3;
-	printf("in cmd_size: %s\n", &cmd[i]);
 	i += get_next_int(&g_env->mapw, &cmd[i]);
-	printf("in cmd_size: I:%d %s\n", i, &cmd[i]);
 	i += get_next_int(&g_env->maph, &cmd[i]);
-	printf("in cmd_size: X: %d, Y:%d\n", g_env->mapw, g_env->maph);
 	if (!g_env->sq)
 		map_init();
 }
@@ -108,9 +105,7 @@ void		cmd_check(t_ipv *ipv, char *buf)
 		char		**tab;
 
 		cmds_get(&tab, buf);
-		printf("begin cmd_check: ipv: %p, state: %d\n", ipv, ipv->state);
 		if (ipv->state == _connect)
 			cmd_connect(ipv, tab);
 		dtab_del(tab);
-		printf("end cmd_check: ipv: %p\n", ipv);
 }

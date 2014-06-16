@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 20:54:30 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 15:24:15 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <common.h>
 # include <conf.h>
 
-# define					OPT			"pxynct"
+# define OPT				"pxynct"
 
 # define FD_SRV				1
 # define FD_CLT				2
@@ -64,6 +64,7 @@ typedef struct		s_gfx
 {
 	int		i;
 	int		j;
+	int		x;
 	int		state;
 	int		gfx;
 }					t_gfx;
@@ -150,7 +151,21 @@ void				send_inv(t_env *e, int id);
 /*
 **	s_gfx.c
 */
+void				gfx_msz(t_env *e, int cs);
+void				gfx_sgt(t_env *e, int cs);
+void				gfx_bct(t_env *e, int cs, int x, int y);
+void				gfx_mct(t_env *e, int cs);
+void				gfx_tna(t_env *e, int cs);
+void				gfx_pnw(t_env *e, int cs, int i);
+void				gfx_enw(t_env *e, int cs);
+void				gfx_ppo(t_env *e, int cs, int clt);
+
+/*
+**	s_gfx_init.c
+*/
 void				gfx_end_init(t_env *e);
+void				gfx_init_send_tna(t_env *env, int cs);
+void				gfx_init_send_pnw(t_env *env, int cs);
 void				gfx_init(t_env *e, int cs);
 
 /*
@@ -160,4 +175,5 @@ t_glst				*glst_new(int cs);
 void				glst_add(t_glst **lst, t_glst *new);
 void				glst_del_one(t_glst **lst, int cs);
 void				glst_put(t_glst **lst);
+
 #endif

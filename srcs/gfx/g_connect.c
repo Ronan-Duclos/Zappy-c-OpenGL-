@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/15 13:04:59 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 18:00:01 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,26 @@ static int	connect_map(char **tab, int *i)
 	return (0);
 }
 
+int			connect_tnames(char **tab)
+{
+	int		i;
+	int		x;
+
+	x = 0;
+	i = -1;
+	while (tab[++i] && i < g_env->max_teams)
+	{
+		if (!strncmp(tab[i], "tna", 3))
+		{
+			g_env->tnames[i] = strdup(&tab[i][4]);
+			x++;
+		}
+	}
+	if (x)
+		return (1);
+	return (0);
+}
+
 void		cmd_connect(t_ipv *ipv, char **tab)
 {
 	static int	step;
@@ -94,7 +114,10 @@ void		cmd_connect(t_ipv *ipv, char **tab)
 	if (step == 2)
 		step += connect_map(tab, &i);
 	if (step == 3)
+		step += connect_tnames(tab);
+	if (step == 4)
 		ipv->state = _draw;
 	printf("sizes: X: %d, Y: %d, Time: %d\n", g_env->mapw, g_env->maph, g_env->time);
+	dtab_put(g_env->tnames);
 	printf("step: %d\n", step);
 }

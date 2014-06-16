@@ -1,4 +1,4 @@
-prefix=/nfs/zfs-student-4/users/2013/tmielcza/Sujets/UNIX II/Zappy/ZGFX
+prefix=/Volumes/Data/nfs/zfs-student-5/users/2013/caupetit/projets/c/unix2/zappy/taf/libpng-1.6.12
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/libpng16

@@ -36,7 +36,6 @@ void	send_one_case(t_env *e, int cs, int x, int y)
 
 void	watch_sight(t_env *e, int cs)
 {
-	printf("Start see : %d\n", e->users[cs]->player.direc);
 	char_to_bc(&e->users[cs]->buf_write, '{');
 	if (e->users[cs]->player.direc == NORTH)
 		watch_north(e, cs);

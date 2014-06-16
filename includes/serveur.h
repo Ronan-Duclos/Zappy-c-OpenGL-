@@ -135,7 +135,7 @@ void				check_fd(t_env *e);
 */
 int					init_sock(int port, t_env *e);
 void				init_inv(t_user *user);
-void				init_pos(t_env *e, int cs);
+void				init_player(t_env *e, int cs);
 void				init_users(t_env *e);
 void				init_serv(t_env *e);
 

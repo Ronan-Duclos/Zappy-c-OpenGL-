@@ -41,6 +41,7 @@ int		accept_gamer(t_env *e, int cs)
 	i = -1;
 	e->users[cs]->ig = 1;
 	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
+	init_player(e, cs);
 	e->users[cs]->player.cur_aread = 0;
 	while (++i < 10)
 		e->users[cs]->player.acts[i].time = 0;

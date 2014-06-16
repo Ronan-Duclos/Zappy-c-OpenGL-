@@ -32,11 +32,13 @@ int		init_sock(int port, t_env *e)
 	return (sock);
 }
 
-void	init_pos(t_env *e, int cs)
+void	init_player(t_env *e, int cs)
 {
 	e->users[cs]->player.direc = rand() % 4;
 	e->users[cs]->player.x = rand() % e->opt.x;
 	e->users[cs]->player.y = rand() % e->opt.y;
+	e->users[cs]->player.inv[_food] = NB_START_FOOD;
+	e->users[cs]->player.lvl = 1;
 	put_user_on_map(e, cs);
 }
 

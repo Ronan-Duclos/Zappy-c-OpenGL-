@@ -27,12 +27,6 @@ void	create_clt(t_env *e, int s)
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
 	bzero(&e->users[cs]->player, sizeof(t_player));
-	e->users[cs]->player.x = rand_int(0, e->opt.x);
-	e->users[cs]->player.y = rand_int(0, e->opt.y);
-	e->users[cs]->player.inv[_food] = NB_START_FOOD;
-	e->users[cs]->player.direc = rand_int(NORTH, WEST);
-	e->users[cs]->player.lvl = 8;
-	init_pos(e, cs);
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
 	printf("Client connected : %d\n", cs);
 }

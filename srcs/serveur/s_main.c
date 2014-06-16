@@ -33,10 +33,11 @@ void	run_serv(t_env *e)
 	}
 }
 
-int				my_init(t_env *env)
+int				my_init(t_env *e)
 {
-	init_users(env);
-	init_serv(env);
+	init_users(e);
+	init_serv(e);
+	init_team(e);
 	return (0);
 }
 

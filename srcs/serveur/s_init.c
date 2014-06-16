@@ -15,6 +15,25 @@
 #include "common.h"
 #include "libft.h"
 
+void	init_team(t_env *e)
+{
+	char	**team;
+	int		i;
+
+	i = 0;
+	team = e->opt.name;
+	while (team[i] != NULL)
+		i++;
+	e->team = (t_team *)malloc(sizeof(t_team) * (i));
+	i = 0;
+	while (team[i] != NULL)
+	{
+		e->team[i].name = team[i];
+		e->team[i].member = e->opt.client;
+		i++;
+	}
+}
+
 int		init_sock(int port, t_env *e)
 {
 	int					sock;

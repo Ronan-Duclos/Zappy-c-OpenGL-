@@ -75,8 +75,12 @@ void	check_team(t_env *e, int cs)
 	}
 	while (e->opt.name[i] != NULL)
 	{
-		if (ft_strcmp(e->users[cs]->buf_read_tmp, e->opt.name[i]) == 0)
+		if (ft_strcmp(e->users[cs]->buf_read_tmp, e->team[i].name) == 0
+			&& e->team[i].member != 0)
+		{
 			j = accept_gamer(e, cs);
+			e->team[i].member--;
+		}
 		i++;
 	}
 	if (j == 0)
@@ -188,7 +192,7 @@ void	client_read(t_env *e, int cs)
 			}
 			else
 			{
-				printf("Receive : %s", e->users[cs]->buf_read_tmp);
+				printf("Receive from %d : %s", cs, e->users[cs]->buf_read_tmp);
 				make_cmd(e, cs);
 			}
 			e->users[cs]->buf_read_tmp[0] = '\0';

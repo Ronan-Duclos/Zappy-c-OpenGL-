@@ -91,10 +91,17 @@ typedef struct		s_srv
 	fd_set			fd_write;
 }					t_srv;
 
+typedef struct		s_team
+{
+	char			*name;
+	int				member;
+}					t_team;
+
 typedef struct		s_env
 {
 	t_opt			opt;
 	t_case			**map;
+	t_team			*team;
 	t_srv			srv;
 	t_user			**users;
 }					t_env;
@@ -133,8 +140,8 @@ void				check_fd(t_env *e);
 /*
 **	s_init.c
 */
+void				init_team(t_env *e);
 int					init_sock(int port, t_env *e);
-void				init_inv(t_user *user);
 void				init_player(t_env *e, int cs);
 void				init_users(t_env *e);
 void				init_serv(t_env *e);

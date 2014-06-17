@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 17:07:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/17 19:41:44 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ void				my_fork(t_env *e, int cs);
 void				connect_nbr(t_env *e, int cs);
 void				incantation(t_env *e, int cs);
 void				expulse(t_env *e, int cs);
+void				broadcast(t_env *e, int cs);
 
 /*
 **	s_watch_sight

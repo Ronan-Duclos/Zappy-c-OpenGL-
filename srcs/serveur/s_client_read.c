@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 16:58:23 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/17 19:41:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"prend", 7, take_item},
 	{"pose", 7, drop_item},
 	{"expulse", 7, expulse},
-	{"broadcast", 7, ma_fct_cmd},
+	{"broadcast", 7, broadcast},
 	{"incantation", 300, incantation},
 	{"fork", 42, my_fork},
 	{"connect_nbr", 0, connect_nbr},

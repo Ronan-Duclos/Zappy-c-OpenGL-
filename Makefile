@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/17 18:52:34 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/17 19:24:22 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=Scappy
 SERV_NAME=serveur
 CLT_NAME=client
 GFX_NAME=gfx
-LIB_PNG_DIR=libpng-1.6.12
+LIB_PNG_DIR=libpng-1.6.12/
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations
 FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L./lib -I libpng-1.6.12/  -L./zlib-1.2.8 -lz -I./zlib-1.2.8
@@ -115,10 +115,11 @@ init:
 
 libpng:
 	-@if [ ! -d $(LIB_PNG_DIR) ] ; then \
-	 tar -xf libpng.tar.gz ; \
-	 cd $(LIB_PNG_DIR) && ./configure --prefix=$(PWD) ; \
-	 cd $(LIB_PNG_DIR) && make -s ; \
-	 cd $(LIB_PNG_DIR) && make install ; \
+	 tar -xf libpng-1.6.12.tar.gz ; \
+	 cd $(LIB_PNG_DIR) ; \
+	 ./configure --prefix=$(PWD) ; \
+	 make ; \
+	 make install ; \
 	fi ;
 
 end :
@@ -139,7 +140,7 @@ $(CLT_NAME): $(CLT_OBJ) $(COMMON_OBJ)
 
 $(GFX_NAME): $(GFX_OBJ)
 	@echo "==> Compiling $(GFX_NAME) : "
-	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ $(GFX_OBJ) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft -g
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ $(GFX_OBJ) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft -g -I$(LIB_PNG_DIR)
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
@@ -155,7 +156,8 @@ $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
 	@echo "--> Linking  $<"
-	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
+
 	@tput cuu1
 
 $(DIROBJ)%.o: $(DIRSRC)common/%.c $(INCLUDES)
@@ -170,10 +172,16 @@ clean:
 	@rm -f $(GFX_OBJ)
 	@rm -f $(COMMON_OBJ)
 
+delpng:
+	@cd $(LIB_PNG_DIR) && make uninstall
+	@rm -rf $(LIB_PNG_DIR)
+
 fclean: clean
 	@make -s -C libft $@
 	@rm -f $(CLT_NAME)
 	@rm -f $(SERV_NAME)
 	@rm -f $(GFX_NAME)
+
+ffclean: delpng fclean
 
 re: fclean all

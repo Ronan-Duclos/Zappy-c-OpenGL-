@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   g_ipmain.c                                         :+:      :+:    :+:   */
+/*   g_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:25:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 19:37:55 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/17 15:28:15 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/17 15:47:24 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include <strings.h>
 #include <time.h>
 #include "gfx.h"
+
+void		thread_ipv(t_ipv *ipv)
+{
+	pthread_create(&ipv->th, NULL, ipv_loop, ipv);
+}
 
 int			main(int ac, char **av)
 {
@@ -28,8 +33,9 @@ int			main(int ac, char **av)
 	gl_init();
 	light_init();
 	srv_connect(&ipv, av);
-	ipv_loop(&ipv);
+	thread_ipv(&ipv);
 	printf("starting drawing\n");
 	glutMainLoop();
+	pthread_exit(ipv.th);
 	return (0);
 }

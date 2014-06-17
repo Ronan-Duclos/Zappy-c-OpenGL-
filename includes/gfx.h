@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 19:28:09 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 15:40:59 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # include "gfx_gl.h"
 # include "common.h"
 # include <sys/select.h>
+# include <pthread.h>
 
 # define	BUF_SIZE	4096
 
 enum				e_states
 {
-	_connect, _draw
+	_connect, _draw, _end
 };
 
 typedef struct		s_fd
@@ -34,14 +35,15 @@ typedef struct		s_fd
 
 typedef struct		s_ipv
 {
-	int		port;
-	int		sock;
-	int		r;
-	int		state;
-	t_fd	fd;
-	fd_set	fd_read;
-	fd_set	fd_write;
-	t_env	env;
+	int			port;
+	int			sock;
+	pthread_t	th;
+	int			r;
+	int			state;
+	t_fd		fd;
+	fd_set		fd_read;
+	fd_set		fd_write;
+	t_env		env;
 }					t_ipv;
 
 /*
@@ -49,7 +51,7 @@ typedef struct		s_ipv
 */
 void		get_opt(t_ipv *ipv, int ac, char **av);
 void		ipv_init(t_ipv *ipv, int ac, char **av);
-void		ipv_loop(t_ipv *i);
+void		*ipv_loop(void *args);
 
 /*
 **	g_serv.c

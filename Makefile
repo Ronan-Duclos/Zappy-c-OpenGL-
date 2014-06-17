@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/16 11:47:37 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/17 15:28:39 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ CLT_SRC=c_main.c \
 	c_init.c \
 	c_opt.c \
 	c_tools1.c
-GFX_SRC=g_ipmain.c \
+GFX_SRC=g_main.c \
 	g_ipv.c \
 	g_serv.c \
 	g_fds.c \

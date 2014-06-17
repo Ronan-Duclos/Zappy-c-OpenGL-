@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:12:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 19:54:48 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 15:45:20 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@ void		ipv_init(t_ipv *ipv, int ac, char **av)
 	ipv->state = _connect;
 }
 
-void		ipv_loop(t_ipv *i)
+void		*ipv_loop(void *args)
 {
-	while (i->state == _connect)
+	t_ipv	*i;
+
+	i = (t_ipv *)args;
+	while (42)
 	{
 		fds_init(i);
 		i->r = select(i->sock + 1, &i->fd_read, &i->fd_write, NULL, NULL);
 		fds_check(i);
 	}
+	return (NULL);
 }
 

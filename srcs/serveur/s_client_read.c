@@ -126,6 +126,43 @@ char	*get_cmd_arg(char *cmd)
 	return (ret);
 }
 
+void	remove_actions(t_user *user, double time)
+{
+	t_actions	*acts;
+	int			read;
+	int			i;
+
+	i = -1;
+	acts = user->player.acts;
+	while (++i < 10)
+		acts[i].time = 0;
+	read = user->player.cur_aread;
+	acts[read].time = time;
+	acts[read].fct_cmd = g_tab[9].fct_cmd;
+	user->player.cur_awrite = (read + 1) % 10;
+}
+
+void	make_incantations(t_env *e, int cs, double time)
+{
+	int		x;
+	int		y;
+	t_user	*tmp;
+
+	x = e->users[cs]->player.x;
+	y = e->users[cs]->player.y;
+	tmp = e->map[x][y].player;
+	while (tmp != NULL)
+	{
+		if (e->users[cs]->player.lvl == tmp->player.lvl)
+		{
+			if (tmp->sock != cs)
+				remove_actions(tmp, time);
+			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	queue_actions(t_env *e, int cs)
 {
 	int		i;
@@ -147,6 +184,8 @@ void	queue_actions(t_env *e, int cs)
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
+			if (j == 9)
+				make_incantations(e, cs, time);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}

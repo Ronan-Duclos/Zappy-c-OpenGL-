@@ -58,6 +58,7 @@ void	init_player(t_env *e, int cs)
 	e->users[cs]->player.y = rand() % e->opt.y;
 	e->users[cs]->player.inv[_food] = NB_START_FOOD;
 	e->users[cs]->player.lvl = 8;
+	e->users[cs]->time = ft_usec_time();
 	put_user_on_map(e, cs);
 }
 

@@ -50,6 +50,7 @@ SERV_SRC=s_incantation.c \
 	s_user_on_map.c \
 	s_connect_nbr.c \
 	s_expulse.c \
+	s_less_hp.c \
 	s_fork.c
 CLT_SRC=c_main.c \
 	c_init.c \

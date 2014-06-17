@@ -55,17 +55,20 @@ void	check_actions(t_env *e, int cs)
 	double		now;
 	int			nb_acts;
 
-	nb_acts = e->users[cs]->player.cur_aread;
-	acts = &e->users[cs]->player.acts[nb_acts];
-	now = ft_usec_time();
-	if (acts->time != 0 && acts->time <= now)
+	if (less_hp(e, cs) != -1)
 	{
-		e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
-		if (e->users[cs]->player.cur_aread == 9)
-			e->users[cs]->player.cur_aread = 0;
-		else
-			e->users[cs]->player.cur_aread++;
-		acts->time = 0;
+		nb_acts = e->users[cs]->player.cur_aread;
+		acts = &e->users[cs]->player.acts[nb_acts];
+		now = ft_usec_time();
+		if (acts->time != 0 && acts->time <= now)
+		{
+			e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
+			if (e->users[cs]->player.cur_aread == 9)
+				e->users[cs]->player.cur_aread = 0;
+			else
+				e->users[cs]->player.cur_aread++;
+			acts->time = 0;
+		}
 	}
 }
 

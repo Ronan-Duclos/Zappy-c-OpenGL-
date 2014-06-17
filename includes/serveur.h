@@ -66,6 +66,7 @@ typedef struct		s_user
 	t_buf			buf_read;
 	t_buf			buf_write;
 	int				ig;
+	double			time; 
 	t_player		player;
 	void			(*fct_read)();
 	void			(*fct_write)();
@@ -170,6 +171,12 @@ t_glst				*glst_new(int cs);
 void				glst_add(t_glst **lst, t_glst *new);
 void				glst_del_one(t_glst **lst, int cs);
 void				glst_put(t_glst **lst);
+
+/*
+**	s_less_hp.c
+*/
+int					less_hp(t_env *e, int cs);
+
 
 /*
 **	Fonctions des différentes commandes client / server

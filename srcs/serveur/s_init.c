@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 20:21:04 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 16:53:25 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 #include "serveur.h"
 #include "common.h"
 #include "libft.h"
+
+void	init_team(t_env *e)
+{
+	char	**team;
+	int		i;
+
+	i = 0;
+	team = e->opt.name;
+	while (team[i] != NULL)
+		i++;
+	e->team = (t_team *)malloc(sizeof(t_team) * (i));
+	i = 0;
+	while (team[i] != NULL)
+	{
+		e->team[i].name = team[i];
+		e->team[i].member = e->opt.client;
+		i++;
+	}
+}
 
 int		init_sock(int port, t_env *e)
 {
@@ -30,6 +49,17 @@ int		init_sock(int port, t_env *e)
 	X(-1, listen(sock, 42), "listen");
 	e->srv.max = sock;
 	return (sock);
+}
+
+void	init_player(t_env *e, int cs)
+{
+	e->users[cs]->player.direc = rand() % 4;
+	e->users[cs]->player.x = rand() % e->opt.x;
+	e->users[cs]->player.y = rand() % e->opt.y;
+	e->users[cs]->player.inv[_food] = NB_START_FOOD;
+	e->users[cs]->player.lvl = 8;
+	e->users[cs]->time = ft_usec_time();
+	put_user_on_map(e, cs);
 }
 
 void	init_users(t_env *e)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_moove_forward.c                                  :+:      :+:    :+:   */
+/*   s_move_forward.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 18:24:39 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/12 18:34:42 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/16 21:10:29 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,24 @@
 
 t_ponf_cmd		g_tab[NBR_CMD];
 
-void			moove_forward(t_env *e, int cs)
+void			move_forward(t_env *e, int cs)
 {
-	if (e->users[cs]->player.direc == NORTH)
-		e->users[cs]->player.y = (e->users[cs]->player.y + 1) % e->opt.y;
-	if (e->users[cs]->player.direc == SOUTH)
-		e->users[cs]->player.y = (e->users[cs]->player.y - 1) % e->opt.y;
-	if (e->users[cs]->player.direc == EAST)
-		e->users[cs]->player.x = (e->users[cs]->player.x + 1) % e->opt.x;
-	if (e->users[cs]->player.direc == WEST)
-		e->users[cs]->player.x = (e->users[cs]->player.x - 1) % e->opt.x;
-	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
+	t_player		*p;
+
+	remove_user_on_map(e, cs);
+	p = &e->users[cs]->player;
+	if (p->x == 0 && p->direc == WEST)
+		p->x = e->opt.x;
+	if (p->y == 0 && p->direc == NORTH)
+		p->y = e->opt.y;
+	if (p->direc == NORTH)
+		p->y--;
+	else if (p->direc == SOUTH)
+		p->y = (p->y + 1) % e->opt.y;
+	else if (p->direc == EAST)
+		p->x = (p->x + 1) % e->opt.x;
+	else if (p->direc == WEST)
+		p->x--;
+	put_user_on_map(e, cs);
+	tmp_to_bc(&e->users[cs]->buf_write, "ok", 1);
 }

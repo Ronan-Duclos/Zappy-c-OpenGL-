@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/17 15:28:39 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/17 17:05:32 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ INCLUDES=includes/
 #	$(INCLUDES)mdx.h
 DIROBJ=objs/
 DIRSRC=srcs/
-SERV_SRC=s_main.c \
+SERV_SRC=s_incantation.c \
+	s_main.c \
 	s_opt1.c \
 	s_gfx.c \
 	s_gfx_init.c \
@@ -36,8 +37,22 @@ SERV_SRC=s_main.c \
 	s_client_write.c \
 	s_deal_fd.c \
 	s_inv.c \
-	s_moove_forward.c \
-	my_time.c
+	s_move_forward.c \
+	s_turn_right.c \
+	s_turn_left.c \
+	s_watch_east.c \
+	s_watch_west.c \
+	s_watch_north.c \
+	s_watch_south.c \
+	s_watch_sight.c \
+	s_drop_item.c \
+	s_take_item.c \
+	my_time.c \
+	s_user_on_map.c \
+	s_connect_nbr.c \
+	s_expulse.c \
+	s_less_hp.c \
+	s_fork.c
 CLT_SRC=c_main.c \
 	c_init.c \
 	c_opt.c \

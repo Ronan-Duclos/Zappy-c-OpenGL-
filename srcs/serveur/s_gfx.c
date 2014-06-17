@@ -47,13 +47,13 @@ void		gfx_bct(t_env *e, int cs, int x, int y)
 
 	ft_bzero(buf, BUF_SIZE);
 	sprintf(buf, "bct %d %d %d %d %d %d %d %d %d", x, y,
-			e->map[x][y][_food],
-			e->map[x][y][_linemate],
-			e->map[x][y][_deraumere],
-			e->map[x][y][_sibur],
-			e->map[x][y][_mendiane],
-			e->map[x][y][_phiras],
-			e->map[x][y][_thystame]);
+			e->map[x][y].ground[_food],
+			e->map[x][y].ground[_linemate],
+			e->map[x][y].ground[_deraumere],
+			e->map[x][y].ground[_sibur],
+			e->map[x][y].ground[_mendiane],
+			e->map[x][y].ground[_phiras],
+			e->map[x][y].ground[_thystame]);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 

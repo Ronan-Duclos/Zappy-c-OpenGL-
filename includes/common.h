@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 23:18:52 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 17:09:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 # include "stdio.h"
 
-# define NB_STONE	6
-# define BC_SIZE	131072
-# define BC_SIZE2	BC_SIZE - 1
-
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
-
+# define NB_STONE			6
+# define BC_SIZE			8192
+# define BC_SIZE2			BC_SIZE - 1
 # define NORTH				0
 # define EAST				1
 # define SOUTH				2
@@ -41,7 +39,7 @@ typedef int			t_inv[_itm_nb];
 
 typedef struct		s_actions
 {
-	int				cs;
+	char			*cmd;
 	double			time;
 	void			(*fct_cmd)();
 }					t_actions;
@@ -75,9 +73,11 @@ typedef struct		s_buf
 int		rand_int(int min, int max);
 int		get_vision_nb_cell(int level);
 char	*type_to_str(int id);
+int			str_to_type(char *str);
 /*
 **	buf_circle.c
 */
+void	display_bc(t_buf *bc);
 void	init_bc(t_buf *buf);
 int		verify_bsn(t_buf *buf);
 void	tmp_to_bc(t_buf *buf, char *str, int type);
@@ -92,6 +92,5 @@ void				*x_void(void *err, void *res, char *str, char *file);
 **  my_time.h
 */
 double      ft_usec_time(void);
-
 
 #endif

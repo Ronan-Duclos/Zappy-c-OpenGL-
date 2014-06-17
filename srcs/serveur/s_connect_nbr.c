@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_reverse_str.c                                   :+:      :+:    :+:   */
+/*   s_connect_nbr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/25 11:25:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/15 19:54:44 by rduclos          ###   ########.fr       */
+/*   Created: 2014/06/16 21:11:19 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/16 21:11:20 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <serveur.h>
+#include <common.h>
 #include "libft.h"
 
-char	*ft_reverse_str(char *str)
+void	connect_nbr(t_env *e, int cs)
 {
-	size_t	i;
-	size_t	j;
-	char	*reverse;
+	int		i;
+	char	*tmp;
 
-	i = 0;
-	j = ft_strlen(str) - 1;
-	reverse = (char *)malloc(sizeof(char) * j + 1);
-	while (i < ft_strlen(str))
-	{
-		reverse[i] = str[j];
-		i++;
-		j--;
-	}
-	reverse[i] = '\0';
-	free(str);
-	return (reverse);
+	i = -1;
+	while (e->opt.name[++i] != NULL)
+		if(ft_strcmp(e->team[i].name, e->users[cs]->player.team) == 0)
+		{
+			tmp = ft_itoa(e->team[i].member);
+			tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
+		}
 }

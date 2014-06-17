@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/15 23:16:35 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 16:56:03 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ void	create_clt(t_env *e, int s)
 //	len = sizeof(clt); // linux
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
 	e->users[cs]->type = FD_CLT;
+	e->users[cs]->sock = cs;
 	e->users[cs]->fct_read = client_read;
 	e->users[cs]->fct_write = client_write;
 	bzero(&e->users[cs]->player, sizeof(t_player));
-	e->users[cs]->player.x = rand_int(0, e->opt.x);
-	e->users[cs]->player.y = rand_int(0, e->opt.y);
-	e->users[cs]->player.inv[_food] = NB_START_FOOD;
-	e->users[cs]->player.direc = rand_int(NORTH, WEST);
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
 	printf("Client connected : %d\n", cs);
 }
@@ -48,6 +45,7 @@ void	destroy_clt(t_env *e, int sock)
 	if (e->users[sock]->gfx.gfx)
 		glst_del_one(&e->srv.glst, sock);
 	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
+	remove_user_on_map(e, sock);
 	printf("Client disconnected : %d\n", sock);
 }
 
@@ -57,17 +55,20 @@ void	check_actions(t_env *e, int cs)
 	double		now;
 	int			nb_acts;
 
-	nb_acts = e->users[cs]->player.cur_aread;
-	acts = &e->users[cs]->player.acts[nb_acts];
-	now = ft_usec_time();
-	if (acts->time != 0 && acts->time <= now)
+	if (less_hp(e, cs) != -1)
 	{
-		e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
-		if (e->users[cs]->player.cur_aread == 9)
-			e->users[cs]->player.cur_aread = 0;
-		else
-			e->users[cs]->player.cur_aread++;
-		acts->time = 0;
+		nb_acts = e->users[cs]->player.cur_aread;
+		acts = &e->users[cs]->player.acts[nb_acts];
+		now = ft_usec_time();
+		if (acts->time != 0 && acts->time <= now)
+		{
+			e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
+			if (e->users[cs]->player.cur_aread == 9)
+				e->users[cs]->player.cur_aread = 0;
+			else
+				e->users[cs]->player.cur_aread++;
+			acts->time = 0;
+		}
 	}
 }
 

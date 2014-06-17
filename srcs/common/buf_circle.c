@@ -6,12 +6,30 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/15 18:43:59 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 16:58:58 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 #include "libft.h"
+
+void			display_bc(t_buf *bc)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = bc->head;
+	while (tmp[i] != '\n')
+	{
+		ft_putchar(tmp[i]);
+		if (tmp + i == bc->end)
+			tmp = bc->start;
+		else
+			i++;
+	}
+	ft_putchar('\n');
+}
 
 void			init_bc(t_buf *buf)
 {

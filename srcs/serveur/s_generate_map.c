@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 15:01:31 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 16:54:28 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <libft.h>
 #include <common.h>
 #include <serveur.h>
-
 #include <stdio.h>
 
 int				put_one(t_env *env, int type_rate[2], int x, int y)
@@ -24,7 +23,7 @@ int				put_one(t_env *env, int type_rate[2], int x, int y)
 	r = 0;
 	if (type_rate[1] > 0 && rand_int(0, 100) <= type_rate[1])
 	{
-		env->map[x][y][type_rate[0]]++;
+		env->map[x][y].ground[type_rate[0]]++;
 		r++;
 		type_rate[1] -= 5;
 		if (x == 0)
@@ -86,36 +85,36 @@ int				put_stones(t_env *env)
 			env->map[x][y][type_rate[0]] = 1;
 			c += put_one(env, type_rate, x, y);
 		}
-		printf("%d items de type %d ont ete poses.\n", c, type_rate[0]);
+		printf("%d %s ont ete poses.\n", c, type_to_str(type_rate[0]));
 		type_rate[0]++;
 	}
 	return (0);
 }
 
-t_map			malloc_map(int x, int y)
+void			malloc_map(t_env *e)
 {
-	t_inv		**map;
 	int			i;
+	int			j;
 
-	map = (t_inv **)malloc(sizeof(t_inv *) * (x + 1));
+	e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.x));
 	i = 0;
-	while (i < x)
+	while (i < e->opt.x)
 	{
-		map[i] = (t_inv *)malloc(sizeof(t_inv) * (y + 1));
-		ft_bzero(map[i], sizeof(t_inv) * (y + 1));
+		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
+		j = 0;
+		while (j < e->opt.y)
+		{
+			ft_bzero(e->map[i][j].ground, sizeof(NB_STONE + 2));
+			e->map[i][j].player = NULL;
+			j++;
+		}
 		i++;
 	}
-	map[x] = NULL;
-	return ((t_map)map);
 }
 
-t_map			generate_map(t_env *env, int x, int y)
+void			generate_map(t_env *env)
 {
-	t_map		map;
-
-	map = (t_map)malloc_map(x, y);
-	env->map = map;
+	malloc_map(env);
 	put_stones(env);
 	printf("GENERATION MAP COMPLETE\n");
-	return (map);
 }

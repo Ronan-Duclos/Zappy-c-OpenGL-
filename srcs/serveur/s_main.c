@@ -33,10 +33,11 @@ void	run_serv(t_env *e)
 	}
 }
 
-int				my_init(t_env *env)
+int				my_init(t_env *e)
 {
-	init_users(env);
-	init_serv(env);
+	init_users(e);
+	init_serv(e);
+	init_team(e);
 	return (0);
 }
 
@@ -49,7 +50,7 @@ int				main(int argc, char **argv)
 	if (get_serv_opt(&env.opt, argc, argv))
 		return (1);
 	my_init(&env);
-	generate_map(&env, env.opt.x, env.opt.y);
+	generate_map(&env);
 	run_serv(&env);
 	return (0);
 }

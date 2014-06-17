@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 14:58:39 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/07 18:27:02 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/17 03:16:14 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ int				get_y(char **argv, t_opt *opt)
 	return (1);
 }
 
+int				check_name(int n, char **name)
+{
+	int			i;
+	int			j;
+
+	i = -1;
+	while (name[++i])
+	{
+		if (ft_strequ(name[i], "GRAPHIC"))
+			return (0);
+		j = -1;
+		while (name[++j])
+		{
+			if (i != j && ft_strequ(name[i], name[j]))
+				return (0);
+		}
+	}
+	return (n);
+}
+
 int				get_name(char **argv, t_opt *opt)
 {
 	int		n;
@@ -45,7 +65,7 @@ int				get_name(char **argv, t_opt *opt)
 	while (++i < n)
 		opt->name[i] = ft_strdup(argv[i + 1]);
 	opt->name[n] = NULL;
-	return (n);
+	return (check_name(n, opt->name));
 }
 
 int				check_opt(t_opt *opt)

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_vision.c                                         :+:      :+:    :+:   */
+/*   s_turn_left.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 11:57:59 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/11 12:00:59 by rbernand         ###   ########.fr       */
+/*   Created: 2014/06/12 18:24:39 by dmansour          #+#    #+#             */
+/*   Updated: 2014/06/13 22:45:18 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <serveur.h>
+#include <common.h>
 
-t_inv			*get_field_vision(t_env *env, t_player *p)
+t_ponf_cmd		g_tab[NBR_CMD];
+
+void			turn_left(t_env *e, int cs)
 {
-	t_inv		*field;
-	int			lvl;
-
-	lvl = p->lvl;
-	field = (t_inv *)malloc((get_vision_nb_cell(lvl) + 1) * sizeof(t_inv));
-
-	return (field);
+	if (e->users[cs]->player.direc == NORTH)
+		e->users[cs]->player.direc = WEST;
+	else
+		e->users[cs]->player.direc--;
+	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
 }

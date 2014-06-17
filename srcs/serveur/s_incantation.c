@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 23:49:47 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/17 17:55:25 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,25 @@ void			incantation(t_env *e, int cs)
 {
 	int		x;
 	int		y;
-	int		lvl;
+	int		*lvl;
 	int		good;
 	int		i;
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
-	lvl = e->users[cs]->player.lvl;
+	lvl = &e->users[cs]->player.lvl;
 	good = 1;
 	i = 0;
 	while (++i < NB_STONE + 1)
-		if (e->map[x][y].ground[i] < g_lvlup[lvl - 1][i])
+		if (e->map[x][y].ground[i] < g_lvlup[*lvl - 1][i])
+		{
+			printf("%s\n", type_to_str(i));
 			good = -1;
-	if (good != -1)
-		lvl = e->users[cs]->player.lvl++;
-	char_to_bc(&e->users[cs]->buf_write, '0' + lvl);
-	char_to_bc(&e->users[cs]->buf_write, '\n');
+		}
+	printf("%d\n", good);
+	if (good == 1)
+		(*lvl)++;
+	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
+	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
+	//Disperse stone
 }

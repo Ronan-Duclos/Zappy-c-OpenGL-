@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 06:03:06 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/17 15:02:23 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ typedef struct	s_env
 	int			mapw;
 	int			maph;
 	int			time;
+	char		**tnames;
+	int			max_teams;
 	t_square	*sq;
 	int			keys;
 	GLfloat		camtrans[3];

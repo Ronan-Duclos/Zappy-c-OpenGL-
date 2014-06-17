@@ -6,12 +6,15 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:30:03 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/11 16:31:25 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 11:11:12 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/select.h>
 #include "gfx.h"
+
+#include <stdio.h>
+#include <libft.h>
 
 void		fds_init(t_ipv *ipv)
 {

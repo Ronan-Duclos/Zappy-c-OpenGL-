@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 14:15:29 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 18:00:21 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void		cmd_msz(char *cmd)
 	int		i;
 
 	i = 3;
-	printf("in cmd_size: %s\n", &cmd[i]);
 	i += get_next_int(&g_env->mapw, &cmd[i]);
-	printf("in cmd_size: I:%d %s\n", i, &cmd[i]);
 	i += get_next_int(&g_env->maph, &cmd[i]);
-	printf("in cmd_size: X: %d, Y:%d\n", g_env->mapw, g_env->maph);
 	if (!g_env->sq)
 		map_init();
 }
@@ -75,16 +72,40 @@ void		cmd_bct(char *cmd)
 	i += get_next_int(&tab[6], &cmd[i]);
 }
 
+#include "libft.h" ////
+#include <string.h> ///
+
+static void	cmds_get(char ***tab, char *buf)
+{
+	static char	tmp[BUF_SIZE];
+	char		tmp2[BUF_SIZE];
+	char		*tmp3;
+
+	bzero(tmp2, BUF_SIZE);
+	if (*tmp)
+		strcpy(tmp2, tmp);
+	bzero(tmp, BUF_SIZE);
+	if (buf[strlen(buf) - 1] != '\n' && (tmp3 = strrchr(buf, '\n')))
+	{
+		strcpy(tmp, tmp3 + 1);
+		tmp3 = '\0';
+	}
+	*tab = ft_strsplit(buf, '\n');
+	if (*tmp2)
+	{
+		strcpy(&tmp2[strlen(tmp2)], *tab[0]);
+		tmp3 = strdup(tmp2);
+		free(*tab[0]);
+		*tab[0] = tmp3;
+	}
+}
+
 void		cmd_check(t_ipv *ipv, char *buf)
 {
-		char	**tab;
+		char		**tab;
 
-		tab = ft_strsplit(buf, '\n');
+		cmds_get(&tab, buf);
 		if (ipv->state == _connect)
 			cmd_connect(ipv, tab);
-//		if (ipv_state == _sizes)
-//			i += cmd_size(ipv, &tab[i]);
-		dtab_put(tab);
-		printf("in cmd_check: ipv->state: %d\n", ipv->state);
 		dtab_del(tab);
 }

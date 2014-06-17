@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/15 18:03:58 by tmielcza         ###   ########.fr        #
+#    Updated: 2014/06/16 11:47:37 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CLT_NAME=client
 GFX_NAME=gfx
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations
-FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L libpng-1.6.12 -I libpng-1.6.12/ -I/opt/X11/include/libpng15 -L/opt/X11/lib -lpng15 -L./zlib-1.2.8 -lz -I./zlib-1.2.8
+FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L./libpng-1.6.12/lib -I libpng-1.6.12/  -L./zlib-1.2.8 -lz -I./zlib-1.2.8
 LIB=libft/
 INCLUDES=includes/
 # CLT_H=$(INCLUDES)client.h
@@ -28,6 +28,7 @@ DIRSRC=srcs/
 SERV_SRC=s_main.c \
 	s_opt1.c \
 	s_gfx.c \
+	s_gfx_init.c \
 	s_gfx_lst.c \
 	s_generate_map.c \
 	s_init.c \
@@ -113,7 +114,7 @@ $(CLT_NAME): $(CLT_OBJ) $(COMMON_OBJ)
 
 $(GFX_NAME): $(GFX_OBJ)
 	@echo "==> Compiling $(GFX_NAME) : "
-	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ $(GFX_OBJ) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft
+	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ $(GFX_OBJ) $(COMMON_OBJ) -I$(INCLUDES) -L$(LIB) -lft -g
 	@tput cuu1
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 

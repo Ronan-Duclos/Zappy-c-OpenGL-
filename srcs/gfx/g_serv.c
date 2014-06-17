@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:24:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 12:25:31 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 17:56:09 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ void		srv_read(t_ipv *ipv)
 	char	buf[BUF_SIZE];
 	int		r;
 
+	bzero(buf, BUF_SIZE);
 	X(-1, (r = recv(ipv->sock, buf, BUF_SIZE - 1, 0)), "srv_read");
 	buf[r] = '\0';
 	if (!r)
 		exit(0);
-	tmp_to_bc(&ipv->fd.buf_read, buf, 0);
-	if (verify_bsn(&ipv->fd.buf_read) == 1)
-	{
-		bzero(buf, BUF_SIZE);
-		bc_to_tmp(&ipv->fd.buf_read, buf);
+//	tmp_to_bc(&ipv->fd.buf_read, buf, 0);
+//	if (verify_bsn(&ipv->fd.buf_read) == 1)
+//	{
+//		bzero(buf, BUF_SIZE);
+//		bc_to_tmp(&ipv->fd.buf_read, buf);
 		cmd_check(ipv, buf);
-		printf("after cmd check\n");
-	}
+//	}
 }
 
 void		srv_write(t_ipv *ipv)

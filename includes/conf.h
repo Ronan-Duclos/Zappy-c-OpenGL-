@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:38:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 12:28:43 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/15 23:21:25 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define				RATE_PHIRAS			60
 # define				RATE_THYSTAME		50
 
-# define				NB_FOOD				25
+# define				NB_FOOD				8
 # define				NB_LINEMATE			10
 # define				NB_DERAUMERE		12
 # define				NB_SIBUR			14

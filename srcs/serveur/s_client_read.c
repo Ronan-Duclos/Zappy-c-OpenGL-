@@ -5,8 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/15 22:58:05 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/15 22:58:10 by tmielcza         ###   ########.fr       */
+/*   Created: 2014/05/23 20:06:47 by rduclos           #+#    #+#             */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +156,7 @@ void	client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			if (e->users[cs]->gfx)
+			if (e->users[cs]->gfx.gfx)
 			{
 				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
 //				gfx_cmd

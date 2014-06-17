@@ -6,13 +6,14 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/15 02:22:33 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/16 15:01:51 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>//
+#include <sys/resource.h>
 #include <strings.h>
 #include "gfx_gl.h"
+
 
 static void	lists_init(t_env *env)
 {
@@ -22,12 +23,23 @@ static void	lists_init(t_env *env)
 	(void)env;
 	i = 0;
 	val = glGenLists(_lists_nb);
-	printf("val glGenList: %d\n", val);
 	while (i < _lists_nb)
 	{
 		g_env->lists[i] = val + i;
 		i++;
 	}
+}
+
+static void	names_init(t_env *env)
+{
+	struct rlimit	rlp;
+	int				j;
+
+	X(-1, getrlimit(RLIMIT_NOFILE, &rlp), "getrlimit");
+	j = rlp.rlim_cur;
+	env->max_teams = j;
+	env->tnames = (char **)XV(NULL, malloc(sizeof(char *) * j), "names_init");
+	bzero(env->tnames, sizeof(char *) * j);
 }
 
 void		env_init(t_env *env)
@@ -38,6 +50,7 @@ void		env_init(t_env *env)
 	env->camtrans[0] = -0.5;
 	env->camtrans[1] = -10.1;
 	env->camtrans[2] = -30.0;
+	names_init(env);
 	lists_init(env);
 	list_item_init(env);
 	list_white_init();

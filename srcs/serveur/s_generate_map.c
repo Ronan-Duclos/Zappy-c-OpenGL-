@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/16 21:47:16 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/17 15:01:31 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ int				put_stones(t_env *env)
 	type_rate[0] = 0;
 	while (type_rate[0] < NB_STONE + 1)
 	{
-		quantity = get_quantity_by_type(env, type_rate[0]);
-		c = 0;
+		quantity = get_quantity_by_type(env, type_rate[0]) + 1;
+		c = 1;
 		while (quantity--)
 		{
 			type_rate[1] = base_rate[type_rate[0]];
 			x = rand_int(0, env->opt.x);
 			y = rand_int(0, env->opt.y);
+			env->map[x][y][type_rate[0]] = 1;
 			c += put_one(env, type_rate, x, y);
 		}
 		printf("%d items de type %d ont ete poses.\n", c, type_rate[0]);

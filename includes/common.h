@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 23:11:02 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/15 23:18:52 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "stdio.h"
 
 # define NB_STONE	6
-# define BC_SIZE	40960
+# define BC_SIZE	131072
 # define BC_SIZE2	BC_SIZE - 1
 
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))

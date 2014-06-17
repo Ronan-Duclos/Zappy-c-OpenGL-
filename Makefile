@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/17 17:05:32 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/17 18:52:34 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,12 @@ NAME=Scappy
 SERV_NAME=serveur
 CLT_NAME=client
 GFX_NAME=gfx
+LIB_PNG_DIR=libpng-1.6.12
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations
-FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L./libpng-1.6.12/lib -I libpng-1.6.12/  -L./zlib-1.2.8 -lz -I./zlib-1.2.8
+FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L./lib -I libpng-1.6.12/  -L./zlib-1.2.8 -lz -I./zlib-1.2.8
 LIB=libft/
-INCLUDES=includes/
+INCLUDES=include/
 # CLT_H=$(INCLUDES)client.h
 # SERV_H=$(INCLUDES)serveur.h
 # GFX_H=$(INCLUDES)gfx.h \
@@ -101,19 +102,28 @@ SERV_SRC2=$(SERV_SRC:%.c=$(SERV_NAME)/%.c)
 OBJ_SRC2=$(CLT_SRC:%.c=$(CLT_NAME)/%.c)
 GFX_SRC2=$(COMMON_SRC:%.c=$(SERV_NAME)/%.c)
 COMMON_OBJ=$(COMMON_SRC:%.c=$(DIROBJ)%.o)
+PWD:=$(shell pwd)
 
-all: init $(NAME) end
+all: libpng init $(NAME) end
 
 $(NAME): $(SERV_NAME) $(CLT_NAME) $(GFX_NAME)
-
-end :
-	@echo "\033[2K\t\033[1;36mScappy\t\t\033[0;32m[Ready]\033[0m"
-	@cat data/end.txt
 
 init:
 	@cat data/intro.txt
 	@make -s -C $(LIB)
 	@tput init
+
+libpng:
+	-@if [ ! -d $(LIB_PNG_DIR) ] ; then \
+	 tar -xf libpng.tar.gz ; \
+	 cd $(LIB_PNG_DIR) && ./configure --prefix=$(PWD) ; \
+	 cd $(LIB_PNG_DIR) && make -s ; \
+	 cd $(LIB_PNG_DIR) && make install ; \
+	fi ;
+
+end :
+	@echo "\033[2K\t\033[1;36mScappy\t\t\033[0;32m[Ready]\033[0m"
+	@cat data/end.txt
 
 $(SERV_NAME): $(SERV_OBJ) $(COMMON_OBJ)
 	@echo "==> Compiling $(SERV_NAME) : "

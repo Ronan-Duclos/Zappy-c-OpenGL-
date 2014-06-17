@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 23:38:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 23:43:57 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 14:40:13 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void		map_init(void)
 		while (++j < CASE_MAX_ITEMS - 1)
 			g_env->sq[i].grid[j] = j;
 		rand_itm_pos(&g_env->sq[i]);
+		g_env->sq[i].tile = rand() % 8;
 	}
 }

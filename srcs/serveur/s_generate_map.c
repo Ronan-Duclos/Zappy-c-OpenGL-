@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 10:48:05 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/16 21:47:16 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,3 @@ t_map			generate_map(t_env *env, int x, int y)
 	printf("GENERATION MAP COMPLETE\n");
 	return (map);
 }
-

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/15 02:07:03 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/17 01:22:59 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,30 @@ enum			e_colors
 	_cyan,
 	_highlight,
 	_init_item_pos,
+	_init_plant_pos,
 	_lists_nb
+};
+
+enum			e_textures
+{
+	_grass,
+	_plant
+};
+
+enum			e_models
+{
+	_mod_stone,
+	_mod_plant,
+	_mod_nb
+};
+
+enum			e_vbos
+{
+	_vbo_vrtx,
+	_vbo_nrms,
+	_vbo_texp,
+	_vbo_indx,
+	_vbo_nb
 };
 
 typedef struct	s_anim	t_anim;
@@ -104,20 +127,19 @@ typedef struct	s_env
 	int			maph;
 	int			time;
 	t_square	*sq;
-	GLuint		maptex;
-	GLuint		egg[16];
 	int			keys;
 	GLfloat		camtrans[3];
 	GLuint		lists[_lists_nb];
-	GLuint		vbo_vrtx;
-	GLuint		vbo_nrms;
-	GLuint		vbo_indx;
+	GLuint		vbos[_mod_nb][_vbo_nb];
+	int			vbosizes[_mod_nb][_vbo_nb];
 	GLdouble	winx;
 	GLdouble	winy;
 	GLdouble	realpos00[3];
 	GLdouble	realpos0y[3];
 	GLdouble	realposxy[3];
 	int			selectcase;
+	GLuint		testex;
+	GLuint		maptex;
 }				t_env;
 
 t_env				*g_env;
@@ -239,7 +261,7 @@ void			resources_load(t_env *e);
 /*
 **	g_vbo.c
 */
-void			ft_vbo_from_mdx(t_mdx *mdx);
+void			ft_vbo_from_mdx(t_mdx *mdx, GLuint *vbo, int *size);
 
 /*
 **	g_lists.c

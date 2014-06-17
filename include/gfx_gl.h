@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 15:02:23 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 23:11:05 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,17 @@ typedef struct	s_item
 	t_anim		*anim;
 }				t_item;
 
+typedef struct	s_npc
+{
+	int			x;
+	int			y;
+	t_inv		inv;
+	int			dir;
+	int			id;
+	int			lvl;
+	char		*team;
+}				t_npc;
+
 struct			s_anim
 {
 	int			frame;
@@ -142,6 +153,7 @@ typedef struct	s_env
 	int			selectcase;
 	GLuint		testex;
 	GLuint		maptex;
+	t_npc		*npc;
 }				t_env;
 
 t_env				*g_env;

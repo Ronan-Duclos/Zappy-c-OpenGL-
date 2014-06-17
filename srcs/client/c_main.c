@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/12 12:09:54 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 22:49:37 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		create_clt(char *addr, int port)
 	return (s);
 }
 
-void	check_actions(t_env *e)
+void	check_fd(t_env *e)
 {
 	while (e->r != 0)
 	{

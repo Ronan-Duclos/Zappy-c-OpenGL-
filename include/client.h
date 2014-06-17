@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 21:26:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/17 22:41:25 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int						get_clt_opt(t_opt *opt, int argc, char **argv);
 **	c_client.c
 */
 int						create_clt(char *addr, int port);
-void					check_actions(t_env *e);
+void					check_fd(t_env *e);
 void					do_select(t_env *e);
 void					run_clt(t_env *e);
 /*

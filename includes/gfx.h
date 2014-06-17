@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 16:31:41 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/16 19:28:09 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_ipv
 	t_fd	fd;
 	fd_set	fd_read;
 	fd_set	fd_write;
+	t_env	env;
 }					t_ipv;
 
 /*

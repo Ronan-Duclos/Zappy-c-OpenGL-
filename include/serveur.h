@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 19:41:44 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/17 20:53:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,19 @@ typedef struct		s_gfx
 	int		state;
 	int		gfx;
 }					t_gfx;
+
+typedef struct		s_player
+{
+	char			*team;
+	t_inv			inv;
+	t_actions		acts[10];
+	int				cur_aread;
+	int				cur_awrite;
+	int				lvl;
+	int				x;
+	int				y;
+	int				direc;
+}					t_player;
 
 typedef struct		s_user
 {

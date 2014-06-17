@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 17:09:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/17 20:53:01 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,6 @@ typedef struct		s_actions
 	double			time;
 	void			(*fct_cmd)();
 }					t_actions;
-
-typedef struct		s_player
-{
-	char			*team;
-	t_inv			inv;
-	t_actions		acts[10];
-	int				cur_aread;
-	int				cur_awrite;
-	int				lvl;
-	int				x;
-	int				y;
-	int				direc;
-}					t_player;
 
 typedef struct		s_buf
 {

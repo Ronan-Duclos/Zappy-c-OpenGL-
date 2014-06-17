@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/13 10:51:16 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/17 21:26:37 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ typedef struct			s_opt
 }						t_opt;
 
 typedef int				(*t_fct_opt)(char **, t_opt *);
+
+typedef struct		s_map
+{
+	t_inv			ground;
+}					t_map;
+
+typedef struct		s_player
+{
+	char			*team;
+	t_inv			inv;
+	int				lvl;
+	t_map			**view;
+	t_actions		acts[10];
+	int				cur_aread;
+	int				cur_awrite;
+}					t_player;
 
 struct					s_user
 {

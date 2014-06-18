@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 15:24:59 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 23:05:44 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,21 @@ void		gfx_ppo(t_env *e, int cs, int clt)
 			e->users[clt]->player.y,
 			e->users[clt]->player.direc);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send all gfx clients the function as 
+**	void (*fu)(t_env *e, int gfx_cs, int clt)
+**	cs is id/socket of client you want to send infos.
+*/
+void		gfx_send_npc(t_env *e, int cs, void (*fu)())
+{
+	t_glst	*tmp;
+
+	tmp = e->srv.glst;
+	while (tmp)
+	{
+		fu(e, tmp->cs, cs);
+		tmp = tmp->next;
+	}
 }

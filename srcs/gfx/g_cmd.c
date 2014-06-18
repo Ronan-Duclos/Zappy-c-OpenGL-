@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 17:44:52 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 22:46:49 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,40 @@ void		cmd_pnw(char *cmd)
 	int		i;
 	int		tmp;
 
+	printf("cmd_pnw: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
 	i += get_next_int(&tmp, &cmd[i]);
-	if (tmp >= NPCS_MAX)
+	if (tmp >= NPCS_MAX || g_env->npc[tmp].id)
 		return ;
+	g_env->npc[tmp].id = tmp;
 	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].y, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].dir, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
 	i++;
 	g_env->npc[tmp].team = strdup(&cmd[i]);
+	printf("okayy\n");
+}
+
+void		cmd_ppo(char *cmd)
+{
+	int		i;
+	int		npc;
+
+	printf("cmd_ppo: %s\n", cmd);//
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].dir, &cmd[i]);
+	printf("cmd_ppo: %d, %d %d, %d", npc,
+		   g_env->npc[npc].x,
+		   g_env->npc[npc].y,
+		   g_env->npc[npc].dir);//
 }

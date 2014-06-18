@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 23:38:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 15:01:53 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 23:04:44 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	rand_itm_pos(t_square *sq)
 	i = -1;
 	while (++i < 200)
 	{
-		one = rand_int(0, 255);
-		two = rand_int(0, 255);
+		one = rand_int(1, 255);
+		two = rand_int(1, 255);
 		tmp = sq->grid[one];
 		sq->grid[one] = sq->grid[two];
 		sq->grid[two] = tmp;

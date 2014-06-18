@@ -35,7 +35,7 @@ enum				e_fuck_robin
 	_itm_nb = 7
 };
 
-typedef int			t_inv[_itm_nb];
+typedef int			t_inv[_itm_nb + 1];
 
 typedef struct		s_actions
 {

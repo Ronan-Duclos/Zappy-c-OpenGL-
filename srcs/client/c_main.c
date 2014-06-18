@@ -73,7 +73,7 @@ void	run_clt(t_env *e)
 			FD_ZERO(&e->fd_read);
 			FD_ZERO(&e->fd_write);
 			do_select(e);
-			check_actions(e);
+			check_fd(e);
 		}
 		close(e->user->sock);
 	}
@@ -85,6 +85,7 @@ int		main(int ac, char **av)
 
 	if (get_clt_opt(&e.me, ac, av))
 		return(1);
+	e.av = av;
 	run_clt(&e);
 	return (0);
 }

@@ -41,6 +41,8 @@ typedef struct			s_opt
 	int					port;
 	char				*name;
 	char				*host;
+	int					x;
+	int					y;
 }						t_opt;
 
 typedef int				(*t_fct_opt)(char **, t_opt *);
@@ -50,12 +52,19 @@ typedef struct		s_map
 	t_inv			ground;
 }					t_map;
 
+typedef struct		s_ia
+{
+	t_inv			inv;
+	int				lvl;
+	int				x;
+	int				y;
+	t_map			**view;
+}					t_ia;
+
 typedef struct		s_player
 {
 	char			*team;
-	t_inv			inv;
-	int				lvl;
-	t_map			**view;
+	t_ia			ia;
 	t_actions		acts[10];
 	int				cur_aread;
 	int				cur_awrite;
@@ -76,6 +85,7 @@ struct					s_env
 {
 	t_opt				me;
 	t_user				*user;
+	char				**av;
 	int					r;
 	fd_set				fd_read;
 	fd_set				fd_write;

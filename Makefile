@@ -109,7 +109,7 @@ PWD:=$(shell pwd)
 
 all: libpng init $(NAME) end
 
-$(NAME): $(SERV_NAME) $(CLT_NAME) #$(GFX_NAME)#
+$(NAME): $(SERV_NAME) $(CLT_NAME) $(GFX_NAME)
 
 init:
 	@cat data/intro.txt

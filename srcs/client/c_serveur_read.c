@@ -86,7 +86,7 @@ void	make_cmd(t_env *e)
 		queue_actions(e);
 }
 
-voidq	rcv_serveur(t_env *e)
+void	rcv_serveur(t_env *e)
 {
 	int		r;
 

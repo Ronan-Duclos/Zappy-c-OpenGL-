@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 21:50:37 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/18 21:56:04 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int			get_dir_broadcast(t_env *env, t_player *p1, t_player *p2)
 	res = dx == dy && dx < 0 ? 6 : res;
 	res = dx == -dy && dx > 0 ? 4 : res;
 	res = dx == -dy && dx < 0 ? 8 : res;
-	if (dx == dy || ds == -dy)
+	if (dx == dy || dx == -dy)
 		return (res > 8 ? res - 8 : res);
 	res = abs(dx) > abs(dy) && dx > 0 ? 3 : res;
 	res = abs(dx) > abs(dy) && dx < 0 ? 7 : res;

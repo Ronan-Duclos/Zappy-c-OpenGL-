@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:49 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 21:11:49 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 22:04:32 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ void	my_fork(t_env *e, int cs)
 			else
 				tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 		}
-
 }

@@ -6,15 +6,13 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 19:41:22 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/18 22:15:34 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "serveur.h"
 #include "libft.h"
-
-void	ma_fct_cmd(t_env *e, int cs);
 
 t_ponf_cmd	g_tab[NBR_CMD] =
 {
@@ -30,7 +28,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"incantation", 300, incantation},
 	{"fork", 42, my_fork},
 	{"connect_nbr", 0, connect_nbr},
-	{"-", 0, ma_fct_cmd}
+	{"-", 0, NULL} // ma_fct_cmd ?? a quoi ca sert
 };
 
 int		accept_gamer(t_env *e, int cs, int nb_left)
@@ -120,7 +118,7 @@ char	*get_cmd_arg(char *cmd)
 		i++;
 	if (cmd[i] != '\0')
 		i++;
-	else 
+	else
 		return (NULL);
 	ret = ft_strdup(cmd + i);
 	return (ret);

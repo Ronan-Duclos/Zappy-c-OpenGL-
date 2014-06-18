@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:03 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 21:11:04 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 22:02:56 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ void	remove_user_on_map(t_env *e, int cs)
 		me->next = NULL;
 	}
 }
-

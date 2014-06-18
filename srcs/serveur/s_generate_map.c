@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 21:52:42 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/18 21:56:26 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,13 @@ int				put_stones(t_env *env)
 void			malloc_map(t_env *e)
 {
 	int			i;
-	int			j;
 
 	e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.x));
 	i = -1;
-	while (++i < e->opt.x && (j = -1) == -1)
+	while (++i < e->opt.x)
 	{
 		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
-		ft_bzero(e->map[i][j].ground, sizeof(t_case) * (e->opt.y));
-		while (++j < e->opt.y)
-			e->map[i][j].player = NULL;
+		ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
 	}
 }
 

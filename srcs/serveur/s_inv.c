@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:50:27 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/15 19:57:15 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 21:58:37 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void			send_inv(t_env *env, int id)
 		tmp_to_bc(&env->users[id]->buf_write, tmp, 0);
 		free(tmp);
 		if (i < NB_STONE)
-			tmp_to_bc(&env->users[id]->buf_write,  ", ", 0);
+			tmp_to_bc(&env->users[id]->buf_write, ", ", 0);
 	}
 	tmp_to_bc(&env->users[id]->buf_write, "}", 1);
 }

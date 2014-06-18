@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 12:19:56 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 17:22:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 21:57:54 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 
-void	run_serv(t_env *e)
+void			run_serv(t_env *e)
 {
 	t_srv			*s;
 	struct timeval	timeout;

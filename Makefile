@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 20:51:10 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/18 21:04:18 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ INCLUDES=include/
 #	$(INCLUDES)mdx.h
 DIROBJ=objs/
 DIRSRC=srcs/
+DIRBIN=bin/
 SERV_SRC=s_incantation.c \
 	s_main.c \
 	s_opt1.c \
@@ -117,7 +118,7 @@ $(NAME): $(SERV_NAME) $(CLT_NAME) $(GFX_NAME)
 init:
 	@cat data/intro.txt
 	@make -s -C $(LIB)
-	@ln -s $(LIB)libft.a $(LIBDIR)
+	@if [ -f $(LIBDIR)libft.a ] ; then ln -s $(LIB)libft.a $(LIBDIR) ; fi
 	@tput init
 	@if [ ! -d $(DIROBJ) ]; then mkdir $(DIROBJ); fi
 
@@ -132,6 +133,7 @@ libpng:
 	fi ;
 
 end :
+	@cp $(GFX_NAME) $(SERV_NAME) $(CLT_NAME) $(DIRBIN)
 	@echo "\033[2K\t\033[1;36m$(NAME)\t\t\033[0;32m[Ready]\033[0m"
 	@cat data/end.txt
 
@@ -154,17 +156,17 @@ $(GFX_NAME): $(GFX_OBJ)
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
 $(DIROBJ)s_%.o: $(DIRSRC)$(SERV_NAME)/s_%.c $(INCLUDES)
-	@echo "--> Linking  $<"
+	@echo "\e[2K--> Linking  $<"
 	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
-	@echo "--> Linking  $<"
+	@echo "\e[2K--> Linking  $<"
 	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
-	@echo "--> Linking  $<"
+	@echo "\e[2K--> Linking  $<"
 	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
 
 	@tput cuu1
@@ -190,6 +192,7 @@ fclean: clean
 	@rm -f $(CLT_NAME)
 	@rm -f $(SERV_NAME)
 	@rm -f $(GFX_NAME)
+	@cd $(DIRBIN) && rm -f $(GFX_NAME) $(SERV_NAME) $(CLT_NAME)
 
 ffclean: delpng fclean
 	@rm -rf $(DIROBJ)

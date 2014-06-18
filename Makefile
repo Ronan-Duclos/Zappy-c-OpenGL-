@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 20:39:14 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/18 20:51:10 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ GFX_NAME=gfx
 LIB_PNG_DIR=libpng-1.6.12/
 CC=	gcc
 FLAGS=-Wall -Wextra -Werror -ggdb -Wno-deprecated -Wno-deprecated-declarations
-FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L./lib -I libpng-1.6.12/  -L./zlib-1.2.8 -lz -I./zlib-1.2.8
+FLAG_OPENGL= -framework GLUT -framework OpenGL -framework Cocoa -lpng -L./lib
 LIB=libft/
+LIBDIR=lib/
 INCLUDES=include/
 # CLT_H=$(INCLUDES)client.h
 # SERV_H=$(INCLUDES)serveur.h
@@ -116,6 +117,7 @@ $(NAME): $(SERV_NAME) $(CLT_NAME) $(GFX_NAME)
 init:
 	@cat data/intro.txt
 	@make -s -C $(LIB)
+	@ln -s $(LIB)libft.a $(LIBDIR)
 	@tput init
 	@if [ ! -d $(DIROBJ) ]; then mkdir $(DIROBJ); fi
 
@@ -190,5 +192,11 @@ fclean: clean
 	@rm -f $(GFX_NAME)
 
 ffclean: delpng fclean
+	@rm -rf $(DIROBJ)
+	@rm -f $(LIBDIR)libft.a
+	@make -s -C $(LIB) fclean
+
 
 re: fclean all
+
+fre: ffclean all

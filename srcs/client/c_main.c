@@ -31,20 +31,20 @@ void	check_fd(t_env *e)
 {
 	while (e->r != 0)
 	{
-		if (FD_ISSET(0, &e->fd_read))
+		if (FD_ISSET(e->user->sock, &e->fd_read))
 		{
 			e->r--;
-			rcv_keyboard(e);
+			rcv_serveur(e);
 		}
 		else if (FD_ISSET(e->user->sock, &e->fd_write))
 		{
 			e->r--;
 			send_serveur(e);
 		}
-		else if (FD_ISSET(e->user->sock, &e->fd_read))
+		else if (FD_ISSET(0, &e->fd_read))
 		{
 			e->r--;
-			rcv_serveur(e);
+			rcv_keyboard(e);
 		}
 	}
 }

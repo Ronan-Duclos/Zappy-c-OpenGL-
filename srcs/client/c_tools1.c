@@ -18,7 +18,7 @@ int		my_exit(int sig, char *line)
 
 	if (sig == 0 && line != NULL)
 	{
-		if (ft_strcmp(line, "/quit\0") == 0)
+		if (ft_strcmp(line, "/quit") == 0)
 			i = 1;
 	}
 	return (i);

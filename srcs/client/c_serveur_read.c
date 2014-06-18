@@ -97,13 +97,15 @@ void	rcv_serveur(t_env *e)
 		exit(0);
 	}
 	e->user->buf_read_tmp[r] = '\0';
-	tmp_to_bc(&e->user->buf_read, e->user->buf_read_tmp, 0);
-	e->user->buf_read_tmp[0] = '\0';
-	if (verify_bsn(&e->user->buf_read) == 1)
+	if(death_clt(e) == 0)
 	{
-		bc_to_tmp(&e->user->buf_read, e->user->buf_read_tmp);
-		printf("Receive : %s", e->user->buf_read_tmp);
-		make_cmd(e);
-		e->user->buf_read_tmp[0] = '\0';
+		tmp_to_bc(&e->user->buf_read, e->user->buf_read_tmp, 0);
+		if (verify_bsn(&e->user->buf_read) == 1)
+		{
+			bc_to_tmp(&e->user->buf_read, e->user->buf_read_tmp);
+			printf("Receive : %s", e->user->buf_read_tmp);
+			make_cmd(e);
+		}
 	}
+	e->user->buf_read_tmp[0] = '\0';
 }

@@ -14,6 +14,19 @@
 #include "libft.h"
 #include <serveur.h>
 
+void	clear_player(t_env *e, int cs)
+{
+	int		i;
+
+	i = -1;
+	remove_user_on_map(e, cs);
+	while (e->opt.name[++i] != NULL)
+	{
+		if (ft_strcmp(e->team[i].name, e->users[cs]->player.team) == 0)
+			e->team[i].member--;
+	}
+}
+
 void	create_clt(t_env *e, int s)
 {
 	int						cs;
@@ -41,12 +54,12 @@ void	destroy_clt(t_env *e, int sock)
 	init_bc(&e->users[sock]->buf_write);
 	e->users[sock]->buf_read_tmp[0] = '\0';
 	e->users[sock]->buf_write_tmp[0] = '\0';
-	e->users[sock]->ig = 0;
+	if (e->users[sock]->ig == 1)
+		clear_player(e, sock);
 	if (e->users[sock]->gfx.gfx)
 		glst_del_one(&e->srv.glst, sock);
 	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
-	if (e->users[sock]->ig == 1)
-		remove_user_on_map(e, sock);
+	e->users[sock]->ig = 0;
 	printf("Client disconnected : %d\n", sock);
 }
 

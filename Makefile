@@ -60,6 +60,19 @@ CLT_SRC=c_main.c \
 	c_opt.c \
 	c_serveur_read.c \
 	c_serveur_write.c \
+	c_dead.c \
+	c_broadcast.c \
+	c_connect_nbr.c \
+	c_drop_item.c \
+	c_expulse.c \
+	c_fork.c \
+	c_incantation.c \
+	c_inv.c \
+	c_move_forward.c \
+	c_take_item.c \
+	c_turn_left.c \
+	c_turn_right.c \
+	c_watch_sight.c \
 	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \

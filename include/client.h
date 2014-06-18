@@ -12,6 +12,7 @@
 
 #ifndef CLIENT_H
 # define CLIENT_H
+
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/socket.h>
@@ -26,26 +27,23 @@
 # include <common.h>
 # include "libft.h"
 
-# define OPT				"nph"
+# define OPT		"nph"
 
-# define FD_SRV				1
-# define FD_CLT				2
-# define FD_FREE			0
-# define MAX_CHANS			100
-
-typedef struct s_env	t_env;
-typedef struct s_user	t_user;
-
-typedef struct			s_opt
+# define FD_SRV			1
+# define FD_CLT			2
+# define FD_FREE		0
+# define MAX_CHANS		100
+# define BUF_SIZE		4096
+typedef struct		s_opt
 {
-	int					port;
-	char				*name;
-	char				*host;
-	int					x;
-	int					y;
-}						t_opt;
+	int				port;
+	char			*name;
+	char			*host;
+	int				x;
+	int				y;
+}					t_opt;
 
-typedef int				(*t_fct_opt)(char **, t_opt *);
+typedef int			(*t_fct_opt)(char **, t_opt *);
 
 typedef struct		s_map
 {
@@ -70,49 +68,54 @@ typedef struct		s_player
 	int				cur_awrite;
 }					t_player;
 
-struct					s_user
+typedef struct		s_user
 {
-	int					sock;
-	int					ig;
-	t_player			player;
-	t_buf				buf_read;
-	t_buf				buf_write;
-	char				buf_read_tmp[BC_SIZE + 1];
-	char				buf_write_tmp[BC_SIZE + 1];
-};
+	int				sock;
+	int				ig;
+	t_player		player;
+	t_buf			buf_read;
+	t_buf			buf_write;
+	char			buf_read_tmp[BC_SIZE + 1];
+	char			buf_write_tmp[BC_SIZE + 1];
+}					t_user;
 
-struct					s_env
+typedef struct		s_env
 {
-	t_opt				me;
-	t_user				*user;
-	char				**av;
-	int					r;
-	fd_set				fd_read;
-	fd_set				fd_write;
-};
+	t_opt			me;
+	t_user			*user;
+	char			**av;
+	int				r;
+	fd_set			fd_read;
+	fd_set			fd_write;
+}					t_env;
 
 /*
 **	c_opt.c
 */
-int						get_clt_opt(t_opt *opt, int argc, char **argv);
+int					get_clt_opt(t_opt *opt, int argc, char **argv);
 /*
 **	c_client.c
 */
-int						create_clt(char *addr, int port);
-void					check_fd(t_env *e);
-void					do_select(t_env *e);
-void					run_clt(t_env *e);
+int					create_clt(char *addr, int port);
+void				check_fd(t_env *e);
+void				do_select(t_env *e);
+void				run_clt(t_env *e);
 /*
 **	c_tools1.c
 */
-int						my_exit(int sig, char *line);
-int						my_error(char c);
-void					rcv_keyboard(t_env *e);
-void					send_serveur(t_env *e);
-void					rcv_serveur(t_env *e);
+int					my_exit(int sig, char *line);
+int					my_error(char c);
+void				rcv_keyboard(t_env *e);
+void				send_serveur(t_env *e);
+void				rcv_serveur(t_env *e);
 /*
 **	c_init.c
 */
-void					init_clt(t_env *e);
+void				init_clt(t_env *e);
+/*
+** Fonctions des commandes
+*/
+int					death_clt(t_env *e);
+
 
 #endif

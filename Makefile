@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/17 21:27:25 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/18 19:47:28 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,9 @@ CLT_SRC=c_main.c \
 	c_opt.c \
 	c_serveur_read.c \
 	c_serveur_write.c \
-	c_tools1.c
+	c_tools1.c \
+	c_lex_inv.c \
+	c_lex_vision.c
 GFX_SRC=g_main.c \
 	g_ipv.c \
 	g_serv.c \

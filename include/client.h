@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 21:26:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 19:51:50 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,12 @@ int						my_error(char c);
 void					rcv_keyboard(t_env *e);
 void					send_serveur(t_env *e);
 void					rcv_serveur(t_env *e);
+
+/*
+**	Lexing functions
+*/
+int						get_inventaire(t_inv *inv, char *str);
+int						get_vision(t_inv **inv, int lvl, char *str);
 /*
 **	c_init.c
 */

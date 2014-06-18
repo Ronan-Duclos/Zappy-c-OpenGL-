@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 19:49:24 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 17:27:52 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,41 +78,35 @@ static int	connect_map(char **tab, int *i)
 	return (0);
 }
 
-int			connect_tnames(char **tab)
+int			connect_tnames(char **tab, int *i)
 {
-	int		i;
 	int		x;
 
 	x = 0;
-	i = -1;
-	while (tab[++i] && i < g_env->max_teams)
+	while (tab[*i] && *i < g_env->max_teams && !strncmp(tab[*i], "tna", 3))
 	{
-		if (!strncmp(tab[i], "tna", 3))
-		{
-			g_env->tnames[i] = strdup(&tab[i][4]);
-			x++;
-		}
+		g_env->tnames[*i] = strdup(&tab[*i][4]);
+		x++;
+		*i += 1;
 	}
 	if (x)
 		return (1);
 	return (0);
 }
 
-void		cmd_connect(t_ipv *ipv, char **tab)
+void		cmd_connect(t_ipv *ipv, char **tab, int *i)
 {
 	static int	step;
-	int			i;
 
 	printf("In connect: step: %d\n", step);
-	i = 0;
 	if (!step)
 		step += connect_init(ipv, tab);
 	else if (step == 1)
-		step += connect_sizes(ipv, tab, &i);
+		step += connect_sizes(ipv, tab, i);
 	if (step == 2)
-		step += connect_map(tab, &i);
+		step += connect_map(tab, i);
 	if (step == 3)
-		step += connect_tnames(tab);
+		step += connect_tnames(tab, i);
 	if (step == 4)
 		ipv->state = _draw;
 	printf("sizes: X: %d, Y: %d, Time: %d\n", g_env->mapw, g_env->maph, g_env->time);

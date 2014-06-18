@@ -6,32 +6,13 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 18:00:21 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 17:44:52 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_gl.h"
 #include "gfx.h"
 #include "libft.h"
-
-int			get_next_int(int *nb, char *s)
-{
-	int		i;
-	int		tmp;
-
-	i = 0;
-	while (s[i] && s[i] == ' ')
-		i++;
-	*nb = ft_atoi(&s[i]);
-	tmp = *nb;
-	i++;
-	while (tmp / 10)
-	{
-		tmp /= 10;
-		i++;
-	}
-	return (i);
-}
 
 void		cmd_msz(char *cmd)
 {
@@ -72,40 +53,21 @@ void		cmd_bct(char *cmd)
 	i += get_next_int(&tab[6], &cmd[i]);
 }
 
-#include "libft.h" ////
-#include <string.h> ///
-
-static void	cmds_get(char ***tab, char *buf)
+void		cmd_pnw(char *cmd)
 {
-	static char	tmp[BUF_SIZE];
-	char		tmp2[BUF_SIZE];
-	char		*tmp3;
+	int		i;
+	int		tmp;
 
-	bzero(tmp2, BUF_SIZE);
-	if (*tmp)
-		strcpy(tmp2, tmp);
-	bzero(tmp, BUF_SIZE);
-	if (buf[strlen(buf) - 1] != '\n' && (tmp3 = strrchr(buf, '\n')))
-	{
-		strcpy(tmp, tmp3 + 1);
-		tmp3 = '\0';
-	}
-	*tab = ft_strsplit(buf, '\n');
-	if (*tmp2)
-	{
-		strcpy(&tmp2[strlen(tmp2)], *tab[0]);
-		tmp3 = strdup(tmp2);
-		free(*tab[0]);
-		*tab[0] = tmp3;
-	}
-}
-
-void		cmd_check(t_ipv *ipv, char *buf)
-{
-		char		**tab;
-
-		cmds_get(&tab, buf);
-		if (ipv->state == _connect)
-			cmd_connect(ipv, tab);
-		dtab_del(tab);
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&tmp, &cmd[i]);
+	if (tmp >= NPCS_MAX)
+		return ;
+	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].dir, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
+	i++;
+	g_env->npc[tmp].team = strdup(&cmd[i]);
 }

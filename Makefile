@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 21:04:18 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/18 21:34:30 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ DIRBIN=bin/
 SERV_SRC=s_incantation.c \
 	s_main.c \
 	s_opt1.c \
+	s_opt2.c \
 	s_gfx.c \
 	s_gfx_init.c \
 	s_gfx_lst.c \

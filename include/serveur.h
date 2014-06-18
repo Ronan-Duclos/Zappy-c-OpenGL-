@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 20:53:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 21:36:20 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,15 @@ typedef struct		s_ponf_cmd
 }					t_ponf_cmd;
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
-
+/*
+**	s_opt.c
+*/
 int					get_serv_opt(t_opt *opt, int argc, char **argv);
+int					get_port(char **argv, t_opt *opt);
+int					get_x(char **argv, t_opt *opt);
+int					get_y(char **argv, t_opt *opt);
+int					get_client(char **argv, t_opt *opt);
+int					get_time(char **argv, t_opt *opt);
 
 void				generate_map(t_env *env);
 

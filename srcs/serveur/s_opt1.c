@@ -6,31 +6,13 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 14:58:39 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 03:16:14 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/18 21:36:28 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdlib.h>
 #include <serveur.h>
-
-int				get_port(char **argv, t_opt *opt)
-{
-	opt->port = ft_atoi(argv[1]);
-	return (1);
-}
-
-int				get_x(char **argv, t_opt *opt)
-{
-	opt->x = ft_atoi(argv[1]);
-	return (1);
-}
-
-int				get_y(char **argv, t_opt *opt)
-{
-	opt->y = ft_atoi(argv[1]);
-	return (1);
-}
 
 int				check_name(int n, char **name)
 {
@@ -97,31 +79,13 @@ int				get_arg(char to_test)
 	return (-1);
 }
 
-int				get_client(char **argv, t_opt *opt)
-{
-	opt->client = ft_atoi(argv[1]);
-	return (1);
-}
-
-int				get_time(char **argv, t_opt *opt)
-{
-	opt->time = ft_atoi(argv[1]);
-	return (1);
-}
-
 int				get_serv_opt(t_opt *opt, int argc, char **argv)
 {
 	int						i;
 	int						c;
 	static t_fct_opt		fct[] = {
 
-	get_port,
-	get_x,
-	get_y,
-	get_name,
-	get_client,
-	get_time
-	};
+	get_port, get_x, get_y, get_name, get_client, get_time};
 	i = 1;
 	while (argv[i])
 		if (argv[i][0] == '-')

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 17:13:58 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 21:52:42 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,21 @@ int				put_stones(t_env *env)
 	int				c;
 	static int		base_rate[NB_STONE + 1] = {
 
-	RATE_FOOD,
-	RATE_LINEMATE,
-	RATE_DERAUMERE,
-	RATE_SIBUR,
-	RATE_MENDIANE,
-	RATE_PHIRAS, 
-	RATE_THYSTAME};
-	type_rate[0] = 0;
-	while (type_rate[0] < NB_STONE + 1)
+	RATE_FOOD, RATE_LINEMATE, RATE_DERAUMERE, RATE_SIBUR, RATE_MENDIANE,
+	RATE_PHIRAS, RATE_THYSTAME};
+	type_rate[0] = -1;
+	while (++type_rate[0] < NB_STONE + 1)
 	{
 		quantity = get_quantity_by_type(env, type_rate[0]) + 1;
 		c = 1;
-		while (quantity--)
+		while (quantity-- && (type_rate[1] = base_rate[type_rate[0]]) >= 0)
 		{
-			type_rate[1] = base_rate[type_rate[0]];
 			x = rand_int(0, env->opt.x);
 			y = rand_int(0, env->opt.y);
 			env->map[x][y].ground[type_rate[0]] = 1;
 			c += put_one(env, type_rate, x, y);
 		}
 		printf("%d %s ont ete poses.\n", c, type_to_str(type_rate[0]));
-		type_rate[0]++;
 	}
 	return (0);
 }
@@ -97,18 +90,13 @@ void			malloc_map(t_env *e)
 	int			j;
 
 	e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.x));
-	i = 0;
-	while (i < e->opt.x)
+	i = -1;
+	while (++i < e->opt.x && (j = -1) == -1)
 	{
 		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
-		j = 0;
-		while (j < e->opt.y)
-		{
-			ft_bzero(e->map[i][j].ground, sizeof(NB_STONE + 2));
+		ft_bzero(e->map[i][j].ground, sizeof(t_case) * (e->opt.y));
+		while (++j < e->opt.y)
 			e->map[i][j].player = NULL;
-			j++;
-		}
-		i++;
 	}
 }
 

@@ -6,11 +6,11 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 20:33:43 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/18 20:39:14 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=Scappy
+NAME=Zappy
 SERV_NAME=serveur
 CLT_NAME=client
 GFX_NAME=gfx
@@ -130,7 +130,7 @@ libpng:
 	fi ;
 
 end :
-	@echo "\033[2K\t\033[1;36mScappy\t\t\033[0;32m[Ready]\033[0m"
+	@echo "\033[2K\t\033[1;36m$(NAME)\t\t\033[0;32m[Ready]\033[0m"
 	@cat data/end.txt
 
 $(SERV_NAME): $(SERV_OBJ) $(COMMON_OBJ)

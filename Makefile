@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 19:47:28 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/18 20:33:43 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,14 +117,16 @@ init:
 	@cat data/intro.txt
 	@make -s -C $(LIB)
 	@tput init
+	@if [ ! -d $(DIROBJ) ]; then mkdir $(DIROBJ); fi
 
 libpng:
 	-@if [ ! -d $(LIB_PNG_DIR) ] ; then \
-	 tar -xf libpng-1.6.12.tar.gz ; \
+	 echo "Extracting libpng-1.6.12.tar.gz" ;\
+	 tar -xf libpng-1.6.12.tar.gz $(LIB_PNG_DIR) ;\
 	 cd $(LIB_PNG_DIR) ; \
 	 ./configure --prefix=$(PWD) ; \
-	 make ; \
-	 make install ; \
+	 make -s ; \
+	 make -s install ; \
 	fi ;
 
 end :

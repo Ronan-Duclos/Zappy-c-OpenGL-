@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/18 11:32:11 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/13 12:06:52 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/18 20:26:10 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,10 @@ SRC = 	ft_putchar.c ft_putstr.c ft_putnbr.c ft_strcat.c ft_strchr.c \
 OBJO=$(SRC:%.c=$(OBJDIR)%.o)
 i=10
 
-all: $(NAME) end
+all: init $(NAME) end
+
+init:
+	@if [ ! -d $(OBJDIR) ]; then mkdir $(OBJDIR); fi
 
 end:
 	@echo "\033[A\033[K\t\033[1;36m$(NAME)\t\t\033[0;32m[Ready]\033[0m"

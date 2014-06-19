@@ -6,12 +6,14 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 20:53:01 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 18:15:12 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
+
+#include <stdio.h>
 
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
@@ -30,7 +32,7 @@ enum				e_map
 
 enum				e_fuck_robin
 {
-	_itm_nb = 7a
+	_itm_nb = 7
 };
 
 typedef int			t_inv[_itm_nb + 1];

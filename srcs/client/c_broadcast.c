@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   c_broadcast.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/06/19 18:56:12 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/19 18:56:17 by rduclos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <client.h>
 #include <common.h>
@@ -11,7 +22,7 @@ void	send_broadcast(t_env *e, char *msg)
 	strcpy(buf, "broadcast ");
 	strcpy(buf + 10, msg);
 	a_write = e->user->player.cur_awrite;
-	acts = e->user->player.acts;
+	acts = &e->user->player.acts[a_write];
 	acts->time = 1;
 	acts->cmd = ft_strdup(buf);
 	/*acts->fct_cmd = my_broadcast;*/

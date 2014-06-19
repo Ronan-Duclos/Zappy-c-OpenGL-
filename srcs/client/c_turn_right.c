@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   c_turn_right.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/06/19 19:02:26 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/19 19:02:30 by rduclos          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <client.h>
 #include <common.h>
@@ -8,7 +19,7 @@ void	send_turn_right(t_env *e)
 	t_actions	*acts;
 
 	a_write = e->user->player.cur_awrite;
-	acts = e->user->player.acts;
+	acts = &e->user->player.acts[a_write];
 	acts->time = 1;
 	/*acts->fct_cmd = turn_right;*/
 	tmp_to_bc(&e->user->buf_write, "droite", 1);

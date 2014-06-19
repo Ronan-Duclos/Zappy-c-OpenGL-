@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/25 16:04:27 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 21:48:16 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 18:36:04 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		my_exit(int sig, char *line)
 
 	if (sig == 0 && line != NULL)
 	{
-		if (ft_strcmp(line, "/quit") == 0)
+		if (ft_strcmp(line, "/quit\0") == 0)
 			i = 1;
 	}
 	return (i);

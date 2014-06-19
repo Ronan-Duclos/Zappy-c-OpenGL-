@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 22:41:25 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 19:04:32 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,18 @@ void				init_clt(t_env *e);
 /*
 ** Fonctions des commandes
 */
+void				send_broadcast(t_env *e, char *msg);
+void				send_connect_nbr(t_env *e);
+void				send_drop_item(t_env *e, char *item);
+void				send_expulse(t_env *e);
+void				send_fork(t_env *e);
+void				send_incantation(t_env *e);
+void				send_inventaire(t_env *e);
+void				send_move_forward(t_env *e);
+void				send_take_item(t_env *e, char *item);
+void				send_turn_left(t_env *e);
+void				send_turn_right(t_env *e);
+void				send_watch_sight(t_env *e);
 int					death_clt(t_env *e);
 
 

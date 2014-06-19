@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 19:41:22 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/19 17:15:15 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,9 @@ void	start_action(t_env *e, int cs)
 	int		st;
 
 	st = e->users[cs]->player.cur_awrite;
-	if (a_write == 0 && e->users[cs]->player.acts[9].time != 0)
+	if (st == 0 && e->users[cs]->player.acts[9].time != 0)
 		e->users[cs]->player.acts[0].start = e->users[cs]->player.acts[9].time;
-	else if (a_write != 0)
+	else if (st != 0)
 		e->users[cs]->player.acts[st].start = e->users[cs]->player.acts[st - 1].time;
 	else
 		e->users[cs]->player.acts[st].start = ft_usec_time();
@@ -188,7 +188,7 @@ void	queue_actions(t_env *e, int cs)
 	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	i = -1;
 	ca = e->users[cs]->player.cur_awrite;
-	time = e->users[cs]-player.acts[ca].start;
+	time = e->users[cs]->player.acts[ca].start;
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
 	{
 		ca = e->users[cs]->player.cur_awrite;

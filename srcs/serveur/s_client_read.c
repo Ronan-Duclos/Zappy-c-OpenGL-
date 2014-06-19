@@ -192,7 +192,7 @@ void	queue_actions(t_env *e, int cs)
 		else
 			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 	}
-	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
+	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);
 	ft_tabdel(&cmd);
 }
 

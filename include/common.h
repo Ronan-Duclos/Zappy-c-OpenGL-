@@ -40,6 +40,7 @@ typedef int			t_inv[_itm_nb + 1];
 typedef struct		s_actions
 {
 	char			*cmd;
+	char			*answer;
 	double			time;
 	void			(*fct_cmd)();
 }					t_actions;

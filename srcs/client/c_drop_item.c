@@ -13,6 +13,7 @@ void	send_send_item(t_env *e, char *item)
 	a_write = e->user->player.cur_awrite;
 	acts = e->user->player.acts;
 	acts->time = 1;
+	acts->cmd = ft_strdup(buf);
 	/*acts->fct_cmd = send_item;*/
 	tmp_to_bc(&e->user->buf_write, buf, 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;

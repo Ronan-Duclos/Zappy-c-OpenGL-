@@ -83,6 +83,8 @@ void	check_actions(t_env *e, int cs)
 				e->users[cs]->player.cur_aread++;
 			acts->time = 0;
 		}
+		else if (acts->time != 0 && acts->start <= now)
+			e->users[cs]->player.acts[nb_acts].fct_gfx(e, cs);
 	}
 }
 

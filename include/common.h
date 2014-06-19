@@ -13,8 +13,6 @@
 #ifndef COMMON_H
 # define COMMON_H
 
-# include "stdio.h"
-
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
 # define NB_STONE			6
@@ -25,14 +23,14 @@
 # define SOUTH				2
 # define WEST				3
 
-enum				e_mat
+enum				e_map
 {
 	_food, _linemate, _deraumere, _sibur, _mendiane, _phiras, _thystame, _player
 };
 
 enum				e_fuck_robin
 {
-	_itm_nb = 7
+	_itm_nb = 7a
 };
 
 typedef int			t_inv[_itm_nb + 1];
@@ -42,7 +40,9 @@ typedef struct		s_actions
 	char			*cmd;
 	char			*answer;
 	double			time;
+	double			start;
 	void			(*fct_cmd)();
+	void			(*fct_gfx)();
 }					t_actions;
 
 typedef struct		s_buf

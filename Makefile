@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/19 21:38:28 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/19 22:03:43 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ GFX_SRC=g_main.c \
 	g_ipv.c \
 	g_serv.c \
 	g_fds.c \
+	g_cmd_check.c \
 	g_cmd.c \
 	g_map.c \
 	g_connect.c \

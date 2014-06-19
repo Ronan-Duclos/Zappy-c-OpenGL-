@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:32:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 02:41:37 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/18 00:30:15 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ static void	get_model_texture(t_mdxchunk *chunk, t_mdx *model)
 
 	header = (t_mdxchunk *)((char *)chunk + 10 * sizeof(uint32_t));
 	tmp = (char *)header;
-	header = (t_mdxchunk *)(tmp + (char)(*(int *)tmp * 6 * sizeof(float)) + sizeof(int) + 20);
+	header = (t_mdxchunk *)(tmp + (char)(*(int *)tmp * 6 * sizeof(float)) + sizeof(int) + 8);
+	if (*(int *)header != *(int *)MDX_UVBS)
+	{
+		tmp = (char *)header;
+		header = (t_mdxchunk *)(tmp + 12);
+	}
+	printf("%4.4s size = %d\n", (char *)header, header->size);
 	model->chunks[_uvbs].nb = header->size;
 	model->chunks[_uvbs].data = header + 1;
 }
@@ -63,9 +69,11 @@ static void	get_model_geoset(t_mdxchunk *chunk, t_mdx *model)
 	int			i;
 
 	i = 0;
+	printf("GEOSET \n");
 	header = (t_mdxchunk *)((char *)chunk + sizeof(*chunk) + sizeof(uint32_t));
 	while (header - chunk < chunk->size && header->size > 0)
 	{
+		printf("%4.4s size = %d\n", (char *)header, header->size);
 		jump = header->size * data_type(header->tag) + sizeof(*header);
 		model->chunks[i].nb = header->size;
 		model->chunks[i].data = header + 1;
@@ -94,6 +102,7 @@ int			get_model_from_mdx(char *name, t_mdx *model)
 	header = (t_mdxchunk *)(file + sizeof(uint32_t));
 	while (header->tag != *(uint32_t *)MDX_GEOSET)
 	{
+		printf("%4.4s size = %d\n", (char *)header, header->size);
 		header = (t_mdxchunk *)((char *)(header + 1) + header->size);
 	}
 	get_model_geoset(header, model);

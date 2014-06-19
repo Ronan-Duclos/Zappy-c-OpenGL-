@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 15:02:23 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 17:39:02 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define FLAG_W			0x80
 
 # define CASE_MAX_ITEMS	256
+# define NPCS_MAX		255
 
 # define SCR_WID		640
 # define SCR_HGH		480
@@ -54,8 +55,8 @@
 
 enum			e_colors
 {
-	_red,
 	_white,
+	_red,
 	_blue,
 	_green,
 	_yellow,
@@ -91,11 +92,12 @@ enum			e_vbos
 
 typedef struct	s_anim	t_anim;
 
-typedef struct	s_moving
+typedef struct	s_move
 {
+	int			frames;
 	GLfloat		pos[3];
 	GLfloat		dir[3];
-}				t_moving;
+}				t_move;
 
 typedef struct	s_item
 {
@@ -104,6 +106,22 @@ typedef struct	s_item
 	GLuint		vbo;
 	t_anim		*anim;
 }				t_item;
+
+typedef struct	s_mob
+{
+	GLuint		list;
+}				t_mob;
+
+typedef struct	s_npc
+{
+	int			x;
+	int			y;
+	t_inv		inv;
+	int			dir;
+	int			id;
+	int			lvl;
+	char		*team;
+}				t_npc;
 
 struct			s_anim
 {
@@ -142,6 +160,7 @@ typedef struct	s_env
 	int			selectcase;
 	GLuint		testex;
 	GLuint		maptex;
+	t_npc		*npc;
 }				t_env;
 
 t_env				*g_env;

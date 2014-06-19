@@ -6,7 +6,8 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 21:36:20 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/19 22:02:44 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 22:36:13 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +40,7 @@
 
 # define AVANCE				7
 
-# define NBR_CMD			13
+# define NBR_CMD			12
 # define BUF_SIZE			4096
 
 typedef struct		s_glst
@@ -134,6 +135,7 @@ typedef struct		s_ponf_cmd
 	char			*str;
 	int				value;
 	void			(*fct_cmd)();
+	void			(*fct_gfx)();
 }					t_ponf_cmd;
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
@@ -199,6 +201,8 @@ void				gfx_tna(t_env *e, int cs);
 void				gfx_pnw(t_env *e, int cs, int i);
 void				gfx_enw(t_env *e, int cs);
 void				gfx_ppo(t_env *e, int cs, int clt);
+void				gfx_send_npc(t_env *e, int cs, void (*fu)());
+void				gfx_send_cmd(t_env *e, int cs, int cmd);
 
 /*
 **	s_gfx_init.c
@@ -235,6 +239,9 @@ void				connect_nbr(t_env *e, int cs);
 void				incantation(t_env *e, int cs);
 void				expulse(t_env *e, int cs);
 void				broadcast(t_env *e, int cs);
+void				gfx_move_forward(t_env *e, int cs);
+void				gfx_turn_right(t_env *e, int cs);
+void				gfx_turn_left(t_env *e, int cs);
 
 /*
 **	s_watch_sight

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 21:34:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 22:02:16 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@
 
 t_ponf_cmd	g_tab[NBR_CMD] =
 {
-	{"avance", 7, move_forward},
-	{"droite", 7, turn_right},
-	{"gauche", 7, turn_left},
-	{"voir", 7, watch_sight},
-	{"inventaire", 1, send_inv},
-	{"prend", 7, take_item},
-	{"pose", 7, drop_item},
-	{"expulse", 7, expulse},
-	{"broadcast", 7, broadcast},
-	{"incantation", 300, incantation},
-	{"fork", 42, my_fork},
-	{"connect_nbr", 0, connect_nbr},
-	{"-", 0, NULL} // ma_fct_cmd ?? a quoi ca sert
+	{"avance", 7, move_forward, gfx_move_forward},
+	{"droite", 7, turn_right, gfx_turn_right},
+	{"gauche", 7, turn_left, gfx_turn_left},
+	{"voir", 7, watch_sight, NULL},
+	{"inventaire", 1, send_inv, NULL},
+	{"prend", 7, take_item, NULL},
+	{"pose", 7, drop_item, NULL},
+	{"expulse", 7, expulse, NULL},
+	{"broadcast", 7, broadcast, NULL},
+	{"incantation", 300, incantation, NULL},
+	{"fork", 42, my_fork, NULL},
+	{"connect_nbr", 0, connect_nbr, NULL}
 };
 
 int		accept_gamer(t_env *e, int cs, int nb_left)
@@ -194,11 +193,14 @@ void	queue_actions(t_env *e, int cs)
 		if (j != -1)
 		{
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
+			
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
 			if (j == 9)
 				make_incantations(e, cs, time);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
+			if (g_tab[j].fct_gfx)
+				g_tab[j].fct_gfx(e, cs);
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 		else

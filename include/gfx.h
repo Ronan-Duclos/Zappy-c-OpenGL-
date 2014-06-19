@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 15:40:59 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 21:58:03 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <pthread.h>
 
 # define	BUF_SIZE	4096
+# define	CMDS_NB		2
 
 enum				e_states
 {
@@ -32,6 +33,12 @@ typedef struct		s_fd
 	char	buf_read_tmp[BC_SIZE + 1];
 	char	buf_write_tmp[BC_SIZE + 1];
 }					t_fd;
+
+typedef struct		s_cmd
+{
+	char	cmd[3];
+	void	(*fu)();
+}					t_cmd;
 
 typedef struct		s_ipv
 {
@@ -69,18 +76,24 @@ void		fds_init(t_ipv *ipv);
 void		fds_check(t_ipv *ipv);
 
 /*
-**	g_cmd.c
+**	g_cmd_check.c
 */
 int			get_next_int(int *nb, char *s);
+void		cmd_check(t_ipv *ipv, char *buf);
+
+/*
+**	g_cmd.c
+*/
 void		cmd_msz(char *cmd);
 void		cmd_sgt(char *cmd);
 void		cmd_bct(char *cmd);
-void		cmd_check(t_ipv *ipv, char *buf);
+void		cmd_pnw(char *cmd);
+void		cmd_ppo(char *cmd);
 
 /*
 **	g_connect.c (3 statics)
 */
-void		cmd_connect(t_ipv *ipv, char **tab);
+void		cmd_connect(t_ipv *ipv, char **tab, int *i);
 
 /*
 **	g_map.c (1 static)

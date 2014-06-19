@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 17:05:50 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/13 22:34:24 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 00:29:22 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define MDX_VERTEX_GROUP		"GNDX"
 # define MDX_MATRIX_GROUP		"MTGC"
 # define MDX_MATRIX_INDEXES		"MATS"
+# define MDX_UVBS				"UVBS"
 
 enum			e_mdxchunks
 {

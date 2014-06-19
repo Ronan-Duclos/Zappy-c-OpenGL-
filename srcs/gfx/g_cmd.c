@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 22:46:49 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 18:23:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,71 @@ void		cmd_ppo(char *cmd)
 		   g_env->npc[npc].x,
 		   g_env->npc[npc].y,
 		   g_env->npc[npc].dir);//
+}
+
+void		cmd_pin(char *cmd)
+{
+	int		i;
+	int		npc;
+
+	printf("cmd_pin: %s\n", cmd);//
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_food], &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_linemate], &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_deraumere], &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_sibur], &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_mendiane], &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_phiras], &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].inv[_thystame], &cmd[i]);
+	printf("cmd_pin: %d, %d %d, %d, %d, %d, %d, %d, %d, %d, \n", npc,
+		   g_env->npc[npc].x,
+		   g_env->npc[npc].y,
+		   g_env->npc[npc].inv[_food],
+		   g_env->npc[npc].inv[_linemate],
+		   g_env->npc[npc].inv[_deraumere],
+		   g_env->npc[npc].inv[_sibur],
+		   g_env->npc[npc].inv[_mendiane],
+		   g_env->npc[npc].inv[_phiras],
+		   g_env->npc[npc].inv[_thystame]);
+}
+
+void		cmd_plv(char *cmd)
+{
+	int		i;
+	int		npc;
+
+	printf("cmd_plv: %s\n", cmd);//
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
+	printf("cmd_plv: %d %d\n", npc, g_env->npc[npc].lvl);
+}
+
+void		cmd_pgt(char *cmd)
+{
+	int		i;
+	int		npc;
+	int		itm;
+
+	printf("cmd_pgt: %s\n", cmd);//
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	i += get_next_int(&itm, &cmd[i]);
+	// ici npc == id jour qui prends, itm le type de pierre.
+	printf("cmd_pgt: %d %d\n", npc, itm);
 }

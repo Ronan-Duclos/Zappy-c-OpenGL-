@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 19:47:23 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/14 20:32:05 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/19 18:15:58 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,16 @@ void			take_item(t_env *e, int cs)
 			tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
 		}
 	}
+}
+
+void			gfx_take_item(t_env *e, int cs)
+{
+	char		*item;
+	int			resource;
+
+	item = e->users[cs]->player.acts[e->users[cs]->player.cur_aread].cmd;
+	resource = str_to_type(item);
+	if (resource < 0)
+		return ;
+	gfx_send_act(e, cs, gfx_pgt, resource);
 }

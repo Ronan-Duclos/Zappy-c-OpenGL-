@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 17:23:33 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/19 14:20:34 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SERV_SRC=s_incantation.c \
 	s_main.c \
 	s_opt1.c \
 	s_gfx.c \
+	s_gfx_cmd.c \
 	s_gfx_init.c \
 	s_gfx_lst.c \
 	s_generate_map.c \
@@ -67,6 +68,7 @@ GFX_SRC=g_main.c \
 	g_fds.c \
 	g_cmd_check.c \
 	g_cmd.c \
+	g_cmd_send.c \
 	g_map.c \
 	g_connect.c \
 	g_colors1.c \

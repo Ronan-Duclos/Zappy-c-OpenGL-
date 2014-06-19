@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/18 22:35:20 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 18:15:36 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"gauche", 7, turn_left, gfx_turn_left},
 	{"voir", 7, watch_sight, NULL},
 	{"inventaire", 1, send_inv, NULL},
-	{"prend", 7, take_item, NULL},
+	{"prend", 7, take_item, gfx_take_item},
 	{"pose", 7, drop_item, NULL},
 	{"expulse", 7, expulse, NULL},
 	{"broadcast", 7, broadcast, NULL},
@@ -182,7 +182,6 @@ void	queue_actions(t_env *e, int cs)
 		if (j != -1)
 		{
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
-			
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
 			if (j == 9)
@@ -195,7 +194,7 @@ void	queue_actions(t_env *e, int cs)
 		else
 			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 	}
-	ft_bzero(e->users[cs]->buf_read_tmp, 40960); // 40960 ?
+	ft_bzero(e->users[cs]->buf_read_tmp, BC_SIZE);
 	ft_tabdel(&cmd);
 }
 
@@ -226,8 +225,8 @@ void	client_read(t_env *e, int cs)
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
 			if (e->users[cs]->gfx.gfx)
 			{
-				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
-				//				gfx_cmd
+				printf("Received gfx: [%s]\n", e->users[cs]->buf_read_tmp);
+				gfx_cmd_check(e, cs, e->users[cs]->buf_read_tmp);
 			}
 			else
 			{

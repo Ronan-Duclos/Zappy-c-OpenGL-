@@ -28,9 +28,7 @@ void			run_serv(t_env *e)
 	while (1)
 	{
 		init_fd(e);
-		printf("before select\n");
 		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &timeout);
-		printf("after select\n");
 		check_fd(e);
 	}
 }

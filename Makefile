@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/18 21:34:30 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/19 21:38:28 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,22 @@ CLT_SRC=c_main.c \
 	c_opt.c \
 	c_serveur_read.c \
 	c_serveur_write.c \
-	c_tools1.c \
 	c_lex_inv.c \
-	c_lex_vision.c
+	c_lex_vision.c \
+	c_dead.c \
+	c_broadcast.c \
+	c_connect_nbr.c \
+	c_drop_item.c \
+	c_expulse.c \
+	c_fork.c \
+	c_incantation.c \
+	c_inv.c \
+	c_move_forward.c \
+	c_take_item.c \
+	c_turn_left.c \
+	c_turn_right.c \
+	c_watch_sight.c \
+	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \
 	g_serv.c \

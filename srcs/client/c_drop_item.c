@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_fork.c                                           :+:      :+:    :+:   */
+/*   c_drop_item.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/16 21:11:49 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/18 22:04:32 by rbernand         ###   ########.fr       */
+/*   Created: 2014/06/19 18:57:09 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/19 18:58:29 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <serveur.h>
+#include <client.h>
 #include <common.h>
-#include <libft.h>
 
-void	my_fork(t_env *e, int cs)
+void	send_drop_item(t_env *e, char *item)
 {
-	int		i;
+	int			a_write;
+	t_actions	*acts;
+	char		buf[BUF_SIZE];
 
-	i = -1;
-	while (e->opt.name[++i] != NULL)
-		if (ft_strcmp(e->users[cs]->player.team, e->team[i].name) == 0)
-		{
-			if (e->team[i].member < ((e->srv.max_fd - 4) / 3))
-			{
-				tmp_to_bc(&e->users[cs]->buf_write, "ok", 1);
-				e->team[i].member++;
-			}
-			else
-				tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
-		}
+	strcpy(buf, "pose ");
+	strcpy(buf + 5, item);
+	a_write = e->user->player.cur_awrite;
+	acts = &e->user->player.acts[a_write];
+	acts->time = 1;
+	acts->cmd = ft_strdup(buf);
+	/*acts->fct_cmd = send_item;*/
+	tmp_to_bc(&e->user->buf_write, buf, 1);
+	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

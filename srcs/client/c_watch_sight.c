@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client_write.c                                     :+:      :+:    :+:   */
+/*   c_watch_sight.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/25 16:12:43 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/11 18:19:14 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/19 19:02:45 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/19 19:02:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur.h"
-#include "libft.h"
+#include <client.h>
+#include <common.h>
 
-void	client_write(t_env *e, int cs)
+void	send_watch_sight(t_env *e)
 {
-	int		i;
+	int			a_write;
+	t_actions	*acts;
 
-	bc_to_tmp(&e->users[cs]->buf_write, e->users[cs]->buf_write_tmp);
-	i = ft_strlen(e->users[cs]->buf_write_tmp);
-	printf("Send to %d : %s", cs, e->users[cs]->buf_write_tmp);
-	send(cs, e->users[cs]->buf_write_tmp, i, 0);
-	e->users[cs]->buf_write_tmp[0] = '\0';
+	a_write = e->user->player.cur_awrite;
+	acts = &e->user->player.acts[a_write];
+	acts->time = 1;
+	/*acts->fct_cmd = watch_sight;*/
+	tmp_to_bc(&e->user->buf_write, "voir", 1);
+	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

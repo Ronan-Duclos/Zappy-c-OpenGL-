@@ -6,12 +6,13 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 19:51:50 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/19 21:37:13 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLIENT_H
 # define CLIENT_H
+
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/socket.h>
@@ -26,72 +27,79 @@
 # include <common.h>
 # include "libft.h"
 
-# define OPT				"nph"
+# define OPT		"nph"
 
-# define FD_SRV				1
-# define FD_CLT				2
-# define FD_FREE			0
-# define MAX_CHANS			100
-
-typedef struct s_env	t_env;
-typedef struct s_user	t_user;
-
-typedef struct			s_opt
+# define FD_SRV			1
+# define FD_CLT			2
+# define FD_FREE		0
+# define MAX_CHANS		100
+# define BUF_SIZE		4096
+typedef struct		s_opt
 {
-	int					port;
-	char				*name;
-	char				*host;
-}						t_opt;
+	int				port;
+	char			*name;
+	char			*host;
+	int				x;
+	int				y;
+}					t_opt;
 
-typedef int				(*t_fct_opt)(char **, t_opt *);
+typedef int			(*t_fct_opt)(char **, t_opt *);
 
 typedef struct		s_map
 {
 	t_inv			ground;
 }					t_map;
 
+typedef struct		s_ia
+{
+	t_inv			inv;
+	int				lvl;
+	int				x;
+	int				y;
+	t_map			**view;
+}					t_ia;
+
 typedef struct		s_player
 {
 	char			*team;
-	t_inv			inv;
-	int				lvl;
-	t_map			**view;
+	t_ia			ia;
 	t_actions		acts[10];
 	int				cur_aread;
 	int				cur_awrite;
 }					t_player;
 
-struct					s_user
+typedef struct		s_user
 {
-	int					sock;
-	int					ig;
-	t_player			player;
-	t_buf				buf_read;
-	t_buf				buf_write;
-	char				buf_read_tmp[BC_SIZE + 1];
-	char				buf_write_tmp[BC_SIZE + 1];
-};
+	int				sock;
+	int				ig;
+	t_player		player;
+	t_buf			buf_read;
+	t_buf			buf_write;
+	char			buf_read_tmp[BC_SIZE + 1];
+	char			buf_write_tmp[BC_SIZE + 1];
+}					t_user;
 
-struct					s_env
+typedef struct		s_env
 {
-	t_opt				me;
-	t_user				*user;
-	int					r;
-	fd_set				fd_read;
-	fd_set				fd_write;
-};
+	t_opt			me;
+	t_user			*user;
+	char			**av;
+	int				r;
+	fd_set			fd_read;
+	fd_set			fd_write;
+}					t_env;
 
 /*
 **	c_opt.c
 */
-int						get_clt_opt(t_opt *opt, int argc, char **argv);
+int					get_clt_opt(t_opt *opt, int argc, char **argv);
 /*
 **	c_client.c
 */
-int						create_clt(char *addr, int port);
-void					check_actions(t_env *e);
-void					do_select(t_env *e);
-void					run_clt(t_env *e);
+int					create_clt(char *addr, int port);
+void				check_fd(t_env *e);
+void				do_select(t_env *e);
+void				run_clt(t_env *e);
 /*
 **	c_tools1.c
 */
@@ -109,6 +117,23 @@ int						get_vision(t_inv **inv, int lvl, char *str);
 /*
 **	c_init.c
 */
-void					init_clt(t_env *e);
+void				init_clt(t_env *e);
+/*
+** Fonctions des commandes
+*/
+void				send_broadcast(t_env *e, char *msg);
+void				send_connect_nbr(t_env *e);
+void				send_drop_item(t_env *e, char *item);
+void				send_expulse(t_env *e);
+void				send_fork(t_env *e);
+void				send_incantation(t_env *e);
+void				send_inventaire(t_env *e);
+void				send_move_forward(t_env *e);
+void				send_take_item(t_env *e, char *item);
+void				send_turn_left(t_env *e);
+void				send_turn_right(t_env *e);
+void				send_watch_sight(t_env *e);
+int					death_clt(t_env *e);
+
 
 #endif

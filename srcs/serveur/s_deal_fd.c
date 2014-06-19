@@ -6,13 +6,26 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 17:57:16 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 18:32:16 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <conf.h>
 #include "libft.h"
 #include <serveur.h>
+
+void	clear_player(t_env *e, int cs)
+{
+	int		i;
+
+	i = -1;
+	remove_user_on_map(e, cs);
+	while (e->opt.name[++i] != NULL)
+	{
+		if (ft_strcmp(e->team[i].name, e->users[cs]->player.team) == 0)
+			e->team[i].member++;
+	}
+}
 
 void	create_clt(t_env *e, int s)
 {
@@ -34,6 +47,8 @@ void	create_clt(t_env *e, int s)
 void	destroy_clt(t_env *e, int sock)
 {
 	e->users[sock]->type = FD_FREE;
+	if (e->users[sock]->ig == 1)
+		clear_player(e, sock);
 	if (e->users[sock]->player.team != NULL)
 		free(e->users[sock]->player.team);
 	e->users[sock]->player.team = NULL;
@@ -41,12 +56,10 @@ void	destroy_clt(t_env *e, int sock)
 	init_bc(&e->users[sock]->buf_write);
 	e->users[sock]->buf_read_tmp[0] = '\0';
 	e->users[sock]->buf_write_tmp[0] = '\0';
-	e->users[sock]->ig = 0;
 	if (e->users[sock]->gfx.gfx)
 		glst_del_one(&e->srv.glst, sock);
 	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
-	if (e->users[sock]->ig == 1)
-		remove_user_on_map(e, sock);
+	e->users[sock]->ig = 0;
 	printf("Client disconnected : %d\n", sock);
 }
 
@@ -70,6 +83,10 @@ void	check_actions(t_env *e, int cs)
 				e->users[cs]->player.cur_aread++;
 			acts->time = 0;
 		}
+/*
+		else if (acts->time != 0 && acts->start <= now)
+			e->users[cs]->player.acts[nb_acts].fct_gfx(e, cs);
+*/
 	}
 }
 

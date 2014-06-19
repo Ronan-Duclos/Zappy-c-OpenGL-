@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/18 22:15:34 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/19 21:34:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		get_action_value(char *cmd)
 
 void	ma_fct_cmd(t_env *e, int cs)
 {
-	tmp_to_bc(&e->users[cs]->buf_write, "Not down yet", 1);
+	tmp_to_bc(&e->users[cs]->buf_write, "Not done yet", 1);
 }
 
 char	*get_cmd_arg(char *cmd)
@@ -161,6 +161,19 @@ void	make_incantations(t_env *e, int cs, double time)
 	}
 }
 
+void	start_action(t_env *e, int cs)
+{
+	int		st;
+
+	st = e->users[cs]->player.cur_awrite;
+	if (st == 0 && e->users[cs]->player.acts[9].time != 0)
+		e->users[cs]->player.acts[0].start = e->users[cs]->player.acts[9].time;
+	else if (st != 0)
+		e->users[cs]->player.acts[st].start = e->users[cs]->player.acts[st - 1].time;
+	else
+		e->users[cs]->player.acts[st].start = ft_usec_time();
+}
+
 void	queue_actions(t_env *e, int cs)
 {
 	int		i;
@@ -169,10 +182,11 @@ void	queue_actions(t_env *e, int cs)
 	char	**cmd;
 	int		ca;
 
-	time = ft_usec_time();
+	start_action(e, cs);
 	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	i = -1;
 	ca = e->users[cs]->player.cur_awrite;
+	time = e->users[cs]->player.acts[ca].start;
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
 	{
 		ca = e->users[cs]->player.cur_awrite;
@@ -190,7 +204,7 @@ void	queue_actions(t_env *e, int cs)
 		else
 			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 	}
-	ft_bzero(e->users[cs]->buf_read_tmp, 40960);
+	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);
 	ft_tabdel(&cmd);
 }
 

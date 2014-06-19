@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/12 12:09:54 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/17 22:49:37 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ int		create_clt(char *addr, int port)
 	return (s);
 }
 
-void	check_actions(t_env *e)
+void	check_fd(t_env *e)
 {
 	while (e->r != 0)
 	{
-		if (FD_ISSET(0, &e->fd_read))
+		if (FD_ISSET(e->user->sock, &e->fd_read))
 		{
 			e->r--;
-			rcv_keyboard(e);
+			rcv_serveur(e);
 		}
 		else if (FD_ISSET(e->user->sock, &e->fd_write))
 		{
 			e->r--;
 			send_serveur(e);
 		}
-		else if (FD_ISSET(e->user->sock, &e->fd_read))
+		else if (FD_ISSET(0, &e->fd_read))
 		{
 			e->r--;
-			rcv_serveur(e);
+			rcv_keyboard(e);
 		}
 	}
 }
@@ -73,7 +73,7 @@ void	run_clt(t_env *e)
 			FD_ZERO(&e->fd_read);
 			FD_ZERO(&e->fd_write);
 			do_select(e);
-			check_actions(e);
+			check_fd(e);
 		}
 		close(e->user->sock);
 	}
@@ -85,6 +85,7 @@ int		main(int ac, char **av)
 
 	if (get_clt_opt(&e.me, ac, av))
 		return(1);
+	e.av = av;
 	run_clt(&e);
 	return (0);
 }

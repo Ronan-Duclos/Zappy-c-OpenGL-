@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 23:05:44 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 22:54:49 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void		gfx_bct(t_env *e, int cs, int x, int y)
 			e->map[x][y].ground[_mendiane],
 			e->map[x][y].ground[_phiras],
 			e->map[x][y].ground[_thystame]);
+	printf("gfx_bct: %s\n", buf);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
@@ -68,6 +69,10 @@ void		gfx_mct(t_env *e, int cs)
 {
 	int			x;
 
+	printf("in gfx_mct: optX: %d optY: %d\n", e->opt.x, e->opt.y);
+	printf("in gfx_mct: gfxX: %d gfxI: %d, gfxJ: %d\n", e->users[cs]->gfx.x,
+		   e->users[cs]->gfx.i,
+		   e->users[cs]->gfx.j);
 	x = 0;
 	while (x < 20 && e->users[cs]->gfx.i < e->opt.x)
 	{
@@ -137,7 +142,7 @@ void		gfx_enw(t_env *e, int cs)
 }
 
 /*
-**	send player #cs positon to clt gfx socket.
+**	Send player #cs positon to clt gfx socket.
 */
 void		gfx_ppo(t_env *e, int cs, int clt)
 {
@@ -148,6 +153,51 @@ void		gfx_ppo(t_env *e, int cs, int clt)
 			e->users[clt]->player.x,
 			e->users[clt]->player.y,
 			e->users[clt]->player.direc);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send player's clt inventory
+*/
+void		gfx_pin(t_env *e, int cs, int clt)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pin #%d %d %d %d %d %d %d %d %d %d", clt,
+			e->users[clt]->player.x,
+			e->users[clt]->player.y,
+			e->users[clt]->player.inv[_food],
+			e->users[clt]->player.inv[_linemate],
+			e->users[clt]->player.inv[_deraumere],
+			e->users[clt]->player.inv[_sibur],
+			e->users[clt]->player.inv[_mendiane],
+			e->users[clt]->player.inv[_phiras],
+			e->users[clt]->player.inv[_thystame]);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send player's level
+*/
+void		gfx_plv(t_env *e, int cs, int clt)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "plv #%d %d", clt, e->users[clt]->player.lvl);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal wen player take ressource
+*/
+void		gfx_pgt(t_env *e, int cs, int clt, int itm)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pgt #%d %d", clt, itm);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
@@ -164,6 +214,24 @@ void		gfx_send_npc(t_env *e, int cs, void (*fu)())
 	while (tmp)
 	{
 		fu(e, tmp->cs, cs);
+		tmp = tmp->next;
+	}
+}
+
+/*
+**	Send all gfx clients the function as 
+**	void (*fu)(t_env *e, int gfx_cs, int clt, int itm)
+**	cs is id/socket of client you want to send infos.
+**	itm is the item taked or droped (see e_map enum)
+*/
+void		gfx_send_act(t_env *e, int cs, void (*fu)(), int itm)
+{
+	t_glst	*tmp;
+
+	tmp = e->srv.glst;
+	while (tmp)
+	{
+		fu(e, tmp->cs, cs, itm);
 		tmp = tmp->next;
 	}
 }

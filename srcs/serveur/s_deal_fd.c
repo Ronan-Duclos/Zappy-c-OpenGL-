@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 18:32:16 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 22:23:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	create_clt(t_env *e, int s)
 
 void	destroy_clt(t_env *e, int sock)
 {
-	e->users[sock]->type = FD_FREE;
-	if (e->users[sock]->ig == 1)
+	if (e->users[sock]->ig == 1 && !e->users[sock]->gfx.gfx)
 		clear_player(e, sock);
 	if (e->users[sock]->player.team != NULL)
 		free(e->users[sock]->player.team);
@@ -60,6 +59,7 @@ void	destroy_clt(t_env *e, int sock)
 		glst_del_one(&e->srv.glst, sock);
 	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
 	e->users[sock]->ig = 0;
+	e->users[sock]->type = FD_FREE;
 	printf("Client disconnected : %d\n", sock);
 }
 

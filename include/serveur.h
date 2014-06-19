@@ -6,8 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 22:02:44 by rduclos          ###   ########.fr       */
-/*   Updated: 2014/06/18 22:36:13 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 22:16:48 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +31,23 @@
 # include <conf.h>
 
 # define OPT				"pxynct"
+# define GCMD_NB			2
 
 # define FD_SRV				1
 # define FD_CLT				2
 # define FD_GFX				3
 # define FD_FREE			0
 
-# define AVANCE				7
+# define AVANCE			7
 
-# define NBR_CMD			12
-# define BUF_SIZE			4096
+# define NBR_CMD	12
+# define BUF_SIZE	4096
+
+typedef struct		s_gcmd
+{
+	char	cmd[3];
+	void	(*fu)();
+}					t_gcmd;
 
 typedef struct		s_glst
 {
@@ -199,10 +205,22 @@ void				gfx_bct(t_env *e, int cs, int x, int y);
 void				gfx_mct(t_env *e, int cs);
 void				gfx_tna(t_env *e, int cs);
 void				gfx_pnw(t_env *e, int cs, int i);
+void				gfx_pgt(t_env *e, int cs, int clt, int itm);
 void				gfx_enw(t_env *e, int cs);
 void				gfx_ppo(t_env *e, int cs, int clt);
+void				gfx_pin(t_env *e, int cs, int clt);
+void				gfx_plv(t_env *e, int cs, int clt);
 void				gfx_send_npc(t_env *e, int cs, void (*fu)());
+void				gfx_send_act(t_env *e, int cs, void (*fu)(), int itm);
 void				gfx_send_cmd(t_env *e, int cs, int cmd);
+
+/*
+**	s_gfx_cmd.c
+*/
+int					get_next_int(int *nb, char *s);
+void				gfx_cmd_check(t_env *e, int cs, char *buf);
+void				gcmd_pin(t_env *e, int cs, char *cmd);
+void				gcmd_plv(t_env *e, int cs, char *cmd);
 
 /*
 **	s_gfx_init.c
@@ -242,6 +260,7 @@ void				broadcast(t_env *e, int cs);
 void				gfx_move_forward(t_env *e, int cs);
 void				gfx_turn_right(t_env *e, int cs);
 void				gfx_turn_left(t_env *e, int cs);
+void				gfx_take_item(t_env *e, int cs);
 
 /*
 **	s_watch_sight

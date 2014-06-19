@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 21:57:12 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 18:23:57 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ static t_cmd	*cmds_tab_get(void)
 
 	{
 		{"pnw", &cmd_pnw},
-		{"ppo", &cmd_ppo}
+		{"ppo", &cmd_ppo},
+		{"pin", &cmd_pin},
+		{"plv", &cmd_plv},
+		{"pgt", &cmd_pgt}
 	};
 	return (cmd);
 }
@@ -88,8 +91,14 @@ void			cmd_check(t_ipv *ipv, char *buf)
 		if (j < CMDS_NB)
 			cmd[j].fu(&tab[i][3]);
 		else
-			printf("UNKNOWN CMD %d, %s\n", i, tab[i]);
+			printf("UNKNOWN CMD tab[%d]: %s\n", i, tab[i]);
 		i++;
+//		j = -1;//
+//		while (++j < NPCS_MAX)
+//		{
+//			if (ipv->env.npc[j].id)
+//				cmd_plv_send(ipv, j);
+//		}//
 	}
 	printf("end_cmd_check state: %d\n", ipv->state);
 	dtab_del(tab);

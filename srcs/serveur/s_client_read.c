@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 22:02:16 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 22:14:23 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"gauche", 7, turn_left, gfx_turn_left},
 	{"voir", 7, watch_sight, NULL},
 	{"inventaire", 1, send_inv, NULL},
-	{"prend", 7, take_item, NULL},
+	{"prend", 7, take_item, gfx_take_item},
 	{"pose", 7, drop_item, NULL},
 	{"expulse", 7, expulse, NULL},
 	{"broadcast", 7, broadcast, NULL},
@@ -193,7 +193,6 @@ void	queue_actions(t_env *e, int cs)
 		if (j != -1)
 		{
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
-			
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
 			if (j == 9)
@@ -212,7 +211,9 @@ void	queue_actions(t_env *e, int cs)
 
 void	make_cmd(t_env *e, int cs)
 {
-	if (e->users[cs]->ig != 1)
+	if (e->users[cs]->gfx.gfx)
+		gfx_cmd_check(e, cs, e->users[cs]->buf_read_tmp);
+	else if (e->users[cs]->ig != 1)
 		check_team(e, cs);
 	else if (e->users[cs]->type == FD_CLT)
 		queue_actions(e, cs);
@@ -234,17 +235,9 @@ void	client_read(t_env *e, int cs)
 		tmp_to_bc(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp, 0);
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
-			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			if (e->users[cs]->gfx.gfx)
-			{
-				printf("Received gfx: [%s]", e->users[cs]->buf_read_tmp);
-				//				gfx_cmd
-			}
-			else
-			{
-				printf("Receive from %d : %s", cs, e->users[cs]->buf_read_tmp);
-				make_cmd(e, cs);
-			}
+			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);			
+			printf("Receive from %d : %s", cs, e->users[cs]->buf_read_tmp);
+			make_cmd(e, cs);
 			e->users[cs]->buf_read_tmp[0] = '\0';
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 12:19:56 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 21:57:54 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/19 22:36:00 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void			run_serv(t_env *e)
 	while (1)
 	{
 		init_fd(e);
+		printf("before select\n");
 		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &timeout);
+		printf("after select\n");
 		check_fd(e);
 	}
 }

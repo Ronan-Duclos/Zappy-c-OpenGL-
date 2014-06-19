@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 16:58:58 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/19 23:38:20 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 		if (buf->head[i] != '\0')
 			tmp[++j] = buf->head[i];
 		buf->head[i] = '\0';
+		if (tmp[j] == '\n')
+			buf->nb_cmd--;
 		if (buf->head + i == buf->end)
 		{
 			buf->head = buf->start;
@@ -135,8 +137,6 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 		}
 		else
 			i++;
-		if (tmp[j] == '\n')
-			buf->nb_cmd--;
 	}
 	tmp[++j] = '\0';
 	bc_to_tmp_end(buf, i);

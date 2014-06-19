@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 21:22:35 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 23:02:22 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ static int	connect_map(char **tab, int *i)
 {
 	static int	step;
 
+	dtab_put(tab);
 	while (tab[*i] && !strncmp(tab[*i], "bct", 3))
 	{
+		printf("tab[%d]: %s\n", *i, tab[*i]);
 		cmd_bct(tab[*i]);
 		step += 1;
 		*i += 1;

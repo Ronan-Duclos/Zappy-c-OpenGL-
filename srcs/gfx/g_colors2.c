@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 01:25:35 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/13 19:07:04 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 21:41:09 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	list_cyan_init(void)
 void	list_highlight_init(void)
 {
 	static	GLfloat mat_specular[] = { 0.4, 0.4, 0.4, 1.0 };
-	static	GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+	static	GLfloat mat_diffuse[] = { 0.2, 0.2, 0.2, 1.0 };
 	static	GLfloat mat_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 
 	glNewList(g_env->lists[_highlight], GL_COMPILE);

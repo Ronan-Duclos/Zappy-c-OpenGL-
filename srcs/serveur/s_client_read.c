@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 23:37:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 00:16:04 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ void	client_read(t_env *e, int cs)
 		tmp_to_bc(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp, 0);
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
-			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);			
+			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
 			printf("Receive from %d : %s", cs, e->users[cs]->buf_read_tmp);
 			make_cmd(e, cs);
 			e->users[cs]->buf_read_tmp[0] = '\0';

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 23:12:55 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 00:14:09 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		gfx_msz(t_env *e, int cs)
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
-/*
+/*_
 **	send time.
 */
 void		gfx_sgt(t_env *e, int cs)
@@ -197,7 +197,7 @@ void		gfx_pgt(t_env *e, int cs, int clt, int itm)
 }
 
 /*
-**	Send all gfx clients the function as 
+**	Send all gfx clients the function as
 **	void (*fu)(t_env *e, int gfx_cs, int clt)
 **	cs is id/socket of client you want to send infos.
 */
@@ -214,7 +214,7 @@ void		gfx_send_npc(t_env *e, int cs, void (*fu)())
 }
 
 /*
-**	Send all gfx clients the function as 
+**	Send all gfx clients the function as
 **	void (*fu)(t_env *e, int gfx_cs, int clt, int itm)
 **	cs is id/socket of client you want to send infos.
 **	itm is the item taked or droped (see e_map enum)

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 21:58:15 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/21 00:14:41 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void			malloc_map(t_env *e)
     i = -1;
     while (++i < e->opt.x)
     {
-        e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
-        ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
+		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
+		ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
     }
 }
 

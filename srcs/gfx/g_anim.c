@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/15 01:11:30 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 00:18:07 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,9 @@ void	anim_rock(t_anim *a)
 	a->frame++;
 	if (a->frame >= a->maxframe)
 		a->dead = 1;
+}
+
+void	anim_mob(t_anim *a)
+{
+	(void)a;
 }

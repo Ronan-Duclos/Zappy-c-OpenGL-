@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:28:45 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 20:30:59 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 02:40:21 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,24 @@ void	normalize(GLdouble vec[3])
 	vec[2] /= mag;
 }
 
-void	getdir(GLdouble o[3], GLdouble dir[3])
+/*
+**	Modifies direction dir[3] according to origin o[3].
+*/
+void	getdir(const GLdouble o[3], GLdouble dir[3])
 {
 	dir[0] -= o[0];
 	dir[1] -= o[1];
 	dir[2] -= o[2];
 }
 
-void	map_intersection(GLdouble *inter, GLdouble *a, GLdouble *b)
+void	getdirf(const GLfloat o[3], GLfloat dir[3])
+{
+	dir[0] -= o[0];
+	dir[1] -= o[1];
+	dir[2] -= o[2];
+}
+
+void	map_intersection(GLdouble *inter, const GLdouble *a, GLdouble *b)
 {
 	double	t;
 
@@ -40,4 +50,11 @@ void	map_intersection(GLdouble *inter, GLdouble *a, GLdouble *b)
 	inter[0] = a[0] + b[0] * t;
 	inter[1] = a[1] + b[1] * t;
 	inter[2] = a[2] + b[2] * t;
+}
+
+void	set_vecf(GLfloat vec[3], GLfloat x, GLfloat y, GLfloat z)
+{
+	vec[_x] = x;
+	vec[_y] = y;
+	vec[_z] = z;
 }

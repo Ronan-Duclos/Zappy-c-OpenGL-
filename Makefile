@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/19 22:17:04 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/21 00:16:52 by tmielcza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,11 @@ GFX_SRC=g_main.c \
 	g_parse_png.c \
 	g_mdx_parser.c \
 	g_lists.c \
-	g_item_actions.c
+	g_item_actions.c \
+	g_move.c \
+	g_npc_action.c \
+	g_npc.c \
+	g_display_players.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c

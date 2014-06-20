@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:45:06 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 02:56:00 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/20 22:23:15 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	display_food(int i)
 	glTranslatef(1.9 / 16.0 * (i % 16) + 0.1, 0.0, 1.9 / 16 * (i / 16) + 0.1);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[_mod_plant][_vbo_indx]);
 	glCallList(g_env->lists[_init_plant_pos]);
-	glCallList(g_env->lists[_red]);
 	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_plant][_vbo_indx], GL_UNSIGNED_SHORT, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glPopMatrix();

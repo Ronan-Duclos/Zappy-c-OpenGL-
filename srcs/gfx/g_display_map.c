@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:37:42 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 06:01:06 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/20 22:26:03 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	display_map(void)
 
 	display_all_squares();
 	display_all_grid();
+	display_all_mobs();
 	i = 0;
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);

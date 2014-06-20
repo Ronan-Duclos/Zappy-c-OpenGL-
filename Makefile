@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/19 23:39:47 by tmielcza         ###   ########.fr        #
+#    Updated: 2014/06/20 22:00:07 by tmielcza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,8 @@ GFX_SRC=g_main.c \
 	g_item_actions.c \
 	g_move.c \
 	g_npc_action.c \
-	g_npc.c
+	g_npc.c \
+	g_display_players.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	error.c

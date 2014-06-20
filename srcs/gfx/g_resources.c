@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:20:29 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 19:36:40 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/20 22:35:25 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ void		resources_load(t_env *env)
 	get_model_from_mdx("data/Shimmerweed.mdx", &mdx);
 //	get_model_from_mdx("data/AshenShrooms1.mdx", &mdx);
 	ft_vbo_from_mdx(&mdx, env->vbos[_mod_plant], env->vbosizes[_mod_plant]);
+	get_model_from_mdx("data/BalloonTransport.mdx", &mdx);
+	ft_vbo_from_mdx(&mdx, env->vbos[_mod_owl], env->vbosizes[_mod_owl]);
 }

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 02:41:44 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/20 22:27:39 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ enum			e_colors
 	_highlight,
 	_init_item_pos,
 	_init_plant_pos,
+	_init_owl_pos,
 	_lists_nb
 };
 
@@ -78,6 +79,7 @@ enum			e_models
 {
 	_mod_stone,
 	_mod_plant,
+	_mod_owl,
 	_mod_nb
 };
 
@@ -328,5 +330,10 @@ void			move_mob(int npc, int x, int y);
 **	g_npc.c
 */
 t_list			**find_mob(int npc);
+
+/*
+**	g_display_players.c
+*/
+void			display_all_mobs(void);
 
 #endif

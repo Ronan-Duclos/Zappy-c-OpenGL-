@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 17:13:58 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 22:00:30 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,15 @@ int				put_stones(t_env *env)
 
 void			malloc_map(t_env *e)
 {
-	int			i;
-	int			j;
+	int            i;
 
-	e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.x));
-	i = 0;
-	while (i < e->opt.x)
-	{
-		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
-		j = 0;
-		while (j < e->opt.y)
-		{
-			ft_bzero(e->map[i][j].ground, sizeof(NB_STONE + 2));
-			e->map[i][j].player = NULL;
-			j++;
-		}
-		i++;
-	}
+    e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.x));
+    i = -1;
+    while (++i < e->opt.x)
+    {
+        e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
+        ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
+    }
 }
 
 void			generate_map(t_env *env)

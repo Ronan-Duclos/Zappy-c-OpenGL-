@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/16 15:01:51 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 17:40:44 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ static void	names_init(t_env *env)
 	bzero(env->tnames, sizeof(char *) * j);
 }
 
+static void	npcs_init(t_env *env)
+{
+	env->npc = (t_npc *)XV(NULL, malloc(sizeof(t_npc) * NPCS_MAX), "mpcs_init");
+	bzero(env->npc, sizeof(t_npc) * NPCS_MAX);
+}
+
 void		env_init(t_env *env)
 {
 	g_env = env;
@@ -51,6 +57,7 @@ void		env_init(t_env *env)
 	env->camtrans[1] = -10.1;
 	env->camtrans[2] = -30.0;
 	names_init(env);
+	npcs_init(env);
 	lists_init(env);
 	list_item_init(env);
 	list_white_init();

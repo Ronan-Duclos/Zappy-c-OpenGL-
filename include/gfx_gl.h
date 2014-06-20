@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 03:14:03 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/18 17:39:02 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define FLAG_W			0x80
 
 # define CASE_MAX_ITEMS	256
+# define NPCS_MAX		255
 
 # define SCR_WID		640
 # define SCR_HGH		480

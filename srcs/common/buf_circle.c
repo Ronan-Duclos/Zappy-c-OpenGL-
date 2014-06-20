@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 15:41:43 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 16:54:16 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void			display_bc(t_buf *bc)
 
 void			init_bc(t_buf *buf)
 {
-	ft_bzero(buf->start, BC_SIZE);
+	ft_bzero(buf->start, BC_SIZE + 1);
 	buf->end = buf->start + BC_SIZE2;
 	buf->head = buf->start;
 	buf->head2 = buf->start;
-	buf->tail = buf->start;
+//	buf->tail = buf->start;
 	buf->nb_cmd = 0;
 }
 
@@ -66,8 +66,10 @@ int				verify_bsn(t_buf *buf)
 
 int				verify_end(t_buf *buf, int i)
 {
-	if (buf->head2 + i == buf->end)
+	if (buf->head2 + i== buf->end)
 	{
+		printf("head2 %p || start%p\n", buf->head2, buf->start);
+		printf("head2 : %s \nstart : %s\n", buf->head2, buf->start);
 		buf->head2 = buf->start;
 		i = 0;
 	}
@@ -81,15 +83,17 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	j = 0;
-	printf("\033[34mtmp_to_bc: %s\033[0m\n", str);
-	while (str[++i] != '\0')
+//	printf("\033[34mtmp_to_bc: %s\033[0m\n", str);
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
 			buf->nb_cmd++;
 		buf->head2[j] = str[i];
+		buf->head2[j + 1 ] = 0;
 		j = verify_end(buf, j);
+		i++;
 	}
 	if (type == 1)
 	{
@@ -98,6 +102,7 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 		buf->nb_cmd++;
 	}
 	buf->head2 = buf->head2 + j;
+//	printf("\033[35mj: %d\033[0m\n", j );
 //	display_bc(buf);
 }
 
@@ -106,42 +111,42 @@ void			char_to_bc(t_buf *buf, char c)
 	int	i;
 
 	buf->head2[0] = c;
-	buf->tail = buf->head2;
+//	buf->tail = buf->head2;
 	i = verify_end(buf, 1);
 	buf->head2 = buf->head2 + i;
 }
-
+/*
 static void		bc_to_tmp_end(t_buf *buf, int i)
 {
-	if (buf->head + i != buf->end)
-		buf->head = buf->head + i;
-	else
+	(void)i;
+	if (buf->head == buf->end)
 		buf->head = buf->start;
+	else
+		buf->head++;
 }
-
+*/
 void			bc_to_tmp(t_buf *buf, char *tmp)
 {
-	int		i;
 	int		j;
 
-	i = 0;
 	j = -1;
-	printf("\033[34mbc_to_tmp: %s\033[0m\n", &buf->head[i]);
+//printf("\033[34mbc_to_tmp: %s\033[0m\n", &buf->head[i]);
+//	printf("\033[34bc_to_tmp: %s\033[0m\n", tmp);
 	while (buf->nb_cmd != 0)
 	{
-		if (buf->head[i] != '\0')
-			tmp[++j] = buf->head[i];
-		buf->head[i] = '\0';
+//		if (buf->head[i] != '\0')
+			tmp[++j] = *buf->head;
+		*buf->head = '\0';
 		if (tmp[j] == '\n')
 			buf->nb_cmd--;
-		if (buf->head + i == buf->end)
+		if (buf->head  == buf->end)
 		{
 			buf->head = buf->start;
-			i = 0;
 		}
 		else
-			i++;
+			buf->head++;
 	}
 	tmp[++j] = '\0';
-	bc_to_tmp_end(buf, i);
+//	printf("\033[35mbc_to_tmp end: %s\033[0m\n",  );
+//	bc_to_tmp_end(buf, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 14:23:12 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 23:12:55 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void		gfx_bct(t_env *e, int cs, int x, int y)
 			e->map[x][y].ground[_mendiane],
 			e->map[x][y].ground[_phiras],
 			e->map[x][y].ground[_thystame]);
-	printf("gfx_bct: %s\n", buf);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
@@ -69,10 +68,6 @@ void		gfx_mct(t_env *e, int cs)
 {
 	int			x;
 
-	printf("in gfx_mct: optX: %d optY: %d\n", e->opt.x, e->opt.y);
-	printf("in gfx_mct: gfxX: %d gfxI: %d, gfxJ: %d\n", e->users[cs]->gfx.x,
-		   e->users[cs]->gfx.i,
-		   e->users[cs]->gfx.j);
 	x = 0;
 	while (x < 20 && e->users[cs]->gfx.i < e->opt.x)
 	{
@@ -88,7 +83,6 @@ void		gfx_mct(t_env *e, int cs)
 			e->users[cs]->gfx.j++;
 			e->users[cs]->gfx.x++;
 		}
-//		usleep(10000);
 	}
 	if (e->users[cs]->gfx.x >= e->opt.x * e->opt.y)
 	{

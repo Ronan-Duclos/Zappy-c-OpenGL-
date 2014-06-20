@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:24:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 12:14:45 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 23:07:37 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void		srv_read(t_ipv *ipv)
 	buf[r] = '\0';
 	if (!r)
 		exit(0);
-	printf("\033[33mbuf: %s\n\033[0m", buf);
 //	tmp_to_bc(&ipv->fd.buf_read, buf, 0);
 //	if (verify_bsn(&ipv->fd.buf_read) == 1)
 //	{

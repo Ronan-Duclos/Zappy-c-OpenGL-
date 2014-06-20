@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 12:05:19 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 23:09:38 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static int	connect_map(char **tab, int *i, t_ipv *ipv)
 	static int	step;
 	int			ret;
 
-	dtab_put(tab);
 	while (tab[*i] && !(ret = strncmp(tab[*i], "bct", 3)))
 	{
 		cmd_bct(tab[*i]);
@@ -81,7 +80,7 @@ static int	connect_map(char **tab, int *i, t_ipv *ipv)
 	return (0);
 }
 
-int			connect_tnames(char **tab, int *i)
+int			connect_tnames(char **tab, int *i, t_ipv *ipv)
 {
 	int		x;
 
@@ -92,6 +91,7 @@ int			connect_tnames(char **tab, int *i)
 		x++;
 		*i += 1;
 	}
+	cmd_smg_send(ipv, "GO");
 	if (x)
 		return (1);
 	return (0);
@@ -109,7 +109,7 @@ void		cmd_connect(t_ipv *ipv, char **tab, int *i)
 	if (step == 2)
 		step += connect_map(tab, i, ipv);
 	if (step == 3)
-		step += connect_tnames(tab, i);
+		step += connect_tnames(tab, i, ipv);
 	if (step == 4)
 		ipv->state = _draw;
 	printf("sizes: X: %d, Y: %d, Time: %d\n", g_env->mapw, g_env->maph, g_env->time);

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 14:18:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 11:50:11 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 23:14:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,10 @@ void			gfx_cmd_check(t_env *e, int cs, char *buf)
 	int		j;
 
 	i = 0;
-	printf("gfx_cmd_check: buf: %s\n", buf);
 	cmd = gfx_cmds_get();
 	tab = ft_strsplit(buf, '\n');
 	while (tab[i])
 	{
-		printf("tab[%d]: %s\n", i, tab[i]);
 		j = 0;
 		while (j < GCMD_NB && strncmp(tab[i], cmd[j].cmd, 3))
 			j++;
@@ -107,6 +105,5 @@ void			gfx_cmd_check(t_env *e, int cs, char *buf)
 			printf("UNKNOWN CMD %d, %s\n", i, tab[i]);
 		i++;
 	}
-	printf("end gfx_cmd_check \n");
 	ft_tabdel(&tab);
 }

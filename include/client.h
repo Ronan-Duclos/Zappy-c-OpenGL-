@@ -34,6 +34,7 @@
 # define FD_FREE		0
 # define MAX_CHANS		100
 # define BUF_SIZE		4096
+
 typedef struct		s_opt
 {
 	int				port;
@@ -119,7 +120,13 @@ int						get_vision(t_inv **inv, int lvl, char *str);
 */
 void				init_clt(t_env *e);
 /*
-** Fonctions des commandes
+**	Fonctions des commandes
+*/
+void				drop_item(t_env *e);
+void				take_item(t_env *e);
+int					death_clt(t_env *e);
+/*
+**	Fonctions send des commandes
 */
 void				send_broadcast(t_env *e, char *msg);
 void				send_connect_nbr(t_env *e);
@@ -133,7 +140,5 @@ void				send_take_item(t_env *e, char *item);
 void				send_turn_left(t_env *e);
 void				send_turn_right(t_env *e);
 void				send_watch_sight(t_env *e);
-int					death_clt(t_env *e);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 11:34:36 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/20 23:01:57 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,17 @@ int		init_sock(int port, t_env *e)
 void	init_player(t_env *e, int cs)
 {
 	t_player		*p;
-	int				i;
+/*	int				i;
 	double			time;
-	t_egg			*egg;
+	t_egg			*egg;*/
 
 	p = &e->users[cs]->player;
 	p->team = ft_strdup(e->users[cs]->buf_read_tmp);
 	p->direc = rand() % 4;
-	i = 0;
+//	i = 0;
+	p->x = rand() % e->opt.x;
+	p->y = rand() % e->opt.y;
+/*
 	while (strcmp(p->team, e->team[i].name) != 0)
 		i++;
 	time = ft_usec_time();
@@ -79,8 +82,9 @@ void	init_player(t_env *e, int cs)
 		p->y = egg->y;
 		e->users[cs]->time = time;
 	}
+*/
 	p->inv[_food] = NB_START_FOOD;
-	p->lvl = 1;
+	p->lvl = 8;
 	put_user_on_map(e, cs);
 }
 
@@ -117,7 +121,9 @@ void	init_serv(t_env *e)
 
 	e->srv.glst = NULL;
 	i = init_sock(e->opt.port, e);
-	e->users[i]->type = FD_SRV;
+	e->repop = ft_usec_time() + ((126 * 1000000) / e->opt.time);
+	e->srv.time = 2000000000000;
 	e->users[i]->fct_read = create_clt;
 	e->users[i]->fct_write = client_write;
+	e->users[i]->type = FD_SRV;
 }

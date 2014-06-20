@@ -41,7 +41,10 @@ int		accept_gamer(t_env *e, int cs, int nb_left)
 	init_player(e, cs);
 	e->users[cs]->player.cur_aread = 0;
 	while (++i < 10)
+	{
 		e->users[cs]->player.acts[i].time = 0;
+		e->users[cs]->player.acts[i].start = 0;
+	}
 	tmp = ft_itoa(nb_left);
 	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
 	free(tmp);
@@ -154,6 +157,7 @@ void	make_incantations(t_env *e, int cs, double time)
 		{
 			if (tmp->sock != cs)
 				remove_actions(tmp, time);
+			e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].start = 1;
 			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
 		}
 		tmp = tmp->next;
@@ -193,6 +197,8 @@ void	queue_actions(t_env *e, int cs)
 		if (j != -1)
 		{
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
+			if (time < e->srv.time)
+				e->srv.time = time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
 			if (j == 9)

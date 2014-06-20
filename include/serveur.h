@@ -116,6 +116,7 @@ typedef struct		s_srv
 	int				nb_p;
 	int				max;
 	int				r;
+	double			time;
 	t_glst			*glst;
 	fd_set			fd_read;
 	fd_set			fd_write;
@@ -141,6 +142,7 @@ typedef struct		s_env
 {
 	t_opt			opt;
 	t_case			**map;
+	double			repop;
 	t_team			*team;
 	t_srv			srv;
 	t_user			**users;
@@ -199,7 +201,6 @@ void				init_serv(t_env *e);
 */
 void				run_serv(t_env *e);
 void				send_inv(t_env *e, int id);
-
 /*
 **	s_user_on_map.c
 */
@@ -252,6 +253,7 @@ void				glst_put(t_glst **lst);
 **	s_less_hp.c
 */
 int					less_hp(t_env *e, int cs);
+void				generate_food(t_env *e);
 
 /*
 **	Fonctions des différentes commandes client / server

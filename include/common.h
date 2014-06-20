@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/17 20:53:01 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/18 23:38:19 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct		s_buf
 int		rand_int(int min, int max);
 int		get_vision_nb_cell(int level);
 char	*type_to_str(int id);
-int			str_to_type(char *str);
+int		str_to_type(char *str);
 /*
 **	buf_circle.c
 */

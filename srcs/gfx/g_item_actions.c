@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/15 01:11:11 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/17 05:59:40 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/19 02:06:31 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include "gfx_gl.h"
 #include "common.h"
 
+/*
+**	Creates a new item to be displayed, according to the params.
+**	list is the list of transformations performed by OpenGL.
+**	id_nb is the item's id (or so I think)
+**	vbo is the vbo's id (obsolete)
+**	anim is a pointer on the animation structure.
+*/
 t_item		*new_item(GLuint list, GLuint id_nb, GLuint vbo, t_anim *anim)
 {
 	t_item	*new;
@@ -42,8 +49,8 @@ void		take_stone(int square, int stone)
 							 SIBUR_OFFSET, MENDIANE_OFFSET, PHIRAS_OFFSET};
 
 	sq = g_env->sq + square;
-	if (!sq->itms[stone]) // A virer, ca sert a rien puisque c'est le serveur qui gere.
-		return ; // Normalement ...
+	if (!sq->itms[stone])
+		return ;
 	i = sq->grid[offsets[stone] + sq->itms[stone]];
 	list = glGenLists(1);
 	glNewList(list, GL_COMPILE);

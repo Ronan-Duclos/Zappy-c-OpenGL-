@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 23:05:44 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 23:37:46 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		gfx_msz(t_env *e, int cs)
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
-/*
+/*_
 **	send time.
 */
 void		gfx_sgt(t_env *e, int cs)

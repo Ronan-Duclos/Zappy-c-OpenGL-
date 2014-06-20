@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/18 22:35:20 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/19 01:14:36 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char	*get_cmd_arg(char *cmd)
 		i++;
 	if (cmd[i] != '\0')
 		i++;
-	else 
+	else
 		return (NULL);
 	ret = ft_strdup(cmd + i);
 	return (ret);
@@ -182,7 +182,6 @@ void	queue_actions(t_env *e, int cs)
 		if (j != -1)
 		{
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
-			
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
 			if (j == 9)
@@ -195,7 +194,7 @@ void	queue_actions(t_env *e, int cs)
 		else
 			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
 	}
-	ft_bzero(e->users[cs]->buf_read_tmp, 40960); // 40960 ?
+	ft_bzero(e->users[cs]->buf_read_tmp, BC_SIZE);
 	ft_tabdel(&cmd);
 }
 

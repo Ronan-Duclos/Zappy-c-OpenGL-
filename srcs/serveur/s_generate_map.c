@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 22:00:30 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/18 23:53:40 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int				put_stones(t_env *env)
 	RATE_DERAUMERE,
 	RATE_SIBUR,
 	RATE_MENDIANE,
-	RATE_PHIRAS, 
+	RATE_PHIRAS,
 	RATE_THYSTAME};
 	type_rate[0] = 0;
 	while (type_rate[0] < NB_STONE + 1)
@@ -99,8 +99,8 @@ void			malloc_map(t_env *e)
     i = -1;
     while (++i < e->opt.x)
     {
-        e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
-        ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
+		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
+		ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
     }
 }
 

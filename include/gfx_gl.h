@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 17:39:02 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 02:41:44 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,22 @@ enum			e_vbos
 	_vbo_nb
 };
 
+enum			e_coord
+{
+	_x,
+	_y,
+	_z
+};
+
+typedef struct	s_square
+{
+	char			tile;
+	unsigned char	grid[256];
+	int				itms[_itm_nb];
+	t_list			*anims;
+	t_list			*mobs;
+}					t_square;
+
 typedef struct	s_anim	t_anim;
 
 typedef struct	s_move
@@ -109,7 +125,9 @@ typedef struct	s_item
 
 typedef struct	s_mob
 {
-	GLuint		list;
+	int			id;
+	t_move		*move;
+	t_anim		*anim;
 }				t_mob;
 
 typedef struct	s_npc
@@ -120,6 +138,7 @@ typedef struct	s_npc
 	int			dir;
 	int			id;
 	int			lvl;
+	t_square	*sq;
 	char		*team;
 }				t_npc;
 
@@ -130,14 +149,6 @@ struct			s_anim
 	void		(*fct)(t_anim *);
 	char		dead;
 };
-
-typedef struct	s_square
-{
-	char			tile;
-	unsigned char	grid[256];
-	int				itms[_itm_nb];
-	t_list			*anims;
-}					t_square;
 
 typedef struct	s_env
 {
@@ -240,8 +251,10 @@ int				time_frame(void);
 **	g_vec.c
 */
 void			normalize(GLdouble vec[3]);
-void			getdir(GLdouble o[3], GLdouble dir[3]);
-void			map_intersection(GLdouble *inter, GLdouble *a, GLdouble *b);
+void			getdir(const GLdouble o[3], GLdouble dir[3]);
+void			getdirf(const GLfloat o[3], GLfloat dir[3]);
+void			map_intersection(GLdouble *inter, const GLdouble *a, GLdouble *b);
+void			set_vecf(GLfloat vec[3], GLfloat x, GLfloat y, GLfloat z);
 
 /*
 **	g_display_map.c
@@ -287,13 +300,33 @@ void			ft_vbo_from_mdx(t_mdx *mdx, GLuint *vbo, int *size);
 /*
 **	g_lists.c
 */
-void			del_link(t_list *link, t_list **list);
+void			del_link(t_list **link, void (*ft)(void *));
 t_list			*new_link(t_list *next, void *content);
+void			switch_link(t_list **src, t_list **dst);
 
 /*
 **	g_item_actions.c
 */
 t_item			*new_item(GLuint list, GLuint id_nb, GLuint vbo, t_anim *anim);
 void			take_stone(int square, int stone);
+
+/*
+**	g_move.c
+*/
+t_move			*new_move(int frames, GLfloat pos[3], GLfloat dir[3]);
+void			anim_move(t_move *m);
+void			move_init(t_move *move, int x, int y);
+
+/*
+**	g_npc_action.c
+*/
+t_mob			*new_mob(t_anim *anim, t_move *move, int id);
+void			add_mob(int npc, int x, int y);
+void			move_mob(int npc, int x, int y);
+
+/*
+**	g_npc.c
+*/
+t_list			**find_mob(int npc);
 
 #endif

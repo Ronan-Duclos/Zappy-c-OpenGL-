@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 22:16:48 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 10:36:48 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,19 @@ typedef struct		s_srv
 	fd_set			fd_write;
 }					t_srv;
 
+typedef struct		s_egg
+{
+	int				id;
+	double			eclos;
+	int				x;
+	int				y;
+	struct s_egg	*next;
+}					t_egg;
+
 typedef struct		s_team
 {
 	char			*name;
+	t_egg			*eggs;
 	int				member;
 }					t_team;
 
@@ -261,6 +271,11 @@ void				gfx_move_forward(t_env *e, int cs);
 void				gfx_turn_right(t_env *e, int cs);
 void				gfx_turn_left(t_env *e, int cs);
 void				gfx_take_item(t_env *e, int cs);
+
+/*
+*	s_fork.c
+*/
+t_egg				*egg_available(double time, t_egg *lst);
 
 /*
 **	s_watch_sight

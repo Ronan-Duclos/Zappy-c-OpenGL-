@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/17 17:52:30 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 11:34:36 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_team(t_env *e)
 	i = 0;
 	while (team[i] != NULL)
 	{
+		e->team[i].eggs = NULL;
 		e->team[i].name = team[i];
 		e->team[i].member = e->opt.client;
 		i++;
@@ -53,12 +54,33 @@ int		init_sock(int port, t_env *e)
 
 void	init_player(t_env *e, int cs)
 {
-	e->users[cs]->player.direc = rand() % 4;
-	e->users[cs]->player.x = rand() % e->opt.x;
-	e->users[cs]->player.y = rand() % e->opt.y;
-	e->users[cs]->player.inv[_food] = NB_START_FOOD;
-	e->users[cs]->player.lvl = 8;
-	e->users[cs]->time = ft_usec_time();
+	t_player		*p;
+	int				i;
+	double			time;
+	t_egg			*egg;
+
+	p = &e->users[cs]->player;
+	p->team = ft_strdup(e->users[cs]->buf_read_tmp);
+	p->direc = rand() % 4;
+	i = 0;
+	while (strcmp(p->team, e->team[i].name) != 0)
+		i++;
+	time = ft_usec_time();
+	if ((egg = egg_available(time, e->team[i].eggs)) == NULL)
+	{
+		p->x = rand() % e->opt.x;
+		p->y = rand() % e->opt.y;
+		e->users[cs]->time = egg->eclos;
+		//del egg;
+	}
+	else
+	{
+		p->x = egg->x;
+		p->y = egg->y;
+		e->users[cs]->time = time;
+	}
+	p->inv[_food] = NB_START_FOOD;
+	p->lvl = 1;
 	put_user_on_map(e, cs);
 }
 

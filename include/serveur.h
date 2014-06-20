@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/20 10:36:48 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/20 23:26:08 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <conf.h>
 
 # define OPT				"pxynct"
-# define GCMD_NB			2
+# define GCMD_NB			3
 
 # define FD_SRV				1
 # define FD_CLT				2
@@ -232,6 +232,7 @@ int					get_next_int(int *nb, char *s);
 void				gfx_cmd_check(t_env *e, int cs, char *buf);
 void				gcmd_pin(t_env *e, int cs, char *cmd);
 void				gcmd_plv(t_env *e, int cs, char *cmd);
+void				gcmd_smg(t_env *e, int cs, char *cmd);
 
 /*
 **	s_gfx_init.c

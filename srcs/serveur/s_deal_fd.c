@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 22:23:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 23:40:18 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	create_clt(t_env *e, int s)
 	unsigned int			len;
 	struct sockaddr_in		clt;
 
-//	len = sizeof(clt); // linux
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
 	e->users[cs]->type = FD_CLT;
 	e->users[cs]->sock = cs;
@@ -83,10 +82,12 @@ void	check_actions(t_env *e, int cs)
 				e->users[cs]->player.cur_aread++;
 			acts->time = 0;
 		}
-/*
-		else if (acts->time != 0 && acts->start <= now)
-			e->users[cs]->player.acts[nb_acts].fct_gfx(e, cs);
-*/
+		else if (acts->start != 0 && acts->start <= now)
+		{
+			if (e->users[cs]->player.acts[nb_acts].fct_gfx)
+				e->users[cs]->player.acts[nb_acts].fct_gfx(e, cs);
+			acts->start = 0;
+		}
 	}
 }
 
@@ -94,7 +95,6 @@ void	init_fd(t_env *e)
 {
 	int		i;
 
-	gfx_end_init(e);
 	i = 0;
 	FD_ZERO(&e->srv.fd_read);
 	FD_ZERO(&e->srv.fd_write);

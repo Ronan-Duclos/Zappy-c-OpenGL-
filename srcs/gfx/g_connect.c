@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 23:02:22 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 23:09:38 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,28 @@ static int	connect_sizes(t_ipv *ipv, char **tab, int *i)
 	return (0);
 }
 
-static int	connect_map(char **tab, int *i)
+static int	connect_map(char **tab, int *i, t_ipv *ipv)
 {
 	static int	step;
+	int			ret;
 
-	dtab_put(tab);
-	while (tab[*i] && !strncmp(tab[*i], "bct", 3))
+	while (tab[*i] && !(ret = strncmp(tab[*i], "bct", 3)))
 	{
-		printf("tab[%d]: %s\n", *i, tab[*i]);
 		cmd_bct(tab[*i]);
 		step += 1;
 		*i += 1;
 	}
-	printf("total map: %d, step: %d\n", g_env->mapw * g_env->maph, step);
-	if (step >= g_env->mapw * g_env->maph)
+	printf("total map: %d, step: %d, ret: %d\n", g_env->mapw * g_env->maph, step, ret);
+	if (step >= g_env->mapw * g_env->maph || ret)
 	{
 		step = 0;
 		return (1);
 	}
+	cmd_smg_send(ipv, "GO");
 	return (0);
 }
 
-int			connect_tnames(char **tab, int *i)
+int			connect_tnames(char **tab, int *i, t_ipv *ipv)
 {
 	int		x;
 
@@ -91,6 +91,7 @@ int			connect_tnames(char **tab, int *i)
 		x++;
 		*i += 1;
 	}
+	cmd_smg_send(ipv, "GO");
 	if (x)
 		return (1);
 	return (0);
@@ -106,12 +107,11 @@ void		cmd_connect(t_ipv *ipv, char **tab, int *i)
 	else if (step == 1)
 		step += connect_sizes(ipv, tab, i);
 	if (step == 2)
-		step += connect_map(tab, i);
+		step += connect_map(tab, i, ipv);
 	if (step == 3)
-		step += connect_tnames(tab, i);
+		step += connect_tnames(tab, i, ipv);
 	if (step == 4)
 		ipv->state = _draw;
 	printf("sizes: X: %d, Y: %d, Time: %d\n", g_env->mapw, g_env->maph, g_env->time);
-	dtab_put(g_env->tnames);
 	printf("step: %d\n", step);
 }

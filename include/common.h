@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/20 17:51:16 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 23:26:51 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct		s_actions
 
 typedef struct		s_buf
 {
-	char			start[BC_SIZE];
+	char			start[BC_SIZE + 1];
 	char			*end;
 	char			*head;
 	char			*head2;

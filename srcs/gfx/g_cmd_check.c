@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 18:23:57 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 12:14:13 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void			cmd_check(t_ipv *ipv, char *buf)
 	i = 0;
 	cmd = cmds_tab_get();
 	cmds_get(&tab, buf);
+//	tab = ft_strsplit(buf, '\n');
 	if (ipv->state == _connect)
 		cmd_connect(ipv, tab, &i);
 	while (tab[i] && ipv->state != _connect)

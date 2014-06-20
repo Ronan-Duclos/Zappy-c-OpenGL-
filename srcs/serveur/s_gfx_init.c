@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 11:46:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 22:42:36 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 23:16:12 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void		gfx_end_init(t_env *e)
 	tmp = e->srv.glst;
 	while (tmp)
 	{
-		printf("in init boucle ig: %d\n", e->users[tmp->cs]->ig);
 		if (!e->users[tmp->cs]->ig)
 			gfx_init(e, tmp->cs);
 		tmp = tmp->next;
@@ -48,8 +47,6 @@ void		gfx_init(t_env *e, int cs)
 {
 	t_glst		*new;
 
-	printf("in gfx_init: state: %d, ig: %d\n", e->users[cs]->gfx.state,
-		e->users[cs]->ig);
 	e->users[cs]->gfx.gfx = 1;
 	if (!e->users[cs]->gfx.state)
 	{

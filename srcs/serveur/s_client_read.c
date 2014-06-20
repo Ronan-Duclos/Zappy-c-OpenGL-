@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 22:14:23 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 23:37:14 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,9 @@ void	queue_actions(t_env *e, int cs)
 			if (j == 9)
 				make_incantations(e, cs, time);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
-			if (g_tab[j].fct_gfx)
-				g_tab[j].fct_gfx(e, cs);
+			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
+//			if (g_tab[j].fct_gfx)
+//				g_tab[j].fct_gfx(e, cs);
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 		else

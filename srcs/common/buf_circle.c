@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 17:39:20 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 23:24:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void			init_bc(t_buf *buf)
 	buf->end = buf->start + BC_SIZE2;
 	buf->head = buf->start;
 	buf->head2 = buf->start;
-//	buf->tail = buf->start;
 	buf->nb_cmd = 0;
 }
 
@@ -83,12 +82,12 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 
 	i = 0;
 	j = 0;
-//	printf("\033[34mtmp_to_bc: %s\033[0m\n", str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\n')
 			buf->nb_cmd++;
 		buf->head2[j] = str[i];
+		buf->head2[j + 1 ] = 0;
 		j = verify_end(buf, j);
 		i++;
 	}
@@ -99,8 +98,6 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 		buf->nb_cmd++;
 	}
 	buf->head2 = buf->head2 + j;
-//	printf("\033[35mj: %d\033[0m\n", j );
-//	display_bc(buf);
 }
 
 void			char_to_bc(t_buf *buf, char c)
@@ -108,27 +105,15 @@ void			char_to_bc(t_buf *buf, char c)
 	int	i;
 
 	buf->head2[0] = c;
-//	buf->tail = buf->head2;
 	i = verify_end(buf, 1);
 	buf->head2 = buf->head2 + i;
 }
-/*
-static void		bc_to_tmp_end(t_buf *buf, int i)
-{
-	(void)i;
-	if (buf->head == buf->end)
-		buf->head = buf->start;
-	else
-		buf->head++;
-}
-*/
+
 void			bc_to_tmp(t_buf *buf, char *tmp)
 {
 	int		j;
 
 	j = -1;
-//printf("\033[34mbc_to_tmp: %s\033[0m\n", &buf->head[i]);
-//	printf("\033[34bc_to_tmp: %s\033[0m\n", tmp);
 	while (buf->nb_cmd != 0)
 	{
 		if (*buf->head != '\0')
@@ -144,6 +129,4 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 			buf->head++;
 	}
 	tmp[++j] = '\0';
-//	printf("\033[35mbc_to_tmp end: %s\033[0m\n",  );
-//	bc_to_tmp_end(buf, 0);
 }

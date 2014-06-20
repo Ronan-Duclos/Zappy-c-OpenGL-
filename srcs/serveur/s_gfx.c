@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 22:54:49 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 14:23:12 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void		gfx_mct(t_env *e, int cs)
 			e->users[cs]->gfx.j++;
 			e->users[cs]->gfx.x++;
 		}
+//		usleep(10000);
 	}
 	if (e->users[cs]->gfx.x >= e->opt.x * e->opt.y)
 	{

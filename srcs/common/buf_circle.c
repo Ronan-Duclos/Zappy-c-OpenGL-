@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:01:39 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 23:38:20 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 15:41:43 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void			display_bc(t_buf *bc)
 
 	i = 0;
 	tmp = bc->head;
+	printf("Display TMP_TO_BC : \n");
 	while (tmp[i] != '\n')
 	{
 		ft_putchar(tmp[i]);
@@ -82,6 +83,7 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 
 	i = -1;
 	j = 0;
+	printf("\033[34mtmp_to_bc: %s\033[0m\n", str);
 	while (str[++i] != '\0')
 	{
 		if (str[i] == '\n')
@@ -96,6 +98,7 @@ void			tmp_to_bc(t_buf *buf, char *str, int type)
 		buf->nb_cmd++;
 	}
 	buf->head2 = buf->head2 + j;
+//	display_bc(buf);
 }
 
 void			char_to_bc(t_buf *buf, char c)
@@ -123,6 +126,7 @@ void			bc_to_tmp(t_buf *buf, char *tmp)
 
 	i = 0;
 	j = -1;
+	printf("\033[34mbc_to_tmp: %s\033[0m\n", &buf->head[i]);
 	while (buf->nb_cmd != 0)
 	{
 		if (buf->head[i] != '\0')

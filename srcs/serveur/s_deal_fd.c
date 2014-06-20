@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 22:23:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 11:45:54 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	init_fd(t_env *e)
 {
 	int		i;
 
-	gfx_end_init(e);
 	i = 0;
 	FD_ZERO(&e->srv.fd_read);
 	FD_ZERO(&e->srv.fd_write);

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 14:18:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 17:14:09 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 11:50:11 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static t_gcmd	*gfx_cmds_get(void)
 
 	{
 		{"pin", gcmd_pin},
-		{"plv", gcmd_plv}
+		{"plv", gcmd_plv},
+		{"smg", gcmd_smg}
 	};
 	return (cmd);
 }
@@ -69,6 +70,18 @@ void			gcmd_plv(t_env *e, int cs, char *cmd)
 	if (npc >= e->srv.max_fd || !e->users[npc]->ig)
 		return ;
 	gfx_plv(e, cs, npc);
+}
+
+void			gcmd_smg(t_env *e, int cs, char *msg)
+{
+	int		i;
+
+	(void)cs;
+	i = 0;
+	while (msg[i] && (msg[i] == ' ' || msg[i] == '#'))
+		i++;
+	if (!strncmp(&msg[i], "GO", 3))
+		gfx_end_init(e);
 }
 
 void			gfx_cmd_check(t_env *e, int cs, char *buf)

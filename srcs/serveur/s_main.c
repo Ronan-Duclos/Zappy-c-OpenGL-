@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 12:19:56 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 22:36:00 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/20 12:16:37 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 void			run_serv(t_env *e)
 {
 	t_srv			*s;
-	struct timeval	timeout;
+//	struct timeval	timeout;
 
-	timeout.tv_usec = 0;
-	timeout.tv_sec = 0;
+//	timeout.tv_usec = 0;
+//	timeout.tv_sec = 0;
 	s = &e->srv;
 	while (1)
 	{
 		init_fd(e);
 		printf("before select\n");
-		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &timeout);
+		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, NULL);// &timeout);
 		printf("after select\n");
 		check_fd(e);
 	}

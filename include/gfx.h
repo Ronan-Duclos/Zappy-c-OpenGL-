@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 18:23:44 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/20 11:33:59 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void		cmd_pgt(char *cmd);
 */
 void		cmd_pin_send(t_ipv *ipv, int clt);
 void		cmd_plv_send(t_ipv *ipv, int clt);
+void		cmd_smg_send(t_ipv *ipv, char *msg);
 
 /*
 **	g_connect.c (3 statics)

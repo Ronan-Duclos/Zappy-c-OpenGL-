@@ -116,6 +116,7 @@ typedef struct		s_srv
 	int				nb_p;
 	int				max;
 	int				r;
+	double			time;
 	t_glst			*glst;
 	fd_set			fd_read;
 	fd_set			fd_write;

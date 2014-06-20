@@ -47,6 +47,7 @@ void			disperse_stone(t_env *e, int cs)
 			}
 		i++;
 	}
+	e->users[cs]->player.acts[e->users[cs]->player.cur_aread].start = 0;
 }
 
 void			incantation(t_env *e, int cs)
@@ -64,16 +65,11 @@ void			incantation(t_env *e, int cs)
 	i = 0;
 	while (++i < NB_STONE + 1)
 		if (e->map[x][y].ground[i] < g_lvlup[*lvl - 1][i])
-		{
-			printf("%s\n", type_to_str(i));
 			good = -1;
-		}
-	printf("%d\n", good);
 	if (good == 1)
-	{
-		disperse_stone(e, cs);
 		(*lvl)++;
-	}
+	if (good == 1 && e->users[cs]->player.acts[e->users[cs]->player.cur_aread].start == 1)
+		disperse_stone(e, cs);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
 }

@@ -96,7 +96,8 @@ void	init_serv(t_env *e)
 	e->srv.glst = NULL;
 	i = init_sock(e->opt.port, e);
 	e->repop = ft_usec_time() + ((126 * 1000000) / e->opt.time);
-	e->users[i]->type = FD_SRV;
+	e->srv.time = 2000000000000;
 	e->users[i]->fct_read = create_clt;
 	e->users[i]->fct_write = client_write;
+	e->users[i]->type = FD_SRV;
 }

@@ -46,7 +46,7 @@ void	generate_food(t_env *e)
 			nb--;
 		}
 		lost_food(-1);
-		e->repop = ft_usec_time() +((126 * 1000000) / e->opt.time);
+		e->repop = ft_usec_time() + ((126 * 1000000) / e->opt.time);
 	}
 }
 

@@ -14,21 +14,21 @@
 #include <time.h>
 #include <libft.h>
 #include <serveur.h>
-
+#include <math.h>
 #include <stdio.h>
 
 void			run_serv(t_env *e)
 {
 	t_srv			*s;
-	struct timeval	timeout;
+	struct timeval	out;
 
-	timeout.tv_usec = 0;
-	timeout.tv_sec = 0;
 	s = &e->srv;
+	out.tv_usec = 0;
+	out.tv_sec = 0;
 	while (1)
 	{
 		init_fd(e);
-		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &timeout);
+		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &out);
 		check_fd(e);
 	}
 }

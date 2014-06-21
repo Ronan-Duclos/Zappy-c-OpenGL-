@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 12:19:56 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/20 23:22:46 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 22:47:07 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 #include <serveur.h>
 #include <math.h>
 #include <stdio.h>
+
+void			init_end(t_env *e)
+{
+	int		i;
+
+	i = -1;
+	while (++i < e->nb_team)
+		e->team[i].win = 0;
+}
 
 void			run_serv(t_env *e)
 {
@@ -29,6 +38,7 @@ void			run_serv(t_env *e)
 	{
 		init_fd(e);
 		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &out);
+		init_end(e);
 		check_fd(e);
 	}
 }

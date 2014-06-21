@@ -24,15 +24,17 @@ void	init_team(t_env *e)
 	team = e->opt.name;
 	while (team[i] != NULL)
 		i++;
-	e->team = (t_team *)malloc(sizeof(t_team) * (i));
+	e->team = (t_team *)malloc(sizeof(t_team) * (i + 1));
 	i = 0;
 	while (team[i] != NULL)
 	{
 		e->team[i].eggs = NULL;
 		e->team[i].name = team[i];
 		e->team[i].member = e->opt.client;
+		e->team[i].win = 0;
 		i++;
 	}
+	e->team[i] = NULL;
 }
 
 int		init_sock(int port, t_env *e)
@@ -126,4 +128,5 @@ void	init_serv(t_env *e)
 	e->users[i]->fct_read = create_clt;
 	e->users[i]->fct_write = client_write;
 	e->users[i]->type = FD_SRV;
+	e->end = 0;
 }

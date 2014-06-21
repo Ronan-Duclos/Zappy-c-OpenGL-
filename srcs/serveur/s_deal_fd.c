@@ -132,6 +132,9 @@ void	check_fd(t_env *e)
 			if (FD_ISSET(i, &e->srv.fd_read) != 0 ||
 				FD_ISSET(i, &e->srv.fd_write) != 0)
 				e->srv.r--;
+			if (e->users[i]->tpye == CLT && e->users[i]->ig == 1
+				&& !e->users[i]->gfx.gfx)
+				verify_win(e, i);
 		}
 		i++;
 	}

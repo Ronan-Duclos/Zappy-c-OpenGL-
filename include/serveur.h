@@ -136,6 +136,7 @@ typedef struct		s_team
 	char			*name;
 	t_egg			*eggs;
 	int				member;
+	int				win;
 }					t_team;
 
 typedef struct		s_env
@@ -146,6 +147,7 @@ typedef struct		s_env
 	t_team			*team;
 	t_srv			srv;
 	t_user			**users;
+	int				end;
 }					t_env;
 
 typedef struct		s_ponf_cmd

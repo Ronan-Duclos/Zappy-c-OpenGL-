@@ -25,7 +25,7 @@ void			run_serv(t_env *e)
 	s = &e->srv;
 	out.tv_usec = 0;
 	out.tv_sec = 0;
-	while (1)
+	while (e->end == 0)
 	{
 		init_fd(e);
 		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &out);

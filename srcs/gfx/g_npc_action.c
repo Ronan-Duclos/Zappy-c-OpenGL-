@@ -6,10 +6,11 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 02:15:40 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/20 02:47:11 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 02:15:30 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "gfx_gl.h"
 
 t_mob		*new_mob(t_anim *anim, t_move *move, int id)
@@ -32,8 +33,8 @@ void		add_mob(int npc, int x, int y)
 	t_square		*sq;
 	t_mob			*mob;
 
-	anim = NULL;
 	set_vecf(pos, (float)x * 2, 0.0, (float)y * 2);
+	anim = new_anim(rand() % 360, 360, anim_mob);
 	move = new_move(0, pos, dir);
 	mob = new_mob(anim, move, npc);
 	sq = g_env->sq + x + y * g_env->mapw;

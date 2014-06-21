@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 22:27:39 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 03:14:29 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@
 # define PHIRAS_OFFSET			(MENDIANE_OFFSET + MENDIANE_PER_SQUARE)
 # define THYSTAME_OFFSET		(PHIRAS_OFFSET + PHIRAS_PER_SQUARE)
 
+# define PI				3.14159265359
 # define SQUARE(v)		(v * v)
 # define MAG(va)		(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
+# define TORAD(a)		((float)a / 180 * PI)
 
 enum			e_colors
 {
@@ -72,7 +74,8 @@ enum			e_colors
 enum			e_textures
 {
 	_grass,
-	_plant
+	_plant,
+	_tex_nb
 };
 
 enum			e_models
@@ -120,7 +123,6 @@ typedef struct	s_move
 typedef struct	s_item
 {
 	GLuint		list;
-	GLuint		id_nb;
 	GLuint		vbo;
 	t_anim		*anim;
 }				t_item;
@@ -283,6 +285,7 @@ void			display_any(t_item *item);
 */
 void			anim_rock(t_anim *a);
 t_anim			*new_anim(int frame, int time, void (*fct)(t_anim *));
+void			anim_mob(t_anim *a);
 
 /*
 **	g_bmp.c (1 static)
@@ -309,7 +312,7 @@ void			switch_link(t_list **src, t_list **dst);
 /*
 **	g_item_actions.c
 */
-t_item			*new_item(GLuint list, GLuint id_nb, GLuint vbo, t_anim *anim);
+t_item			*new_item(GLuint list, GLuint vbo, t_anim *anim);
 void			take_stone(int square, int stone);
 
 /*

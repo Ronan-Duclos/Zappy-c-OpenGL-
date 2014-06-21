@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 00:14:09 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 15:45:30 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,18 @@ void		gfx_plv(t_env *e, int cs, int clt)
 }
 
 /*
+**	Send signal wen player die
+*/
+void		gfx_pdi(t_env *e, int cs, int clt)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pdi #%d", clt);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
 **	Send signal wen player take ressource
 */
 void		gfx_pgt(t_env *e, int cs, int clt, int itm)
@@ -193,6 +205,18 @@ void		gfx_pgt(t_env *e, int cs, int clt, int itm)
 
 	bzero(buf, BUF_SIZE);
 	sprintf(buf, "pgt #%d %d", clt, itm);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal wen player drop ressource
+*/
+void		gfx_pdr(t_env *e, int cs, int clt, int itm)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pdr #%d %d", clt, itm);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
@@ -230,3 +254,4 @@ void		gfx_send_act(t_env *e, int cs, void (*fu)(), int itm)
 		tmp = tmp->next;
 	}
 }
+

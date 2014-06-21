@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 22:03:32 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/21 18:25:07 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ int		less_hp(t_env *e, int cs)
 		i++;
 		if (e->users[cs]->player.inv[_food] == -1)
 		{
+			gfx_send_npc(e, cs, gfx_pdi); //added gfx_msg
 			tmp_to_bc(&e->users[cs]->buf_write, "DEAD", 1);
 			return (-1);
 		}
-		
 	}
 	return (0);
 }

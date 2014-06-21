@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/21 00:16:04 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 17:42:00 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"voir", 7, watch_sight, NULL},
 	{"inventaire", 1, send_inv, NULL},
 	{"prend", 7, take_item, gfx_take_item},
-	{"pose", 7, drop_item, NULL},
+	{"pose", 7, drop_item, gfx_drop_item},
 	{"expulse", 7, expulse, NULL},
 	{"broadcast", 7, broadcast, NULL},
 	{"incantation", 300, incantation, NULL},
@@ -177,6 +177,19 @@ void	start_action(t_env *e, int cs)
 		e->users[cs]->player.acts[st].start = ft_usec_time();
 }
 
+static double	get_start_time(t_env *e, int cs, int ca)
+{
+	double	time;
+
+	time = e->users[cs]->player.acts[ca].start;
+	if (!time)
+	{
+		time = ft_usec_time();
+		e->users[cs]->player.acts[ca].start = time;
+	}
+	return (time);
+}
+
 void	queue_actions(t_env *e, int cs)
 {
 	int		i;
@@ -189,7 +202,7 @@ void	queue_actions(t_env *e, int cs)
 	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	i = -1;
 	ca = e->users[cs]->player.cur_awrite;
-	time = e->users[cs]->player.acts[ca].start;
+	time = get_start_time(e, cs, ca);
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
 	{
 		ca = e->users[cs]->player.cur_awrite;
@@ -205,8 +218,6 @@ void	queue_actions(t_env *e, int cs)
 				make_incantations(e, cs, time);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
-//			if (g_tab[j].fct_gfx)
-//				g_tab[j].fct_gfx(e, cs);
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 		else
@@ -233,6 +244,8 @@ void	client_read(t_env *e, int cs)
 	r = recv(cs, e->users[cs]->buf_read_tmp, BC_SIZE, 0);
 	if (r <= 0)
 	{
+		if (!e->users[cs]->gfx.gfx) /////////////////////
+			gfx_send_npc(e, cs, gfx_pdi); //added gfx_msg
 		close(cs);
 		destroy_clt(e, cs);
 	}

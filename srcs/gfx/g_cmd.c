@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 00:16:23 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 15:41:06 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,4 +163,38 @@ void		cmd_pgt(char *cmd)
 	i += get_next_int(&itm, &cmd[i]);
 	// ici npc == id jour qui prends, itm le type de pierre.
 	printf("cmd_pgt: %d %d\n", npc, itm);
+}
+
+void		cmd_pdr(char *cmd)
+{
+	int		i;
+	int		npc;
+	int		itm;
+
+	printf("cmd_pdr: %s\n", cmd);//
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	i += get_next_int(&itm, &cmd[i]);
+	// ici npc == id jour qui pose, itm le type de pierre.
+	printf("cmd_pdr: %d %d\n", npc, itm);
+}
+
+void		cmd_pdi(char *cmd)
+{
+	int		i;
+	int		npc;
+
+	printf("cmd_pdi: %s\n", cmd);//
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	// ici npc == id jour qui meurs
+	printf("cmd_pdi: %d\n", npc);
 }

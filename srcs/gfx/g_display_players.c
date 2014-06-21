@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 18:12:27 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/20 22:29:06 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 12:55:35 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		display_all_mobs(void)
 		list = g_env->sq[i].mobs;
 		while (list)
 		{
-			printf("KAKA\n");
 			display_mob(list->content);
 			list = list->next;
 		}

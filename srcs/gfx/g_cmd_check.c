@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 12:14:13 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 18:16:12 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static t_cmd	*cmds_tab_get(void)
 		{"ppo", &cmd_ppo},
 		{"pin", &cmd_pin},
 		{"plv", &cmd_plv},
-		{"pgt", &cmd_pgt}
+		{"pgt", &cmd_pgt},
+		{"pdr", &cmd_pdr},
+		{"pdi", &cmd_pdi},
+		{"sgt", &cmd_sgt}
 	};
 	return (cmd);
 }
@@ -97,8 +100,8 @@ void			cmd_check(t_ipv *ipv, char *buf)
 //		j = -1;//
 //		while (++j < NPCS_MAX)
 //		{
-//			if (ipv->env.npc[j].id)
-//				cmd_plv_send(ipv, j);
+//			if (ipv->state == _draw)
+//				cmd_sgt_send(ipv);
 //		}//
 	}
 	printf("end_cmd_check state: %d\n", ipv->state);

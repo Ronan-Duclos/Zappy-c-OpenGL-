@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 23:52:52 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/19 23:41:47 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 18:57:42 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	switch_link(t_list **src, t_list **dst)
 {
 	t_list	*tmp;
 
+	if (*src == *dst)
+		return ;
 	tmp = *dst;
 	*dst = *src;
 	(*dst)->next = tmp;

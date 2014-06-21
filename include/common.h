@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 00:16:39 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 19:12:42 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,27 @@
 # define EAST				1
 # define SOUTH				2
 # define WEST				3
+
+# define T_FORWARD			7
+# define T_RIGHT			7
+# define T_LEFT				7
+# define T_LOOK				7
+# define T_INVENT			1
+# define T_PICK				7
+# define T_DROP				7
+# define T_EXPEL			7
+# define T_BROADCAST		7
+# define T_SPELL			300
+# define T_FORK				42
+# define T_CONNECTIONS		0
+
+enum				e_dir
+{
+	_north,
+	_east,
+	_south,
+	_west
+};
 
 enum				e_map
 {

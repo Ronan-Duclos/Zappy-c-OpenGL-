@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:32:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/18 00:30:15 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 16:07:16 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,12 @@ static void	get_model_texture(t_mdxchunk *chunk, t_mdx *model)
 	t_mdxchunk	*header;
 	char		*tmp;
 
-	header = (t_mdxchunk *)((char *)chunk + 10 * sizeof(uint32_t));
-	tmp = (char *)header;
-	header = (t_mdxchunk *)(tmp + (char)(*(int *)tmp * 6 * sizeof(float)) + sizeof(int) + 8);
-	if (*(int *)header != *(int *)MDX_UVBS)
-	{
-		tmp = (char *)header;
-		header = (t_mdxchunk *)(tmp + 12);
-	}
+	tmp = (char *)chunk + 3 * sizeof(uint32_t);
+	tmp += 7 * sizeof(float);
+	printf("extends = %d\n", *(int *)tmp);
+	header = (t_mdxchunk *)(tmp + *(int *)tmp * sizeof(float) * 7 + sizeof(uint32_t));
 	printf("%4.4s size = %d\n", (char *)header, header->size);
+	header++;
 	model->chunks[_uvbs].nb = header->size;
 	model->chunks[_uvbs].data = header + 1;
 }

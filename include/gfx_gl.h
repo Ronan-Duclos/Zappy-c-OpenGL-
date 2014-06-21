@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 03:14:29 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 18:41:35 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ enum			e_textures
 {
 	_grass,
 	_plant,
+	_zepp,
 	_tex_nb
 };
 
@@ -120,6 +121,14 @@ typedef struct	s_move
 	GLfloat		dir[3];
 }				t_move;
 
+typedef struct	s_rot
+{
+	int			frames;
+	GLfloat		vec[3];
+	GLfloat		angle;
+	GLfloat		rot;
+}				t_rot;
+
 typedef struct	s_item
 {
 	GLuint		list;
@@ -131,6 +140,7 @@ typedef struct	s_mob
 {
 	int			id;
 	t_move		*move;
+	t_rot		*rot;
 	t_anim		*anim;
 }				t_mob;
 
@@ -175,6 +185,7 @@ typedef struct	s_env
 	int			selectcase;
 	GLuint		testex;
 	GLuint		maptex;
+	GLuint		zepptex;
 	t_npc		*npc;
 }				t_env;
 
@@ -325,9 +336,9 @@ void			move_init(t_move *move, int x, int y);
 /*
 **	g_npc_action.c
 */
-t_mob			*new_mob(t_anim *anim, t_move *move, int id);
-void			add_mob(int npc, int x, int y);
-void			move_mob(int npc, int x, int y);
+t_mob			*new_mob(t_anim *anim, t_move *move, t_rot *rot, int id);
+void			add_mob(int npc, int x, int y, enum e_dir dir);
+void			move_mob(int npc, int x, int y, enum e_dir dir);
 
 /*
 **	g_npc.c
@@ -338,5 +349,9 @@ t_list			**find_mob(int npc);
 **	g_display_players.c
 */
 void			display_all_mobs(void);
+
+t_rot			*new_rot(int frames, GLfloat vec[3], GLfloat a, GLfloat r);
+void			anim_rot(t_rot *r);
+void			rot_init(t_rot *rot, enum e_dir dir);
 
 #endif

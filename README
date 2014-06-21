@@ -1,2 +1,4 @@
 to works, only need Makefile, data, include, libft, libpng.tar, objs, src
 le reste a la poubelle
+
+Pensez a make ffclean avant de push (ca supprime aussi les libpng, ca differe pour chaque mac)

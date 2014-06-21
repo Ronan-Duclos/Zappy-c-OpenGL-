@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/21 00:16:04 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 18:57:30 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,36 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"connect_nbr", 0, connect_nbr, NULL}
 };
 
-int		accept_gamer(t_env *e, int cs, int nb_left)
+void	send_start(t_env *e, int cs)
 {
-	char		*tmp;
+	char			*nb_connect;
+	int				*ar;
+	char			buf[25];
+
+	ar = &e->users[cs]->player.cur_aread;
+	nb_connect = e->users[cs]->player.acts[*ar].cmd;
+	tmp_to_bc(&e->users[cs]->buf_write, nb_connect, 1);
+	sprintf(buf, "%d %d", e->opt.x, e->opt.y);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+	e->users[cs]->player.acts[*ar].time = 0;
+//	*ar = (*ar + 1 ) % 10;
+}
+
+int		accept_gamer(t_env *e, int cs, int team)
+{
 	int			i;
 
-	i = -1;
 	e->users[cs]->ig = 1;
 	e->users[cs]->player.team = ft_strdup(e->users[cs]->buf_read_tmp);
-	init_player(e, cs);
 	e->users[cs]->player.cur_aread = 0;
+	e->users[cs]->player.cur_awrite = 0;
+	i = -1;
 	while (++i < 10)
 	{
 		e->users[cs]->player.acts[i].time = 0;
 		e->users[cs]->player.acts[i].start = 0;
 	}
-	tmp = ft_itoa(nb_left);
-	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
-	free(tmp);
-	tmp = ft_itoa(e->opt.x);
-	tmp_to_bc(&e->users[cs]->buf_write, tmp, 0);
-	free(tmp);
-	char_to_bc(&e->users[cs]->buf_write, ' ');
-	tmp = ft_itoa(e->opt.y);
-	tmp_to_bc(&e->users[cs]->buf_write, tmp, 1);
-	free(tmp);
+	init_player(e, cs, team);
 	return (1);
 }
 
@@ -78,7 +83,7 @@ void	check_team(t_env *e, int cs)
 			&& e->team[i].member != 0)
 		{
 			e->team[i].member--;
-			j = accept_gamer(e, cs, e->team[i].member);
+			j = accept_gamer(e, cs, i);
 		}
 	if (j == 0)
 	{

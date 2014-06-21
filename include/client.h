@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 21:37:13 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/21 12:10:12 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@
 # define FD_FREE		0
 # define MAX_CHANS		100
 # define BUF_SIZE		4096
+
+enum				e_ia
+{
+	_food, _evolve, _max_ia
+};
 
 typedef struct		s_opt
 {

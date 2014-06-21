@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/20 23:26:08 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 20:32:55 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,10 @@ typedef struct		s_srv
 typedef struct		s_egg
 {
 	int				id;
-	double			eclos;
+	double			t_eclos;
+	double			t_last;
+	int				eclos;
+	int				food;
 	int				x;
 	int				y;
 	struct s_egg	*next;
@@ -173,6 +176,7 @@ void				generate_map(t_env *env);
 **	s_client_read.c
 */
 void				client_read(t_env *e, int cs);
+void	send_start(t_env *e, int cs);
 
 /*
 **	s_client_write.c
@@ -192,7 +196,7 @@ void				check_fd(t_env *e);
 */
 void				init_team(t_env *e);
 int					init_sock(int port, t_env *e);
-void				init_player(t_env *e, int cs);
+void				init_player(t_env *e, int cs, int team);
 void				init_users(t_env *e);
 void				init_serv(t_env *e);
 
@@ -255,6 +259,7 @@ void				glst_put(t_glst **lst);
 */
 int					less_hp(t_env *e, int cs);
 void				generate_food(t_env *e);
+void				less_hp_eggs(t_env *e);
 
 /*
 **	Fonctions des différentes commandes client / server
@@ -279,6 +284,7 @@ void				gfx_take_item(t_env *e, int cs);
 *	s_fork.c
 */
 t_egg				*egg_available(double time, t_egg *lst);
+void				del_egg(t_team *team);
 
 /*
 **	s_watch_sight

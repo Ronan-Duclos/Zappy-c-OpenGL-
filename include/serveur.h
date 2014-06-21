@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/20 23:26:08 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 22:05:45 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct		s_team
 	char			*name;
 	t_egg			*eggs;
 	int				member;
+	int				win;
 }					t_team;
 
 typedef struct		s_env
@@ -144,8 +145,10 @@ typedef struct		s_env
 	t_case			**map;
 	double			repop;
 	t_team			*team;
+	int				nb_team;
 	t_srv			srv;
 	t_user			**users;
+	int				end;
 }					t_env;
 
 typedef struct		s_ponf_cmd
@@ -250,6 +253,10 @@ void				glst_add(t_glst **lst, t_glst *new);
 void				glst_del_one(t_glst **lst, int cs);
 void				glst_put(t_glst **lst);
 
+/*
+**	s_end.c
+*/
+void				verify_win(t_env *e, int cs);
 /*
 **	s_less_hp.c
 */

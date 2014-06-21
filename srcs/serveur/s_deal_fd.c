@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 23:40:18 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 22:04:28 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,9 @@ void	check_fd(t_env *e)
 			if (FD_ISSET(i, &e->srv.fd_read) != 0 ||
 				FD_ISSET(i, &e->srv.fd_write) != 0)
 				e->srv.r--;
+			if (e->users[i]->type == FD_CLT && e->users[i]->ig == 1
+				&& !e->users[i]->gfx.gfx)
+				verify_win(e, i);
 		}
 		i++;
 	}

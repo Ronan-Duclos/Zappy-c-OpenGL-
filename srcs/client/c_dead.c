@@ -4,7 +4,7 @@
 
 int		death_clt(t_env *e)
 {
-	if (ft_strcmp(e->user->buf_read_tmp, "DEAD\n") == 0)
+	if (ft_strcmp(e->user->buf_read_tmp, "mort\n") == 0)
 	{
 		printf("You are dead\n");
 		close(e->user->sock);

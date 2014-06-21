@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 23:01:57 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/21 22:01:41 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ void	init_team(t_env *e)
 	team = e->opt.name;
 	while (team[i] != NULL)
 		i++;
-	e->team = (t_team *)malloc(sizeof(t_team) * (i));
+	e->team = (t_team *)malloc(sizeof(t_team) * (i + 1));
+	bzero(e->team, sizeof(t_team) * (i + 1));
 	i = 0;
 	while (team[i] != NULL)
 	{
 		e->team[i].eggs = NULL;
 		e->team[i].name = team[i];
 		e->team[i].member = e->opt.client;
+		e->team[i].win = 0;
 		i++;
 	}
+	e->nb_team = i;
 }
 
 int		init_sock(int port, t_env *e)
@@ -126,4 +129,5 @@ void	init_serv(t_env *e)
 	e->users[i]->fct_read = create_clt;
 	e->users[i]->fct_write = client_write;
 	e->users[i]->type = FD_SRV;
+	e->end = 0;
 }

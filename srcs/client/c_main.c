@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/17 22:49:37 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/21 22:14:54 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,16 @@ void	do_select(t_env *e)
 
 void	run_clt(t_env *e)
 {
+	int		i;
+
+	i = 1;
 	init_clt(e);
 	if ((e->user->sock = create_clt(e->me.host, e->me.port)) != -1)
 	{
-		while (my_exit(1, NULL) != 1)
+		while (i != 0)
 		{
+			if (my_exit(1, NULL) == 1)
+				i = 1;
 			FD_ZERO(&e->fd_read);
 			FD_ZERO(&e->fd_write);
 			do_select(e);

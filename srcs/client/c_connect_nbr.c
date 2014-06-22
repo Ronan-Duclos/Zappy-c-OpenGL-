@@ -21,6 +21,7 @@ void	connect_nbr(t_env *e)
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
 	e->user->player.ia.c_nbr = ft_atoi(act->answer);
+	act->time = 0;
 }
 
 void	send_connect_nbr(t_env *e)

@@ -21,6 +21,7 @@ void	inventaire(t_env *e)
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
 	get_inventaire(e->user->player.ia.inv, act->answer);
+	act->time = 0;
 }
 
 void	send_inventaire(t_env *e)

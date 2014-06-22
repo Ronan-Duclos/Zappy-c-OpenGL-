@@ -88,7 +88,7 @@ void	init_player(t_env *e, int cs)
 	}
 */
 	p->inv[_food] = NB_START_FOOD;
-	p->lvl = 1;
+	p->lvl = 8;
 	put_user_on_map(e, cs);
 }
 

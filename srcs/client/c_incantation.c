@@ -24,6 +24,7 @@ void	incantation(t_env *e)
 	lvl = ft_atoi(act->answer);
 	if (lvl == e->user->player.ia.lvl)
 		e->user->player.ia.lvlup = 1;
+	act->time = 0;
 }
 
 void	send_incantation(t_env *e)

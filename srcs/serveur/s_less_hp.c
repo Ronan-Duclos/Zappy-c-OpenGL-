@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 21:55:28 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 17:38:44 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	generate_food(t_env *e)
 	int		y;
 	double	now;
 
+	printf("\033[33mIN FOOD REGENERATE\033[0m\n");
 	now = ft_usec_time();
 	if (now >= e->repop)
 	{
@@ -44,6 +45,7 @@ void	generate_food(t_env *e)
 			y = rand() % e->opt.y;
 			e->map[x][y].ground[_food]++;
 			nb--;
+			gfx_send_map(e, x, y, gfx_bct);
 		}
 		lost_food(-1);
 		e->repop = ft_usec_time() + ((126 * 1000000) / e->opt.time);
@@ -69,9 +71,9 @@ int		less_hp(t_env *e, int cs)
 		if (e->users[cs]->player.inv[_food] == -1)
 		{
 			tmp_to_bc(&e->users[cs]->buf_write, "mort", 1);
+//			gfx_send_npc(e, cs, gfx_pdi); a voir deja mis a la deconnection du client
 			return (-1);
 		}
-		
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 19:33:04 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/20 22:09:50 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 19:13:49 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		move_init(t_move *move, int x, int y)
 	GLfloat		dir[3];
 	int			fram;
 
-	fram = FPS * 7 / g_env->time;
+	fram = FPS * T_FORWARD / g_env->time;
 	move->frames = fram;
 	set_vecf(dir, (float)x * 2, 0.0, (float)y * 2);
 	getdirf(move->pos, dir);

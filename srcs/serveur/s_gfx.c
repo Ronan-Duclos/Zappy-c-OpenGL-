@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 00:14:09 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 16:46:05 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		gfx_msz(t_env *e, int cs)
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
-/*_
+/*
 **	send time.
 */
 void		gfx_sgt(t_env *e, int cs)
@@ -185,6 +185,71 @@ void		gfx_plv(t_env *e, int cs, int clt)
 }
 
 /*
+**	Send signal wen player die
+*/
+void		gfx_pdi(t_env *e, int cs, int clt)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pdi #%d", clt);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal wen player fork
+*/
+void		gfx_pfk(t_env *e, int cs, int clt)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pfk #%d", clt);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal for incantation
+*/
+void		gfx_pic(t_env *e, int cs, int clt)
+{
+	t_user	*tmp;
+	char	buf[BUF_SIZE];
+	int		i;
+	int		lvl;
+
+	bzero(buf, BUF_SIZE);
+	i = 0;
+	tmp = e->map[e->users[clt]->player.x][e->users[clt]->player.y].player;
+	lvl = tmp->player.lvl;
+	i += sprintf(buf, "pic %d %d %d", e->users[clt]->player.x, 
+				 e->users[clt]->player.y,
+				 tmp->player.lvl);
+	while (tmp)
+	{
+		if (tmp->player.lvl == lvl)
+			i += sprintf(&buf[i], " #%d", tmp->sock);
+		tmp = tmp->next;
+	}
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal for end of incantation
+*/
+void		gfx_pie(t_env *e, int cs, int clt, int succes)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	if (succes != 1)
+		succes = 0;
+	sprintf(buf, "pie %d %d %d", e->users[clt]->player.x,
+			e->users[clt]->player.y, succes);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
 **	Send signal wen player take ressource
 */
 void		gfx_pgt(t_env *e, int cs, int clt, int itm)
@@ -193,6 +258,18 @@ void		gfx_pgt(t_env *e, int cs, int clt, int itm)
 
 	bzero(buf, BUF_SIZE);
 	sprintf(buf, "pgt #%d %d", clt, itm);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal wen player drop ressource
+*/
+void		gfx_pdr(t_env *e, int cs, int clt, int itm)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pdr #%d %d", clt, itm);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
@@ -227,6 +304,23 @@ void		gfx_send_act(t_env *e, int cs, void (*fu)(), int itm)
 	while (tmp)
 	{
 		fu(e, tmp->cs, cs, itm);
+		tmp = tmp->next;
+	}
+}
+
+/*
+**	Send all gfx clients the function as
+**	void (*fu)(t_env *e, int cs. int x, int y)
+**	x y location of map case you want to send info.
+*/
+void		gfx_send_map(t_env *e, int x, int y, void (*fu)())
+{
+	t_glst	*tmp;
+
+	tmp = e->srv.glst;
+	while (tmp)
+	{
+		fu(e, tmp->cs, x, y);
 		tmp = tmp->next;
 	}
 }

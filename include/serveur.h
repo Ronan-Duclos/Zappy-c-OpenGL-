@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 22:05:45 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 17:39:12 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <conf.h>
 
 # define OPT				"pxynct"
-# define GCMD_NB			3
+# define GCMD_NB			4
 
 # define FD_SRV				1
 # define FD_CLT				2
@@ -182,6 +182,7 @@ void				client_read(t_env *e, int cs);
 **	s_client_write.c
 */
 void				client_write(t_env *e, int cs);
+void				remove_actions(t_user *user, double time);
 
 /*
 **	s_deal_fd.c
@@ -219,23 +220,29 @@ void				gfx_sgt(t_env *e, int cs);
 void				gfx_bct(t_env *e, int cs, int x, int y);
 void				gfx_mct(t_env *e, int cs);
 void				gfx_tna(t_env *e, int cs);
-void				gfx_pnw(t_env *e, int cs, int i);
-void				gfx_pgt(t_env *e, int cs, int clt, int itm);
 void				gfx_enw(t_env *e, int cs);
+void				gfx_pnw(t_env *e, int cs, int clt);
 void				gfx_ppo(t_env *e, int cs, int clt);
 void				gfx_pin(t_env *e, int cs, int clt);
+void				gfx_pdi(t_env *e, int cs, int clt);
 void				gfx_plv(t_env *e, int cs, int clt);
-void				gfx_send_npc(t_env *e, int cs, void (*fu)());
-void				gfx_send_act(t_env *e, int cs, void (*fu)(), int itm);
-void				gfx_send_cmd(t_env *e, int cs, int cmd);
+void				gfx_pfk(t_env *e, int cs, int clt);
+void				gfx_pic(t_env *e, int cs, int clt);
+void				gfx_pie(t_env *e, int cs, int clt, int succes);
+void				gfx_pgt(t_env *e, int cs, int clt, int itm);
+void				gfx_pdr(t_env *e, int cs, int clt, int itm);
+void				gfx_send_npc(t_env *e, int clt, void (*fu)());
+void				gfx_send_act(t_env *e, int clt, void (*fu)(), int itm);
+void				gfx_send_map(t_env *e, int x, int y, void (*fu)());
 
 /*
-**	s_gfx_cmd.c
+**	s_gfx_cmd.c (1 static)
 */
 int					get_next_int(int *nb, char *s);
 void				gfx_cmd_check(t_env *e, int cs, char *buf);
 void				gcmd_pin(t_env *e, int cs, char *cmd);
 void				gcmd_plv(t_env *e, int cs, char *cmd);
+void				gcmd_sgt(t_env *e, int cs, char *cmd);
 void				gcmd_smg(t_env *e, int cs, char *cmd);
 
 /*
@@ -282,6 +289,9 @@ void				gfx_move_forward(t_env *e, int cs);
 void				gfx_turn_right(t_env *e, int cs);
 void				gfx_turn_left(t_env *e, int cs);
 void				gfx_take_item(t_env *e, int cs);
+void				gfx_drop_item(t_env *e, int cs);
+void				gfx_fork(t_env *e, int cs);
+void				make_incantations(t_env *e, int cs);
 
 /*
 *	s_fork.c

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 14:18:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 23:14:45 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 18:06:17 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static t_gcmd	*gfx_cmds_get(void)
 	{
 		{"pin", gcmd_pin},
 		{"plv", gcmd_plv},
-		{"smg", gcmd_smg}
+		{"smg", gcmd_smg},
+		{"sgt", gcmd_sgt}
 	};
 	return (cmd);
 }
@@ -82,6 +83,12 @@ void			gcmd_smg(t_env *e, int cs, char *msg)
 		i++;
 	if (!strncmp(&msg[i], "GO", 3))
 		gfx_end_init(e);
+}
+
+void			gcmd_sgt(t_env *e, int cs, char *cmd)
+{
+	(void)cmd;
+	gfx_sgt(e, cs);
 }
 
 void			gfx_cmd_check(t_env *e, int cs, char *buf)

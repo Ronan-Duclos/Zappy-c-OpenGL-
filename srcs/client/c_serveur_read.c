@@ -29,21 +29,11 @@ void	size_map(t_env *e)
 {
 	char	*p_x;
 	char	*p_y;
-	t_map	**view;
-	int		i;
 
-	i = -1;
 	p_x = ft_strchr(e->user->buf_read_tmp, '\n') + 1;
 	p_y = ft_strchr(p_x, ' ') + 1;
 	e->me.x = ft_atoi(p_x);
 	e->me.y = ft_atoi(p_y);
-	view = (t_map **)XV(NULL, malloc(sizeof(t_map *) * (e->me.x)), "malloc");
-	while (++i < e->me.x)
-	{
-		view[i] = (t_map *)XV(NULL, malloc(sizeof(t_map)), "malloc");
-		bzero(view, sizeof(t_map));
-	}
-	e->user->player.ia.view = view;
 }
 
 void	ask_to_play(t_env *e)

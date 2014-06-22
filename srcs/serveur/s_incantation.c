@@ -6,12 +6,13 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 18:11:24 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 18:36:49 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <serveur.h>
 #include <common.h>
+#include <libft.h>
 
 static int		g_lvlup[7][8] = {
 	{0, 1, 0, 0, 0, 0, 0, 1},
@@ -70,8 +71,7 @@ void			incantation(t_env *e, int cs)
 			good = -1;
 	if (good == 1)
 		(*lvl)++;
-	if (good == 1 && e->users[cs]->player.acts[
-			e->users[cs]->player.cur_aread].start == 1)
+	if (good == 1 && e->users[cs]->player.inc == 1)
 		disperse_stone(e, cs);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);

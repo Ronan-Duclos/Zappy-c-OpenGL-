@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:42:59 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 23:45:52 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 19:53:36 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		list_item_init(t_env *env)
 	{
 		glTranslatef(-1.0, 1.0, -1.0);
 		glRotatef(-90.0, 1.0, 0.0, 0.0);
+		glRotatef(90.0, 0.0, 0.0, 1.0);
 		glScalef(0.005, 0.005, 0.005);
 	}
 	glEndList();

@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/15 01:11:11 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/19 02:06:31 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 03:26:58 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,33 @@
 /*
 **	Creates a new item to be displayed, according to the params.
 **	list is the list of transformations performed by OpenGL.
-**	id_nb is the item's id (or so I think)
-**	vbo is the vbo's id (obsolete)
+**	vbo is the model id.
 **	anim is a pointer on the animation structure.
 */
-t_item		*new_item(GLuint list, GLuint id_nb, GLuint vbo, t_anim *anim)
+t_item		*new_item(GLuint list, GLuint vbo, t_anim *anim)
 {
 	t_item	*new;
 
 	new = (t_item *)XV(NULL, malloc(sizeof(t_item)), "malloc");
 	new->list = list;
-	new->id_nb = id_nb;
 	new->vbo = vbo;
 	new->anim = anim;
 	return (new);
 }
 
 /*
-**	Pas mal, c'est joli. Par contre la premiere pierre prise n'est pas la bonne.
-**	A voir... Sinon ca lagouille un poil, ou plutot ca saute une frame de temps
-**	en temps mais bon. Osef?
+**
 */
 void		take_stone(int square, int stone)
 {
-	t_anim	*anim;
-	t_item	*item;
-	GLuint	list;
-	int		i;
+	t_anim		*anim;
+	t_item		*item;
+	GLuint		list;
+	int			i;
 	t_square	*sq;
 	static int	offsets[] = {FOOD_OFFSET, LINEMATE_OFFSET, DERAUMERE_OFFSET,
-							 SIBUR_OFFSET, MENDIANE_OFFSET, PHIRAS_OFFSET};
+							SIBUR_OFFSET, MENDIANE_OFFSET, PHIRAS_OFFSET,
+							THYSTAME_OFFSET};
 
 	sq = g_env->sq + square;
 	if (!sq->itms[stone])
@@ -61,7 +58,7 @@ void		take_stone(int square, int stone)
 	}
 	glEndList();
 	anim = new_anim(0, 500, &anim_rock);
-	item = new_item(list, g_env->vbosizes[_mod_stone][_vbo_indx], g_env->vbos[_mod_stone][_vbo_indx], anim);
-	g_env->sq[square].anims = new_link(g_env->sq[square].anims, item);
-	g_env->sq[square].itms[stone]--;
+	item = new_item(list, _mod_stone, anim);
+	sq->anims = new_link(sq->anims, item);
+	sq->itms[stone]--;
 }

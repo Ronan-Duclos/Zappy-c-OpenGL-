@@ -6,14 +6,13 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/19 11:55:06 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 17:27:40 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/resource.h>
 #include <strings.h>
 #include "gfx_gl.h"
-
 
 static void	lists_init(t_env *env)
 {
@@ -45,7 +44,7 @@ static void	names_init(t_env *env)
 static void	npcs_init(t_env *env)
 {
 	env->npc = (t_npc *)XV(NULL, malloc(sizeof(t_npc) * NPCS_MAX), "mpcs_init");
-	bzero(env->npc, sizeof(t_npc) * NPCS_MAX);	
+	bzero(env->npc, sizeof(t_npc) * NPCS_MAX);
 }
 
 void		env_init(t_env *env)

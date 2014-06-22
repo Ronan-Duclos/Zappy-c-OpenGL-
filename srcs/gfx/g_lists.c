@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 23:52:52 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/19 23:41:47 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 00:30:53 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ t_list	*new_link(t_list *next, void *content)
 	return (new);
 }
 
+void	add_link_end(t_list **list, void *content)
+{
+	t_list	*new;
+
+	new = (t_list *)XV(NULL, malloc(sizeof(t_list)), "malloc");
+	new->next = NULL;
+	new->content = content;
+	while (*list)
+		list = &(*list)->next;
+	*list = new;
+}
+
 void	del_link(t_list **link, void (*ft)(void *))
 {
 	t_list	*tmp;
@@ -39,6 +51,8 @@ void	switch_link(t_list **src, t_list **dst)
 {
 	t_list	*tmp;
 
+	if (*src == *dst)
+		return ;
 	tmp = *dst;
 	*dst = *src;
 	(*dst)->next = tmp;

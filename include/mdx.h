@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 17:05:50 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/18 00:29:22 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/21 23:54:38 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MDX_H
 
 # include <stdint.h>
+# include "libft.h"
 
 # define MDX_VERSION			"VERS"
 # define MDX_MODEL				"MODL"
@@ -73,8 +74,10 @@ typedef struct	s_modchunk
 typedef struct	s_mdx
 {
 	void		*model;
-	t_modchunk	chunks[9];
+	t_list		*geosets;
 }				t_mdx;
+
+typedef	t_modchunk	t_geoset[9];
 
 t_mdx			g_mdx; // VIEILLE GLOBALE DEGUEULASSE
 

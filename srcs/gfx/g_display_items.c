@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:45:06 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 22:23:15 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 00:04:59 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,23 @@
 
 void		display_any(t_item *item)
 {
+	GLuint	*vbos;
+	int		*sizes;
+
+	vbos = g_env->vbos[item->vbo];
+	sizes = g_env->vbosizes[item->vbo];
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[_vbo_vrtx]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[_vbo_nrms]);
+	glNormalPointer(GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbos[_vbo_indx]);
 	glPushMatrix();
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, item->vbo);
 	glCallList(item->list);
 	item->anim->fct(item->anim);
-	glDrawElements(GL_TRIANGLES, item->id_nb, GL_UNSIGNED_SHORT, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDrawElements(GL_TRIANGLES, sizes[_vbo_indx], GL_UNSIGNED_SHORT, 0);
 	glPopMatrix();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 static void	display_food(int i)
@@ -60,7 +70,7 @@ void		display_items(int num)
 		THYSTAME_PER_SQUARE};
 
 	sq = g_env->sq + num;
-	grid = sq->grid;
+	grid = sq->grid + tab[0];
 	list = sq->anims;
 	i = 0;
 	j = 1;
@@ -94,9 +104,9 @@ void		display_items(int num)
 	glBindTexture(GL_TEXTURE_2D, g_env->testex);
 
 	j = 0;
+	grid = sq->grid;
 	while (i < sq->itms[_food])
 		display_food(grid[i++]);
-	grid += tab[j];
 	i = 0;
 	j++;
 

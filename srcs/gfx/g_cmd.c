@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 15:41:06 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/21 20:13:20 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		cmd_pnw(char *cmd)
 	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
 	i++;
 	g_env->npc[tmp].team = strdup(&cmd[i]);
-	add_mob(tmp, g_env->npc[tmp].x, g_env->npc[tmp].y );
+	add_mob(tmp, g_env->npc[tmp].x, g_env->npc[tmp].y, g_env->npc[tmp].dir);
 	printf("okayy\n");
 }
 
@@ -95,7 +95,7 @@ void		cmd_ppo(char *cmd)
 		   g_env->npc[npc].x,
 		   g_env->npc[npc].y,
 		   g_env->npc[npc].dir);//
-	move_mob(npc, g_env->npc[npc].x, g_env->npc[npc].y);
+	move_mob(npc, g_env->npc[npc].x, g_env->npc[npc].y, g_env->npc[npc].dir);
 }
 
 void		cmd_pin(char *cmd)

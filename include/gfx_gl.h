@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 22:27:39 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 00:30:27 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@
 # define PHIRAS_OFFSET			(MENDIANE_OFFSET + MENDIANE_PER_SQUARE)
 # define THYSTAME_OFFSET		(PHIRAS_OFFSET + PHIRAS_PER_SQUARE)
 
+# define PI				3.14159265359
 # define SQUARE(v)		(v * v)
 # define MAG(va)		(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
+# define TORAD(a)		((float)a / 180 * PI)
 
 enum			e_colors
 {
@@ -72,14 +74,18 @@ enum			e_colors
 enum			e_textures
 {
 	_grass,
-	_plant
+	_plant,
+	_zepp,
+	_tex_nb
 };
 
 enum			e_models
 {
 	_mod_stone,
 	_mod_plant,
-	_mod_owl,
+	_mod_owl1,
+	_mod_owl2,
+	_mod_owl3,
 	_mod_nb
 };
 
@@ -117,10 +123,17 @@ typedef struct	s_move
 	GLfloat		dir[3];
 }				t_move;
 
+typedef struct	s_rot
+{
+	int			frames;
+	GLfloat		vec[3];
+	GLfloat		angle;
+	GLfloat		rot;
+}				t_rot;
+
 typedef struct	s_item
 {
 	GLuint		list;
-	GLuint		id_nb;
 	GLuint		vbo;
 	t_anim		*anim;
 }				t_item;
@@ -129,6 +142,7 @@ typedef struct	s_mob
 {
 	int			id;
 	t_move		*move;
+	t_rot		*rot;
 	t_anim		*anim;
 }				t_mob;
 
@@ -173,6 +187,7 @@ typedef struct	s_env
 	int			selectcase;
 	GLuint		testex;
 	GLuint		maptex;
+	GLuint		zepptex;
 	t_npc		*npc;
 }				t_env;
 
@@ -283,6 +298,7 @@ void			display_any(t_item *item);
 */
 void			anim_rock(t_anim *a);
 t_anim			*new_anim(int frame, int time, void (*fct)(t_anim *));
+void			anim_mob(t_anim *a);
 
 /*
 **	g_bmp.c (1 static)
@@ -297,7 +313,7 @@ void			resources_load(t_env *e);
 /*
 **	g_vbo.c
 */
-void			ft_vbo_from_mdx(t_mdx *mdx, GLuint *vbo, int *size);
+void			ft_vbo_from_mdx(t_geoset geos, GLuint *vbo, int *size);
 
 /*
 **	g_lists.c
@@ -305,11 +321,12 @@ void			ft_vbo_from_mdx(t_mdx *mdx, GLuint *vbo, int *size);
 void			del_link(t_list **link, void (*ft)(void *));
 t_list			*new_link(t_list *next, void *content);
 void			switch_link(t_list **src, t_list **dst);
+void			add_link_end(t_list **list, void *content);
 
 /*
 **	g_item_actions.c
 */
-t_item			*new_item(GLuint list, GLuint id_nb, GLuint vbo, t_anim *anim);
+t_item			*new_item(GLuint list, GLuint vbo, t_anim *anim);
 void			take_stone(int square, int stone);
 
 /*
@@ -322,9 +339,9 @@ void			move_init(t_move *move, int x, int y);
 /*
 **	g_npc_action.c
 */
-t_mob			*new_mob(t_anim *anim, t_move *move, int id);
-void			add_mob(int npc, int x, int y);
-void			move_mob(int npc, int x, int y);
+t_mob			*new_mob(t_anim *anim, t_move *move, t_rot *rot, int id);
+void			add_mob(int npc, int x, int y, enum e_dir dir);
+void			move_mob(int npc, int x, int y, enum e_dir dir);
 
 /*
 **	g_npc.c
@@ -335,5 +352,9 @@ t_list			**find_mob(int npc);
 **	g_display_players.c
 */
 void			display_all_mobs(void);
+
+t_rot			*new_rot(int frames, GLfloat vec[3], GLfloat a, GLfloat r);
+void			anim_rot(t_rot *r);
+void			rot_init(t_rot *rot, enum e_dir dir);
 
 #endif

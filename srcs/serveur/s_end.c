@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/21 20:15:55 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/21 22:07:44 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 17:58:59 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@ void	verify_win(t_env *e, int cs)
 {
 	int		i;
 
-	i = 0;
-	while (i < e->nb_team)
+	i = -1;
+	if (e->msg_end == 1)
+		e->end = 1;
+	else
 	{
-		if (ft_strcmp(e->team[i].name, e->users[cs]->player.team) == 0)
-			if (e->users[cs]->player.lvl == 8)
-			{
-				e->team[i].win++;
-				if (e->team[i].win == 6)
-					e->end = 1;
-			}
-		i++;
+		while (++i < e->nb_team)
+			if (ft_strcmp(e->team[i].name, e->users[cs]->player.team) == 0)
+				if (e->users[cs]->player.lvl == 8)
+				{
+					e->team[i].win++;
+					if (e->team[i].win == 6)
+					{
+						e->msg_end = 1;
+					}
+				}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 16:12:10 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/22 18:04:36 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,22 @@ void			incantation(t_env *e, int cs)
 			good = -1;
 	if (good == 1)
 		(*lvl)++;
-	if (good == 1 && e->users[cs]->player.acts[e->users[cs]->player.cur_aread].start == 1)
+	if (good == 1 && e->users[cs]->player.acts[
+			e->users[cs]->player.cur_aread].start == 1)
 		disperse_stone(e, cs);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
-	// if (cs qui a lance l'incant)
-	gfx_send_act(e, cs, gfx_pie, good);// send all infos to gfxs pce etc
+	if (e->users[cs]->player.inc == 1)
+	{
+		e->users[cs]->player.inc = 0;
+		gfx_send_act(e, cs, gfx_pie, good);// send all infos to gfxs pce etc
+	}
+}
+
+int		verify_cmd(t_user *user)
+{
+	(void)user;
+	return (1);
 }
 
 void	make_incantations(t_env *e, int cs)
@@ -88,12 +98,13 @@ void	make_incantations(t_env *e, int cs)
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
+	e->users[cs]->player.inc = 1;
 	tmp = e->map[x][y].player;
 	aw = e->users[cs]->player.cur_awrite;
 	time = e->users[cs]->player.acts[aw].time;
 	while (tmp != NULL)
 	{
-		if (e->users[cs]->player.lvl == tmp->player.lvl)
+		if (e->users[cs]->player.lvl == tmp->player.lvl && verify_cmd(tmp) == 1)
 		{
 			if (tmp->sock != cs)
 				remove_actions(tmp, time);

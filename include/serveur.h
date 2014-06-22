@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/22 17:39:12 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/22 18:02:48 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ typedef struct		s_env
 	int				nb_team;
 	t_srv			srv;
 	t_user			**users;
+	int				msg_end;
 	int				end;
 }					t_env;
 

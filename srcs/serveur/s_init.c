@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/21 22:01:41 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 17:52:12 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	init_player(t_env *e, int cs)
 
 	p = &e->users[cs]->player;
 	p->team = ft_strdup(e->users[cs]->buf_read_tmp);
+	p->inc = 0;
 	p->direc = rand() % 4;
 //	i = 0;
 	p->x = rand() % e->opt.x;

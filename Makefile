@@ -80,6 +80,7 @@ CLT_SRC=c_main.c \
 	c_turn_left.c \
 	c_turn_right.c \
 	c_watch_sight.c \
+	c_receive_answer.c \
 	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \

@@ -21,7 +21,8 @@ void	send_fork(t_env *e)
 	a_write = e->user->player.cur_awrite;
 	acts = &e->user->player.acts[a_write];
 	acts->time = 1;
-	/*acts->fct_cmd = my_fork;*/
-	tmp_to_bc(&e->user->buf_write, "fork", 1);
+	acts->cmd = ft_strdup("fork");
+	acts->fct_cmd = receive_ok_only;
+	tmp_to_bc(&e->user->buf_write, acts->cmd, 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

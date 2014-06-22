@@ -18,6 +18,7 @@ void	verify_win(t_env *e, int cs)
 {
 	int		i;
 
+	i = 0;
 	while (i < e->nb_team)
 	{
 		if (ft_strcmp(e->team[i].name, e->users[cs]->player.team) == 0)

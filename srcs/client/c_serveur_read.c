@@ -73,7 +73,9 @@ void	queue_actions(t_env *e)
 	a_read = e->user->player.cur_aread;
 	acts = e->user->player.acts;
 	acts[a_read].answer = ft_strdup(e->user->buf_read_tmp);
-/*	acts[a_read].fct_cmd(e);*/
+	acts[a_read].fct_cmd(e);
+	free(acts[a_read].answer);
+	free(acts[a_read].cmd);
 	acts[a_read].time = 0;
 	e->user->player.cur_aread = (e->user->player.cur_aread + 1) % 10;
 }

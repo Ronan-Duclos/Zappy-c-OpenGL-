@@ -25,7 +25,7 @@ void	send_broadcast(t_env *e, char *msg)
 	acts = &e->user->player.acts[a_write];
 	acts->time = 1;
 	acts->cmd = ft_strdup(buf);
-	/*acts->fct_cmd = my_broadcast;*/
+	acts->fct_cmd = receive_ok_only;
 	tmp_to_bc(&e->user->buf_write, buf, 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

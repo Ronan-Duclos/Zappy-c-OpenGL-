@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <client.h>
+#include <client.h>
 #include <common.h>
 #include <stdlib.h>
 #include <ctype.h>

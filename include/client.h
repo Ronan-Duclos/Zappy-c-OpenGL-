@@ -35,6 +35,11 @@
 # define MAX_CHANS		100
 # define BUF_SIZE		4096
 
+enum	e_travel
+{
+	_avance, _droite, _gauche
+};
+
 typedef struct		s_opt
 {
 	int				port;
@@ -55,9 +60,12 @@ typedef struct		s_ia
 {
 	t_inv			inv;
 	int				lvl;
+	int				c_nbr;
+	int				lvlup;
 	int				x;
 	int				y;
 	t_map			**view;
+	int				*trvl;
 }					t_ia;
 
 typedef struct		s_player
@@ -113,8 +121,8 @@ void					rcv_serveur(t_env *e);
 /*
 **	Lexing functions
 */
-int						get_inventaire(t_inv *inv, char *str);
-int						get_vision(t_inv **inv, int lvl, char *str);
+int						get_inventaire(int *inv, char *str);
+int						get_vision(t_inv **vis, int lvl, char *str);
 /*
 **	c_init.c
 */
@@ -126,7 +134,7 @@ void				drop_item(t_env *e);
 void				take_item(t_env *e);
 int					death_clt(t_env *e);
 /*
-**	Fonctions send des commandes
+**	Fonctions "send" des commandes
 */
 void				send_broadcast(t_env *e, char *msg);
 void				send_connect_nbr(t_env *e);
@@ -140,5 +148,10 @@ void				send_take_item(t_env *e, char *item);
 void				send_turn_left(t_env *e);
 void				send_turn_right(t_env *e);
 void				send_watch_sight(t_env *e);
+
+/*
+**	Fonctions "answer" des commandes
+*/
+void				receive_ok_only(t_env *e);
 
 #endif

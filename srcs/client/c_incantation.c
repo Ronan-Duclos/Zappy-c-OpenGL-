@@ -13,6 +13,19 @@
 #include <client.h>
 #include <common.h>
 
+void	incantation(t_env *e)
+{
+	int			ar;
+	t_actions	*act;
+	int			lvl;
+
+	ar = e->user->player.cur_aread;
+	act = &e->user->player.acts[ar];
+	lvl = ft_atoi(act->answer);
+	if (lvl == e->user->player.ia.lvl)
+		e->user->player.ia.lvlup = 1;
+}
+
 void	send_incantation(t_env *e)
 {
 	int			a_write;
@@ -20,8 +33,9 @@ void	send_incantation(t_env *e)
 
 	a_write = e->user->player.cur_awrite;
 	acts = &e->user->player.acts[a_write];
+	e->user->player.ia.lvlup = 0;
 	acts->time = 1;
-	/*acts->fct_cmd = incantation;*/
+	acts->fct_cmd = incantation;
 	tmp_to_bc(&e->user->buf_write, "incantation", 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

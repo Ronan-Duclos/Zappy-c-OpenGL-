@@ -13,6 +13,16 @@
 #include <client.h>
 #include <common.h>
 
+void	connect_nbr(t_env *e)
+{
+	int			ar;
+	t_actions	*act;
+
+	ar = e->user->player.cur_aread;
+	act = &e->user->player.acts[ar];
+	e->user->player.ia.c_nbr = ft_atoi(act->answer);
+}
+
 void	send_connect_nbr(t_env *e)
 {
 	int			a_write;
@@ -21,7 +31,8 @@ void	send_connect_nbr(t_env *e)
 	a_write = e->user->player.cur_awrite;
 	acts = &e->user->player.acts[a_write];
 	acts->time = 1;
-	/*acts->fct_cmd = connect_nbr;*/
-	tmp_to_bc(&e->user->buf_write, "connect_nbr", 1);
+	acts->fct_cmd = connect_nbr;
+	acts->cmd = ft_strdup("connect_nbr");
+	tmp_to_bc(&e->user->buf_write, acts->cmd, 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

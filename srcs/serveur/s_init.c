@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 17:52:12 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 20:45:48 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	init_player(t_env *e, int cs)
 	}
 */
 	p->inv[_food] = NB_START_FOOD;
-	p->lvl = 8;
+	p->lvl = 1;
 	put_user_on_map(e, cs);
 }
 

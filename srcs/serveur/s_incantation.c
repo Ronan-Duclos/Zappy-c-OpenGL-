@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 18:36:49 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 18:43:20 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,21 @@ static int		g_lvlup[7][8] = {
 	{0, 2, 2, 2, 2, 2, 1, 6}
 };
 
-static void	disperse_stone(t_env *e, int cs)
+static void	disperse_stone(t_env *e, int cs, int good)
 {
-	int		nb;
 	int		nb_stone;
 	int		i;
 	int		x;
 	int		y;
 
-	nb = e->users[cs]->player.lvl - 1;
+	if (good != 1)
+		return ;
 	i = 1;
 	while (i < 7)
 	{
 		x = e->users[cs]->player.x;
 		y = e->users[cs]->player.y;
-		nb_stone = g_lvlup[nb][i];
+		nb_stone = g_lvlup[e->users[cs]->player.lvl - 1][i];
 		while (nb_stone != 0)
 		{
 			e->map[x][y].ground[i]--;
@@ -71,15 +71,16 @@ void			incantation(t_env *e, int cs)
 			good = -1;
 	if (good == 1)
 		(*lvl)++;
-	if (good == 1 && e->users[cs]->player.inc == 1)
-		disperse_stone(e, cs);
-	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
-	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
 	if (e->users[cs]->player.inc == 1)
 	{
-		e->users[cs]->player.inc = 0;
 		gfx_send_act(e, cs, gfx_pie, good);// send all infos to gfxs pce etc
-	}
+		disperse_stone(e, cs, good);
+		gfx_send_map(e, x, y, gfx_bct);
+		e->users[cs]->player.inc = 0;
+	}	
+	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
+	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
+
 }
 
 static int		verify_cmd(t_user *user)

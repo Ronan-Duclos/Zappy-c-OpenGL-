@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 17:23:11 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 16:12:10 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		g_lvlup[7][8] = {
 	{0, 2, 2, 2, 2, 2, 1, 6}
 };
 
-void			disperse_stone(t_env *e, int cs)
+static void	disperse_stone(t_env *e, int cs)
 {
 	int		nb;
 	int		nb_stone;
@@ -44,6 +44,7 @@ void			disperse_stone(t_env *e, int cs)
 			x = rand() % e->opt.x;
 			y = rand() % e->opt.y;
 			e->map[x][y].ground[i]++;
+			gfx_send_map(e, x, y, gfx_bct);
 			nb_stone--;
 		}
 		i++;
@@ -73,4 +74,33 @@ void			incantation(t_env *e, int cs)
 		disperse_stone(e, cs);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
+	// if (cs qui a lance l'incant)
+	gfx_send_act(e, cs, gfx_pie, good);// send all infos to gfxs pce etc
+}
+
+void	make_incantations(t_env *e, int cs)
+{
+	int		x;
+	int		y;
+	t_user	*tmp;
+	double	time;
+	int		aw;
+
+	x = e->users[cs]->player.x;
+	y = e->users[cs]->player.y;
+	tmp = e->map[x][y].player;
+	aw = e->users[cs]->player.cur_awrite;
+	time = e->users[cs]->player.acts[aw].time;
+	while (tmp != NULL)
+	{
+		if (e->users[cs]->player.lvl == tmp->player.lvl)
+		{
+			if (tmp->sock != cs)
+				remove_actions(tmp, time);
+			e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].start = 1;
+			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
+		}
+		tmp = tmp->next;
+	}
+	gfx_send_npc(e, cs, gfx_pic);
 }

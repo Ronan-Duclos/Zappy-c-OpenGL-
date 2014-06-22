@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 20:13:20 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 14:05:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void		cmd_pdr(char *cmd)
 	int		npc;
 	int		itm;
 
-	printf("cmd_pdr: %s\n", cmd);//
+	printf("cmd_pdr: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
@@ -188,7 +188,7 @@ void		cmd_pdi(char *cmd)
 	int		i;
 	int		npc;
 
-	printf("cmd_pdi: %s\n", cmd);//
+	printf("cmd_pdi: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
@@ -198,3 +198,47 @@ void		cmd_pdi(char *cmd)
 	// ici npc == id jour qui meurs
 	printf("cmd_pdi: %d\n", npc);
 }
+
+void		cmd_pfk(char *cmd)
+{
+	int		i;
+	int		npc;
+
+	printf("cmd_pfk: %s\n", cmd);
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+		return ;
+	// ici npc == id jour qui fork
+	printf("cmd_pfk: %d\n", npc);
+}
+
+void		cmd_pic(char *cmd)
+{
+	int		i;
+	int		pos[2];
+	int		npc;
+	int		lvl;
+
+	printf("cmd_pic: %s\n", cmd);
+	i = 0;
+	i += get_next_int(&pos[0], &cmd[i]);
+	i += get_next_int(&pos[1], &cmd[i]);
+	i += get_next_int(&lvl, &cmd[i]);
+		// lancer ici l'anim incant de la case (pierres)
+		// lvl    == niveau de l'icantation
+		// pos[0] == x de la case ou lancer l'incant
+		// pos[1] == y de la case...
+	while (cmd[i])
+	{
+		while (cmd[i] == ' ' || cmd[i] == '#')
+			i++;
+		i += get_next_int(&npc, &cmd[i]);
+		if (npc >= NPCS_MAX || !g_env->npc[npc].id)
+			return ;
+		// npc    == id joueur qui dois lancer l'anim incant
+	}
+}
+

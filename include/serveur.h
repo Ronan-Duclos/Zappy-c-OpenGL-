@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 18:06:36 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/22 16:42:29 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ void				client_read(t_env *e, int cs);
 **	s_client_write.c
 */
 void				client_write(t_env *e, int cs);
+void				remove_actions(t_user *user, double time);
 
 /*
 **	s_deal_fd.c
@@ -221,14 +222,17 @@ void				gfx_ppo(t_env *e, int cs, int clt);
 void				gfx_pin(t_env *e, int cs, int clt);
 void				gfx_pdi(t_env *e, int cs, int clt);
 void				gfx_plv(t_env *e, int cs, int clt);
+void				gfx_pfk(t_env *e, int cs, int clt);
+void				gfx_pic(t_env *e, int cs, int clt);
+void				gfx_pie(t_env *e, int cs, int clt, int succes);
 void				gfx_pgt(t_env *e, int cs, int clt, int itm);
 void				gfx_pdr(t_env *e, int cs, int clt, int itm);
-void				gfx_send_npc(t_env *e, int cs, void (*fu)());
-void				gfx_send_act(t_env *e, int cs, void (*fu)(), int itm);
-void				gfx_send_cmd(t_env *e, int cs, int cmd);
+void				gfx_send_npc(t_env *e, int clt, void (*fu)());
+void				gfx_send_act(t_env *e, int clt, void (*fu)(), int itm);
+void				gfx_send_map(t_env *e, int x, int y, void (*fu)());
 
 /*
-**	s_gfx_cmd.c
+**	s_gfx_cmd.c (1 static)
 */
 int					get_next_int(int *nb, char *s);
 void				gfx_cmd_check(t_env *e, int cs, char *buf);
@@ -278,6 +282,8 @@ void				gfx_turn_right(t_env *e, int cs);
 void				gfx_turn_left(t_env *e, int cs);
 void				gfx_take_item(t_env *e, int cs);
 void				gfx_drop_item(t_env *e, int cs);
+void				gfx_fork(t_env *e, int cs);
+void				make_incantations(t_env *e, int cs);
 
 /*
 *	s_fork.c

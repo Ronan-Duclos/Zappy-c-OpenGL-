@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:49 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/20 10:37:43 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/22 12:59:20 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,9 @@ void	my_fork(t_env *e, int cs)
 			else
 				tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 		}
+}
+
+void	gfx_fork(t_env *e, int cs)
+{
+	gfx_send_npc(e, cs, gfx_pfk);
 }

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/21 17:42:00 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/22 16:42:18 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"pose", 7, drop_item, gfx_drop_item},
 	{"expulse", 7, expulse, NULL},
 	{"broadcast", 7, broadcast, NULL},
-	{"incantation", 300, incantation, NULL},
-	{"fork", 42, my_fork, NULL},
+	{"incantation", 300, incantation, make_incantations},
+	{"fork", 42, my_fork, gfx_fork},
 	{"connect_nbr", 0, connect_nbr, NULL}
 };
 
@@ -142,28 +142,6 @@ void	remove_actions(t_user *user, double time)
 	user->player.cur_awrite = (read + 1) % 10;
 }
 
-void	make_incantations(t_env *e, int cs, double time)
-{
-	int		x;
-	int		y;
-	t_user	*tmp;
-
-	x = e->users[cs]->player.x;
-	y = e->users[cs]->player.y;
-	tmp = e->map[x][y].player;
-	while (tmp != NULL)
-	{
-		if (e->users[cs]->player.lvl == tmp->player.lvl)
-		{
-			if (tmp->sock != cs)
-				remove_actions(tmp, time);
-			e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].start = 1;
-			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
-		}
-		tmp = tmp->next;
-	}
-}
-
 void	start_action(t_env *e, int cs)
 {
 	int		st;
@@ -177,6 +155,9 @@ void	start_action(t_env *e, int cs)
 		e->users[cs]->player.acts[st].start = ft_usec_time();
 }
 
+/*
+**	Add By clem to update calendar start time before adding in it.
+*/
 static double	get_start_time(t_env *e, int cs, int ca)
 {
 	double	time;
@@ -214,8 +195,6 @@ void	queue_actions(t_env *e, int cs)
 				e->srv.time = time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
-			if (j == 9)
-				make_incantations(e, cs, time);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;

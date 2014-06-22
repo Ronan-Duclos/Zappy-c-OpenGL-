@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 18:14:20 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/22 14:05:05 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <pthread.h>
 
 # define	BUF_SIZE	4096
-# define	CMDS_NB		8
+# define	CMDS_NB		10
 
 enum				e_states
 {
@@ -94,10 +94,11 @@ void		cmd_plv(char *cmd);
 void		cmd_pgt(char *cmd);
 void		cmd_pdr(char *cmd);
 void		cmd_pdi(char *cmd);
+void		cmd_pfk(char *cmd);
+void		cmd_pic(char *cmd);
 
 /*
 **	g_cmd_send.c
-
 */
 void		cmd_pin_send(t_ipv *ipv, int clt);
 void		cmd_sgt_send(t_ipv *ipv);

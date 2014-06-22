@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 18:04:36 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 18:11:24 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,21 @@ void			incantation(t_env *e, int cs)
 	}
 }
 
-int		verify_cmd(t_user *user)
+static int		verify_cmd(t_user *user)
 {
-	(void)user;
+	int		ar;
+
+	ar = user->player.cur_aread;
+	if (ft_strcmp(user->player.acts[ar].cmd, "avance") == 0)
+		return (0);
+	if (ft_strcmp(user->player.acts[ar].cmd, "gauche") == 0)
+		return (0);
+	if (ft_strcmp(user->player.acts[ar].cmd, "droite") == 0)
+		return (0);
 	return (1);
 }
 
-void	make_incantations(t_env *e, int cs)
+void			make_incantations(t_env *e, int cs)
 {
 	int		x;
 	int		y;
@@ -104,7 +112,8 @@ void	make_incantations(t_env *e, int cs)
 	time = e->users[cs]->player.acts[aw].time;
 	while (tmp != NULL)
 	{
-		if (e->users[cs]->player.lvl == tmp->player.lvl && verify_cmd(tmp) == 1)
+		if (e->users[cs]->player.lvl == tmp->player.lvl
+			&& verify_cmd(tmp) == 1)
 		{
 			if (tmp->sock != cs)
 				remove_actions(tmp, time);

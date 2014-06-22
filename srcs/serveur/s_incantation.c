@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 18:43:20 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/22 20:50:04 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,16 @@ void			incantation(t_env *e, int cs)
 
 static int		verify_cmd(t_user *user)
 {
-	int		ar;
+	int			ar;
+	t_actions	*act;
 
 	ar = user->player.cur_aread;
-	if (ft_strcmp(user->player.acts[ar].cmd, "avance") == 0)
+	act = &user->player.acts[ar];
+	if (act->time == 0 || act->fct_cmd == move_forward)
 		return (0);
-	if (ft_strcmp(user->player.acts[ar].cmd, "gauche") == 0)
+	if (act->fct_cmd == turn_left)
 		return (0);
-	if (ft_strcmp(user->player.acts[ar].cmd, "droite") == 0)
+	if (act->fct_cmd == turn_right)
 		return (0);
 	return (1);
 }

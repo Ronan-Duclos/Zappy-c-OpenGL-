@@ -15,7 +15,12 @@
 
 void	watch_sight(t_env *e)
 {
-	/*get_vision(e->user->player.ia.view, , );*/
+	int			ar;
+	t_actions	*act;
+
+	ar = e->user->player.cur_aread;
+	act = &e->user->player.acts[ar];
+	get_vision(&e->user->player.ia.view, e->user->player.ia.lvl, act->answer);
 	(void)e;
 }
 

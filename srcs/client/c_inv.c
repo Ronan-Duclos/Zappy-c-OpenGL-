@@ -15,13 +15,13 @@
 
 void	inventaire(t_env *e)
 {
-/*	int			ar;
-	t_actions	act;
+	int			ar;
+	t_actions	*act;
 
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
-	get_inventaire(&e->user->player.ia.inv, act->answer);*/
-	(void)e;
+	get_inventaire(e->user->player.ia.inv, act->answer);
+	act->time = 0;
 }
 
 void	send_inventaire(t_env *e)

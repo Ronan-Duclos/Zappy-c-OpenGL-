@@ -36,8 +36,6 @@ void	drop_item(t_env *e)
 			e->user->player.ia.inv[_thystame]--;
 	}
 	acts->time = 0;
-	free(acts->cmd);
-	free(acts->answer);
 }
 
 

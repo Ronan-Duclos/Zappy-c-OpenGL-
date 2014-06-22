@@ -36,8 +36,6 @@ void	take_item(t_env *e)
 			e->user->player.ia.inv[_thystame]++;
 	}
 	acts->time = 0;
-	free(acts->cmd);
-	free(acts->answer);
 }
 
 void	send_take_item(t_env *e, char *item)

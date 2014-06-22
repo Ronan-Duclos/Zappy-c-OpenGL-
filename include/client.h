@@ -51,11 +51,6 @@ typedef struct		s_opt
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
 
-typedef struct		s_map
-{
-	t_inv			ground;
-}					t_map;
-
 typedef struct		s_ia
 {
 	t_inv			inv;
@@ -64,7 +59,7 @@ typedef struct		s_ia
 	int				lvlup;
 	int				x;
 	int				y;
-	t_map			**view;
+	t_inv			*view;
 	int				*trvl;
 }					t_ia;
 

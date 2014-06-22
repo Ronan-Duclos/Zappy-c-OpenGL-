@@ -15,8 +15,17 @@
 
 void	init_clt(t_env *e)
 {
+	int		i;
+
+	i = -1;
 	e->user = (t_user *)XV(NULL, malloc(sizeof(t_user)), "malloc");
 	e->user->ig = 0;
+	e->user->player.cur_aread = 0;
+	e->user->player.cur_awrite = 0;
+	while (++i < 10)
+		e->user->player.acts[i].time = 0;
+	e->user->player.ia.lvl = 1;
+	e->user->player.ia.lvlup = 0;
 	init_bc(&e->user->buf_read);
 	init_bc(&e->user->buf_write);
 }

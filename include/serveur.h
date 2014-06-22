@@ -77,6 +77,7 @@ typedef struct		s_gfx
 typedef struct		s_player
 {
 	char			*team;
+	int				inc;
 	t_inv			inv;
 	t_actions		acts[10];
 	int				cur_aread;

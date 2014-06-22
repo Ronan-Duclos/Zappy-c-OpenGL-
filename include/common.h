@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 19:12:42 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 23:53:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define XV(err,res,str)	(x_void(err,res,str,__FILE__))
 # define X(err,res,str)		(x_int(err,res,str,__FILE__))
 # define NB_STONE			6
-# define BC_SIZE			10000
+# define BC_SIZE			16384
 # define BC_SIZE2			BC_SIZE - 1
 # define NORTH				0
 # define EAST				1

@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 01:19:58 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/22 20:39:48 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/23 21:57:46 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	list_red_init(void)
 
 void	list_blue_init(void)
 {
-	static	GLfloat mat_specular[] = TURQUOISE_SPEC;
-	static	GLfloat mat_diffuse[] = TURQUOISE_DIFF;
-	static	GLfloat mat_ambient[] = TURQUOISE_AMBI;
+	static	GLfloat mat_specular[] = AMETHIST_SPEC;
+	static	GLfloat mat_diffuse[] = AMETHIST_DIFF;
+	static	GLfloat mat_ambient[] = AMETHIST_AMBI;
 
 	glNewList(g_env->lists[_blue], GL_COMPILE);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);

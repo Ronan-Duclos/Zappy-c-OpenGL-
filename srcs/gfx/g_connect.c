@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 23:09:38 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 23:58:05 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	connect_map(char **tab, int *i, t_ipv *ipv)
 
 	while (tab[*i] && !(ret = strncmp(tab[*i], "bct", 3)))
 	{
-		cmd_bct(tab[*i]);
+		cmd_bct(&tab[*i][3]);
 		step += 1;
 		*i += 1;
 	}

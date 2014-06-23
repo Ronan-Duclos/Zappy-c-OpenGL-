@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:39:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/22 01:52:35 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 00:22:04 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ void	display_all_squares(void)
 	glBindTexture(GL_TEXTURE_2D, g_env->maptex);
 	while (i < g_env->mapw * g_env->maph)
 	{
-		if (g_env->realpos0y[0] > i % g_env->mapw * 2.0 + 1.0
-			|| g_env->realposxy[0] < i % g_env->mapw * 2.0 - 1.0
-			|| g_env->realposxy[2] > i / g_env->mapw * 2.0 + 1.0
-			|| g_env->realpos00[2] < i / g_env->mapw * 2.0 - 1.0)
+		if (g_env->realpos0y[0] > i % g_env->mapw * 2.0 + 3.0
+			|| g_env->realposxy[0] < i % g_env->mapw * 2.0 - 3.0
+			|| g_env->realposxy[2] > i / g_env->mapw * 2.0 + 3.0
+			|| g_env->realpos00[2] < i / g_env->mapw * 2.0 - 3.0)
 		{
 			i++;
 			continue ;

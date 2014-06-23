@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:42:05 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 20:52:19 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 00:08:17 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void		display_all_grid(void)
 	glDisable(GL_LIGHTING);
 	while (i < g_env->mapw * g_env->maph)
 	{
+		if (g_env->realpos0y[0] > i % g_env->mapw * 2.0 + 3.0
+			|| g_env->realposxy[0] < i % g_env->mapw * 2.0 - 3.0
+			|| g_env->realposxy[2] > i / g_env->mapw * 2.0 + 3.0
+			|| g_env->realpos00[2] < i / g_env->mapw * 2.0 - 3.0)
+		{
+			i++;
+			continue ;
+		}
 		glPushMatrix();
 		glTranslatef(i % g_env->mapw * 2.0, 0.0, i / g_env->mapw * 2.0);
 		display_grid();

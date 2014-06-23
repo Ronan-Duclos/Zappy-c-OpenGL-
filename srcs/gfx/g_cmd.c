@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 21:43:12 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/23 23:57:19 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void		cmd_bct(char *cmd)
 	int		y;
 	int		*tab;
 
-	i = 3;
-	i += get_next_int(&x, &cmd[i]);
+	i = 0;
 	i += get_next_int(&y, &cmd[i]);
+	i += get_next_int(&x, &cmd[i]);
 	tab = g_env->sq[x + g_env->mapw * y].itms;
 	i += get_next_int(&tab[0], &cmd[i]);
 	i += get_next_int(&tab[1], &cmd[i]);
@@ -62,6 +62,7 @@ void		cmd_bct(char *cmd)
 	i += get_next_int(&tab[4], &cmd[i]);
 	i += get_next_int(&tab[5], &cmd[i]);
 	i += get_next_int(&tab[6], &cmd[i]);
+	printf("%s\n", cmd);
 }
 
 void		cmd_pnw(char *cmd)
@@ -77,8 +78,8 @@ void		cmd_pnw(char *cmd)
 	if (tmp >= NPCS_MAX || g_env->npc[tmp].id)
 		return ;
 	g_env->npc[tmp].id = tmp;
-	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].dir, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
 	i++;
@@ -99,8 +100,8 @@ void		cmd_ppo(char *cmd)
 	i += get_next_int(&npc, &cmd[i]);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
-	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].dir, &cmd[i]);
 	printf("cmd_ppo: %d, %d %d, %d", npc,
 		   g_env->npc[npc].x,
@@ -121,8 +122,8 @@ void		cmd_pin(char *cmd)
 	i += get_next_int(&npc, &cmd[i]);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
-	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].inv[_food], &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].inv[_linemate], &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].inv[_deraumere], &cmd[i]);
@@ -240,8 +241,8 @@ void		cmd_pic(char *cmd)
 
 	printf("cmd_pic: %s\n", cmd);
 	i = 0;
-	i += get_next_int(&pos[0], &cmd[i]);
 	i += get_next_int(&pos[1], &cmd[i]);
+	i += get_next_int(&pos[0], &cmd[i]);
 	i += get_next_int(&lvl, &cmd[i]);
 		// lancer ici l'anim incant de la case (pierres)
 		// lvl    == niveau de l'icantation

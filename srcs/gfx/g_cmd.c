@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 17:19:27 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:48:10 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,3 +258,7 @@ void		cmd_pic(char *cmd)
 	}
 }
 
+void		cmd_enw(char *cmd)
+{
+	printf("cmd_enw: %s\n", cmd);
+}

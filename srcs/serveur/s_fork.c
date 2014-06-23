@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:49 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 17:41:20 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:07:31 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		add_egg(t_env *e, int cs)
 	p = &e->users[cs]->player;
 	new->x = p->x;
 	new->y = p->y;
+	new->cs = cs;
 	new->food = NB_START_FOOD;
 	new->next = NULL;
 	new->t_eclos = ft_usec_time() + 600 * (1000000 / e->opt.time);
@@ -67,6 +68,7 @@ void		add_egg(t_env *e, int cs)
 	else
 		e->team[i].eggs = new;
 	new->id = ++id;
+	gfx_send_egg(e, new, gfx_enw);
 }
 
 void	my_fork(t_env *e, int cs)

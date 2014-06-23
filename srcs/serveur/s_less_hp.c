@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 17:37:52 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:52:51 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void		less_hp_eggs(t_env *e)
 			dec = now - egg->t_last;
 			if (dec > 0 && (dec / ((double)(126 * 1000000) / e->opt.time)) > 1)
 			{
-				printf("%d\n", egg->food);
 				egg->t_last = now;
 				egg->food = egg->food - dec / (double)(126 * 1000000) / e->opt.time;
 			}
@@ -96,7 +95,6 @@ int		less_hp(t_env *e, int cs)
 		e->users[cs]->player.inv[_food] = e->users[cs]->player.inv[_food] - 1;
 		e->users[cs]->time = now - less;
 		lost_food(1);
-		printf("%d\n", e->users[cs]->player.inv[_food]);
 		if (e->users[cs]->player.inv[_food] < 0)
 		{
 			tmp_to_bc(&e->users[cs]->buf_write, "mort", 1);

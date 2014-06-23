@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 18:03:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 22:55:41 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ enum				e_ia
 	_ia_food, _ia_evolve, _ia_max
 };
 
+typedef struct		s_env t_env;
+
+
 typedef struct		s_opt
 {
 	int				port;
@@ -56,16 +59,27 @@ typedef struct		s_opt
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
 
+typedef struct		s_todo
+{
+	void			(*fct_send)();
+	char			*msg;
+	struct s_todo	*next;
+}					t_todo;
+
 typedef struct		s_ia
 {
 	t_inv			inv;
 	int				lvl;
 	int				c_nbr;
 	int				lvlup;
+	t_todo			*todo;
 	int				x;
 	int				y;
+	int				destx;
+	int				desty;
 	t_inv			*view;
 	int				*trvl;
+	char			*broadcast;
 	int				expulsed;
 }					t_ia;
 
@@ -155,5 +169,12 @@ void				send_watch_sight(t_env *e);
 **	Fonctions "answer" des commandes
 */
 void				receive_ok_only(t_env *e);
+
+/*
+**	c_todo.c
+*/
+void				add_todo(t_env *e, void (*f)(), char *msg);
+void		todo_to_cal(t_env *e);
+void		del_todo(t_env *e);
 
 #endif

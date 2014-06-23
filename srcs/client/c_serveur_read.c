@@ -55,19 +55,43 @@ void	ask_to_play(t_env *e)
 	}
 }
 
+int		verify_word(char *str, char *cmp)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i] != '\0' && cmp[i] != '\0')
+	{
+		if (str[i] != cmp[i])
+			return (-1);
+	}
+	if (cmp[i] != '\0')
+		return (-1);
+	return (0);
+}
+
 void	queue_actions(t_env *e)
 {
 	int				a_read;
 	t_actions		*acts;
+	char			*tmp;
 
-	a_read = e->user->player.cur_aread;
-	acts = e->user->player.acts;
-	acts[a_read].answer = ft_strdup(e->user->buf_read_tmp);
-	acts[a_read].fct_cmd(e);
-	free(acts[a_read].answer);
-	free(acts[a_read].cmd);
-	acts[a_read].time = 0;
-	e->user->player.cur_aread = (e->user->player.cur_aread + 1) % 10;
+	if (verify_word(e->user->buf_read_tmp, "deplacement") != 0)
+	{
+		a_read = e->user->player.cur_aread;
+		acts = e->user->player.acts;
+		acts[a_read].answer = ft_strdup(e->user->buf_read_tmp);
+		acts[a_read].fct_cmd(e);
+		free(acts[a_read].answer);
+		free(acts[a_read].cmd);
+		acts[a_read].time = 0;
+		e->user->player.cur_aread = (e->user->player.cur_aread + 1) % 10;
+	}
+	else
+	{
+		tmp = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
+		e->user->player.ia.expulsed = ft_atoi(tmp);
+	}
 }
 
 void	make_cmd(t_env *e)

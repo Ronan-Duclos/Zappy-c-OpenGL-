@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 23:00:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 23:07:55 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,15 @@ typedef struct		s_ia
 	int				c_nbr;
 	int				lvlup;
 	t_todo			*todo;
+	int				ntf;
 	int				x;
 	int				y;
 	int				destx;
 	int				desty;
 	t_inv			*view;
-	int				*trvl;
-	char			*broadcast;
 	int				expulsed;
+	int				bdc;
+	char			*msg;
 }					t_ia;
 
 typedef struct		s_player

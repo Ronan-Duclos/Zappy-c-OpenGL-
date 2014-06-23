@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 19:28:25 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 22:06:08 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,29 @@ void	replace_calendar(t_env *e)
 	e->user->player.acts[0].fct_cmd = incantation;
 }
 
+void	receive_broadcast(t_env *e)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
+	tmp[1] = '\0';
+	e->user->player.ia.bdc = ft_atoi(tmp);
+	tmp += 2;
+	e->user->player.ia.msg = ft_strdup(tmp);
+}
+
 void	make_cmd(t_env *e)
 {
 	if (e->user->ig == 0)
 		ask_to_play(e);
 	else
 	{
-		if (verify_word(e->user->buf_read_tmp, "elevation en cours") != 0)
-			queue_actions(e);
-		else
+		if (verify_word(e->user->buf_read_tmp, "elevation en cours") == 0)
 			replace_calendar(e);
+		else if (verify_word(e->user->buf_read_tmp, "msg ") != 0)
+			receive_broadcast(e);
+		else
+			queue_actions(e);
 	}
 }
 

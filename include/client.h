@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 18:42:14 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 22:22:34 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,26 @@ typedef struct		s_opt
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
 
+typedef struct		s_cmd
+{
+	int				cmd;
+	struct s_cmd	*next;
+}
+
 typedef struct		s_ia
 {
 	t_inv			inv;
 	int				lvl;
 	int				c_nbr;
 	int				lvlup;
+	int				ntf;
 	int				x;
 	int				y;
 	t_inv			*view;
 	int				*trvl;
 	int				expulsed;
+	int				bdc;
+	char			*msg;
 }					t_ia;
 
 typedef struct		s_player

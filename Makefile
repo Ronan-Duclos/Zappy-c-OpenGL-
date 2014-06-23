@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/23 17:48:56 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/23 22:18:13 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ SERV_SRC=s_incantation.c \
 	s_end.c \
 	s_broadcast.c
 CLT_SRC=c_main.c \
+	c_ia.c \
+	c_todo.c \
 	c_init.c \
 	c_opt.c \
 	c_serveur_read.c \

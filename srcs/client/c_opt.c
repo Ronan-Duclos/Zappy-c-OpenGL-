@@ -6,12 +6,15 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:29:22 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/07 18:25:41 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 19:01:13 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <client.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
 
 int				get_port(char **argv, t_opt *opt)
 {
@@ -49,8 +52,8 @@ int				check_opt(t_opt *opt)
 		return (printf("Invalid argument -p : %d\n", opt->port));
 	else if (opt->name == NULL)
 		return (printf("Invalid argument -n : <team>\n"));
-	if (opt->host == NULL)
-		opt->host = ft_strdup("localhost");
+	if (opt->host == NULL || strcmp(opt->host, "localhost") == 0)
+		opt->host = strdup("127.0.0.1");
 	return (0);
 }
 

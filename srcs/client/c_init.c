@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 21:48:32 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/07 22:14:03 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 16:22:05 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	init_clt(t_env *e)
 	e->user->player.cur_aread = 0;
 	e->user->player.cur_awrite = 0;
 	while (++i < 10)
+	{
 		e->user->player.acts[i].time = 0;
+		e->user->player.acts[i].cmd = NULL;
+	}
 	e->user->player.ia.lvl = 1;
 	e->user->player.ia.expulsed = 1;
 	e->user->player.ia.c_nbr = 0;

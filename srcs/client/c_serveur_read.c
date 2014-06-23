@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/21 22:13:48 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 16:20:06 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +84,9 @@ void	queue_actions(t_env *e)
 		acts[a_read].answer = ft_strdup(e->user->buf_read_tmp);
 		acts[a_read].fct_cmd(e);
 		free(acts[a_read].answer);
-		free(acts[a_read].cmd);
+		if (acts[a_read].cmd != NULL)
+			free(acts[a_read].cmd);
+		acts[a_read].cmd = NULL;
 		acts[a_read].time = 0;
 		e->user->player.cur_aread = (e->user->player.cur_aread + 1) % 10;
 	}

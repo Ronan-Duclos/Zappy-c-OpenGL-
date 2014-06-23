@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 20:13:20 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/23 21:27:59 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void		cmd_pgt(char *cmd)
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	i += get_next_int(&itm, &cmd[i]);
-	// ici npc == id jour qui prends, itm le type de pierre.
+	lower_mob(npc);
 	printf("cmd_pgt: %d %d\n", npc, itm);
 }
 
@@ -179,7 +179,7 @@ void		cmd_pdr(char *cmd)
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	i += get_next_int(&itm, &cmd[i]);
-	// ici npc == id jour qui pose, itm le type de pierre.
+	lower_mob(npc);
 	printf("cmd_pdr: %d %d\n", npc, itm);
 }
 
@@ -195,6 +195,6 @@ void		cmd_pdi(char *cmd)
 	i += get_next_int(&npc, &cmd[i]);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
-	// ici npc == id jour qui meurs
+	kill_mob(npc);
 	printf("cmd_pdi: %d\n", npc);
 }

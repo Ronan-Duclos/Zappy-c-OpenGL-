@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/22 00:30:27 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:38:41 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,41 @@
 # define PHIRAS_OFFSET			(MENDIANE_OFFSET + MENDIANE_PER_SQUARE)
 # define THYSTAME_OFFSET		(PHIRAS_OFFSET + PHIRAS_PER_SQUARE)
 
+# define COLF(x)				(x / 255.0)
+# define RGBF(r,g,b)			COLF(r), COLF(g), COLF(b)
+
+# define TURQUOISE_SPEC			{RGBF(40.0, 200.0, 200.0), 1.0}
+# define TURQUOISE_DIFF			{RGBF(48.0, 213.0, 200.0), 1.0}
+# define TURQUOISE_AMBI			{RGBF(20.0, 100.0, 100.0), 1.0}
+
+# define LAPIS_SPEC				{RGBF(80.0, 80.0, 100.0), 1.0}
+# define LAPIS_DIFF				{RGBF(38.0, 97.0, 156.0), 1.0}
+# define LAPIS_AMBI				{RGBF(30.0, 30.0, 50.0), 1.0}
+
+# define AMETHIST_SPEC			{RGBF(90.0, 50.0, 100.0), 1.0}
+# define AMETHIST_DIFF			{RGBF(153.0, 102.0, 204.0), 1.0}
+# define AMETHIST_AMBI			{RGBF(100.0, 70.0, 130.0), 1.0}
+
+# define JASPER_SPEC			{RGBF(150.0, 100.0, 100.0), 1.0}
+# define JASPER_DIFF			{RGBF(215.0, 59.0, 62.0), 1.0}
+# define JASPER_AMBI			{RGBF(150.0, 30.0, 30.0), 1.0}
+
+# define JADE_SPEC				{RGBF(100.0, 100.0, 100.0), 1.0}
+# define JADE_DIFF				{RGBF(0.0, 168.0, 107.0), 1.0}
+# define JADE_AMBI				{RGBF(30.0, 80.0, 80.0), 1.0}
+
+# define PINK_SPEC				{RGBF(220.0, 90.0, 200.0), 1.0}
+# define PINK_DIFF				{RGBF(255.0, 100.0, 234.0), 1.0}
+# define PINK_AMBI				{RGBF(100.0, 50.0, 60.0), 1.0}
+
+# define PERIDOT_SPEC			{RGBF(160.0, 130.0, 0.0), 1.0}
+# define PERIDOT_DIFF			{RGBF(230.0, 205.0, 0.0), 1.0}
+# define PERIDOT_AMBI			{RGBF(100.0, 100.0, 50.0), 1.0}
+
+# define BLACK_SPEC				{RGBF(200.0, 200.0, 255.0), 0.9}
+# define BLACK_DIFF				{RGBF(20.0, 30.0, 70.0), 0.8}
+# define BLACK_AMBI				{RGBF(10.0, 10.0, 10.0), 1.0}
+
 # define PI				3.14159265359
 # define SQUARE(v)		(v * v)
 # define MAG(va)		(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
@@ -73,9 +108,13 @@ enum			e_colors
 
 enum			e_textures
 {
+	_text_lower,
+	_text_upper,
+	_text_symbols,
 	_grass,
 	_plant,
 	_zepp,
+	_egg,
 	_tex_nb
 };
 
@@ -86,6 +125,7 @@ enum			e_models
 	_mod_owl1,
 	_mod_owl2,
 	_mod_owl3,
+	_mob_egg,
 	_mod_nb
 };
 
@@ -115,13 +155,16 @@ typedef struct	s_square
 }					t_square;
 
 typedef struct	s_anim	t_anim;
+typedef struct	s_move	t_move;
 
-typedef struct	s_move
+struct	s_move
 {
-	int			frames;
+	int			frame;
+	int			maxframe;
 	GLfloat		pos[3];
 	GLfloat		dir[3];
-}				t_move;
+	void		(*fct)(t_move *);
+};
 
 typedef struct	s_rot
 {
@@ -177,6 +220,7 @@ typedef struct	s_env
 	int			keys;
 	GLfloat		camtrans[3];
 	GLuint		lists[_lists_nb];
+	GLuint		textures[_tex_nb];
 	GLuint		vbos[_mod_nb][_vbo_nb];
 	int			vbosizes[_mod_nb][_vbo_nb];
 	GLdouble	winx;
@@ -191,7 +235,7 @@ typedef struct	s_env
 	t_npc		*npc;
 }				t_env;
 
-t_env				*g_env;
+t_env			*g_env;
 
 void			*load_file(char *filename);
 
@@ -270,7 +314,7 @@ int				time_frame(void);
 void			normalize(GLdouble vec[3]);
 void			getdir(const GLdouble o[3], GLdouble dir[3]);
 void			getdirf(const GLfloat o[3], GLfloat dir[3]);
-void			map_intersection(GLdouble *inter, const GLdouble *a, GLdouble *b);
+void			map_intersection(GLdouble *i, const GLdouble *a, GLdouble *b);
 void			set_vecf(GLfloat vec[3], GLfloat x, GLfloat y, GLfloat z);
 
 /*
@@ -332,27 +376,35 @@ void			take_stone(int square, int stone);
 /*
 **	g_move.c
 */
-t_move			*new_move(int frames, GLfloat pos[3], GLfloat dir[3]);
+t_move			*new_move(int frame, int max, GLfloat pos[3], GLfloat dir[3]);
 void			anim_move(t_move *m);
-void			move_init(t_move *move, int x, int y);
+void			anim_move2(t_move *m);
+void			move_init(t_move *move, int x, int y, int z);
 
 /*
 **	g_npc_action.c
 */
-t_mob			*new_mob(t_anim *anim, t_move *move, t_rot *rot, int id);
 void			add_mob(int npc, int x, int y, enum e_dir dir);
 void			move_mob(int npc, int x, int y, enum e_dir dir);
+void			kill_mob(int npc);
+void			lower_mob(int npc);
 
 /*
 **	g_npc.c
 */
 t_list			**find_mob(int npc);
+t_mob			*new_mob(t_anim *anim, t_move *move, t_rot *rot, int id);
+void			del_mob(void *ptr);
+int				is_in_list(t_list *link, t_list *list);
 
 /*
 **	g_display_players.c
 */
 void			display_all_mobs(void);
 
+/*
+**	g_rot.c
+*/
 t_rot			*new_rot(int frames, GLfloat vec[3], GLfloat a, GLfloat r);
 void			anim_rot(t_rot *r);
 void			rot_init(t_rot *rot, enum e_dir dir);

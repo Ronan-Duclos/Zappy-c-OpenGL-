@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/21 17:40:51 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/21 20:15:10 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/22 17:17:44 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,19 @@ void		anim_rot(t_rot *r)
 void		rot_init(t_rot *rot, enum e_dir direc)
 {
 	int			fram;
-	int			angle;
+	float		angle;
 
 	fram = FPS * T_RIGHT / g_env->time;
 	rot->frames = fram;
-	angle = direc * 90;
-	printf("angle = %f, rot = %f\n", rot->angle, rot->rot);
-	rot->rot = (angle - rot->angle) / fram;
-	if (rot->angle >= 360.0)
+	angle = 90.0 * direc - rot->angle;
+	printf("angle = %f\n", angle);
+	if (angle > 180.0)
+		angle = angle - 360;
+	if (angle < -180.0)
+		angle = 360.0 + angle;
+	rot->rot = angle / fram;
+	printf("angle = %f, rot = %f, calc = %f\n", rot->angle, rot->rot, angle);
+	if (rot->angle > 360.0)
 		rot->angle -= 360.0;
 	if (rot->angle <= 0.0)
 		rot->angle += 360.0;

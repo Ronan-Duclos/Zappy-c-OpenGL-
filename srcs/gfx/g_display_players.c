@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 18:12:27 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/22 02:52:04 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:34:37 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		display_geos(void)
 static void	display_mob(t_mob *mob)
 {
 	glPushMatrix();
-	anim_move(mob->move);
+	mob->move->fct(mob->move);
 	mob->anim->fct(mob->anim);
 	glCallList(g_env->lists[_red]);
 	glCallList(g_env->lists[_init_owl_pos]);

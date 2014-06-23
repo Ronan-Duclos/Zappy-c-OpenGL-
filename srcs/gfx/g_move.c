@@ -6,18 +6,20 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 19:33:04 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/21 19:13:49 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:51:45 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_gl.h"
 
-t_move		*new_move(int frames, GLfloat pos[3], GLfloat dir[3])
+t_move		*new_move(int frame, int max, GLfloat pos[3], GLfloat dir[3])
 {
 	t_move	*new;
 
 	new = (t_move *)XV(NULL, malloc(sizeof(t_move)), "malloc");
-	new->frames = frames;
+	new->frame = frame;
+	new->maxframe = max;
+	new->fct = anim_move;
 	new->pos[0] = pos[0];
 	new->pos[1] = pos[1];
 	new->pos[2] = pos[2];
@@ -30,25 +32,39 @@ t_move		*new_move(int frames, GLfloat pos[3], GLfloat dir[3])
 void		anim_move(t_move *m)
 {
 	glTranslatef(m->pos[_x], m->pos[_y], m->pos[_z]);
-	if (!m->frames)
+	if (m->frame >= m->maxframe)
 		return ;
 	m->pos[0] += m->dir[0];
 	m->pos[1] += m->dir[1];
 	m->pos[2] += m->dir[2];
-	m->frames--;
+	m->frame++;
 }
 
-void		move_init(t_move *move, int x, int y)
+void		move_init(t_move *move, int x, int y, int z)
 {
 	GLfloat		dir[3];
 	int			fram;
 
 	fram = FPS * T_FORWARD / g_env->time;
-	move->frames = fram;
-	set_vecf(dir, (float)x * 2, 0.0, (float)y * 2);
+	move->maxframe = fram;
+	move->frame = 0;
+	set_vecf(dir, (float)x * 2, (float)y * 2, (float)z * 2);
 	getdirf(move->pos, dir);
 	set_vecf(dir, dir[_x] / fram, dir[_y] / fram, dir[_z] / fram);
 	move->dir[_x] = dir[_x];
 	move->dir[_y] = dir[_y];
 	move->dir[_z] = dir[_z];
+}
+
+void		anim_move2(t_move *m)
+{
+	glTranslatef(m->pos[_x], m->pos[_y], m->pos[_z]);
+	if (m->frame >= m->maxframe)
+		return ;
+	if (m->frame == m->maxframe / 2)
+		m->dir[_y] = -m->dir[_y];
+	m->pos[0] += m->dir[0];
+	m->pos[1] += m->dir[1];
+	m->pos[2] += m->dir[2];
+	m->frame++;
 }

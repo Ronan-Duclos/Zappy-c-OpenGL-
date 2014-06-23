@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 17:42:01 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:58:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ void				gfx_bct(t_env *e, int cs, int x, int y);
 void				gfx_mct(t_env *e, int cs);
 void				gfx_tna(t_env *e, int cs);
 void				gfx_enw(t_env *e, int cs);
+void				gfx_seg(t_env *e, int cs, int clt);
 void				gfx_pnw(t_env *e, int cs, int clt);
 void				gfx_ppo(t_env *e, int cs, int clt);
 void				gfx_pin(t_env *e, int cs, int clt);

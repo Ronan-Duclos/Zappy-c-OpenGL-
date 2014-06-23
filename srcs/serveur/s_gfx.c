@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 15:15:30 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 16:57:43 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ void		gfx_sgt(t_env *e, int cs)
 
 	ft_bzero(buf, BUF_SIZE);
 	sprintf(buf, "sgt %d", e->opt.time);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	send signal when team win
+*/
+void		gfx_seg(t_env *e, int cs, int clt)
+{
+	char	buf[BUF_SIZE];
+
+	ft_bzero(buf, BUF_SIZE);
+	sprintf(buf, "seg %s", e->users[clt]->player.team);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 

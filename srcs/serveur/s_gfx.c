@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/22 18:23:08 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 15:15:30 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void		gfx_pic(t_env *e, int cs, int clt)
 	i = 0;
 	tmp = e->map[e->users[clt]->player.x][e->users[clt]->player.y].player;
 	lvl = tmp->player.lvl;
-	i += sprintf(buf, "pic %d %d %d", e->users[clt]->player.x, 
+	i += sprintf(buf, "pic %d %d %d", e->users[clt]->player.x,
 				 e->users[clt]->player.y,
 				 tmp->player.lvl);
 	while (tmp)

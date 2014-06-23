@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/21 20:15:55 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 18:16:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 14:51:06 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	verify_win(t_env *e, int cs)
 			if (e->team[i].win == 6)
 			{
 				e->msg_end = 1;
+				
 				// add cmd de fin de jeux serveur.
 			}
 		}

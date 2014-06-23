@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 20:50:04 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 16:03:57 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	disperse_stone(t_env *e, int cs, int good)
 
 	if (good != 1)
 		return ;
-	i = 1;
-	while (i < 7)
+	i = 0;
+	while (++i < 7)
 	{
 		x = e->users[cs]->player.x;
 		y = e->users[cs]->player.y;
@@ -48,9 +48,21 @@ static void	disperse_stone(t_env *e, int cs, int good)
 			gfx_send_map(e, x, y, gfx_bct);
 			nb_stone--;
 		}
-		i++;
 	}
 	e->users[cs]->player.acts[e->users[cs]->player.cur_aread].start = 0;
+}
+
+void			end_incant(t_env *e, int cs, int good)
+{
+	int		x;
+	int		y;
+
+	x = e->users[cs]->player.x;
+	y = e->users[cs]->player.y;
+	gfx_send_act(e, cs, gfx_pie, good);
+	disperse_stone(e, cs, good);
+	gfx_send_map(e, x, y, gfx_bct);
+	e->users[cs]->player.inc = 0;
 }
 
 void			incantation(t_env *e, int cs)
@@ -72,15 +84,10 @@ void			incantation(t_env *e, int cs)
 	if (good == 1)
 		(*lvl)++;
 	if (e->users[cs]->player.inc == 1)
-	{
-		gfx_send_act(e, cs, gfx_pie, good);// send all infos to gfxs pce etc
-		disperse_stone(e, cs, good);
-		gfx_send_map(e, x, y, gfx_bct);
-		e->users[cs]->player.inc = 0;
-	}	
+		end_incant(e, cs, good);
+	gfx_send_npc(e, cs, gfx_plv);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
-
 }
 
 static int		verify_cmd(t_user *user)
@@ -90,7 +97,7 @@ static int		verify_cmd(t_user *user)
 
 	ar = user->player.cur_aread;
 	act = &user->player.acts[ar];
-	if (act->time == 0 || act->fct_cmd == move_forward)
+	if (act->time != 0 || act->fct_cmd == move_forward)
 		return (0);
 	if (act->fct_cmd == turn_left)
 		return (0);
@@ -105,22 +112,21 @@ void			make_incantations(t_env *e, int cs)
 	int		y;
 	t_user	*tmp;
 	double	time;
-	int		aw;
+	int		ar;
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
 	e->users[cs]->player.inc = 1;
 	tmp = e->map[x][y].player;
-	aw = e->users[cs]->player.cur_awrite;
-	time = e->users[cs]->player.acts[aw].time;
+	ar = e->users[cs]->player.cur_aread;
+	time = e->users[cs]->player.acts[ar].time;
 	while (tmp != NULL)
 	{
-		if (e->users[cs]->player.lvl == tmp->player.lvl
-			&& verify_cmd(tmp) == 1)
+		if ((e->users[cs]->player.lvl == tmp->player.lvl
+			&& verify_cmd(tmp) == 1) || cs == tmp->sock)
 		{
 			if (tmp->sock != cs)
 				remove_actions(tmp, time);
-			e->users[cs]->player.acts[e->users[cs]->player.cur_awrite].start = 1;
 			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
 		}
 		tmp = tmp->next;

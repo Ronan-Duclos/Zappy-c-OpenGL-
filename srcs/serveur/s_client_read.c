@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 16:42:18 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 15:58:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,13 @@ void	remove_actions(t_user *user, double time)
 	acts = user->player.acts;
 	while (++i < 10)
 		acts[i].time = 0;
-	read = user->player.cur_aread;
+	user->player.cur_aread = 0;
+	user->player.cur_awrite = 0;
+	read = 0;
+	printf("rem_act: %f\n", time);
 	acts[read].time = time;
 	acts[read].fct_cmd = g_tab[9].fct_cmd;
-	user->player.cur_awrite = (read + 1) % 10;
+	user->player.cur_awrite = 1;
 }
 
 void	start_action(t_env *e, int cs)

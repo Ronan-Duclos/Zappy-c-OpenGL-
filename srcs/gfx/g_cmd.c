@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/22 14:05:40 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 15:03:13 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,11 @@ void		cmd_pin(char *cmd)
 		   g_env->npc[npc].inv[_mendiane],
 		   g_env->npc[npc].inv[_phiras],
 		   g_env->npc[npc].inv[_thystame]);
+}
+
+void		cmd_pie(char *cmd)
+{
+	printf("cmd_pin: %s\n", cmd);//
 }
 
 void		cmd_plv(char *cmd)

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:38:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 12:18:29 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:08:47 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@
 **	Config Client
 */
 #define					MIN_FOOD			8
-#define					MIN_FOOD2			13
+#define					MIN_FOOD2			16
 #endif

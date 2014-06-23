@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 21:48:32 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 16:22:05 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 21:48:37 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	init_clt(t_env *e)
 	e->user->player.ia.lvl = 1;
 	e->user->player.ia.expulsed = 1;
 	e->user->player.ia.c_nbr = 0;
+	e->user->player.ia.bdc = 0;
+	e->user->player.ia.msg = NULL;
 	e->user->player.ia.view = NULL;
 	e->user->player.ia.lvlup = 0;
 	init_bc(&e->user->buf_read);

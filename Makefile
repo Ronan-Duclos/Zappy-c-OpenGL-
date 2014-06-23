@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/23 18:42:30 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/23 23:23:05 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ SERV_SRC=s_incantation.c \
 	s_end.c \
 	s_broadcast.c
 CLT_SRC=c_main.c \
+	c_ia.c \
+	c_todo.c \
 	c_init.c \
 	c_opt.c \
 	c_serveur_read.c \
@@ -81,7 +83,6 @@ CLT_SRC=c_main.c \
 	c_turn_right.c \
 	c_watch_sight.c \
 	c_receive_answer.c \
-	c_ia.c \
 	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \

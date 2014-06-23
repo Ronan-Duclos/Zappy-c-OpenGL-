@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 17:41:41 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 18:02:42 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,28 @@ void	check_actions(t_env *e, int cs)
 {
 	t_actions	*acts;
 	double		now;
-	int			nb_acts;
+	int			*nb_acts;
 
 	if (less_hp(e, cs) != -1)
 	{
-		nb_acts = e->users[cs]->player.cur_aread;
-		acts = &e->users[cs]->player.acts[nb_acts];
+		nb_acts = &e->users[cs]->player.cur_aread;
+		acts = &e->users[cs]->player.acts[*nb_acts];
 		now = ft_usec_time();
 		if (acts->time != 0 && acts->time <= now)
 		{
-			e->users[cs]->player.acts[nb_acts].fct_cmd(e, cs);
-			if (e->users[cs]->player.cur_aread == 9)
-				e->users[cs]->player.cur_aread = 0;
-			else
-				e->users[cs]->player.cur_aread++;
+			e->users[cs]->player.acts[*nb_acts].fct_cmd(e, cs);
+			if (e->users[cs]->player.acts[*nb_acts].cmd != NULL)
+			{
+				free(e->users[cs]->player.acts[*nb_acts].cmd);
+				e->users[cs]->player.acts[*nb_acts].cmd = NULL;
+			}
+			*nb_acts = (*nb_acts + 1) % 10;
 			acts->time = 0;
 		}
 		else if (acts->start != 0 && acts->start <= now)
 		{
-			if (e->users[cs]->player.acts[nb_acts].fct_gfx)
-				e->users[cs]->player.acts[nb_acts].fct_gfx(e, cs);
+			if (e->users[cs]->player.acts[*nb_acts].fct_gfx)
+				e->users[cs]->player.acts[*nb_acts].fct_gfx(e, cs);
 			acts->start = 0;
 		}
 	}

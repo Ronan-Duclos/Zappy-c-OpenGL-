@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 17:41:00 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 18:03:32 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,12 @@ void	remove_actions(t_user *user, double time)
 	i = -1;
 	acts = user->player.acts;
 	while (++i < 10)
+	{
 		acts[i].time = 0;
+		if (acts[i].cmd != NULL)
+			free(acts[i].cmd);
+		acts[i].cmd = NULL;
+	}
 	user->player.cur_aread = 0;
 	user->player.cur_awrite = 0;
 	read = 0;

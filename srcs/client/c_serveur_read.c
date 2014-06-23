@@ -7,7 +7,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 16:20:06 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 17:08:02 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	queue_actions(t_env *e)
 		if (acts[a_read].cmd != NULL)
 			free(acts[a_read].cmd);
 		acts[a_read].cmd = NULL;
+		acts[a_read].answer = NULL;
 		acts[a_read].time = 0;
 		e->user->player.cur_aread = (e->user->player.cur_aread + 1) % 10;
 	}
@@ -97,12 +98,38 @@ void	queue_actions(t_env *e)
 	}
 }
 
+void	replace_calendar(t_env *e)
+{
+	int		i;
+
+	i = -1;
+	while (++i < 10)
+	{
+		e->user->player.acts[i].time = 0;
+		if (e->user->player.acts[i].cmd != NULL)
+			free(e->user->player.acts[i].cmd);
+		if (e->user->player.acts[i].answer != NULL)
+			free(e->user->player.acts[i].answer);
+	}
+	e->user->player.cur_aread = 0;
+	e->user->player.cur_awrite = 1;
+	e->user->player.acts[0].cmd = ft_strdup("incantation");
+	e->user->player.acts[0].time = 1;
+	e->user->player.ia.lvlup = 1;
+	e->user->player.acts[0].fct_cmd = incantation;
+}
+
 void	make_cmd(t_env *e)
 {
 	if (e->user->ig == 0)
 		ask_to_play(e);
 	else
-		queue_actions(e);
+	{
+		if (verify_word(e->user->buf_read_tmp, "elevation en cours") != 0)
+			queue_actions(e);
+		else
+			replace_calendar(e);
+	}
 }
 
 void	rcv_serveur(t_env *e)

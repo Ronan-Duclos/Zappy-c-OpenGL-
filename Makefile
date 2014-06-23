@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/22 17:39:36 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/23 17:48:56 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,17 +180,17 @@ $(GFX_NAME): $(GFX_OBJ)
 	@echo "\033[2K\t\033[1;36m$(GFX_NAME)\t\t\033[0;32m[Ready]\033[0m"
 
 $(DIROBJ)s_%.o: $(DIRSRC)$(SERV_NAME)/s_%.c $(INCLUDES)
-	@echo "\e[2K--> Linking  $<"
+	@echo "\033[2K--> Linking  $<"
 	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
-	@echo "\e[2K--> Linking  $<"
+	@echo "\033[2K--> Linking  $<"
 	@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -g
 	@tput cuu1
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
-	@echo "\e[2K--> Linking  $<"
+	@echo "\033[2K--> Linking  $<"
 	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
 
 	@tput cuu1

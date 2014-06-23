@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 17:43:22 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:48:21 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ enum	e_travel
 
 enum				e_ia
 {
-	_food, _evolve, _max_ia
+	_ia_food, _ia_evolve, _ia_max
 };
 
 typedef struct		s_opt

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 15:03:13 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:19:27 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ void		cmd_sgt(char *cmd)
 
 	i = 3;
 	get_next_int(&g_env->time, &cmd[i]);
+}
+
+void		cmd_seg(char *cmd)
+{
+	int		i;
+
+	printf("cmd_seg: %s\n", cmd);
+	i = 0;
+	while (cmd[i] && cmd[i] == ' ')
+		i++;
+	// nom de team a dup et afficher: strdup(&cmd[i])
 }
 
 void		cmd_bct(char *cmd)

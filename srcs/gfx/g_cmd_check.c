@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 14:58:31 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:00:07 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static t_cmd	*cmds_tab_get(void)
 		{"sgt", &cmd_sgt},
 		{"pfk", &cmd_pfk},
 		{"pic", &cmd_pic},
-		{"pie", &cmd_pie}
+		{"pie", &cmd_pie},
+		{"seg", &cmd_seg}
 	};
 	return (cmd);
 }
@@ -88,7 +89,6 @@ void			cmd_check(t_ipv *ipv, char *buf)
 	i = 0;
 	cmd = cmds_tab_get();
 	cmds_get(&tab, buf);
-//	tab = ft_strsplit(buf, '\n');
 	if (ipv->state == _connect)
 		cmd_connect(ipv, tab, &i);
 	while (tab[i] && ipv->state != _connect)
@@ -101,12 +101,6 @@ void			cmd_check(t_ipv *ipv, char *buf)
 		else
 			printf("UNKNOWN CMD tab[%d]: %s\n", i, tab[i]);
 		i++;
-//		j = -1;//
-//		while (++j < NPCS_MAX)
-//		{
-//			if (ipv->state == _draw)
-//				cmd_sgt_send(ipv);
-//		}//
 	}
 	printf("end_cmd_check state: %d\n", ipv->state);
 	dtab_del(tab);

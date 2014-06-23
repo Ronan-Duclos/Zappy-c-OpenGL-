@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   c_receive_answer.c                                 :+:      :+:    :+:   */
+/*   c_ia.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/23 19:02:37 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 19:02:48 by rduclos          ###   ########.fr       */
+/*   Created: 2014/06/23 18:40:51 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/23 19:09:00 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <client.h>
 #include <common.h>
 
-void	receive_ok_only(t_env *e)
+void	check_need(t_env *e)
 {
-	int			ar;
-	t_actions	*act;
+	(void)e;
+}
 
-	ar = e->user->player.cur_aread;
-	act = &e->user->player.acts[ar];
-	act->time = 0;
+void	my_ia(t_env *e)
+{
+	if (e->user->ig == 1)
+	{
+		check_need(e);
+	}
 }

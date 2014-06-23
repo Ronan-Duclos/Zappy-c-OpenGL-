@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 22:14:54 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 18:40:35 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	run_clt(t_env *e)
 			FD_ZERO(&e->fd_write);
 			do_select(e);
 			check_fd(e);
+			my_ia(e);
 		}
 		close(e->user->sock);
 	}

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 18:03:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 18:42:14 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,9 @@ void				send_watch_sight(t_env *e);
 **	Fonctions "answer" des commandes
 */
 void				receive_ok_only(t_env *e);
+/*
+**	IA
+*/
+void			my_ia(t_env *e);
 
 #endif

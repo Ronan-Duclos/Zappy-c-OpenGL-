@@ -6,12 +6,28 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:04:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 19:04:18 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 19:28:09 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <client.h>
 #include <common.h>
+
+void	fork_my_egg(t_env *e)
+{
+	int			ar;
+	t_actions	*act;
+
+	ar = e->user->player.cur_aread;
+	act = &e->user->player.acts[ar];
+	if (fork() == 0)
+	{
+		close(e->user->sock);
+		execve(e->av[0], e->av, NULL);
+	}
+	act->time = 0;
+
+}
 
 void	send_fork(t_env *e)
 {
@@ -22,7 +38,7 @@ void	send_fork(t_env *e)
 	acts = &e->user->player.acts[a_write];
 	acts->time = 1;
 	acts->cmd = ft_strdup("fork");
-	acts->fct_cmd = receive_ok_only;
+	acts->fct_cmd = fork_my_egg;
 	tmp_to_bc(&e->user->buf_write, acts->cmd, 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

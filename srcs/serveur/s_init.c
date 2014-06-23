@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 23:57:17 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 17:40:43 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,40 +55,49 @@ int		init_sock(int port, t_env *e)
 	return (sock);
 }
 
-void	init_player(t_env *e, int cs)
+void	add_start_cal(t_env *e, int cs, int team)
+{
+	int				*aw;
+	t_actions		*act;
+
+	aw = &e->users[cs]->player.cur_awrite;
+	act = &e->users[cs]->player.acts[*aw];
+	act->cmd = ft_itoa(e->team[team].member);
+	act->answer = NULL;
+	act->time = e->users[cs]->time;
+	act->start = 0;
+	act->fct_cmd = send_start;
+	act->fct_gfx = NULL;
+	*aw = (*aw + 1)  % 10;
+}
+
+void	init_player(t_env *e, int cs, int team)
 {
 	t_player		*p;
-/*	int				i;
 	double			time;
-	t_egg			*egg;*/
+	t_egg			*egg;
 
 	p = &e->users[cs]->player;
-	p->team = ft_strdup(e->users[cs]->buf_read_tmp);
 	p->inc = 0;
 	p->direc = rand() % 4;
-//	i = 0;
-	p->x = rand() % e->opt.x;
-	p->y = rand() % e->opt.y;
-/*
-	while (strcmp(p->team, e->team[i].name) != 0)
-		i++;
 	time = ft_usec_time();
-	if ((egg = egg_available(time, e->team[i].eggs)) == NULL)
+	if ((egg = e->team[team].eggs) == NULL)
 	{
 		p->x = rand() % e->opt.x;
 		p->y = rand() % e->opt.y;
-		e->users[cs]->time = egg->eclos;
-		//del egg;
+		p->inv[_food] = NB_START_FOOD;
+		e->users[cs]->time = time;
 	}
 	else
 	{
 		p->x = egg->x;
 		p->y = egg->y;
-		e->users[cs]->time = time;
+		p->inv[_food] = egg->food;
+		e->users[cs]->time = egg->t_eclos;
+		del_egg(&e->team[team]);
 	}
-*/
-	p->inv[_food] = NB_START_FOOD;
 	p->lvl = 1;
+	add_start_cal(e, cs, team);
 	put_user_on_map(e, cs);
 }
 

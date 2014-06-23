@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 21:37:13 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 17:43:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@
 enum	e_travel
 {
 	_avance, _droite, _gauche
+};
+
+enum				e_ia
+{
+	_food, _evolve, _max_ia
 };
 
 typedef struct		s_opt

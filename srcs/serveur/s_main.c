@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 12:19:56 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 22:47:07 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 17:36:31 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			run_serv(t_env *e)
 	while (e->end == 0)
 	{
 		init_fd(e);
+		less_hp_eggs(e);
 		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &out);
 		init_end(e);
 		check_fd(e);

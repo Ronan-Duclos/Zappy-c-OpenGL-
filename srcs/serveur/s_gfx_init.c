@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 11:46:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/20 23:16:12 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:15:37 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,23 @@ void		gfx_init_send_pnw(t_env *env, int cs)
 	}
 }
 
+void		gfx_init_send_enw(t_env *e, int cs)
+{
+	t_egg	*tmp;
+	int		i;
+
+	i = -1;
+	while (e->opt.name[++i])
+	{
+		tmp = e->team[i].eggs;
+		while (tmp)
+		{
+			gfx_enw(e, cs, tmp);
+			tmp = tmp->next;
+		}
+	}
+}
+
 void		gfx_init(t_env *e, int cs)
 {
 	t_glst		*new;
@@ -65,7 +82,7 @@ void		gfx_init(t_env *e, int cs)
 	else if (e->users[cs]->gfx.state == 3)
 	{
 		gfx_init_send_pnw(e, cs);
-		gfx_enw(e, cs);
+		gfx_init_send_enw(e, cs);
 		e->users[cs]->ig = 1;
 	}
 }

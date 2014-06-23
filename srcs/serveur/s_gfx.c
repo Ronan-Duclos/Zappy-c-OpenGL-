@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 16:57:43 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:08:23 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,16 +136,6 @@ void		gfx_pnw(t_env *e, int cs, int i)
 			e->users[i]->player.lvl,
 			e->users[i]->player.team);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
-}
-
-/*
-**	send create Egg action: egg_nb player X Y
-**	a faire quand les oeufs seront geres dans le serveur.
-*/
-void		gfx_enw(t_env *e, int cs)
-{
-	(void)e;
-	(void)cs;
 }
 
 /*
@@ -283,6 +273,37 @@ void		gfx_pdr(t_env *e, int cs, int clt, int itm)
 	bzero(buf, BUF_SIZE);
 	sprintf(buf, "pdr #%d %d", clt, itm);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal when egg done.
+*/
+void		gfx_enw(t_env *e, int cs, t_egg *egg)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "enw #%d #%d %d %d", egg->id, egg->cs,
+			e->users[egg->cs]->player.x,
+			e->users[egg->cs]->player.y);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send all gfx clients the function as
+**	void (*fu)(t_env *e, int gfx_cs, int clt)
+**	cs is id/socket of client you want to send infos.
+*/
+void		gfx_send_egg(t_env *e, t_egg *egg, void (*fu)())
+{
+	t_glst	*tmp;
+
+	tmp = e->srv.glst;
+	while (tmp)
+	{
+		fu(e, tmp->cs, egg);
+		tmp = tmp->next;
+	}
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 19:47:23 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/21 13:14:09 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 18:44:39 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void			take_item(t_env *e, int cs)
 			tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
 		}
 	}
+	gfx_send_npc(e, cs, gfx_pin);
+	gfx_send_map(e, player_x, player_y, gfx_bct);
 }
 
 void			gfx_take_item(t_env *e, int cs)

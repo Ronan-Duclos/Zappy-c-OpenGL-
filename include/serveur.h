@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 17:58:45 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/23 19:08:06 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct		s_egg
 	double			t_last;
 	int				eclos;
 	int				food;
+	int				cs;
 	int				x;
 	int				y;
 	struct s_egg	*next;
@@ -225,7 +226,7 @@ void				gfx_sgt(t_env *e, int cs);
 void				gfx_bct(t_env *e, int cs, int x, int y);
 void				gfx_mct(t_env *e, int cs);
 void				gfx_tna(t_env *e, int cs);
-void				gfx_enw(t_env *e, int cs);
+void				gfx_enw(t_env *e, int cs, t_egg *egg);
 void				gfx_seg(t_env *e, int cs, int clt);
 void				gfx_pnw(t_env *e, int cs, int clt);
 void				gfx_ppo(t_env *e, int cs, int clt);
@@ -237,6 +238,7 @@ void				gfx_pic(t_env *e, int cs, int clt);
 void				gfx_pie(t_env *e, int cs, int clt, int succes);
 void				gfx_pgt(t_env *e, int cs, int clt, int itm);
 void				gfx_pdr(t_env *e, int cs, int clt, int itm);
+void				gfx_send_egg(t_env *e, t_egg *egg, void (*fu)());
 void				gfx_send_npc(t_env *e, int clt, void (*fu)());
 void				gfx_send_act(t_env *e, int clt, void (*fu)(), int itm);
 void				gfx_send_map(t_env *e, int x, int y, void (*fu)());

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/19 21:37:13 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/23 17:21:46 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void				init_clt(t_env *e);
 */
 void				drop_item(t_env *e);
 void				take_item(t_env *e);
+void				incantation(t_env *e);
 int					death_clt(t_env *e);
 /*
 **	Fonctions "send" des commandes

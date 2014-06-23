@@ -61,6 +61,7 @@ typedef struct		s_ia
 	int				y;
 	t_inv			*view;
 	int				*trvl;
+	int				expulsed;
 }					t_ia;
 
 typedef struct		s_player

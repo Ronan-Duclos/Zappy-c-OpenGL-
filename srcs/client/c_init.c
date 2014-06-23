@@ -25,6 +25,9 @@ void	init_clt(t_env *e)
 	while (++i < 10)
 		e->user->player.acts[i].time = 0;
 	e->user->player.ia.lvl = 1;
+	e->user->player.ia.expulsed = 1;
+	e->user->player.ia.c_nbr = 0;
+	e->user->player.ia.view = NULL;
 	e->user->player.ia.lvlup = 0;
 	init_bc(&e->user->buf_read);
 	init_bc(&e->user->buf_write);

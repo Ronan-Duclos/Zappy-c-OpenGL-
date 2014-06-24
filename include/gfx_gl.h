@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 19:13:56 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 22:11:27 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@
 # define SCR_HGH		480
 # define FPS			60
 
-# define FOOD_PER_SQUARE		66
-# define LINEMATE_PER_SQUARE	60
-# define DERAUMERE_PER_SQUARE	50
+# define FOOD_PER_SQUARE		50
+# define LINEMATE_PER_SQUARE	45
+# define DERAUMERE_PER_SQUARE	40
 # define SIBUR_PER_SQUARE		35
-# define MENDIANE_PER_SQUARE	20
-# define PHIRAS_PER_SQUARE		15
-# define THYSTAME_PER_SQUARE	10
+# define MENDIANE_PER_SQUARE	30
+# define PHIRAS_PER_SQUARE		25
+# define THYSTAME_PER_SQUARE	20
+# define EGG_PER_SQUARE			10
 
 # define FOOD_OFFSET			0
 # define LINEMATE_OFFSET		(FOOD_OFFSET + FOOD_PER_SQUARE)
@@ -49,6 +50,7 @@
 # define MENDIANE_OFFSET		(SIBUR_OFFSET + SIBUR_PER_SQUARE)
 # define PHIRAS_OFFSET			(MENDIANE_OFFSET + MENDIANE_PER_SQUARE)
 # define THYSTAME_OFFSET		(PHIRAS_OFFSET + PHIRAS_PER_SQUARE)
+# define EGG_OFFSET				(THYSTAME_OFFSET + THYSTAME_PER_SQUARE)
 
 # define COLF(x)				(x / 255.0)
 # define RGBF(r,g,b)			COLF(r), COLF(g), COLF(b)

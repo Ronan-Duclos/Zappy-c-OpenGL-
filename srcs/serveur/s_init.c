@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 00:39:58 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 12:51:49 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	init_player(t_env *e, int cs, int team)
 		p->y = egg->y;
 		p->inv[_food] = egg->food;
 		e->users[cs]->time = egg->t_eclos;
+		gfx_send_egg(e, egg, gfx_ebo);
 		del_egg(&e->team[team]);
-		//ebo
 	}
 	p->lvl = 1;
 	add_start_cal(e, cs, team);

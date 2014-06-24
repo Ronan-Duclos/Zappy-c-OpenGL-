@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 00:41:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 12:47:39 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,8 @@ void	client_read(t_env *e, int cs)
 	r = recv(cs, e->users[cs]->buf_read_tmp, BC_SIZE, 0);
 	if (r <= 0)
 	{
-		if (!e->users[cs]->gfx.gfx) /////////////////////
-			gfx_send_npc(e, cs, gfx_pdi); //added gfx_msg
+		if (!e->users[cs]->gfx.gfx)
+			gfx_send_npc(e, cs, gfx_pdi);
 		close(cs);
 		destroy_clt(e, cs);
 	}

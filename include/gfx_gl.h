@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 01:48:48 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 13:49:15 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,8 @@ typedef struct	s_egg
 	int			id;
 	int			x;
 	int			y;
+	char		*team;
 }				t_egg;
-
 
 typedef struct	s_npc
 {

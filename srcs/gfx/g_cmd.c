@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 02:07:52 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 15:30:14 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,44 @@ void		cmd_bct(char *cmd)
 	printf("%s\n", cmd);
 }
 
+void		del_egg(void *ct)
+{
+	t_egg	*egg;
+
+	egg = (t_egg *)ct;
+	free(egg->team);
+	free(egg);
+}
+/*
+static void	pnw_on_egg(t_npc *npc)
+{
+	t_list	*tmp;
+
+	tmp = g_env->egg;
+	printf("here\n");
+	while (tmp && strcmp(((t_egg *)tmp->content)->team, npc->team))
+	{
+		printf("egg team: %s\n", ((t_egg *)tmp->content)->team);
+		tmp = tmp->next;
+		printf("egg team: %s\n", ((t_egg *)tmp->content)->team);
+	}
+	if (!tmp)
+		return ;
+	del_link(&tmp, del_egg);
+	printf("here2\n");
+	tmp = g_env->sq[npc->x + g_env->mapw * npc->y].egg;
+	while (tmp && strcmp(((t_egg *)(tmp->content))->team, npc->team))
+		tmp = tmp->next;
+	if (!tmp)
+		return ;
+	del_link(&tmp, del_egg);
+}
+*/
 void		cmd_pnw(char *cmd)
 {
 	int		i;
 	int		tmp;
+	t_npc	*npc;
 
 	printf("cmd_pnw: %s\n", cmd);
 	i = 0;
@@ -77,15 +111,28 @@ void		cmd_pnw(char *cmd)
 	i += get_next_int(&tmp, &cmd[i]);
 	if (tmp >= NPCS_MAX || g_env->npc[tmp].id)
 		return ;
+	npc = &g_env->npc[tmp];
+	npc[tmp].id = tmp;
+	i += get_next_int(&npc->y, &cmd[i]);
+	i += get_next_int(&npc->x, &cmd[i]);
+	i += get_next_int(&npc->dir, &cmd[i]);
+	i += get_next_int(&npc->lvl, &cmd[i]);
+	i++;
+	npc->team = strdup(&cmd[i]);
+//	pnw_on_egg(npc);
+	add_mob(tmp, npc->x, npc->y, npc->dir);
+/*
 	g_env->npc[tmp].id = tmp;
 	i += get_next_int(&g_env->npc[tmp].y, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].dir, &cmd[i]);
 	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
 	i++;
+	// if oeuf de la team sur la case
+	// supprimer oeuf
 	g_env->npc[tmp].team = strdup(&cmd[i]);
 	add_mob(tmp, g_env->npc[tmp].x, g_env->npc[tmp].y, g_env->npc[tmp].dir);
-	printf("okayy\n");
+*/
 }
 
 void		cmd_ppo(char *cmd)
@@ -284,6 +331,54 @@ void		cmd_enw(char *cmd)
 	i += get_next_int(&x, &cmd[i]);
 	new->x = x;
 	new->y = y;
+	new->team = strdup(g_env->npc[npc].team);
 	add_link_end(&g_env->egg, new);
 	add_link_end(&g_env->sq[x + g_env->mapw * y].egg, new);
+	printf("pnw: name env: %s\n", ((t_egg *)g_env->egg->content)->team);
+}
+
+void		cmd_eht(char *cmd)
+{
+	t_list	*tmp;
+	t_egg	*egg;
+	int		i;
+	int		id;
+
+	printf("cmd_eht: %s\n", cmd);
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	get_next_int(&id, &cmd[i]);
+	tmp = g_env->egg;
+	while (tmp && ((t_egg *)(tmp->content))->id != id)
+		tmp = tmp->next;
+	if (!tmp)
+		return ;
+	egg = tmp->content;
+	// ici l'oeuf 'egg' eclos, deal with it !
+	// surement innutile cette commande
+	printf("cmd_eht: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
+}
+
+void		cmd_ebo(char *cmd)
+{
+	t_list	*tmp;
+	t_egg	*egg;
+	int		i;
+	int		id;
+
+	printf("cmd_ebo: %s\n", cmd);
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	get_next_int(&id, &cmd[i]);
+	tmp = g_env->egg;
+	while (tmp && ((t_egg *)(tmp->content))->id != id)
+		tmp = tmp->next;
+	if (!tmp)
+		return ;
+	egg = tmp->content;
+	// ici l'oeuf un joueur ce connecte pour l'oeuf, deal with it !
+	// surement innutile cette commande
+	printf("cmd_ebo: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
 }

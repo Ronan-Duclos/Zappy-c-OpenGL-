@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 22:35:07 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 12:46:51 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,30 @@ void		gfx_enw(t_env *e, int cs, t_egg *egg)
 	sprintf(buf, "enw #%d #%d %d %d", egg->id, egg->cs,
 			e->users[egg->cs]->player.x,
 			e->users[egg->cs]->player.y);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal when egg hatch
+*/
+void		gfx_eht(t_env *e, int cs, t_egg *egg)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "eht #%d", egg->id);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal when player connect for egg (born)
+*/
+void		gfx_ebo(t_env *e, int cs, t_egg *egg)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "ebo #%d", egg->id);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 

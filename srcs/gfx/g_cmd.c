@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 17:53:45 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 20:30:20 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		cmd_msz(char *cmd)
 {
 	int		i;
 
+	printf("cmd_msz: %s\n", cmd);
 	i = 3;
 	i += get_next_int(&g_env->mapw, &cmd[i]);
 	i += get_next_int(&g_env->maph, &cmd[i]);
@@ -51,6 +52,7 @@ void		cmd_bct(char *cmd)
 	int		y;
 	int		*tab;
 
+	printf("cmd_bct: %s\n", cmd);
 	i = 0;
 	i += get_next_int(&y, &cmd[i]);
 	i += get_next_int(&x, &cmd[i]);
@@ -73,6 +75,7 @@ void		del_egg(void *ct)
 	free(egg);
 }
 
+
 static void	pnw_on_egg(t_npc *npc)
 {
 	t_list	**tmp;
@@ -91,6 +94,7 @@ static void	pnw_on_egg(t_npc *npc)
 	del_link(&(*tmp), del_egg);
 }
 
+
 void		cmd_pnw(char *cmd)
 {
 	int		i;
@@ -104,16 +108,16 @@ void		cmd_pnw(char *cmd)
 	i += get_next_int(&tmp, &cmd[i]);
 	if (tmp >= NPCS_MAX || g_env->npc[tmp].id)
 		return ;
-	npc = &g_env->npc[tmp];
-	npc[tmp].id = tmp;
-	i += get_next_int(&npc->y, &cmd[i]);
-	i += get_next_int(&npc->x, &cmd[i]);
-	i += get_next_int(&npc->dir, &cmd[i]);
-	i += get_next_int(&npc->lvl, &cmd[i]);
+	g_env->npc[tmp].id = tmp;
+	i += get_next_int(&g_env->npc[tmp].y, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].dir, &cmd[i]);
+	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
 	i++;
-	npc->team = strdup(&cmd[i]);
+	g_env->npc[tmp].team = strdup(&cmd[i]);
+	npc = &g_env->npc[tmp];
 	pnw_on_egg(npc);
-	add_mob(tmp, npc->x, npc->y, npc->dir);
+	add_mob(tmp, g_env->npc[tmp].x, g_env->npc[tmp].y, g_env->npc[tmp].dir);
 }
 
 void		cmd_ppo(char *cmd)
@@ -126,6 +130,7 @@ void		cmd_ppo(char *cmd)
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
 	i += get_next_int(&npc, &cmd[i]);
+	printf("pdi: %d %d\n", g_env->npc[npc].id, npc);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
@@ -238,6 +243,7 @@ void		cmd_pdi(char *cmd)
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
 	i += get_next_int(&npc, &cmd[i]);
+	printf("pdi: %d %d\n", g_env->npc[npc].id, npc);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	kill_mob(npc);
@@ -288,78 +294,4 @@ void		cmd_pic(char *cmd)
 			return ;
 		// npc    == id joueur qui dois lancer l'anim incant
 	}
-}
-
-void		cmd_enw(char *cmd)
-{
-	t_egg	*new;
-	int		i;
-	int		npc;
-	int		x;
-	int		y;
-
-	printf("cmd_enw: %s\n", cmd);	
-	new = (t_egg *)XV(NULL, malloc(sizeof(t_egg)), "cmd_enw");
-	bzero(new, sizeof(t_egg));
-	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
-		i++;
-	i += get_next_int(&new->id, &cmd[i]);
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
-		i++;
-	i += get_next_int(&npc, &cmd[i]);
-	i += get_next_int(&y, &cmd[i]);
-	i += get_next_int(&x, &cmd[i]);
-	new->x = x;
-	new->y = y;
-	new->team = strdup(g_env->npc[npc].team);
-	add_link_end(&g_env->egg, new);
-	add_link_end(&g_env->sq[x + g_env->mapw * y].egg, new);
-	printf("pnw: name env: %s\n", ((t_egg *)g_env->egg->content)->team);
-}
-
-void		cmd_eht(char *cmd)
-{
-	t_list	*tmp;
-	t_egg	*egg;
-	int		i;
-	int		id;
-
-	printf("cmd_eht: %s\n", cmd);
-	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
-		i++;
-	get_next_int(&id, &cmd[i]);
-	tmp = g_env->egg;
-	while (tmp && ((t_egg *)(tmp->content))->id != id)
-		tmp = tmp->next;
-	if (!tmp)
-		return ;
-	egg = tmp->content;
-	// ici l'oeuf 'egg' eclos, deal with it !
-	// surement innutile cette commande
-	printf("cmd_eht: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
-}
-
-void		cmd_ebo(char *cmd)
-{
-	t_list	*tmp;
-	t_egg	*egg;
-	int		i;
-	int		id;
-
-	printf("cmd_ebo: %s\n", cmd);
-	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
-		i++;
-	get_next_int(&id, &cmd[i]);
-	tmp = g_env->egg;
-	while (tmp && ((t_egg *)(tmp->content))->id != id)
-		tmp = tmp->next;
-	if (!tmp)
-		return ;
-	egg = tmp->content;
-	// ici l'oeuf un joueur ce connecte pour l'oeuf, deal with it !
-	// surement innutile cette commande
-	printf("cmd_ebo: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
 }

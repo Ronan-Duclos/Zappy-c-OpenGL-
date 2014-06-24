@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/23 23:23:05 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/24 18:50:06 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ GFX_SRC=g_main.c \
 	g_cmd_check.c \
 	g_cmd.c \
 	g_cmd_send.c \
+	g_cmd_egg.c \
 	g_map.c \
 	g_connect.c \
 	g_colors1.c \

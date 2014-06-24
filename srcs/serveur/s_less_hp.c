@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/24 13:04:16 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 18:22:56 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		less_hp_eggs(t_env *e)
 			}
 			if (egg->food <= 0)
 			{
-				//// oeuf pourris
+				gfx_send_egg(e, egg, gfx_edi);
 				del_egg(&e->team[i]);
 				e->team[i].member--;
 			}

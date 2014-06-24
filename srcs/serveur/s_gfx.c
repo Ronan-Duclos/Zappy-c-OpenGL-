@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 12:46:51 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 18:19:37 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,18 @@ void		gfx_ebo(t_env *e, int cs, t_egg *egg)
 
 	bzero(buf, BUF_SIZE);
 	sprintf(buf, "ebo #%d", egg->id);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
+**	Send signal when egg die.
+*/
+void		gfx_edi(t_env *e, int cs, t_egg *egg)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "edi #%d", egg->id);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 

@@ -6,13 +6,46 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:45:06 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 23:54:16 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 20:27:29 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "gfx_gl.h"
 #include "mdx.h"
+
+void		display_totem(t_item *item)
+{
+	GLuint		*vbos;
+	int			*sizes;
+	static int	i = 0;
+
+	printf("i = %d\n", i);
+	vbos = g_env->vbos[item->vbo];
+	sizes = g_env->vbosizes[item->vbo];
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[_vbo_texp]);
+	glTexCoordPointer(2, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[_vbo_vrtx]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, vbos[_vbo_nrms]);
+	glNormalPointer(GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbos[_vbo_indx]);
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, g_env->textures[_tex_totem]);
+	glCallList(g_env->lists[_white]);
+	glTranslatef(1.6 * (i % 2) + 0.2, 0.0, 1.6 * (i / 2) + 0.2);
+	item->anim->fct(item->anim);
+	glCallList(g_env->lists[_init_item_pos]);
+	glDrawElements(GL_TRIANGLES, sizes[_vbo_indx], GL_UNSIGNED_SHORT, 0);
+	glPopMatrix();
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	i = (i + 1) % 4;
+}
 
 void		display_any(t_item *item)
 {
@@ -116,7 +149,7 @@ void		display_items(int num)
 
 	while (list)
 	{
-		display_any(list->content);
+		((t_item *)list->content)->fct(list->content);
 		list = list->next;
 	}
 }

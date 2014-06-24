@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 03:45:59 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 19:13:56 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ enum			e_textures
 	_tex_plant,
 	_tex_zepp,
 	_tex_egg,
+	_tex_totem,
 	_tex_nb
 };
 
@@ -126,6 +127,7 @@ enum			e_models
 	_mod_owl2,
 	_mod_owl3,
 	_mod_egg,
+	_mod_totem,
 	_mod_nb
 };
 
@@ -179,6 +181,7 @@ typedef struct	s_item
 	GLuint		list;
 	GLuint		vbo;
 	t_anim		*anim;
+	void		(*fct)(struct s_item *);
 }				t_item;
 
 typedef struct	s_mob
@@ -336,6 +339,8 @@ void			display_all_grid(void);
 /*
 **	g_display_items (1 static)
 */
+void			display_any(t_item *i);
+void			display_totem(t_item *i);
 void			display_items(int sq);
 void			display_any(t_item *item);
 /*
@@ -344,6 +349,7 @@ void			display_any(t_item *item);
 void			anim_rock(t_anim *a);
 t_anim			*new_anim(int frame, int time, void (*fct)(t_anim *));
 void			anim_mob(t_anim *a);
+void			anim_incant(t_anim *a);
 
 /*
 **	g_bmp.c (1 static)
@@ -371,7 +377,7 @@ void			add_link_end(t_list **list, void *content);
 /*
 **	g_item_actions.c
 */
-t_item			*new_item(GLuint list, GLuint vbo, t_anim *anim);
+t_item			*new_item(GLuint l, GLuint vbo, t_anim *a, void (*f)(t_item *));
 void			take_stone(int square, int stone);
 
 /*
@@ -409,5 +415,11 @@ void			display_all_mobs(void);
 t_rot			*new_rot(int frames, GLfloat vec[3], GLfloat a, GLfloat r);
 void			anim_rot(t_rot *r);
 void			rot_init(t_rot *rot, enum e_dir dir);
+
+/*
+**	g_incant_action.c
+*/
+void			cast_incant(int x, int y);
+//void			repel_incant(void);
 
 #endif

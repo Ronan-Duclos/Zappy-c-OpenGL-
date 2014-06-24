@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 23:57:19 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 19:21:51 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,8 @@ void		cmd_pic(char *cmd)
 	i += get_next_int(&pos[1], &cmd[i]);
 	i += get_next_int(&pos[0], &cmd[i]);
 	i += get_next_int(&lvl, &cmd[i]);
+	printf("%d %d\n", pos[0], pos[1]);
+	cast_incant(pos[0], pos[1]);
 		// lancer ici l'anim incant de la case (pierres)
 		// lvl    == niveau de l'icantation
 		// pos[0] == x de la case ou lancer l'incant

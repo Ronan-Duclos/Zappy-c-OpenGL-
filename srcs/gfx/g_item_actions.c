@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/15 01:11:11 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/21 03:26:58 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 19:06:49 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@
 **	vbo is the model id.
 **	anim is a pointer on the animation structure.
 */
-t_item		*new_item(GLuint list, GLuint vbo, t_anim *anim)
+t_item		*new_item(GLuint list, GLuint vbo, t_anim *a, void (*f)(t_item *))
 {
 	t_item	*new;
 
 	new = (t_item *)XV(NULL, malloc(sizeof(t_item)), "malloc");
 	new->list = list;
 	new->vbo = vbo;
-	new->anim = anim;
+	new->anim = a;
+	new->fct = f;
 	return (new);
 }
 
@@ -58,7 +59,7 @@ void		take_stone(int square, int stone)
 	}
 	glEndList();
 	anim = new_anim(0, 500, &anim_rock);
-	item = new_item(list, _mod_stone, anim);
+	item = new_item(list, _mod_stone, anim, &display_any);
 	sq->anims = new_link(sq->anims, item);
 	sq->itms[stone]--;
 }

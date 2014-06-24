@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 16:11:07 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 21:38:58 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ void	anim_mob(t_anim *a)
 	a->frame++;
 	if (a->frame >= a->maxframe)
 		a->frame = 0;
+}
+
+void	anim_incant(t_anim *a)
+{
+	float	i;
+
+	i = (float)a->frame / a->maxframe;
+	glTranslatef(0.0, i - 1.0, 0.0);
+	if (a->frame < a->maxframe)
+		a->frame++;
 }

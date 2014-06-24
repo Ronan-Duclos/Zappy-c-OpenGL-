@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gfx_gl.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 13:49:15 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
+/*   Updated: 2014/06/24 22:15:53 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@
 # define SCR_HGH		480
 # define FPS			60
 
-# define FOOD_PER_SQUARE		66
-# define LINEMATE_PER_SQUARE	60
-# define DERAUMERE_PER_SQUARE	50
+# define FOOD_PER_SQUARE		50
+# define LINEMATE_PER_SQUARE	45
+# define DERAUMERE_PER_SQUARE	40
 # define SIBUR_PER_SQUARE		35
-# define MENDIANE_PER_SQUARE	20
-# define PHIRAS_PER_SQUARE		15
-# define THYSTAME_PER_SQUARE	10
+# define MENDIANE_PER_SQUARE	30
+# define PHIRAS_PER_SQUARE		25
+# define THYSTAME_PER_SQUARE	20
+# define EGG_PER_SQUARE			10
 
 # define FOOD_OFFSET			0
 # define LINEMATE_OFFSET		(FOOD_OFFSET + FOOD_PER_SQUARE)
@@ -49,6 +50,7 @@
 # define MENDIANE_OFFSET		(SIBUR_OFFSET + SIBUR_PER_SQUARE)
 # define PHIRAS_OFFSET			(MENDIANE_OFFSET + MENDIANE_PER_SQUARE)
 # define THYSTAME_OFFSET		(PHIRAS_OFFSET + PHIRAS_PER_SQUARE)
+# define EGG_OFFSET				(THYSTAME_OFFSET + THYSTAME_PER_SQUARE)
 
 # define COLF(x)				(x / 255.0)
 # define RGBF(r,g,b)			COLF(r), COLF(g), COLF(b)
@@ -111,10 +113,11 @@ enum			e_textures
 	_text_lower,
 	_text_upper,
 	_text_symbols,
-	_grass,
-	_plant,
-	_zepp,
-	_egg,
+	_tex_grass,
+	_tex_plant,
+	_tex_zepp,
+	_tex_egg,
+	_tex_totem,
 	_tex_nb
 };
 
@@ -125,7 +128,8 @@ enum			e_models
 	_mod_owl1,
 	_mod_owl2,
 	_mod_owl3,
-	_mob_egg,
+	_mod_egg,
+	_mod_totem,
 	_mod_nb
 };
 
@@ -180,6 +184,7 @@ typedef struct	s_item
 	GLuint		list;
 	GLuint		vbo;
 	t_anim		*anim;
+	void		(*fct)(struct s_item *);
 }				t_item;
 
 typedef struct	s_mob
@@ -218,6 +223,7 @@ struct			s_anim
 	char		dead;
 };
 
+//Liste chainee de teams
 typedef struct	s_env
 {
 	int			mapw;
@@ -345,6 +351,8 @@ void			display_all_grid(void);
 /*
 **	g_display_items (1 static)
 */
+void			display_any(t_item *i);
+void			display_totem(t_item *i);
 void			display_items(int sq);
 void			display_any(t_item *item);
 /*
@@ -353,6 +361,7 @@ void			display_any(t_item *item);
 void			anim_rock(t_anim *a);
 t_anim			*new_anim(int frame, int time, void (*fct)(t_anim *));
 void			anim_mob(t_anim *a);
+void			anim_incant(t_anim *a);
 
 /*
 **	g_bmp.c (1 static)
@@ -380,7 +389,7 @@ void			add_link_end(t_list **list, void *content);
 /*
 **	g_item_actions.c
 */
-t_item			*new_item(GLuint list, GLuint vbo, t_anim *anim);
+t_item			*new_item(GLuint l, GLuint vbo, t_anim *a, void (*f)(t_item *));
 void			take_stone(int square, int stone);
 
 /*
@@ -418,5 +427,11 @@ void			display_all_mobs(void);
 t_rot			*new_rot(int frames, GLfloat vec[3], GLfloat a, GLfloat r);
 void			anim_rot(t_rot *r);
 void			rot_init(t_rot *rot, enum e_dir dir);
+
+/*
+**	g_incant_action.c
+*/
+void			cast_incant(int x, int y);
+//void			repel_incant(void);
 
 #endif

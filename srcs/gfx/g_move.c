@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 19:33:04 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/23 23:00:01 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 03:26:52 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void		anim_move(t_move *m)
 	m->frame++;
 }
 
+// En faire un truc plus souple (macro a l'exterieur) avec un tableau d'int.
 void		move_init(t_move *move, int x, int y, int z)
 {
 	GLfloat		dir[3];

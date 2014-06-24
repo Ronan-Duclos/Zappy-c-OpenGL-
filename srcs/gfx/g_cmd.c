@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 23:57:19 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 02:07:52 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,9 @@ void		cmd_pdi(char *cmd)
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	kill_mob(npc);
+	if (g_env->npc[npc].team)
+		free(g_env->npc[npc].team);
+	bzero(&g_env->npc[npc], sizeof(t_npc));
 	printf("cmd_pdi: %d\n", npc);
 }
 
@@ -261,5 +264,26 @@ void		cmd_pic(char *cmd)
 
 void		cmd_enw(char *cmd)
 {
-	printf("cmd_enw: %s\n", cmd);
+	t_egg	*new;
+	int		i;
+	int		npc;
+	int		x;
+	int		y;
+
+	printf("cmd_enw: %s\n", cmd);	
+	new = (t_egg *)XV(NULL, malloc(sizeof(t_egg)), "cmd_enw");
+	bzero(new, sizeof(t_egg));
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&new->id, &cmd[i]);
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	i += get_next_int(&y, &cmd[i]);
+	i += get_next_int(&x, &cmd[i]);
+	new->x = x;
+	new->y = y;
+	add_link_end(&g_env->egg, new);
+	add_link_end(&g_env->sq[x + g_env->mapw * y].egg, new);
 }

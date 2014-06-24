@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 18:03:32 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 00:41:14 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	send_start(t_env *e, int cs)
 	sprintf(buf, "%d %d", e->opt.x, e->opt.y);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 	e->users[cs]->player.acts[*ar].time = 0;
+	gfx_send_npc(e, cs, gfx_pnw);
 //	*ar = (*ar + 1 ) % 10;
 }
 

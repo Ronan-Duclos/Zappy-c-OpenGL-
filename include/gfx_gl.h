@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 19:38:41 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 01:48:48 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct	s_square
 	int				itms[_itm_nb];
 	t_list			*anims;
 	t_list			*mobs;
+	t_list			*egg;
 }					t_square;
 
 typedef struct	s_anim	t_anim;
@@ -189,6 +190,14 @@ typedef struct	s_mob
 	t_anim		*anim;
 }				t_mob;
 
+typedef struct	s_egg
+{
+	int			id;
+	int			x;
+	int			y;
+}				t_egg;
+
+
 typedef struct	s_npc
 {
 	int			x;
@@ -217,6 +226,7 @@ typedef struct	s_env
 	char		**tnames;
 	int			max_teams;
 	t_square	*sq;
+	t_list		*egg;
 	int			keys;
 	GLfloat		camtrans[3];
 	GLuint		lists[_lists_nb];

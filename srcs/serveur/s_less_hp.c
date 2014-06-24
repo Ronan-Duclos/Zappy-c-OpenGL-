@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 17:52:51 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/24 02:20:24 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void		less_hp_eggs(t_env *e)
 		while (egg)
 		{
 			dec = now - egg->t_last;
+			if (dec > 0 && egg->eclos == 0)
+			{
+				egg->eclos = 1;
+				// send eclos
+			}
 			if (dec > 0 && (dec / ((double)(126 * 1000000) / e->opt.time)) > 1)
 			{
 				egg->t_last = now;
@@ -76,6 +81,7 @@ void		less_hp_eggs(t_env *e)
 			{
 				del_egg(&e->team[i]);
 				e->team[i].member--;
+				//// oeuf pourris
 			}
 			egg = egg->next;
 		}

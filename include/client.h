@@ -45,9 +45,6 @@ enum				e_ia
 	_ia_food, _ia_evolve, _ia_max
 };
 
-typedef struct		s_env t_env;
-
-
 typedef struct		s_opt
 {
 	int				port;
@@ -123,7 +120,7 @@ int					get_clt_opt(t_opt *opt, int argc, char **argv);
 */
 int					create_clt(char *addr, int port);
 void				check_fd(t_env *e);
-void				do_select(t_env *e);
+void				do_select(t_env *e, struct timeval *out);
 void				run_clt(t_env *e);
 /*
 **	c_tools1.c

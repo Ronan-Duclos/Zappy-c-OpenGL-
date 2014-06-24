@@ -25,12 +25,12 @@ void	my_ia(t_env *e)
 	static int		i;
 
 	aw = e->user->player.cur_awrite;
-	if (e->user->ig == 1 && e->user->player.acts[aw].time != 0)
+	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0)
 	{
 		if (i == 0)
 			i_begin(e);
 		i++;
-		what_i_do(e);
+//		what_i_do(e);
 		if ((i % 10) == 0)
 		{
 			add_todo(e, send_inventaire, NULL);

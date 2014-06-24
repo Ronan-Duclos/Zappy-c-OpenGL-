@@ -197,12 +197,14 @@ void	queue_actions(t_env *e, int cs)
 	i = -1;
 	ca = e->users[cs]->player.cur_awrite;
 	time = get_start_time(e, cs, ca);
+	printf("IN QUEUE ACTION : %s\n", e->users[cs]->buf_read_tmp);
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
 	{
-		ca = e->users[cs]->player.cur_awrite;
 		j = get_action_value(cmd[i]);
+		printf("IN QUEUE ACTION : %d\n", i);
 		if (j != -1)
 		{
+			printf("IN QUEUE ACTION : %d\n", ca);
 			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
 			if (time < e->srv.time)
 				e->srv.time = time;
@@ -214,6 +216,7 @@ void	queue_actions(t_env *e, int cs)
 		}
 		else
 			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
+		ca = e->users[cs]->player.cur_awrite;
 	}
 	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);
 	ft_tabdel(&cmd);

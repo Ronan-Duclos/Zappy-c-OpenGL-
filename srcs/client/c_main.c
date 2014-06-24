@@ -81,15 +81,14 @@ void	run_clt(t_env *e)
 	{
 		while (i != 0)
 		{
-			if (my_exit(1, NULL) == 1)
-				i = 1;
 			FD_ZERO(&e->fd_read);
 			FD_ZERO(&e->fd_write);
 			do_select(e, &out);
 			check_fd(e);
 			my_ia(e);
+			if (my_exit(1, NULL) == 1)
+				i = 0;
 		}
-		close(e->user->sock);
 	}
 }
 

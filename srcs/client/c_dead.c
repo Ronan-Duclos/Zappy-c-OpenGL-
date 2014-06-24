@@ -8,7 +8,7 @@ int		death_clt(t_env *e)
 	{
 		printf("You are dead\n");
 		close(e->user->sock);
-		my_exit(0, "/quit");
+		my_exit(0, "mort");
 		return (1);
 	}
 	return (0);

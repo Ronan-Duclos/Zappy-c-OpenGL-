@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 18:12:27 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/23 19:34:37 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 03:42:15 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ void		display_all_mobs(void)
 	glBindTexture(GL_TEXTURE_2D, g_env->zepptex);
 	while (i < g_env->mapw * g_env->maph)
 	{
+		if (g_env->realpos0y[0] > i % g_env->mapw * 2.0 + 3.0
+			|| g_env->realposxy[0] < i % g_env->mapw * 2.0 - 3.0
+			|| g_env->realposxy[2] > i / g_env->mapw * 2.0 + 3.0
+			|| g_env->realpos00[2] < i / g_env->mapw * 2.0 - 3.0)
+		{
+			i++;
+			continue ;
+		}
 		list = g_env->sq[i].mobs;
 		while (list)
 		{

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:07:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 19:38:41 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 03:45:59 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ enum			e_textures
 	_text_lower,
 	_text_upper,
 	_text_symbols,
-	_grass,
-	_plant,
-	_zepp,
-	_egg,
+	_tex_grass,
+	_tex_plant,
+	_tex_zepp,
+	_tex_egg,
 	_tex_nb
 };
 
@@ -125,7 +125,7 @@ enum			e_models
 	_mod_owl1,
 	_mod_owl2,
 	_mod_owl3,
-	_mob_egg,
+	_mod_egg,
 	_mod_nb
 };
 
@@ -209,6 +209,7 @@ struct			s_anim
 	char		dead;
 };
 
+//Liste chainee de teams
 typedef struct	s_env
 {
 	int			mapw;

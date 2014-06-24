@@ -53,14 +53,19 @@ void	do_select(t_env *e, struct timeval *out)
 {
 	fd_set				*read;
 	fd_set				*write;
+	int					aw;
 
+	aw = e->user->player.cur_awrite;
 	read = &e->fd_read;
 	write = &e->fd_write;
 	FD_SET(0, read);
 	FD_SET(e->user->sock, read);
 	if (verify_bsn(&e->user->buf_write) == 1)
 		FD_SET(e->user->sock, write);
-	e->r = select(e->user->sock + 1, read, write, NULL, out);
+	if (e->user->player.acts[aw].time == 0)
+		e->r = select(e->user->sock + 1, read, write, NULL, out);
+	else
+		e->r = select(e->user->sock + 1, read, write, NULL, NULL);
 }
 
 void	run_clt(t_env *e)

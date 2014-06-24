@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   c_receive_answer.c                                 :+:      :+:    :+:   */
+/*   c_ia_search_s_to_lvlup.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/23 19:02:37 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 17:48:01 by rduclos          ###   ########.fr       */
+/*   Created: 2014/06/24 20:19:14 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/24 20:23:47 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <client.h>
 #include <common.h>
 
-void	receive_ok_only(t_env *e)
+void	search_s_to_lvlup(t_env *e)
 {
-	int			ar;
-	t_actions	*act;
-
-	ar = e->user->player.cur_aread;
-	act = &e->user->player.acts[ar];
-	act->wait = 0;
-	act->time = 0;
+	(void)e;
 }

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 23:33:04 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 20:05:56 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ void	check_fd(t_env *e)
 			e->r--;
 			send_serveur(e);
 		}
-		else if (FD_ISSET(0, &e->fd_read))
-		{
-			e->r--;
-			rcv_keyboard(e);
-		}
 	}
 }
 
@@ -54,15 +49,17 @@ void	do_select(t_env *e, struct timeval *out)
 	fd_set				*read;
 	fd_set				*write;
 	int					aw;
+	int					ar;
 
 	aw = e->user->player.cur_awrite;
+	ar = e->user->player.cur_aread;
 	read = &e->fd_read;
 	write = &e->fd_write;
-	FD_SET(0, read);
 	FD_SET(e->user->sock, read);
 	if (verify_bsn(&e->user->buf_write) == 1)
 		FD_SET(e->user->sock, write);
-	if (e->user->player.acts[aw].time == 0)
+	if (e->user->player.acts[aw].time == 0
+		&& e->user->player.acts[ar].wait == 0)
 		e->r = select(e->user->sock + 1, read, write, NULL, out);
 	else
 		e->r = select(e->user->sock + 1, read, write, NULL, NULL);

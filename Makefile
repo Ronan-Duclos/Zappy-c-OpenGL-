@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/23 23:23:05 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/24 20:21:09 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ CLT_SRC=c_main.c \
 	c_turn_right.c \
 	c_watch_sight.c \
 	c_receive_answer.c \
+	c_ia_search_food.c \
+	c_ia_search_p_to_lvlup.c \
+	c_ia_search_s_to_lvlup.c \
 	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \

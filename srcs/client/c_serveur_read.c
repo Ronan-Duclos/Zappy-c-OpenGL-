@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 16:04:09 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 19:18:20 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 void	fork_one_user(t_env *e)
 {
-	if (fork() == 0)
+	static int		i;
+
+	if (i == 0 && (i = 1) == 1 && fork() == 0)
 	{
 		close(e->user->sock);
 		execve(e->av[0], e->av, NULL);

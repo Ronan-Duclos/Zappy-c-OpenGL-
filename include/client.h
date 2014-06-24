@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 23:07:55 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 17:56:46 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct		s_ia
 {
 	t_inv			inv;
 	int				lvl;
+	int				begin;
 	int				c_nbr;
 	int				lvlup;
 	t_todo			*todo;
@@ -77,6 +78,7 @@ typedef struct		s_ia
 	int				desty;
 	t_inv			*view;
 	int				expulsed;
+	int				my_exp;
 	int				bdc;
 	char			*msg;
 }					t_ia;

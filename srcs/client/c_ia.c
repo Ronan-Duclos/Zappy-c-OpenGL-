@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 23:22:35 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 20:11:44 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,72 @@
 int			what_i_need(t_env *e, t_ia *ia);
 int			i_need_to_eat(t_env *e);
 int			what_i_do(t_env *e);
-int			i_begin(t_env *e);
+void		i_begin(t_env *e);
+void		search_food(t_env *e);
+void		search_p_to_lvlup(t_env *e);
+void		search_s_to_lvlup(t_env *e);
+
+void	choose_move(t_env *e)
+{
+	int		*inv;
+
+	inv = e->user->player.ia.inv;
+	if (inv[_food] < 10)
+		search_food(e);
+	else if (e->user->player.ia.msg != NULL)
+		search_p_to_lvlup(e);
+	else
+		search_s_to_lvlup(e);
+}
+
+void	begin_move(t_env *e, int aw)
+{
+	e->user->player.acts[aw].wait = 1;
+	send_inventaire(e);
+	e->user->player.acts[aw].wait = 0;
+	send_watch_sight(e);
+}
 
 void	my_ia(t_env *e)
 {
 	int				aw;
+	int				ar;
 	static int		i;
 
 	aw = e->user->player.cur_awrite;
-	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0)
+	ar = e->user->player.cur_aread;
+	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0 &&
+		e->user->player.acts[ar].wait != 1)
 	{
-		if (i == 0)
+		if (e->user->player.ia.begin == 1)
 			i_begin(e);
-		i++;
-//		what_i_do(e);
-		if ((i % 10) == 0)
+		else
 		{
-			add_todo(e, send_inventaire, NULL);
-			i = 1;
+			if (i == 0)
+			{
+				begin_move(e, aw);
+				i = 1;
+			}
+			else
+			{
+				choose_move(e);
+				i = 0;
+			}
 		}
 	}
 }
 
-int			i_begin(t_env *e)
+void		i_begin(t_env *e)
 {
-	send_inventaire(e);
-	send_watch_sight(e);
+	int		aw;
+
+	aw = e->user->player.cur_awrite;
+	e->user->player.acts[aw].wait = 1;
 	send_fork(e);
-	return (0);
+	e->user->player.ia.begin = 0;
 }
 
+/*
 int			what_i_do(t_env *e)
 {
 	int			need;
@@ -62,7 +98,7 @@ int			what_i_need(t_env *e, t_ia *ia)
 	if (ia->inv[_food] < MIN_FOOD)
 		return (_ia_food);
 	(void)e;
-/*	else if (ia->lvl < LVL_MAX)
+	else if (ia->lvl < LVL_MAX)
 	{
 		if (i_have_stone(ia->inv))
 		{
@@ -75,7 +111,7 @@ int			what_i_need(t_env *e, t_ia *ia)
 			return (_ia_stone);
 	}
 	else
-		return (_ia_other);*/
+		return (_ia_other);
 	return (-1);
 }
 
@@ -159,3 +195,4 @@ int			i_need_to_eat(t_env *e)
 	}
 	return (1);
 }
+*/

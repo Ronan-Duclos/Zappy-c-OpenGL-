@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:56:12 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 18:56:17 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 17:46:06 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	send_broadcast(t_env *e, char *msg)
 	a_write = e->user->player.cur_awrite;
 	acts = &e->user->player.acts[a_write];
 	acts->time = 0;
+	acts->wait = 0;
 	acts->cmd = ft_strdup(buf);
 	acts->fct_cmd = receive_ok_only;
 	tmp_to_bc(&e->user->buf_write, buf, 1);

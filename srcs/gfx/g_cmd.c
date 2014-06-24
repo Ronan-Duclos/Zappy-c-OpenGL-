@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 15:30:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:53:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void		cmd_bct(char *cmd)
 	i += get_next_int(&tab[4], &cmd[i]);
 	i += get_next_int(&tab[5], &cmd[i]);
 	i += get_next_int(&tab[6], &cmd[i]);
-	printf("%s\n", cmd);
 }
 
 void		del_egg(void *ct)
@@ -73,31 +72,25 @@ void		del_egg(void *ct)
 	free(egg->team);
 	free(egg);
 }
-/*
+
 static void	pnw_on_egg(t_npc *npc)
 {
-	t_list	*tmp;
+	t_list	**tmp;
 
-	tmp = g_env->egg;
-	printf("here\n");
-	while (tmp && strcmp(((t_egg *)tmp->content)->team, npc->team))
-	{
-		printf("egg team: %s\n", ((t_egg *)tmp->content)->team);
-		tmp = tmp->next;
-		printf("egg team: %s\n", ((t_egg *)tmp->content)->team);
-	}
-	if (!tmp)
+	tmp = &g_env->egg;
+	while (*tmp && strcmp(((t_egg *)(*tmp)->content)->team, npc->team))
+		tmp = &(*tmp)->next;
+	if (!*tmp)
 		return ;
-	del_link(&tmp, del_egg);
-	printf("here2\n");
-	tmp = g_env->sq[npc->x + g_env->mapw * npc->y].egg;
-	while (tmp && strcmp(((t_egg *)(tmp->content))->team, npc->team))
-		tmp = tmp->next;
-	if (!tmp)
+	del_link(&(*tmp), NULL);
+	tmp = &g_env->sq[npc->x + g_env->mapw * npc->y].egg;
+	while (*tmp && strcmp(((t_egg *)((*tmp)->content))->team, npc->team))
+		tmp = &(*tmp)->next;
+	if (!(*tmp))
 		return ;
-	del_link(&tmp, del_egg);
+	del_link(&(*tmp), del_egg);
 }
-*/
+
 void		cmd_pnw(char *cmd)
 {
 	int		i;
@@ -119,20 +112,8 @@ void		cmd_pnw(char *cmd)
 	i += get_next_int(&npc->lvl, &cmd[i]);
 	i++;
 	npc->team = strdup(&cmd[i]);
-//	pnw_on_egg(npc);
+	pnw_on_egg(npc);
 	add_mob(tmp, npc->x, npc->y, npc->dir);
-/*
-	g_env->npc[tmp].id = tmp;
-	i += get_next_int(&g_env->npc[tmp].y, &cmd[i]);
-	i += get_next_int(&g_env->npc[tmp].x, &cmd[i]);
-	i += get_next_int(&g_env->npc[tmp].dir, &cmd[i]);
-	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
-	i++;
-	// if oeuf de la team sur la case
-	// supprimer oeuf
-	g_env->npc[tmp].team = strdup(&cmd[i]);
-	add_mob(tmp, g_env->npc[tmp].x, g_env->npc[tmp].y, g_env->npc[tmp].dir);
-*/
 }
 
 void		cmd_ppo(char *cmd)

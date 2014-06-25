@@ -45,7 +45,7 @@ static int			broadcast_one(t_env *env, char *msg, int ori, int cs)
 	char		buf[4096];
 
 	bzero(buf, 4096);
-	sprintf(buf, "msg %d, %s", get_dir_broadcast(env,
+	sprintf(buf, "message %d, %s", get_dir_broadcast(env,
 				&env->users[ori]->player, &env->users[cs]->player), msg);
 	tmp_to_bc(&env->users[cs]->buf_write, buf, 1);
 	return (0);

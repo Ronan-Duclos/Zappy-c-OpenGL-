@@ -150,7 +150,7 @@ void	make_cmd(t_env *e)
 			ft_strcpy(e->user->buf_read_tmp, cmd[i]);
 			if (verify_word(e->user->buf_read_tmp, "elevation en cours") == 0)
 				replace_calendar(e);
-			else if (verify_word(e->user->buf_read_tmp, "msg") == 0)
+			else if (verify_word(e->user->buf_read_tmp, "message") == 0)
 				receive_broadcast(e);
 			else
 				queue_actions(e);

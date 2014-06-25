@@ -15,10 +15,11 @@
 
 void	send_broadcast(t_env *e, char *msg)
 {
-	int			a_write;
-	t_actions	*acts;
-	char		buf[BUF_SIZE];
+	int				a_write;
+	t_actions		*acts;
+	static char		buf[BUF_SIZE];
 
+	bzero(buf, BUF_SIZE);
 	strcpy(buf, "broadcast ");
 	strcpy(buf + 10, msg);
 	a_write = e->user->player.cur_awrite;

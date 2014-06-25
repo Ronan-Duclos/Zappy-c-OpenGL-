@@ -153,6 +153,7 @@ int			is_in_sight(t_env *e, int type)
 			printf("i : %d // j : %d\n", i, get_vision_nb_cell(j));
 			e->user->player.ia.destx = j;
 			e->user->player.ia.desty = j > 0 ? i - get_middle(e->user->player.ia.lvl) : 0;
+			e->user->player.ia.quantity = e->user->player.ia.view[i][type];
 			printf("dx : %d // dy : %d\n", e->user->player.ia.destx, e->user->player.ia.desty);
 			return (1);
 		}
@@ -197,7 +198,8 @@ int			find_item(t_env *e, int type)
 	if (is_in_sight(e, type))
 	{
 		go_to(e);
-		add_todo(e, send_take_item, type_to_str(type));
+		while (e->user->player.ia.quantity--)
+			add_todo(e, send_take_item, type_to_str(type));
 	}
 	else
 	{

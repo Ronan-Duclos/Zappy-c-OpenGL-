@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 22:13:10 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 23:50:43 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ static int			get_dir_broadcast(t_env *env, t_player *p1, t_player *p2)
 	dx = abs(dx) > env->opt.x / 2 ? -(env->opt.x - dx) : dx;
 	dy = abs(dy) > env->opt.y / 2 ? -(env->opt.y - dy) : dy;
 	res = 0;
-	res += p2->direc * 2;
-	res = dx == dy && dx > 0 ? 2 : res;
-	res = dx == dy && dx < 0 ? 6 : res;
-	res = dx == -dy && dx > 0 ? 4 : res;
-	res = dx == -dy && dx < 0 ? 8 : res;
+	res = dx == dy && dx > 0 ? 6 : res;
+	res = dx == dy && dx < 0 ? 2 : res;
+	res = dx == -dy && dx > 0 ? 8 : res;
+	res = dx == -dy && dx < 0 ? 4 : res;
 	if (dx == dy || dx == -dy)
 		return (res > 8 ? res - 8 : res);
 	res = abs(dx) > abs(dy) && dx > 0 ? 3 : res;
 	res = abs(dx) > abs(dy) && dx < 0 ? 7 : res;
 	res = abs(dx) < abs(dy) && dy > 0 ? 1 : res;
 	res = abs(dx) < abs(dy) && dy < 0 ? 5 : res;
+	res += p2->direc * 2;
+	printf("in bc : res [%d] dx [%d] dy[%d]\n", res, dx, dy);
 	return (res > 8 ? res - 8 : res);
 }
 

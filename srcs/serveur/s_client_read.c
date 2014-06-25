@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 17:48:49 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 18:52:14 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void			send_start(t_env *e, int cs)
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 	e->users[cs]->player.acts[*ar].time = 0;
 	gfx_send_npc(e, cs, gfx_pnw);
-//	*ar = (*ar + 1 ) % 10;
 }
 
 int				accept_gamer(t_env *e, int cs, int team)
@@ -227,10 +226,15 @@ void			make_cmd(t_env *e, int cs)
 {
 	if (e->users[cs]->gfx.gfx)
 		gfx_cmd_check(e, cs, e->users[cs]->buf_read_tmp);
-	else if (e->users[cs]->ig != 1)
+	else if (e->users[cs]->ig == 0)
 		check_team(e, cs);
 	else if (e->users[cs]->type == FD_CLT)
 		queue_actions(e, cs);
+	else if (e->users[cs]->ig == -1)
+	{
+		destroy_clt(e, cs);
+		close(cs);
+	}
 }
 
 void			client_read(t_env *e, int cs)

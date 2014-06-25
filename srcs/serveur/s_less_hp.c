@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 17:52:29 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 18:57:07 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		less_hp(t_env *e, int cs)
 		if (e->users[cs]->player.inv[_food] < 0)
 		{
 			tmp_to_bc(&e->users[cs]->buf_write, "mort", 1);
+			e->users[cs]->ig = -1;
 			return (-1);
 		}
 	}

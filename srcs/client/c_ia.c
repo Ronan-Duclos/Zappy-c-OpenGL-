@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 17:13:10 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:21:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,12 @@ int			is_in_sight(t_env *e, int type)
 			j = 0;
 			while (i > (get_vision_nb_cell(j) - 1))
 			{
-//				printf("i : %d // j : %d\n", i, get_vision_nb_cell(j));
 				j++;
 			}
+			printf("i : %d // j : %d\n", i, get_vision_nb_cell(j));
 			e->user->player.ia.destx = j;
-			e->user->player.ia.desty = i - get_middle(e->user->player.ia.lvl);
+			e->user->player.ia.desty = j > 0 ? i - get_middle(e->user->player.ia.lvl) : 0;
+			printf("dx : %d // dy : %d\n", e->user->player.ia.destx, e->user->player.ia.desty);
 			return (1);
 		}
 	}

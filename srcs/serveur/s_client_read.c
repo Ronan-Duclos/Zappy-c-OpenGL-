@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 17:06:53 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:29:33 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 t_ponf_cmd		g_tab[NBR_CMD] =
 {
 	{"avance", 7, move_forward, gfx_move_forward},
-	{"droite", 7, turn_right, gfx_turn_right},
-	{"gauche", 7, turn_left, gfx_turn_left},
+	{"droite", 7, turn_right, gfx_turn_left},
+	{"gauche", 7, turn_left, gfx_turn_right},
 	{"voir", 7, watch_sight, NULL},
 	{"inventaire", 1, send_inv, NULL},
 	{"prend", 7, take_item, gfx_take_item},

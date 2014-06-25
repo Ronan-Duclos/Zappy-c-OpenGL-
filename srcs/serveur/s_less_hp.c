@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 17:44:30 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:52:29 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	generate_food(t_env *e)
 	int		y;
 	double	now;
 
-	printf("\033[33mIN FOOD REGENERATE\033[0m\n");
 	now = ft_usec_time();
 	if (now >= e->repop)
 	{

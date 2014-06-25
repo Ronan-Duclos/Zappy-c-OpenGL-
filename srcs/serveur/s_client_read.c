@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 19:47:29 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 22:13:25 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void			queue_actions(t_env *e, int cs)
 	ca = e->users[cs]->player.cur_awrite;
 	time = get_start_time(e, cs, ca);
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
-	{
+{
 		j = get_action_value(cmd[i]);
 		if (j != -1)
 		{
@@ -217,7 +217,7 @@ void			queue_actions(t_env *e, int cs)
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 		else
-			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
+			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 		ca = e->users[cs]->player.cur_awrite;
 	}
 	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);

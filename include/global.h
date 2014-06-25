@@ -5,11 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/25 20:45:15 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 20:45:34 by rbernand         ###   ########.fr       */
+/*   Created: 2014/06/25 22:13:55 by rbernand          #+#    #+#             */
+/*   Updated: 2014/06/25 22:13:56 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GLOBAL_H
+# define GLOBAL_H
 
 static int		g_lvlup[7][8] = {
 	{0, 1, 0, 0, 0, 0, 0, 1},
@@ -21,3 +23,6 @@ static int		g_lvlup[7][8] = {
 	{0, 2, 2, 2, 2, 2, 1, 6}
 };
 
+static int		g_need_stone[7] = {0, 9, 8, 10, 5, 6,  1};
+
+#endif

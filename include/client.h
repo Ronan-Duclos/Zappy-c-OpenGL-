@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 21:38:17 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 22:14:11 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct		s_ia
 {
 	t_inv			inv;
 	int				lvl;
-	int				begin;
+	int				need_stone[7];
 	int				c_nbr;
 	int				lvlup;
 	t_todo			*todo;

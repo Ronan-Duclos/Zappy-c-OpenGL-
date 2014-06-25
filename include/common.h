@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:10:52 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 03:51:19 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:15:35 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct		s_actions
 	char			*answer;
 	double			time;
 	double			start;
-	int				wait;
 	void			(*fct_cmd)();
 	void			(*fct_gfx)();
 }					t_actions;

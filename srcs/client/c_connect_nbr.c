@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:57:19 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 17:46:35 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:21:05 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	connect_nbr(t_env *e)
 	act = &e->user->player.acts[ar];
 	e->user->player.ia.c_nbr = ft_atoi(act->answer);
 	act->time = 0;
-	act->wait = 0;
 }
 
 void	send_connect_nbr(t_env *e)

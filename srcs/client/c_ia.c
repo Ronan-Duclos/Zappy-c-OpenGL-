@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 01:36:51 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:25:05 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ void	try_ia(t_env *e)
 
 	aw = e->user->player.cur_awrite;
 	ar = e->user->player.cur_aread;
-	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0 &&
-		e->user->player.acts[ar].wait != 1)
+	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0)
 	{
-		if (e->user->player.ia.todo == NULL)
+		if (e->user->player.ia.todo == NULL && ar == aw)
 			my_ia(e);
-		else
+		else if (e->user->player.ia.todo != NULL)
 			todo_to_cal(e);
 	}
 }

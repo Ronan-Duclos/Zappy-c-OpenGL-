@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 16:38:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 03:18:59 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:32:31 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 **	Config server
 */
-# define				NB_START_FOOD		100
+# define				NB_START_FOOD		10
 # define				TIME_FOOD			126
 # define				LVL_MAX				8
 

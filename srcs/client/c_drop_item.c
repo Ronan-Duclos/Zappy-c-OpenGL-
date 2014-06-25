@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:57:09 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 17:46:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:22:02 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	drop_item(t_env *e)
 			e->user->player.ia.inv[_thystame]--;
 	}
 	acts->time = 0;
-	acts->wait = 0;
 }
 
 

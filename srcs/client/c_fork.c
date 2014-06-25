@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:04:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 19:44:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:22:35 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	fork_my_egg(t_env *e)
 		execve(e->av[0], e->av, NULL);
 	}
 	act->time = 0;
-	act->wait = 0;
 }
 
 void	send_fork(t_env *e)

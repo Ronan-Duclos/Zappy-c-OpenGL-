@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 01:06:38 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:30:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,16 @@ void	do_select(t_env *e, struct timeval *out)
 	fd_set				*read;
 	fd_set				*write;
 	int					aw;
-	int					ar;
+//	int					ar;
 
 	aw = e->user->player.cur_awrite;
-	ar = e->user->player.cur_aread;
+//	ar = e->user->player.cur_aread;
 	read = &e->fd_read;
 	write = &e->fd_write;
 	FD_SET(e->user->sock, read);
 	if (verify_bsn(&e->user->buf_write) == 1)
 		FD_SET(e->user->sock, write);
-	if (e->user->player.acts[aw].time == 0
-		&& e->user->player.acts[ar].wait == 0)
+	if (e->user->player.acts[aw].time == 0)
 		e->r = select(e->user->sock + 1, read, write, NULL, out);
 	else
 		e->r = select(e->user->sock + 1, read, write, NULL, NULL);

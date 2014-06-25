@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:59:57 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 17:50:47 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:31:01 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	my_expulse(t_env *e)
 		e->user->player.ia.my_exp = 1;
 	else
 		e->user->player.ia.my_exp = 0;
-	act->wait = 0;
 	act->time = 0;
 }
 

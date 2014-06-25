@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 17:06:53 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:45:30 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void			send_start(t_env *e, int cs)
 	sprintf(buf, "%d %d", e->opt.x, e->opt.y);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 	e->users[cs]->player.acts[*ar].time = 0;
+	gfx_send_npc(e, cs, gfx_pnw);
 //	*ar = (*ar + 1 ) % 10;
 }
 
@@ -120,6 +121,7 @@ char			*get_cmd_arg(char *cmd)
 	char		*ret;
 
 	i = 0;
+	printf("get_cmd_arg %s\n", cmd);
 	ret = NULL;
 	while (cmd[i] != '\0' && cmd[i] != ' ')
 		i++;
@@ -128,6 +130,7 @@ char			*get_cmd_arg(char *cmd)
 	else
 		return (NULL);
 	ret = ft_strdup(cmd + i);
+	printf("get_cmd_arg: retL [%s]\n", ret);
 	return (ret);
 }
 
@@ -208,6 +211,7 @@ void			queue_actions(t_env *e, int cs)
 				e->srv.time = time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
+			printf("Queue_action: [%s]\n", e->users[cs]->player.acts[ca].cmd);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
@@ -237,8 +241,8 @@ void			client_read(t_env *e, int cs)
 	r = recv(cs, e->users[cs]->buf_read_tmp, BC_SIZE, 0);
 	if (r <= 0)
 	{
-		if (!e->users[cs]->gfx.gfx) /////////////////////
-			gfx_send_npc(e, cs, gfx_pdi); //added gfx_msg
+		if (!e->users[cs]->gfx.gfx)
+			gfx_send_npc(e, cs, gfx_pdi);
 		close(cs);
 		destroy_clt(e, cs);
 	}

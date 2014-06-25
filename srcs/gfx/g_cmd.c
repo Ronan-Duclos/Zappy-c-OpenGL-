@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 23:57:19 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 03:19:14 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void		cmd_msz(char *cmd)
 {
 	int		i;
 
+	printf("cmd_msz: %s\n", cmd);
 	i = 3;
 	i += get_next_int(&g_env->mapw, &cmd[i]);
 	i += get_next_int(&g_env->maph, &cmd[i]);
@@ -51,6 +52,7 @@ void		cmd_bct(char *cmd)
 	int		y;
 	int		*tab;
 
+	printf("cmd_bct: %s\n", cmd);
 	i = 0;
 	i += get_next_int(&y, &cmd[i]);
 	i += get_next_int(&x, &cmd[i]);
@@ -62,13 +64,42 @@ void		cmd_bct(char *cmd)
 	i += get_next_int(&tab[4], &cmd[i]);
 	i += get_next_int(&tab[5], &cmd[i]);
 	i += get_next_int(&tab[6], &cmd[i]);
-	printf("%s\n", cmd);
 }
+
+void		del_egg(void *ct)
+{
+	t_egg	*egg;
+
+	egg = (t_egg *)ct;
+	free(egg->team);
+	free(egg);
+}
+
+
+static void	pnw_on_egg(t_npc *npc)
+{
+	t_list	**tmp;
+
+	tmp = &g_env->egg;
+	while (*tmp && strcmp(((t_egg *)(*tmp)->content)->team, npc->team))
+		tmp = &(*tmp)->next;
+	if (!*tmp)
+		return ;
+	del_link(&(*tmp), NULL);
+	tmp = &g_env->sq[npc->x + g_env->mapw * npc->y].egg;
+	while (*tmp && strcmp(((t_egg *)((*tmp)->content))->team, npc->team))
+		tmp = &(*tmp)->next;
+	if (!(*tmp))
+		return ;
+	del_link(&(*tmp), del_egg);
+}
+
 
 void		cmd_pnw(char *cmd)
 {
 	int		i;
 	int		tmp;
+	t_npc	*npc;
 
 	printf("cmd_pnw: %s\n", cmd);
 	i = 0;
@@ -84,8 +115,9 @@ void		cmd_pnw(char *cmd)
 	i += get_next_int(&g_env->npc[tmp].lvl, &cmd[i]);
 	i++;
 	g_env->npc[tmp].team = strdup(&cmd[i]);
+	npc = &g_env->npc[tmp];
+	pnw_on_egg(npc);
 	add_mob(tmp, g_env->npc[tmp].x, g_env->npc[tmp].y, g_env->npc[tmp].dir);
-	printf("okayy\n");
 }
 
 void		cmd_ppo(char *cmd)
@@ -98,11 +130,14 @@ void		cmd_ppo(char *cmd)
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
 	i += get_next_int(&npc, &cmd[i]);
+	printf("pdi: %d %d\n", g_env->npc[npc].id, npc);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].dir, &cmd[i]);
+	g_env->npc[npc].dir += 1;
+	g_env->npc[npc].dir %= 4;
 	printf("cmd_ppo: %d, %d %d, %d", npc,
 		   g_env->npc[npc].x,
 		   g_env->npc[npc].y,
@@ -145,7 +180,16 @@ void		cmd_pin(char *cmd)
 
 void		cmd_pie(char *cmd)
 {
-	printf("cmd_pin: %s\n", cmd);//
+	int		x;
+	int		y;
+	int		i;
+
+	i = 0;
+	printf("cmd_pie: %s\n", cmd);
+	i += get_next_int(&y, &cmd[i]);
+	i += get_next_int(&x, &cmd[i]);
+	printf("pie: %d %d\n", x, y);
+	repel_incant(x, y);
 }
 
 void		cmd_plv(char *cmd)
@@ -160,7 +204,7 @@ void		cmd_plv(char *cmd)
 	i += get_next_int(&npc, &cmd[i]);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
-	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].lvl, &cmd[i]);
 	printf("cmd_plv: %d %d\n", npc, g_env->npc[npc].lvl);
 }
 
@@ -210,9 +254,13 @@ void		cmd_pdi(char *cmd)
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
 	i += get_next_int(&npc, &cmd[i]);
+	printf("pdi: %d %d\n", g_env->npc[npc].id, npc);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	kill_mob(npc);
+	if (g_env->npc[npc].team)
+		free(g_env->npc[npc].team);
+	bzero(&g_env->npc[npc], sizeof(t_npc));
 	printf("cmd_pdi: %d\n", npc);
 }
 
@@ -244,6 +292,8 @@ void		cmd_pic(char *cmd)
 	i += get_next_int(&pos[1], &cmd[i]);
 	i += get_next_int(&pos[0], &cmd[i]);
 	i += get_next_int(&lvl, &cmd[i]);
+	printf("%d %d\n", pos[0], pos[1]);
+	cast_incant(pos[0], pos[1]);
 		// lancer ici l'anim incant de la case (pierres)
 		// lvl    == niveau de l'icantation
 		// pos[0] == x de la case ou lancer l'incant
@@ -259,7 +309,20 @@ void		cmd_pic(char *cmd)
 	}
 }
 
-void		cmd_enw(char *cmd)
+void		cmd_pcb(char *cmd)
 {
-	printf("cmd_enw: %s\n", cmd);
+	char	buf[BUF_SIZE];
+	int		i;
+	int		npc;
+
+	printf("cmd_pcb: %s\n", cmd);
+	bzero(buf, BUF_SIZE);
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	while (cmd[i] && cmd[i] == ' ')
+		i++;
+	strcpy(buf, &cmd[i]);
+	printf("cmd_pcb: %d [%s]\n", npc, buf);
 }

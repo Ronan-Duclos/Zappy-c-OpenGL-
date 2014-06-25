@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:52:47 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 19:43:54 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 03:19:19 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <pthread.h>
 
 # define	BUF_SIZE	4096
-# define	CMDS_NB		14
+# define	CMDS_NB		18
 
 enum				e_states
 {
@@ -76,7 +76,7 @@ void		fds_init(t_ipv *ipv);
 void		fds_check(t_ipv *ipv);
 
 /*
-**	g_cmd_check.c
+**	g_cmd_check.c (2 statics)
 */
 int			get_next_int(int *nb, char *s);
 void		cmd_check(t_ipv *ipv, char *buf);
@@ -87,6 +87,7 @@ void		cmd_check(t_ipv *ipv, char *buf);
 void		cmd_msz(char *cmd);
 void		cmd_sgt(char *cmd);
 void		cmd_bct(char *cmd);
+void		del_egg(void *egg); ////// a remettre au bon endroit
 void		cmd_pnw(char *cmd);
 void		cmd_ppo(char *cmd);
 void		cmd_pin(char *cmd);
@@ -98,7 +99,15 @@ void		cmd_pfk(char *cmd);
 void		cmd_pic(char *cmd);
 void		cmd_pie(char *cmd);
 void		cmd_seg(char *cmd);
+void		cmd_pcb(char *cmd);
+
+/*
+**	g_cmd_egg.c
+*/
 void		cmd_enw(char *cmd);
+void		cmd_eht(char *cmd);
+void		cmd_ebo(char *cmd);
+void		cmd_edi(char *cmd);
 
 /*
 **	g_cmd_send.c

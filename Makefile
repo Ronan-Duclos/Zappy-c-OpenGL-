@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/25 14:41:48 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/25 17:46:24 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ GFX_SRC=g_main.c \
 	g_cmd_check.c \
 	g_cmd.c \
 	g_cmd_send.c \
+	g_cmd_egg.c \
 	g_map.c \
 	g_connect.c \
 	g_colors1.c \
@@ -126,7 +127,8 @@ GFX_SRC=g_main.c \
 	g_npc_action.c \
 	g_npc.c \
 	g_display_players.c \
-	g_rot.c
+	g_rot.c \
+	g_incant_action.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	buf_circle2.c \

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 19:48:37 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 03:18:46 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ static t_cmd	*cmds_tab_get(void)
 		{"pic", &cmd_pic},
 		{"pie", &cmd_pie},
 		{"seg", &cmd_seg},
-		{"enw", &cmd_enw}
+		{"enw", &cmd_enw},
+		{"eht", &cmd_eht},
+		{"ebo", &cmd_ebo},
+		{"edi", &cmd_edi},
+		{"pcb", &cmd_pcb}
 	};
 	return (cmd);
 }
@@ -103,6 +107,5 @@ void			cmd_check(t_ipv *ipv, char *buf)
 			printf("UNKNOWN CMD tab[%d]: %s\n", i, tab[i]);
 		i++;
 	}
-	printf("end_cmd_check state: %d\n", ipv->state);
 	dtab_del(tab);
 }

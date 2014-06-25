@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/21 17:40:51 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/22 17:17:44 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 00:23:07 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_rot		*new_rot(int frames, GLfloat vec[3], GLfloat angle, GLfloat rot)
 
 void		anim_rot(t_rot *r)
 {
-	glRotatef(-r->angle, r->vec[_x], r->vec[_y], r->vec[_z]);
+	glRotatef(r->angle, r->vec[_x], r->vec[_y], r->vec[_z]);
 	if (!r->frames)
 		return ;
 	r->angle += r->rot;

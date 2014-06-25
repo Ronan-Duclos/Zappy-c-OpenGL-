@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 23:52:52 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/22 18:11:57 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:51:10 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	del_link(t_list **link, void (*ft)(void *))
 
 	tmp = *link;
 	*link = (*link)->next;
-	ft(tmp->content);
+	if (ft)
+		ft(tmp->content);
 	free(tmp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 14:37:48 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:44:30 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void		less_hp_eggs(t_env *e)
 		while (egg)
 		{
 			dec = now - egg->t_last;
+			if (now > egg->t_eclos && egg->eclos == 0)
+			{
+				egg->eclos = 1;
+				gfx_send_egg(e, egg, gfx_eht);
+			}
 			if (dec > 0 && (dec / ((double)(126 * 1000000) / e->opt.time)) > 1)
 			{
 				egg->t_last = now;
@@ -74,6 +79,7 @@ void		less_hp_eggs(t_env *e)
 			}
 			if (egg->food <= 0)
 			{
+				gfx_send_egg(e, egg, gfx_edi);
 				del_egg(&e->team[i]);
 				e->team[i].member--;
 			}
@@ -98,7 +104,6 @@ int		less_hp(t_env *e, int cs)
 		if (e->users[cs]->player.inv[_food] < 0)
 		{
 			tmp_to_bc(&e->users[cs]->buf_write, "mort", 1);
-//	gfx_send_npc(e, cs, gfx_pdi); a voir deja mis a la deconnection du client
 			return (-1);
 		}
 	}

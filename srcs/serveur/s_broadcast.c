@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/24 15:59:55 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 17:45:41 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void				broadcast(t_env *env, int cs)
 
 	msg = env->users[cs]->player.acts[env->users[cs]->player.cur_aread].cmd;
 	max_fd = env->srv.max_fd;
+	gfx_send_pcb(env, cs, msg, gfx_pcb);
 	i = -1;
 	while (++i < max_fd)
-		if (env->users[i]->type == FD_CLT && i != cs)
+		if (env->users[i]->type == FD_CLT && i != cs && !env->users[i]->gfx.gfx)
 			broadcast_one(env, msg, cs, i);
 }

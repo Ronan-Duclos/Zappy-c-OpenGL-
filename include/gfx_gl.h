@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 01:01:01 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 18:39:42 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # define CASE_MAX_ITEMS	256
 # define NPCS_MAX		255
+# define TEAM_COLORS	125
 
 # define SCR_WID		640
 # define SCR_HGH		480
@@ -92,7 +93,7 @@
 # define MAG(va)		(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
 # define TORAD(a)		((float)a / 180 * PI)
 
-enum			e_colors
+enum			e_lists
 {
 	_white,
 	_red,
@@ -150,10 +151,17 @@ enum			e_coord
 	_z
 };
 
+enum			e_colors
+{
+	_r,
+	_g,
+	_b
+};
+
 typedef struct	s_square
 {
 	char			tile;
-	unsigned char	grid[256];
+	unsigned char	grid[CASE_MAX_ITEMS];
 	int				itms[_itm_nb];
 	t_list			*anims;
 	t_list			*mobs;
@@ -250,6 +258,7 @@ typedef struct	s_env
 	GLuint		maptex;
 	GLuint		zepptex;
 	t_npc		*npc;
+	GLfloat		teamcol[TEAM_COLORS][3];
 }				t_env;
 
 t_env			*g_env;

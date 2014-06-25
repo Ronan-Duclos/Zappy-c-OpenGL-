@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 20:05:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 01:06:38 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	run_clt(t_env *e)
 			FD_ZERO(&e->fd_write);
 			do_select(e, &out);
 			check_fd(e);
-			my_ia(e);
+			try_ia(e);
 			if (my_exit(1, NULL) == 1)
 				i = 0;
 		}

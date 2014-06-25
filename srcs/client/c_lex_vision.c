@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 18:42:23 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/22 18:35:24 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 02:46:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,18 @@ void				add_item(t_inv cell, char *word)
 	cell[type]++;
 }
 
-int					get_vision(t_inv **vis, int lvl, char *str)
+void					get_vision(t_env *e, char *str)
 {
 	int				i;
 	int				j;
 	int				nb_cell;
 	char			word[11];
 
-	if (*vis)
-		free(*vis);;
-	nb_cell = get_vision_nb_cell(lvl);
-	*vis = XV(NULL, (malloc(sizeof(t_inv) * (nb_cell + 1))), "malloc");
-	if (*str != '{')
-		return (-1);
+	if (e->user->player.ia.view)
+		free(e->user->player.ia.view);
+	nb_cell = get_vision_nb_cell(e->user->player.ia.lvl);
+	e->user->player.ia.view = XV(NULL, (malloc(sizeof(t_inv) * nb_cell)), "malloc");
+	bzero(e->user->player.ia.view, sizeof(t_inv) * nb_cell);
 	i = 0;
 	j = 1;
 	while (i < nb_cell)
@@ -68,14 +67,28 @@ int					get_vision(t_inv **vis, int lvl, char *str)
 		bzero(word, 11);
 		jump_space(str, &j);
 		j += get_word(str + j, word);
-		add_item((*vis)[i], word);
+//		printf("word in lex : [%s]\n", word);
+		add_item(e->user->player.ia.view[i], word);
+//		printf("|cellule cible : %s -> %d\n", word, e->user->player.ia.view[i][str_to_type(word)] );
 		jump_space(str, &j);
 		if (str[j] == ',' && j++)
 			i++;
 		if (str[j] == '}')
 			break ;
 	}
-	return (0);
+//	e->user->player.ia.cur_todo = e->user->player.ia.cur_todo->next;
+/*	printf("get vision end %d\n", e->user->nb_cmd);
+	int a;
+	a = 0;
+	t_inv *b;
+	while (a < get_vision_nb_cell(e->user->player.ia.lvl))
+	{
+		b = e->user->player.ia.view;
+		int c = -1;
+		while (c < 7)
+		printf("%d );
+		a++;
+	}*/
 }
 /*
 int				main(void)

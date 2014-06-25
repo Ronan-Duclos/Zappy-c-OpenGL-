@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:00:38 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 18:20:14 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 01:16:25 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	inventaire(t_env *e)
 
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
-	get_inventaire(e->user->player.ia.inv, act->answer);
+	get_inventaire(e, act->answer);
 	act->wait = 0;
 	act->time = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 14:47:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 18:39:40 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 02:44:12 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,34 +49,34 @@ int			get_word(char *src, char *dest)
 	return (i);
 }
 
-int			get_inventaire(int *inv, char *str)
+void		get_inventaire(t_env *e, char *str)
 {
 	char			word[11];
 	int				type;
 	int				j;
 	int				i;
 
-	i = 0;
-	if (str[i] != '{')
-		return (-1);
-	i++;
+	i = 1;
 	j = 0;
+/*	e->user->player.ia.cur_todo = e->user->player.ia.cur_todo->next;*/
+	bzero(e->user->player.ia.inv, sizeof(t_inv));
 	while (j++ < 6 + 1)
 	{
 		jump_space(str, &i);
 		i += get_word(str + i, word);
 		if ((type = str_to_type(word)) == -1)
-			return (-1);
+			return ;
 		jump_space(str, &i);
-		inv[type] = atoi(str + i);
+		e->user->player.ia.inv[type] = atoi(str + i);
 		jump_nbr(str, &i);
 		jump_space(str, &i);
 		if (str[i] == ',')
 			i++;
 		else if (str[i] == '}')
-			return (-1);
+			return ;
 		else
-			return (-1);
+			return ;
 	}
-	return (0);
+	printf("INVENAIRE DONE\n");
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 16:03:57 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 01:32:13 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void			incantation(t_env *e, int cs)
 	while (++i < NB_STONE + 1)
 		if (e->map[x][y].ground[i] < g_lvlup[*lvl - 1][i])
 			good = -1;
+	if (good == 1 && e->users[cs]->player.inc == 1)
+		end_incant(e, cs, good);
 	if (good == 1)
 		(*lvl)++;
-	if (e->users[cs]->player.inc == 1)
-		end_incant(e, cs, good);
 	gfx_send_npc(e, cs, gfx_plv);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);

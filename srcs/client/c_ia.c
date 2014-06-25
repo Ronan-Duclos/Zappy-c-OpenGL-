@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/24 20:11:44 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 01:36:51 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,80 +17,72 @@
 int			what_i_need(t_env *e, t_ia *ia);
 int			i_need_to_eat(t_env *e);
 int			what_i_do(t_env *e);
-void		i_begin(t_env *e);
-void		search_food(t_env *e);
-void		search_p_to_lvlup(t_env *e);
-void		search_s_to_lvlup(t_env *e);
+int			i_begin(t_env *e);
+int			find_item(t_env *e, int type);
+void		my_ia(t_env *e);
 
-void	choose_move(t_env *e)
-{
-	int		*inv;
-
-	inv = e->user->player.ia.inv;
-	if (inv[_food] < 10)
-		search_food(e);
-	else if (e->user->player.ia.msg != NULL)
-		search_p_to_lvlup(e);
-	else
-		search_s_to_lvlup(e);
-}
-
-void	begin_move(t_env *e, int aw)
-{
-	e->user->player.acts[aw].wait = 1;
-	send_inventaire(e);
-	e->user->player.acts[aw].wait = 0;
-	send_watch_sight(e);
-}
-
-void	my_ia(t_env *e)
+void	try_ia(t_env *e)
 {
 	int				aw;
 	int				ar;
-	static int		i;
 
 	aw = e->user->player.cur_awrite;
 	ar = e->user->player.cur_aread;
 	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0 &&
 		e->user->player.acts[ar].wait != 1)
 	{
-		if (e->user->player.ia.begin == 1)
-			i_begin(e);
+		if (e->user->player.ia.todo == NULL)
+			my_ia(e);
 		else
-		{
-			if (i == 0)
-			{
-				begin_move(e, aw);
-				i = 1;
-			}
-			else
-			{
-				choose_move(e);
-				i = 0;
-			}
-		}
+			todo_to_cal(e);
 	}
 }
 
-void		i_begin(t_env *e)
+void	my_ia(t_env *e)
 {
-	int		aw;
+	static int		i = 1;
 
-	aw = e->user->player.cur_awrite;
-	e->user->player.acts[aw].wait = 1;
-	send_fork(e);
-	e->user->player.ia.begin = 0;
+	if (i == 0)
+	{
+		add_todo(e, send_inventaire, NULL);
+		add_todo(e, send_watch_sight, NULL);
+		i = 1;
+	}
+	else
+	{
+		what_i_do(e);
+		i = 0;
+	}
+	todo_to_cal(e);
 }
 
-/*
+int			i_begin(t_env *e)
+{
+	send_inventaire(e);
+	send_watch_sight(e);
+	send_fork(e);
+	return (0);
+}
+
 int			what_i_do(t_env *e)
 {
-	int			need;
 
+	find_item(e, _food);
+/*
 	need = what_i_need(e, &e->user->player.ia);
 	if (need == _food)
+	{
+		printf("in what i do\n");
 		i_need_to_eat(e);
+	}
+	*/
 	return (0);
+}
+
+
+void		i_have_stone()
+{
+	
 }
 
 int			what_i_need(t_env *e, t_ia *ia)
@@ -98,7 +90,7 @@ int			what_i_need(t_env *e, t_ia *ia)
 	if (ia->inv[_food] < MIN_FOOD)
 		return (_ia_food);
 	(void)e;
-	else if (ia->lvl < LVL_MAX)
+/*	else if (ia->lvl < LVL_MAX)
 	{
 		if (i_have_stone(ia->inv))
 		{
@@ -111,7 +103,7 @@ int			what_i_need(t_env *e, t_ia *ia)
 			return (_ia_stone);
 	}
 	else
-		return (_ia_other);
+		return (_ia_other);*/
 	return (-1);
 }
 
@@ -133,20 +125,37 @@ int			is_in_sight(t_env *e, int type)
 {
 	int		i;
 	int		j;
+	int		max;
 
 	i = -1;
-	while (e->user->player.ia.view[i])
+	if (!e->user->player.ia.view)
+		return (0);
+	max = get_vision_nb_cell(e->user->player.ia.lvl);
+//	printf("vision in sight %d\n", e->user->nb_cmd);
+/*	int a;
+	a = 0;
+	t_inv *b;
+	while (a < get_vision_nb_cell(e->user->player.ia.lvl))
 	{
+		b = &e->user->player.ia.view[a];
+		printf("%d %d %d %d %d %d %d %d \n", *b[0], *b[1], *b[2], *b[3], *b[4], *b[5], *b[6], *b[7]);
+		a++;
+	}*/
+	while (++i < max)
+	{
+//		printf("in is in sight | %d items in %d\n", e->user->player.ia.view[i][type], i);
 		if (e->user->player.ia.view[i][type] > 0)
 		{
 			j = 0;
 			while (i > (get_vision_nb_cell(j) - 1))
+			{
+//				printf("i : %d // j : %d\n", i, get_vision_nb_cell(j));
 				j++;
-			e->user->player.ia.destx = j - 1;
+			}
+			e->user->player.ia.destx = j;
 			e->user->player.ia.desty = i - get_middle(e->user->player.ia.lvl);
 			return (1);
 		}
-		i++;
 	}
 	return (0);
 }
@@ -157,24 +166,42 @@ void		go_to(t_env *e)
 	t_ia		*ia;
 
 	ia = &e->user->player.ia;
-	while (ia->destx--)
+//	printf("in go to \n");
+	while (ia->destx > 0)
+	{
+//	printf("in go to move forward\n");
 		add_todo(e, send_move_forward, NULL);
+		ia->destx = ia->destx - 1;
+	}
 	if (ia->desty < 0)
+	{
 		add_todo(e, send_turn_left, NULL);
-	if (ia->desty > 0)
+//	printf("in go to turn elft\n");
+		ia->desty = -ia->desty;
+	}
+	else if (ia->desty > 0)
 		add_todo(e, send_turn_right, NULL);
-	while (ia->desty--)
+	while (ia->desty > 0)
+	{
+//		printf("in go to | move y\n");
 		add_todo(e, send_move_forward, NULL);
+		ia->desty = ia->desty - 1;
+	}
 }
 
 int			find_item(t_env *e, int type)
 {
 	int			nb;
 
+//	printf("in find item \n");
 	if (is_in_sight(e, type))
+	{
 		go_to(e);
+		add_todo(e, send_take_item, type_to_str(type));
+	}
 	else
 	{
+//		printf("not_found \n");
 		nb = rand_int(1, 4);
 		if (nb <= 2)
 			add_todo(e, send_move_forward, NULL);
@@ -182,8 +209,8 @@ int			find_item(t_env *e, int type)
 			add_todo(e, send_turn_right, NULL);
 		else if (nb == 4)
 			add_todo(e, send_turn_left, NULL);
-		add_todo(e, send_watch_sight, NULL);
 	}
+//	printf("out find item \n");
 	return (0);
 }
 
@@ -195,4 +222,3 @@ int			i_need_to_eat(t_env *e)
 	}
 	return (1);
 }
-*/

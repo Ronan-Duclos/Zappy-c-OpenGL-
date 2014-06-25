@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 03:10:20 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/24 23:10:10 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 22:43:01 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	repel_incant(int x, int y)
 	while (i < 4)
 	{
 		list = &g_env->sq[x + y * g_env->mapw].anims;
-		while (((t_item *)(*list)->content)->fct != display_totem)
+		while (*list && ((t_item *)(*list)->content)->fct != display_totem)
 			list = &(*list)->next;
-		del_link(list, NULL);
+		if (*list)
+			del_link(list, NULL);
 		i++;
 	}
 }

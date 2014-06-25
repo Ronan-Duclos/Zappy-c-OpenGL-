@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 23:52:52 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 22:01:33 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 22:54:48 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	del_link(t_list **link, void (*ft)(void *))
 {
 	t_list	*tmp;
 
-	printf("\033[33mDEL_LINK\033[0m");
 	tmp = *link;
 	*link = (*link)->next;
 	if (ft)
@@ -56,7 +55,6 @@ void	switch_link(t_list **src, t_list **dst)
 
 	if (*src == *dst)
 		return ;
-	printf("\033[33mSWITCHU_LINKU\033[0m\n");
 	tmp = *dst;
 	*dst = *src;
 	*src = (*src)->next;

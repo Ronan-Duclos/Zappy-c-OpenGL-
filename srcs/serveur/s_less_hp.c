@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 17:52:51 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 14:37:48 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		less_hp(t_env *e, int cs)
 		if (e->users[cs]->player.inv[_food] < 0)
 		{
 			tmp_to_bc(&e->users[cs]->buf_write, "mort", 1);
-//			gfx_send_npc(e, cs, gfx_pdi); a voir deja mis a la deconnection du client
+//	gfx_send_npc(e, cs, gfx_pdi); a voir deja mis a la deconnection du client
 			return (-1);
 		}
 	}

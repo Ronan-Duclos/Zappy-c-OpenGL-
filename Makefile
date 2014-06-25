@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/24 20:21:09 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/25 14:41:48 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -129,6 +129,7 @@ GFX_SRC=g_main.c \
 	g_rot.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
+	buf_circle2.c \
 	error.c
 SERV_OBJ=$(SERV_SRC:%.c=$(DIROBJ)%.o)
 CLT_OBJ=$(CLT_SRC:%.c=$(DIROBJ)%.o)

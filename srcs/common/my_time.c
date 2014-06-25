@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:14:10 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 21:14:11 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 14:50:57 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include <time.h>
 #include <stdio.h>
 
-double		ft_usec_time(void)
+double			ft_usec_time(void)
 {
-	struct timeval	tv;
-	struct timezone	tz;
-	struct tm		*tm;
-	double			my_time;
+	struct timeval			tv;
+	struct timezone			tz;
+	struct tm				*tm;
+	double					my_time;
 
 	gettimeofday(&tv, &tz);
 	tm = localtime(&tv.tv_sec);

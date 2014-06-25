@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/22 01:33:40 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/06 21:47:17 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 14:45:20 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ void		fill_buf(t_buf *buf, char *str, int slen)
 	buf->size += n;
 	buf->tail = buf->buf + (start + i) % BC_SIZE;
 	if (buf->size == BC_SIZE)
-		buf->buf[(buf->tail - buf->buf + BC_SIZE- 1) % BC_SIZE] = '\n';
+		buf->buf[(buf->tail - buf->buf + BC_SIZE - 1) % BC_SIZE] = '\n';
 }

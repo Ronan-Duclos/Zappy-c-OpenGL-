@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 18:03:32 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 14:36:58 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "serveur.h"
 #include "libft.h"
 
-t_ponf_cmd	g_tab[NBR_CMD] =
+t_ponf_cmd		g_tab[NBR_CMD] =
 {
 	{"avance", 7, move_forward, gfx_move_forward},
 	{"droite", 7, turn_right, gfx_turn_right},
@@ -30,7 +30,7 @@ t_ponf_cmd	g_tab[NBR_CMD] =
 	{"connect_nbr", 0, connect_nbr, NULL}
 };
 
-void	send_start(t_env *e, int cs)
+void			send_start(t_env *e, int cs)
 {
 	char			*nb_connect;
 	int				*ar;
@@ -45,7 +45,7 @@ void	send_start(t_env *e, int cs)
 //	*ar = (*ar + 1 ) % 10;
 }
 
-int		accept_gamer(t_env *e, int cs, int team)
+int				accept_gamer(t_env *e, int cs, int team)
 {
 	int			i;
 
@@ -63,7 +63,7 @@ int		accept_gamer(t_env *e, int cs, int team)
 	return (1);
 }
 
-void	check_team(t_env *e, int cs)
+void			check_team(t_env *e, int cs)
 {
 	int		i;
 	int		j;
@@ -92,7 +92,7 @@ void	check_team(t_env *e, int cs)
 	}
 }
 
-int		get_action_value(char *cmd)
+int				get_action_value(char *cmd)
 {
 	int		i;
 	int		j;
@@ -109,12 +109,12 @@ int		get_action_value(char *cmd)
 	return (i);
 }
 
-void	ma_fct_cmd(t_env *e, int cs)
+void			ma_fct_cmd(t_env *e, int cs)
 {
 	tmp_to_bc(&e->users[cs]->buf_write, "Not done yet", 1);
 }
 
-char	*get_cmd_arg(char *cmd)
+char			*get_cmd_arg(char *cmd)
 {
 	int			i;
 	char		*ret;
@@ -131,7 +131,7 @@ char	*get_cmd_arg(char *cmd)
 	return (ret);
 }
 
-void	remove_actions(t_user *user, double time)
+void			remove_actions(t_user *user, double time)
 {
 	t_actions	*acts;
 	int			read;
@@ -155,7 +155,7 @@ void	remove_actions(t_user *user, double time)
 	user->player.cur_awrite = 1;
 }
 
-void	start_action(t_env *e, int cs)
+void			start_action(t_env *e, int cs)
 {
 	int		st;
 
@@ -184,7 +184,7 @@ static double	get_start_time(t_env *e, int cs, int ca)
 	return (time);
 }
 
-void	queue_actions(t_env *e, int cs)
+void			queue_actions(t_env *e, int cs)
 {
 	int		i;
 	double	time;
@@ -222,7 +222,7 @@ void	queue_actions(t_env *e, int cs)
 	ft_tabdel(&cmd);
 }
 
-void	make_cmd(t_env *e, int cs)
+void			make_cmd(t_env *e, int cs)
 {
 	if (e->users[cs]->gfx.gfx)
 		gfx_cmd_check(e, cs, e->users[cs]->buf_read_tmp);
@@ -232,7 +232,7 @@ void	make_cmd(t_env *e, int cs)
 		queue_actions(e, cs);
 }
 
-void	client_read(t_env *e, int cs)
+void			client_read(t_env *e, int cs)
 {
 	int		r;
 

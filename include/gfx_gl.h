@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 18:39:42 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 00:27:41 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,6 +400,7 @@ void			add_link_end(t_list **list, void *content);
 **	g_item_actions.c
 */
 t_item			*new_item(GLuint l, GLuint vbo, t_anim *a, void (*f)(t_item *));
+void			del_item(void *item);
 void			take_stone(int square, int stone);
 
 /*
@@ -417,6 +418,7 @@ void			add_mob(int npc, int x, int y, enum e_dir dir);
 void			move_mob(int npc, int x, int y, enum e_dir dir);
 void			kill_mob(int npc);
 void			lower_mob(int npc);
+void			broadcast(int npc);
 
 /*
 **	g_npc.c

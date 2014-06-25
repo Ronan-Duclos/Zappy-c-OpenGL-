@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:26:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 02:11:23 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 01:11:18 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,10 +183,13 @@ void		display_items(int num)
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
 
-	list = sq->anims;
-	while (list)
+	t_list	**tmp = &sq->anims;
+	while (*tmp)
 	{
-		((t_item *)list->content)->fct(list->content);
-		list = list->next;
+		((t_item *)(*tmp)->content)->fct((*tmp)->content);
+		if (((t_item *)(*tmp)->content)->vbo == _mod_stone && ((t_item *)(*tmp)->content)->anim->dead)
+			del_link(tmp, del_item);
+		if (*tmp)
+			tmp = &(*tmp)->next;
 	}
 }

@@ -6,13 +6,23 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/15 01:11:11 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/24 19:06:49 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 23:56:00 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "gfx_gl.h"
 #include "common.h"
+
+void		del_item(void *item)
+{
+	t_item	*i;
+
+	i = (t_item *)item;
+	if (i->anim)
+		free(i->anim);
+	free(i);
+}
 
 /*
 **	Creates a new item to be displayed, according to the params.

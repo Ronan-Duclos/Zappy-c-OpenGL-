@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 17:21:27 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 19:30:55 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			i_begin(t_env *e)
 int			what_i_do(t_env *e)
 {
 
-	find_item(e, _food);
+	find_item(e, _phiras);
 /*
 	need = what_i_need(e, &e->user->player.ia);
 	if (need == _food)

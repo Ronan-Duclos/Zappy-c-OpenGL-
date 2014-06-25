@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 02:35:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 19:17:13 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct		s_ia
 	t_todo			*cur_todo;
 	int				x;
 	int				y;
+	int				quantity;
 	int				destx;
 	int				desty;
 	t_inv			*view;

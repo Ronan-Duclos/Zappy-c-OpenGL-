@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 19:08:06 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 15:22:31 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@
 # include <common.h>
 # include <conf.h>
 
-# define OPT				"pxynct"
-# define GCMD_NB			4
+# define 			OPT				"pxynct"
+# define			GCMD_NB			4
 
-# define FD_SRV				1
-# define FD_CLT				2
-# define FD_GFX				3
-# define FD_FREE			0
+# define			FD_SRV			1
+# define			FD_CLT			2
+# define			FD_GFX			3
+# define			FD_FREE			0
 
-# define AVANCE			7
+# define			AVANCE			7
 
-# define NBR_CMD	12
-# define BUF_SIZE	4096
+# define			NBR_CMD			12
+# define			BUF_SIZE		4096
 
 typedef struct		s_gcmd
 {
-	char	cmd[3];
-	void	(*fu)();
+	char			cmd[3];
+	void			(*fu)();
 }					t_gcmd;
 
 typedef struct		s_glst
@@ -67,11 +67,11 @@ typedef struct		s_opt
 
 typedef struct		s_gfx
 {
-	int		i;
-	int		j;
-	int		x;
-	int		state;
-	int		gfx;
+	int				i;
+	int				j;
+	int				x;
+	int				state;
+	int				gfx;
 }					t_gfx;
 
 typedef struct		s_player
@@ -167,8 +167,8 @@ typedef struct		s_ponf_cmd
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
 /*
-**	s_opt.c
-*/
+ **	s_opt.c
+ */
 int					get_serv_opt(t_opt *opt, int argc, char **argv);
 int					get_port(char **argv, t_opt *opt);
 int					get_x(char **argv, t_opt *opt);
@@ -179,28 +179,28 @@ int					get_time(char **argv, t_opt *opt);
 void				generate_map(t_env *env);
 
 /*
-**	s_client_read.c
-*/
+ **	s_client_read.c
+ */
 void				client_read(t_env *e, int cs);
-void	send_start(t_env *e, int cs);
+void				send_start(t_env *e, int cs);
 
 /*
-**	s_client_write.c
-*/
+ **	s_client_write.c
+ */
 void				client_write(t_env *e, int cs);
 void				remove_actions(t_user *user, double time);
 
 /*
-**	s_deal_fd.c
-*/
+ **	s_deal_fd.c
+ */
 void				create_clt(t_env *e, int s);
 void				destroy_clt(t_env *e, int sock);
 void				init_fd(t_env *e);
 void				check_fd(t_env *e);
 
 /*
-**	s_init.c
-*/
+ **	s_init.c
+ */
 void				init_team(t_env *e);
 int					init_sock(int port, t_env *e);
 void				init_player(t_env *e, int cs, int team);
@@ -208,19 +208,19 @@ void				init_users(t_env *e);
 void				init_serv(t_env *e);
 
 /*
-**	serveur.c
-*/
+ **	serveur.c
+ */
 void				run_serv(t_env *e);
 void				send_inv(t_env *e, int id);
 /*
-**	s_user_on_map.c
-*/
-void	put_user_on_map(t_env *e, int cs);
-void	remove_user_on_map(t_env *e, int cs);
+ **	s_user_on_map.c
+ */
+void				put_user_on_map(t_env *e, int cs);
+void				remove_user_on_map(t_env *e, int cs);
 
 /*
-**	s_gfx.c
-*/
+ **	s_gfx.c
+ */
 void				gfx_msz(t_env *e, int cs);
 void				gfx_sgt(t_env *e, int cs);
 void				gfx_bct(t_env *e, int cs, int x, int y);
@@ -244,8 +244,8 @@ void				gfx_send_act(t_env *e, int clt, void (*fu)(), int itm);
 void				gfx_send_map(t_env *e, int x, int y, void (*fu)());
 
 /*
-**	s_gfx_cmd.c (1 static)
-*/
+ **	s_gfx_cmd.c (1 static)
+ */
 int					get_next_int(int *nb, char *s);
 void				gfx_cmd_check(t_env *e, int cs, char *buf);
 void				gcmd_pin(t_env *e, int cs, char *cmd);
@@ -254,35 +254,35 @@ void				gcmd_sgt(t_env *e, int cs, char *cmd);
 void				gcmd_smg(t_env *e, int cs, char *cmd);
 
 /*
-**	s_gfx_init.c
-*/
+ **	s_gfx_init.c
+ */
 void				gfx_end_init(t_env *e);
 void				gfx_init_send_tna(t_env *env, int cs);
 void				gfx_init_send_pnw(t_env *env, int cs);
 void				gfx_init(t_env *e, int cs);
 
 /*
-**	s_gfx_lst.c
-*/
+ **	s_gfx_lst.c
+ */
 t_glst				*glst_new(int cs);
 void				glst_add(t_glst **lst, t_glst *new);
 void				glst_del_one(t_glst **lst, int cs);
 void				glst_put(t_glst **lst);
 
 /*
-**	s_end.c
-*/
+ **	s_end.c
+ */
 void				verify_win(t_env *e, int cs);
 /*
-**	s_less_hp.c
-*/
+ **	s_less_hp.c
+ */
 int					less_hp(t_env *e, int cs);
 void				generate_food(t_env *e);
 void				less_hp_eggs(t_env *e);
 
 /*
-**	Fonctions des différentes commandes client / server
-*/
+ **	Fonctions des différentes commandes client / server
+ */
 void				move_forward(t_env *e, int cs);
 void				turn_right(t_env *e, int cs);
 void				turn_left(t_env *e, int cs);
@@ -303,18 +303,18 @@ void				gfx_fork(t_env *e, int cs);
 void				make_incantations(t_env *e, int cs);
 
 /*
-*	s_fork.c
-*/
+ *	s_fork.c
+ */
 t_egg				*egg_available(double time, t_egg *lst);
 void				del_egg(t_team *team);
 
 /*
-**	s_watch_sight
-*/
-void	send_one_case(t_env *e, int cs, int x, int y);
-void	watch_south(t_env *e, int cs);
-void	watch_north(t_env *e, int cs);
-void	watch_east(t_env *e, int cs);
-void	watch_west(t_env *e, int cs);
+ **	s_watch_sight
+ */
+void				send_one_case(t_env *e, int cs, int x, int y);
+void				watch_south(t_env *e, int cs);
+void				watch_north(t_env *e, int cs);
+void				watch_east(t_env *e, int cs);
+void				watch_west(t_env *e, int cs);
 
 #endif

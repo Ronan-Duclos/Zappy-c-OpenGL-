@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/23 23:23:05 by rduclos          ###   ########.fr        #
+#    Updated: 2014/06/25 14:41:48 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ CLT_SRC=c_main.c \
 	c_turn_right.c \
 	c_watch_sight.c \
 	c_receive_answer.c \
+	c_ia_search_food.c \
+	c_ia_search_p_to_lvlup.c \
+	c_ia_search_s_to_lvlup.c \
 	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \
@@ -126,6 +129,7 @@ GFX_SRC=g_main.c \
 	g_rot.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
+	buf_circle2.c \
 	error.c
 SERV_OBJ=$(SERV_SRC:%.c=$(DIROBJ)%.o)
 CLT_OBJ=$(CLT_SRC:%.c=$(DIROBJ)%.o)

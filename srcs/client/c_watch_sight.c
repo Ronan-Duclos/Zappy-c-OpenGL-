@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:02:45 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 19:02:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:31:17 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	watch_sight(t_env *e)
 
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
-	get_vision(&e->user->player.ia.view, e->user->player.ia.lvl, act->answer);
-	(void)e;
+	get_vision(e, act->answer);
+	act->time = 0;
 }
 
 void	send_watch_sight(t_env *e)

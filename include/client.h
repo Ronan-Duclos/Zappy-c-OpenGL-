@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 23:07:55 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 02:35:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ enum	e_travel
 	_avance, _droite, _gauche
 };
 
+enum				e_type_msg
+{
+	_msg_bc, _msg_inv, _msg_sight, _msg_ok, _msg_ko, _msg_incant_start,
+	_msg_incant_end, msg_max
+};
+
 enum				e_ia
 {
 	_ia_food, _ia_evolve, _ia_max
 };
-
-typedef struct		s_env t_env;
-
 
 typedef struct		s_opt
 {
@@ -61,6 +64,7 @@ typedef int			(*t_fct_opt)(char **, t_opt *);
 
 typedef struct		s_todo
 {
+	int				id;
 	void			(*fct_send)();
 	char			*msg;
 	struct s_todo	*next;
@@ -70,16 +74,18 @@ typedef struct		s_ia
 {
 	t_inv			inv;
 	int				lvl;
+	int				begin;
 	int				c_nbr;
 	int				lvlup;
 	t_todo			*todo;
-	int				ntf;
+	t_todo			*cur_todo;
 	int				x;
 	int				y;
 	int				destx;
 	int				desty;
 	t_inv			*view;
 	int				expulsed;
+	int				my_exp;
 	int				bdc;
 	char			*msg;
 }					t_ia;
@@ -123,7 +129,7 @@ int					get_clt_opt(t_opt *opt, int argc, char **argv);
 */
 int					create_clt(char *addr, int port);
 void				check_fd(t_env *e);
-void				do_select(t_env *e);
+void				do_select(t_env *e, struct timeval *out);
 void				run_clt(t_env *e);
 /*
 **	c_tools1.c
@@ -137,8 +143,8 @@ void					rcv_serveur(t_env *e);
 /*
 **	Lexing functions
 */
-int						get_inventaire(int *inv, char *str);
-int						get_vision(t_inv **vis, int lvl, char *str);
+void					get_inventaire(t_env *e, char *str);
+void					get_vision(t_env *e, char *str);
 /*
 **	c_init.c
 */
@@ -173,6 +179,7 @@ void				receive_ok_only(t_env *e);
 /*
 **	IA
 */
+void			try_ia(t_env *e);
 void			my_ia(t_env *e);
 
 /*

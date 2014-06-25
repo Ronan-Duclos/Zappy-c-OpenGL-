@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 22:06:08 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/24 19:18:20 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 void	fork_one_user(t_env *e)
 {
-	if (fork() == 0)
+	static int		i;
+
+	if (i == 0 && (i = 1) == 1 && fork() == 0)
 	{
 		close(e->user->sock);
 		execve(e->av[0], e->av, NULL);
@@ -134,16 +136,26 @@ void	receive_broadcast(t_env *e)
 
 void	make_cmd(t_env *e)
 {
+	int		i;
+	char	**cmd;
+
+	i = -1;
 	if (e->user->ig == 0)
 		ask_to_play(e);
 	else
 	{
-		if (verify_word(e->user->buf_read_tmp, "elevation en cours") == 0)
-			replace_calendar(e);
-		else if (verify_word(e->user->buf_read_tmp, "msg ") != 0)
-			receive_broadcast(e);
-		else
-			queue_actions(e);
+		cmd = ft_strsplit(e->user->buf_read_tmp, '\n');
+		while (cmd[++i] != NULL)
+		{
+			ft_strcpy(e->user->buf_read_tmp, cmd[i]);
+			if (verify_word(e->user->buf_read_tmp, "elevation en cours") == 0)
+				replace_calendar(e);
+			else if (verify_word(e->user->buf_read_tmp, "msg") == 0)
+				receive_broadcast(e);
+			else
+				queue_actions(e);
+		}
+		ft_tabdel(&cmd);
 	}
 }
 

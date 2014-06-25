@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 21:56:04 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/24 15:59:55 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int			broadcast_one(t_env *env, char *msg, int ori, int cs)
 	char		buf[4096];
 
 	bzero(buf, 4096);
-	sprintf(buf, "message %d,%s", get_dir_broadcast(env,
+	sprintf(buf, "msg %d, %s", get_dir_broadcast(env,
 				&env->users[ori]->player, &env->users[cs]->player), msg);
 	tmp_to_bc(&env->users[cs]->buf_write, buf, 1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:04:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 19:28:09 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:22:35 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ void	fork_my_egg(t_env *e)
 
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
-	if (fork() == 0)
+	if (act->answer[0] == 'o' && fork() == 0)
 	{
 		close(e->user->sock);
 		execve(e->av[0], e->av, NULL);
 	}
 	act->time = 0;
-
 }
 
 void	send_fork(t_env *e)

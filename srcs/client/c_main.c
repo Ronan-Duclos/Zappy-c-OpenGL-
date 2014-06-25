@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/23 18:40:35 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 04:30:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,47 +41,50 @@ void	check_fd(t_env *e)
 			e->r--;
 			send_serveur(e);
 		}
-		else if (FD_ISSET(0, &e->fd_read))
-		{
-			e->r--;
-			rcv_keyboard(e);
-		}
 	}
 }
 
-void	do_select(t_env *e)
+void	do_select(t_env *e, struct timeval *out)
 {
-	fd_set	*read;
-	fd_set	*write;
+	fd_set				*read;
+	fd_set				*write;
+	int					aw;
+//	int					ar;
 
+	aw = e->user->player.cur_awrite;
+//	ar = e->user->player.cur_aread;
 	read = &e->fd_read;
 	write = &e->fd_write;
-	FD_SET(0, read);
 	FD_SET(e->user->sock, read);
 	if (verify_bsn(&e->user->buf_write) == 1)
 		FD_SET(e->user->sock, write);
-	e->r = select(e->user->sock + 1, read, write, NULL, NULL);
+	if (e->user->player.acts[aw].time == 0)
+		e->r = select(e->user->sock + 1, read, write, NULL, out);
+	else
+		e->r = select(e->user->sock + 1, read, write, NULL, NULL);
 }
 
 void	run_clt(t_env *e)
 {
-	int		i;
+	int					i;
+	struct timeval		out;
 
+	out.tv_usec = 0;
+	out.tv_sec = 0;
 	i = 1;
 	init_clt(e);
 	if ((e->user->sock = create_clt(e->me.host, e->me.port)) != -1)
 	{
 		while (i != 0)
 		{
-			if (my_exit(1, NULL) == 1)
-				i = 1;
 			FD_ZERO(&e->fd_read);
 			FD_ZERO(&e->fd_write);
-			do_select(e);
+			do_select(e, &out);
 			check_fd(e);
-			my_ia(e);
+			try_ia(e);
+			if (my_exit(1, NULL) == 1)
+				i = 0;
 		}
-		close(e->user->sock);
 	}
 }
 

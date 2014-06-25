@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 21:48:43 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 22:54:56 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 00:56:14 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void		todo_to_cal(t_env *e)
 	int			*aw;
 
 	aw = &e->user->player.cur_awrite;
-	while (e->user->player.acts[*aw].time == 0)
+	while (e->user->player.acts[*aw].time == 0 &&
+		   e->user->player.ia.todo != NULL)
 	{
 		if (e->user->player.ia.todo->msg == NULL)
 			e->user->player.ia.todo->fct_send(e);

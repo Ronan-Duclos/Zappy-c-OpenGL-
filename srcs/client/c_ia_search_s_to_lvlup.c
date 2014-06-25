@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_error.c                                          :+:      :+:    :+:   */
+/*   c_ia_search_s_to_lvlup.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/04 19:16:41 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 14:42:39 by rbernand         ###   ########.fr       */
+/*   Created: 2014/06/24 20:19:14 by rduclos           #+#    #+#             */
+/*   Updated: 2014/06/24 20:23:47 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur.h"
-#include "libft.h"
+#include <client.h>
+#include <common.h>
 
-int		x_int(int err, int res, char *str, char *file)
+void	search_s_to_lvlup(t_env *e)
 {
-	if (res == err)
-	{
-		fprintf(stderr, "%s error (%s): %s\n", str, file, strerror(errno));
-		exit (1);
-	}
-	return (res);
-}
-
-void	*x_void(void *err, void *res, char *str, char *file)
-{
-	if (res == err)
-	{
-		fprintf(stderr, "%s error (%s): %s\n", str, file, strerror(errno));
-		exit (1);
-	}
-	return (res);
+	(void)e;
 }

@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/24 22:15:53 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 01:01:01 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@
 # define SCR_HGH		480
 # define FPS			60
 
-# define FOOD_PER_SQUARE		50
+# define FOOD_PER_SQUARE		45
 # define LINEMATE_PER_SQUARE	45
 # define DERAUMERE_PER_SQUARE	40
 # define SIBUR_PER_SQUARE		35
 # define MENDIANE_PER_SQUARE	30
 # define PHIRAS_PER_SQUARE		25
 # define THYSTAME_PER_SQUARE	20
-# define EGG_PER_SQUARE			10
+# define EGG_PER_SQUARE			15
 
 # define FOOD_OFFSET			0
 # define LINEMATE_OFFSET		(FOOD_OFFSET + FOOD_PER_SQUARE)
@@ -105,6 +105,7 @@ enum			e_colors
 	_init_item_pos,
 	_init_plant_pos,
 	_init_owl_pos,
+	_init_egg_pos,
 	_lists_nb
 };
 
@@ -432,6 +433,6 @@ void			rot_init(t_rot *rot, enum e_dir dir);
 **	g_incant_action.c
 */
 void			cast_incant(int x, int y);
-//void			repel_incant(void);
+void			repel_incant(int x, int y);
 
 #endif

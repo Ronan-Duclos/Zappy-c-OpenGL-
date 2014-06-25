@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 22:15:01 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 00:23:30 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ void		cmd_ppo(char *cmd)
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].dir, &cmd[i]);
+	g_env->npc[npc].dir += 1;
+	g_env->npc[npc].dir %= 4;
 	printf("cmd_ppo: %d, %d %d, %d", npc,
 		   g_env->npc[npc].x,
 		   g_env->npc[npc].y,
@@ -178,7 +180,16 @@ void		cmd_pin(char *cmd)
 
 void		cmd_pie(char *cmd)
 {
-	printf("cmd_pin: %s\n", cmd);//
+	int		x;
+	int		y;
+	int		i;
+
+	i = 0;
+	printf("cmd_pie: %s\n", cmd);
+	i += get_next_int(&y, &cmd[i]);
+	i += get_next_int(&x, &cmd[i]);
+	printf("pie: %d %d\n", x, y);
+	repel_incant(x, y);
 }
 
 void		cmd_plv(char *cmd)
@@ -193,7 +204,7 @@ void		cmd_plv(char *cmd)
 	i += get_next_int(&npc, &cmd[i]);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
-	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
+	i += get_next_int(&g_env->npc[npc].lvl, &cmd[i]);
 	printf("cmd_plv: %d %d\n", npc, g_env->npc[npc].lvl);
 }
 

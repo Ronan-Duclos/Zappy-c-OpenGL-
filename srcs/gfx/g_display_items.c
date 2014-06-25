@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   g_display_items.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/13 20:45:06 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 20:27:29 by tmielcza         ###   ########.fr       */
+/*   Created: 2014/06/24 22:26:42 by tmielcza          #+#    #+#             */
+/*   Updated: 2014/06/25 02:11:23 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,40 @@
 #include "gfx_gl.h"
 #include "mdx.h"
 
+static void	display_egg(int i)
+{
+	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_egg][_vbo_texp]);
+	glTexCoordPointer(2, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_egg][_vbo_vrtx]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_egg][_vbo_nrms]);
+	glNormalPointer(GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[_mod_egg][_vbo_indx]);
+	glBindTexture(GL_TEXTURE_2D, g_env->textures[_tex_egg]);
+
+	glPushMatrix();
+
+	glCallList(g_env->lists[_white]);
+	glTranslatef(1.9 / 16.0 * (i % 16) + 0.1, 0.0, 1.9 / 16 * (i / 16) + 0.1);
+	glCallList(g_env->lists[_init_egg_pos]);
+	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_egg][_vbo_indx], GL_UNSIGNED_SHORT, 0);
+
+	glPopMatrix();
+
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
 void		display_totem(t_item *item)
 {
 	GLuint		*vbos;
 	int			*sizes;
 	static int	i = 0;
 
-	printf("i = %d\n", i);
 	vbos = g_env->vbos[item->vbo];
 	sizes = g_env->vbosizes[item->vbo];
 	glEnable(GL_TEXTURE_2D);
@@ -104,7 +131,6 @@ void		display_items(int num)
 
 	sq = g_env->sq + num;
 	grid = sq->grid + tab[0];
-	list = sq->anims;
 	i = 0;
 	j = 1;
 
@@ -124,6 +150,16 @@ void		display_items(int num)
 		j++;
 	}
 
+	i = 0;
+	j = 7;
+	grid = sq->grid;
+	list = sq->egg;
+	while (list)
+	{
+		display_egg(grid[i++ % CASE_MAX_ITEMS]);
+		list = list->next;
+	}
+
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -138,15 +174,16 @@ void		display_items(int num)
 	glBindTexture(GL_TEXTURE_2D, g_env->testex);
 
 	j = 0;
+	i = 0;
 	grid = sq->grid;
 	while (i < sq->itms[_food])
 		display_food(grid[i++]);
 	i = 0;
-	j++;
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
 
+	list = sq->anims;
 	while (list)
 	{
 		((t_item *)list->content)->fct(list->content);

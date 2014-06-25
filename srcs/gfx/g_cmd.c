@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 03:19:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 22:05:16 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static void	pnw_on_egg(t_npc *npc)
 	del_link(&(*tmp), del_egg);
 }
 
-
 void		cmd_pnw(char *cmd)
 {
 	int		i;
@@ -130,7 +129,6 @@ void		cmd_ppo(char *cmd)
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
 	i += get_next_int(&npc, &cmd[i]);
-	printf("pdi: %d %d\n", g_env->npc[npc].id, npc);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
@@ -138,7 +136,7 @@ void		cmd_ppo(char *cmd)
 	i += get_next_int(&g_env->npc[npc].dir, &cmd[i]);
 	g_env->npc[npc].dir += 1;
 	g_env->npc[npc].dir %= 4;
-	printf("cmd_ppo: %d, %d %d, %d", npc,
+	printf("cmd_ppo: %d, %d %d, %d\n", npc,
 		   g_env->npc[npc].x,
 		   g_env->npc[npc].y,
 		   g_env->npc[npc].dir);//
@@ -149,6 +147,7 @@ void		cmd_pin(char *cmd)
 {
 	int		i;
 	int		npc;
+	int		j;
 
 	printf("cmd_pin: %s\n", cmd);//
 	i = 0;
@@ -157,8 +156,8 @@ void		cmd_pin(char *cmd)
 	i += get_next_int(&npc, &cmd[i]);
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
-	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
-	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
+	i += get_next_int(&j, &cmd[i]);
+	i += get_next_int(&j, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].inv[_food], &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].inv[_linemate], &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].inv[_deraumere], &cmd[i]);

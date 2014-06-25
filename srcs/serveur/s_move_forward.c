@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 18:24:39 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/19 16:57:44 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 19:45:51 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			move_forward(t_env *e, int cs)
 	else if (p->direc == WEST)
 		p->x--;
 	put_user_on_map(e, cs);
-	tmp_to_bc(&e->users[cs]->buf_write, "OK", 1);
+	tmp_to_bc(&e->users[cs]->buf_write, "ok", 1);
 }
 
 void			gfx_move_forward(t_env *e, int cs)

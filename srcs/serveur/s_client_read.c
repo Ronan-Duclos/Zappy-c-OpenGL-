@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 18:52:14 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 19:44:37 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ void			queue_actions(t_env *e, int cs)
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 		}
 		else
-			tmp_to_bc(&e->users[cs]->buf_write, "KO", 1);
+			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 		ca = e->users[cs]->player.cur_awrite;
 	}
 	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);

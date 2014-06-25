@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 02:15:40 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/23 19:55:15 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 20:08:38 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ void		move_mob(int npc, int x, int y, enum e_dir dir)
 	move_init(((t_mob *)(*mob)->content)->move, x, 0, y);
 	((t_mob *)(*mob)->content)->move->fct = anim_move;
 	rot_init(((t_mob *)(*mob)->content)->rot, dir);
-	if (!is_in_list(*mob, g_env->sq[x + y * g_env->mapw].mobs))
-		switch_link(mob, &g_env->sq[x + y * g_env->mapw].mobs);
+	if (!is_in_list(*mob, player->sq->mobs))
+	{
+		switch_link(mob, &player->sq->mobs);
+		printf("\033[31m%d %d %d\033[0m\n", npc, x, y);
+	}
+	else
+		printf("\033[32m%d %d %d\033[0m\n", npc, x, y);
 }
 
 void		kill_mob(int npc)

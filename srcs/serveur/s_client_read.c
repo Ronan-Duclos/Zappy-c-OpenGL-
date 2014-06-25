@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 12:47:39 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 13:47:31 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ char	*get_cmd_arg(char *cmd)
 	char		*ret;
 
 	i = 0;
+	printf("get_cmd_arg %s\n", cmd);
 	ret = NULL;
 	while (cmd[i] != '\0' && cmd[i] != ' ')
 		i++;
@@ -129,6 +130,7 @@ char	*get_cmd_arg(char *cmd)
 	else
 		return (NULL);
 	ret = ft_strdup(cmd + i);
+	printf("get_cmd_arg: retL [%s]\n", ret);
 	return (ret);
 }
 
@@ -209,6 +211,7 @@ void	queue_actions(t_env *e, int cs)
 				e->srv.time = time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
+			printf("Queue_action: [%s]\n", e->users[cs]->player.acts[ca].cmd);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;

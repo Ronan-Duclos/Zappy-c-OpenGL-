@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:35:59 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/16 23:31:49 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 13:44:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char		*type_to_str(int type)
 
 int			str_to_type(char *str)
 {
+	if (!str)
+		return (-1);
 	if (strcmp(str, "nourriture") == 0)
 		return (_food);
 	else if (strcmp(str, "sibur") == 0)

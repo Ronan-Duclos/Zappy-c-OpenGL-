@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 17:45:30 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:48:49 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 t_ponf_cmd		g_tab[NBR_CMD] =
 {
 	{"avance", 7, move_forward, gfx_move_forward},
-	{"droite", 7, turn_right, gfx_turn_right},
-	{"gauche", 7, turn_left, gfx_turn_left},
+	{"droite", 7, turn_right, gfx_turn_left},
+	{"gauche", 7, turn_left, gfx_turn_right},
 	{"voir", 7, watch_sight, NULL},
 	{"inventaire", 1, send_inv, NULL},
 	{"prend", 7, take_item, gfx_take_item},
@@ -211,7 +211,6 @@ void			queue_actions(t_env *e, int cs)
 				e->srv.time = time;
 			e->users[cs]->player.acts[ca].time = time;
 			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
-			printf("Queue_action: [%s]\n", e->users[cs]->player.acts[ca].cmd);
 			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
 			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
 			e->users[cs]->player.cur_awrite = (ca + 1) % 10;

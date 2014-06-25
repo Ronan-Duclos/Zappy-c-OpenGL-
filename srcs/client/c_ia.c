@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 04:25:05 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 17:13:10 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int			is_in_sight(t_env *e, int type)
 	}*/
 	while (++i < max)
 	{
-//		printf("in is in sight | %d items in %d\n", e->user->player.ia.view[i][type], i);
+		printf("in is in sight | %d items in %d\n", e->user->player.ia.view[i][type], i);
 		if (e->user->player.ia.view[i][type] > 0)
 		{
 			j = 0;

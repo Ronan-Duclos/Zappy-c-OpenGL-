@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 19:25:34 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/22 21:02:57 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 23:30:49 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	send_one_case(t_env *e, int cs, int x, int y)
 	i = 0;
 	while (++type < (NB_STONE + 2))
 	{
-		quantity = e->map[x][y].ground[type];
+		quantity = e->map[y][x].ground[type];
 		if (type == _player
 			&& e->users[cs]->player.x == x
 			&& e->users[cs]->player.y == y)

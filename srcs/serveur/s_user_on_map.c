@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:03 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/18 22:02:56 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 23:30:30 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	put_user_on_map(t_env *e, int cs)
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
-	e->map[x][y].ground[_player]++;
-	if (e->map[x][y].player == NULL)
-		e->map[x][y].player = e->users[cs];
+	e->map[y][x].ground[_player]++;
+	if (e->map[y][x].player == NULL)
+		e->map[y][x].player = e->users[cs];
 	else
 	{
-		tmp = e->map[x][y].player;
+		tmp = e->map[y][x].player;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = e->users[cs];
@@ -43,10 +43,10 @@ void	remove_user_on_map(t_env *e, int cs)
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
-	e->map[x][y].ground[_player]--;
-	tmp = e->map[x][y].player;
+	e->map[y][x].ground[_player]--;
+	tmp = e->map[y][x].player;
 	if (tmp->sock == cs)
-		e->map[x][y].player = e->map[x][y].player->next;
+		e->map[y][x].player = e->map[y][x].player->next;
 	else
 	{
 		while (tmp->next->sock != cs)

@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 19:47:23 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/25 19:46:12 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 23:29:33 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void			take_item(t_env *e, int cs)
 		tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 	else
 	{
-		if (e->map[player_x][player_y].ground[resource] == 0)
+		if (e->map[player_y][player_x].ground[resource] == 0)
 			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 		else
 		{
-			e->map[player_x][player_y].ground[resource]--;
+			e->map[player_y][player_x].ground[resource]--;
 			e->users[cs]->player.inv[resource]++;
 			tmp_to_bc(&e->users[cs]->buf_write, "ok", 1);
 		}

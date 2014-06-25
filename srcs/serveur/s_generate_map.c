@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:09:24 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/21 00:14:41 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 23:20:17 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int				put_one(t_env *env, int type_rate[2], int x, int y)
 	r = 0;
 	if (type_rate[1] > 0 && rand_int(0, 100) <= type_rate[1])
 	{
-		env->map[x][y].ground[type_rate[0]]++;
+		env->map[y][x].ground[type_rate[0]]++;
 		r++;
 		type_rate[1] -= 5;
 		if (x == 0)
@@ -76,7 +76,7 @@ int				put_stones(t_env *env)
 		{
 			x = rand_int(0, env->opt.x);
 			y = rand_int(0, env->opt.y);
-			env->map[x][y].ground[type_rate[0]] = 1;
+			env->map[y][x].ground[type_rate[0]] = 1;
 			c += put_one(env, type_rate, x, y);
 		}
 		printf("%d %s ont ete poses.\n", c, type_to_str(type_rate[0]));
@@ -88,12 +88,12 @@ void			malloc_map(t_env *e)
 {
 	int            i;
 
-    e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.x));
+    e->map = (t_case **)malloc(sizeof(t_case *) * (e->opt.y));
     i = -1;
-    while (++i < e->opt.x)
+    while (++i < e->opt.y)
     {
-		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.y));
-		ft_bzero(e->map[i], sizeof(t_case) * (e->opt.y));
+		e->map[i] = (t_case *)malloc(sizeof(t_case) * (e->opt.x));
+		ft_bzero(e->map[i], sizeof(t_case) * (e->opt.x));
     }
 }
 

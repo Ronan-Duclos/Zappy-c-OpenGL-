@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:22:16 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 23:22:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 23:22:51 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <serveur.h>
@@ -123,7 +123,7 @@ void		expulse(t_env *e, int cs)
 	expulse_west};
 	i = 0;
 	me = &e->users[cs]->player;
-	expulsed = e->map[me->x][me->y].player;
+	expulsed = e->map[me->y][me->x].player;
 	while (expulsed != NULL)
 	{
 		if (expulsed->sock != cs)

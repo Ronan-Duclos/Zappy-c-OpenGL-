@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 02:39:40 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 23:27:00 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ void		gfx_bct(t_env *e, int cs, int x, int y)
 
 	ft_bzero(buf, BUF_SIZE);
 	sprintf(buf, "bct %d %d %d %d %d %d %d %d %d", x, y,
-			e->map[x][y].ground[_food],
-			e->map[x][y].ground[_linemate],
-			e->map[x][y].ground[_deraumere],
-			e->map[x][y].ground[_sibur],
-			e->map[x][y].ground[_mendiane],
-			e->map[x][y].ground[_phiras],
-			e->map[x][y].ground[_thystame]);
+			e->map[y][x].ground[_food],
+			e->map[y][x].ground[_linemate],
+			e->map[y][x].ground[_deraumere],
+			e->map[y][x].ground[_sibur],
+			e->map[y][x].ground[_mendiane],
+			e->map[y][x].ground[_phiras],
+			e->map[y][x].ground[_thystame]);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
@@ -222,7 +222,7 @@ void		gfx_pic(t_env *e, int cs, int clt)
 
 	bzero(buf, BUF_SIZE);
 	i = 0;
-	tmp = e->map[e->users[clt]->player.x][e->users[clt]->player.y].player;
+	tmp = e->map[e->users[clt]->player.y][e->users[clt]->player.x].player;
 	lvl = tmp->player.lvl;
 	i += sprintf(buf, "pic %d %d %d", e->users[clt]->player.x,
 				 e->users[clt]->player.y,

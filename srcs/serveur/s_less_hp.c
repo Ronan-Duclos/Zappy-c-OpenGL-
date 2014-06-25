@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 18:57:07 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 23:28:58 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	generate_food(t_env *e)
 		{
 			x = rand() % e->opt.x;
 			y = rand() % e->opt.y;
-			e->map[x][y].ground[_food]++;
+			e->map[y][x].ground[_food]++;
 			nb--;
 			gfx_send_map(e, x, y, gfx_bct);
 		}

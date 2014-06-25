@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/24 18:19:46 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 02:39:47 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,8 @@ void				gfx_pic(t_env *e, int cs, int clt);
 void				gfx_pie(t_env *e, int cs, int clt, int succes);
 void				gfx_pgt(t_env *e, int cs, int clt, int itm);
 void				gfx_pdr(t_env *e, int cs, int clt, int itm);
+void				gfx_pcb(t_env *e, int cs, int clt, char *msg);
+void				gfx_send_pcb(t_env *e, int clt, char *msg, void (*fu)());
 void				gfx_send_egg(t_env *e, t_egg *egg, void (*fu)());
 void				gfx_send_npc(t_env *e, int clt, void (*fu)());
 void				gfx_send_act(t_env *e, int clt, void (*fu)(), int itm);

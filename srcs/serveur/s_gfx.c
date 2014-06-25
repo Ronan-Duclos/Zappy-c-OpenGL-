@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 18:19:37 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 02:39:40 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,18 @@ void		gfx_edi(t_env *e, int cs, t_egg *egg)
 }
 
 /*
+**	Send broadcast at end.
+*/
+void		gfx_pcb(t_env *e, int cs, int clt, char *msg)
+{
+	char	buf[BUF_SIZE];
+
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "pcb #%d %s", clt, msg);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
+}
+
+/*
 **	Send all gfx clients the function as
 **	void (*fu)(t_env *e, int gfx_cs, int clt)
 **	cs is id/socket of client you want to send infos.
@@ -390,6 +402,23 @@ void		gfx_send_map(t_env *e, int x, int y, void (*fu)())
 	while (tmp)
 	{
 		fu(e, tmp->cs, x, y);
+		tmp = tmp->next;
+	}
+}
+
+/*
+**	Send all gfx clients the function as
+**	void (*fu)(t_env *e, int cs. int clt, char *msg)
+**	msg is send.
+*/
+void		gfx_send_pcb(t_env *e, int clt, char *msg, void (*fu)())
+{
+	t_glst	*tmp;
+
+	tmp = e->srv.glst;
+	while (tmp)
+	{
+		fu(e, tmp->cs, clt, msg);
 		tmp = tmp->next;
 	}
 }

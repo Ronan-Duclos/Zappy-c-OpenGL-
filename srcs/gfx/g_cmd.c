@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 00:23:30 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 03:19:14 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,4 +307,22 @@ void		cmd_pic(char *cmd)
 			return ;
 		// npc    == id joueur qui dois lancer l'anim incant
 	}
+}
+
+void		cmd_pcb(char *cmd)
+{
+	char	buf[BUF_SIZE];
+	int		i;
+	int		npc;
+
+	printf("cmd_pcb: %s\n", cmd);
+	bzero(buf, BUF_SIZE);
+	i = 0;
+	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
+		i++;
+	i += get_next_int(&npc, &cmd[i]);
+	while (cmd[i] && cmd[i] == ' ')
+		i++;
+	strcpy(buf, &cmd[i]);
+	printf("cmd_pcb: %d [%s]\n", npc, buf);
 }

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 19:51:01 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/25 03:18:46 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ static t_cmd	*cmds_tab_get(void)
 		{"enw", &cmd_enw},
 		{"eht", &cmd_eht},
 		{"ebo", &cmd_ebo},
-		{"edi", &cmd_edi}
+		{"edi", &cmd_edi},
+		{"pcb", &cmd_pcb}
 	};
 	return (cmd);
 }

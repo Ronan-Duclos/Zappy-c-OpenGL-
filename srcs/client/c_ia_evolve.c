@@ -1,18 +1,9 @@
 
 #include <client.h>
 #include <common.h>
+#include <global.h>
 
-static int		g_lvlup[7][8] = {
-	{0, 1, 0, 0, 0, 0, 0, 1},
-	{0, 1, 1, 1, 0, 0, 0, 2},
-	{0, 2, 0, 1, 0, 2, 0, 2},
-	{0, 1, 1, 2, 0, 1, 0, 4},
-	{0, 1, 2, 1, 3, 0, 0, 4},
-	{0, 1, 2, 3, 0, 1, 0, 6},
-	{0, 2, 2, 2, 2, 2, 1, 6}
-};
-
-static int		g_need_stone[7] = {0, 9, 8, 10, 5, 6,  1}
+//static int		g_need_stone[7] = {0, 9, 8, 10, 5, 6,  1};
 
 //decrementation du tableau a chaque lvl
 
@@ -26,6 +17,7 @@ int		i_can_evolve(t_ia *ia)
 
 int		cmp_inv_view(int good_view[7], int good_inv[7])
 {
+	int				i;
 	int				good1;
 	int				good2;
 
@@ -64,5 +56,5 @@ int		i_have_stone(t_ia *ia)
 		if (ia->view[0][i] < g_lvlup[ia->lvl - 1][i])
 			good_view[i] = 0;
 	}
-	return (cmp_inv_view(ia));
+	return (cmp_inv_view(good_view, good_inv));
 }

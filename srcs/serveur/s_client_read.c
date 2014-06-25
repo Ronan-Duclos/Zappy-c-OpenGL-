@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 18:52:14 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 19:47:29 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ void			check_team(t_env *e, int cs)
 int				get_action_value(char *cmd)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = ft_strlen(g_tab[i].str);
-	while (i < NBR_CMD && ft_strncmp(cmd, g_tab[i].str, j) != 0)
-		j = ft_strlen(g_tab[++i].str);
+	while (i < NBR_CMD)
+	{
+		if (strncmp(cmd, g_tab[i].str, strlen(g_tab[i].str)) == 0)
+			break ;
+		i++;
+	}
 	if (i == NBR_CMD)
 	{
 		printf("bad command : %s\n", cmd);

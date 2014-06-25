@@ -6,12 +6,22 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:56:12 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 04:20:53 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 21:37:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <client.h>
 #include <common.h>
+
+char	*make_broadcast(t_ia *ia)
+{
+	static char		buf[20];
+
+	bzero(buf, 20);
+	sprintf(buf, "%d", ia->lvl);
+	return (buf);
+}
+
 
 void	send_broadcast(t_env *e, char *msg)
 {

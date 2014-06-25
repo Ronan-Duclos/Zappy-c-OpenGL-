@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:24:20 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/19 19:15:04 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 21:18:06 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	send_serveur(t_env *e)
 
 	bc_to_tmp(&e->user->buf_write, e->user->buf_write_tmp);
 	i = ft_strlen(e->user->buf_write_tmp);
-	printf("Send : %s", e->user->buf_write_tmp);
+	printf("\033[32mSend : \033[0m%s", e->user->buf_write_tmp);
 	send(e->user->sock, e->user->buf_write_tmp, i, 0);
 	ft_bzero(e->user->buf_write_tmp, i);
 }

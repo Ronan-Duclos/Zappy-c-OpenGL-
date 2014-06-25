@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 22:59:41 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 19:30:55 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 21:58:54 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ void	try_ia(t_env *e)
 	ar = e->user->player.cur_aread;
 	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0)
 	{
-		if (e->user->player.ia.todo == NULL && ar == aw)
-			my_ia(e);
-		else if (e->user->player.ia.todo != NULL)
+		if (e->user->player.ia.todo != NULL)
 			todo_to_cal(e);
+		else if (ar == aw)
+			my_ia(e);
 	}
 }
 
 void	my_ia(t_env *e)
 {
-	static int		i = 1;
+	static int		i = -1;
 
-	if (i == 0)
+	if (i == -1)
 	{
 		add_todo(e, send_inventaire, NULL);
 		add_todo(e, send_watch_sight, NULL);
@@ -49,8 +49,8 @@ void	my_ia(t_env *e)
 	}
 	else
 	{
-		what_i_do(e);
-		i = 0;
+		printf("in my ia : [%d]\n", i);
+		i = what_i_do(e);
 	}
 	todo_to_cal(e);
 }
@@ -63,31 +63,47 @@ int			i_begin(t_env *e)
 	return (0);
 }
 
-int			what_i_do(t_env *e)
+int			check_end(t_ia *ia, int need)
 {
-
-	find_item(e, _phiras);
-/*
-	need = what_i_need(e, &e->user->player.ia);
-	if (need == _food)
+	if (ia->inv[_food] < MIN_FOOD)
+		return (-1);
+	if (need == _ia_food)
 	{
-		printf("in what i do\n");
-		i_need_to_eat(e);
+		if (ia->inv[_food] > MIN_FOOD2)
+			return (-1);
+		else
+			return (_ia_food);
 	}
-	*/
-	return (0);
+	else if (need == _ia_evolve)
+		return (-1);
+	return (need);
 }
 
-
-void		i_have_stone()
+int			what_i_do(t_env *e)
 {
-	
+	int				need;
+	static int		last = -1;
+
+	printf("in what i do : last [%d]\n", last);
+	if (last == -1)
+		need = what_i_need(e, &e->user->player.ia);
+	else
+		need = last;
+	if (need == _ia_food)
+		find_item(e, _food);
+	else if (need == _ia_evolve)
+		try_to_evolve(e, &e->user->player.ia);
+	printf("in whar i do : last [%d]\n", last);
+	last = check_end(&e->user->player.ia, need);
+	return (last);
 }
 
 int			what_i_need(t_env *e, t_ia *ia)
 {
 	if (ia->inv[_food] < MIN_FOOD)
 		return (_ia_food);
+	else
+		return (_ia_evolve);
 	(void)e;
 /*	else if (ia->lvl < LVL_MAX)
 	{
@@ -130,19 +146,8 @@ int			is_in_sight(t_env *e, int type)
 	if (!e->user->player.ia.view)
 		return (0);
 	max = get_vision_nb_cell(e->user->player.ia.lvl);
-//	printf("vision in sight %d\n", e->user->nb_cmd);
-/*	int a;
-	a = 0;
-	t_inv *b;
-	while (a < get_vision_nb_cell(e->user->player.ia.lvl))
-	{
-		b = &e->user->player.ia.view[a];
-		printf("%d %d %d %d %d %d %d %d \n", *b[0], *b[1], *b[2], *b[3], *b[4], *b[5], *b[6], *b[7]);
-		a++;
-	}*/
 	while (++i < max)
 	{
-		printf("in is in sight | %d items in %d\n", e->user->player.ia.view[i][type], i);
 		if (e->user->player.ia.view[i][type] > 0)
 		{
 			j = 0;
@@ -150,11 +155,9 @@ int			is_in_sight(t_env *e, int type)
 			{
 				j++;
 			}
-			printf("i : %d // j : %d\n", i, get_vision_nb_cell(j));
+			e->user->player.ia.quantity = e->user->player.ia.view[i][type];
 			e->user->player.ia.destx = j;
 			e->user->player.ia.desty = j > 0 ? i - get_middle(e->user->player.ia.lvl) : 0;
-			e->user->player.ia.quantity = e->user->player.ia.view[i][type];
-			printf("dx : %d // dy : %d\n", e->user->player.ia.destx, e->user->player.ia.desty);
 			return (1);
 		}
 	}
@@ -198,8 +201,7 @@ int			find_item(t_env *e, int type)
 	if (is_in_sight(e, type))
 	{
 		go_to(e);
-		while (e->user->player.ia.quantity--)
-			add_todo(e, send_take_item, type_to_str(type));
+		add_todo(e, send_take_item, type_to_str(type));
 	}
 	else
 	{

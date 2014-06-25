@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 17:45:41 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 22:04:06 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void				broadcast(t_env *env, int cs)
 	while (++i < max_fd)
 		if (env->users[i]->type == FD_CLT && i != cs && !env->users[i]->gfx.gfx)
 			broadcast_one(env, msg, cs, i);
+	tmp_to_bc(&env->users[cs]->buf_write, "ok", 1);
 }

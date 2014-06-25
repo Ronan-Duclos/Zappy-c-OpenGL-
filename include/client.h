@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 19:17:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/25 21:38:17 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,27 @@ void				receive_ok_only(t_env *e);
 */
 void			try_ia(t_env *e);
 void			my_ia(t_env *e);
+
+/*
+**	c_find_item.c
+*/
+int			find_item(t_env *e, int type);
+
+/*
+**	c_evolve.c
+*/
+int		i_have_stone(t_ia *ia);
+void		try_to_evolve(t_env *e, t_ia *ia);
+
+/*
+**	c_goto_bc.v
+*/
+void		goto_bc(t_env *e);
+
+/*
+**	c_broadcas.c
+*/
+char	*make_broadcast(t_ia *ia);
 
 /*
 **	c_todo.c

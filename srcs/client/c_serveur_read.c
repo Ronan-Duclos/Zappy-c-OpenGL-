@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 19:18:20 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/25 21:18:53 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	rcv_serveur(t_env *e)
 		if (verify_bsn(&e->user->buf_read) == 1)
 		{
 			bc_to_tmp(&e->user->buf_read, e->user->buf_read_tmp);
-			printf("Receive : %s", e->user->buf_read_tmp);
+			printf("\033[33mReceive : \033[0m%s", e->user->buf_read_tmp);
 			make_cmd(e);
 		}
 	}

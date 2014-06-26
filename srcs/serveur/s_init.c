@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 00:55:45 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:59:43 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	init_player(t_env *e, int cs, int team)
 	}
 	else
 	{
-		printf("CLIENT CONNECTED ON EGG [%d][%d]\n", egg->x, egg->);
+		printf("CLIENT CONNECTED ON EGG [%d][%d]\n", egg->x, egg->y);
 		e->users[cs]->player.x = egg->x;
 		e->users[cs]->player.y = egg->y;
 		e->users[cs]->player.inv[_food] = NB_START_FOOD;

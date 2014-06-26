@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 13:47:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 13:24:49 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	destroy_clt(t_env *e, int sock)
 	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
 	e->users[sock]->ig = 0;
 	e->users[sock]->type = FD_FREE;
-	printf("Client disconnected : %d\n", sock);
+	printf("\033[31mClient disconnected \033[0m: %d\n", sock);
 }
 
 void	check_actions(t_env *e, int cs)

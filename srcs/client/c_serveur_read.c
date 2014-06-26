@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 22:46:01 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 14:46:37 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	queue_actions(t_env *e)
 		acts = e->user->player.acts;
 		acts[a_read].answer = ft_strdup(e->user->buf_read_tmp);
 		acts[a_read].fct_cmd(e);
-		free(acts[a_read].answer);
+		if (acts[a_read].answer)
+			free(acts[a_read].answer);
 		if (acts[a_read].cmd != NULL)
 			free(acts[a_read].cmd);
 		acts[a_read].cmd = NULL;
@@ -112,8 +113,10 @@ void	replace_calendar(t_env *e)
 		e->user->player.acts[i].time = 0;
 		if (e->user->player.acts[i].cmd != NULL)
 			free(e->user->player.acts[i].cmd);
+	e->user->player.acts[i].cmd = NULL; // rajout robin double free;
 		if (e->user->player.acts[i].answer != NULL)
 			free(e->user->player.acts[i].answer);
+	e->user->player.acts[i].answer = NULL; // rajout robin double free;
 	}
 	e->user->player.cur_aread = 0;
 	e->user->player.cur_awrite = 1;
@@ -121,6 +124,8 @@ void	replace_calendar(t_env *e)
 	e->user->player.acts[0].time = 1;
 	e->user->player.ia.lvlup = 1;
 	e->user->player.acts[0].fct_cmd = incantation;
+	while (e->user->player.ia.todo)
+		del_todo(e);
 }
 
 void	receive_broadcast(t_env *e)
@@ -128,6 +133,8 @@ void	receive_broadcast(t_env *e)
 	char	*tmp;
 
 	tmp = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
+	if (!tmp)
+		return ;
 	tmp[1] = '\0';
 	e->user->player.ia.bdc = ft_atoi(tmp);
 	tmp += 2;
@@ -152,6 +159,11 @@ void	make_cmd(t_env *e)
 				replace_calendar(e);
 			else if (verify_word(e->user->buf_read_tmp, "message") == 0)
 				receive_broadcast(e);
+			else if (verify_word(e->user->buf_read_tmp, "mort") == 0)
+			{
+				printf("t mort boule\n");
+				exit(0);
+			}
 			else
 				queue_actions(e);
 		}
@@ -176,7 +188,8 @@ void	rcv_serveur(t_env *e)
 		if (verify_bsn(&e->user->buf_read) == 1)
 		{
 			bc_to_tmp(&e->user->buf_read, e->user->buf_read_tmp);
-			printf("\033[33mReceive : \033[0m%s", e->user->buf_read_tmp);
+			if (e->me.v)
+				printf("\033[33mReceive : \033[0m%s", e->user->buf_read_tmp);
 			make_cmd(e);
 		}
 	}

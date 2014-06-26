@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 22:14:11 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 11:56:28 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <common.h>
 # include "libft.h"
 
-# define OPT		"nph"
+# define OPT		"nvph"
 
 # define FD_SRV			1
 # define FD_CLT			2
@@ -58,6 +58,7 @@ typedef struct		s_opt
 	char			*host;
 	int				x;
 	int				y;
+	int				v;
 }					t_opt;
 
 typedef int			(*t_fct_opt)(char **, t_opt *);

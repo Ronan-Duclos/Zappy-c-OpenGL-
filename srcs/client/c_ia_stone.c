@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 19:55:17 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/26 10:45:07 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:36:42 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int		i_have_stone(t_ia *ia)
 	i = 0;
 	while (++i < NB_STONE + 1)
 	{
-		printf("in i have stone (both): type [%d] lvl [%d] tot [%d] req [%d]\n", i, ia->lvl, ia->inv[i] + ia->view[0][i], g_lvlup[ia->lvl - 1][i]);
+//		printf("in i have stone (both): type [%d] lvl [%d] tot [%d] req [%d]\n", i, ia->lvl, ia->inv[i] + ia->view[0][i], g_lvlup[ia->lvl - 1][i]);
 		if (ia->inv[i] + ia->view[0][i] < g_lvlup[ia->lvl - 1][i])
 			return (-1);
 	}
 	i = 0;
 	while (++i < NB_STONE + 1)
 	{
-		printf("in i have stone (ground): type [%d] lvl [%d] tot [%d] req [%d]\n", i, ia->lvl, ia->view[0][i], g_lvlup[ia->lvl - 1][i]);
+//		printf("in i have stone (ground): type [%d] lvl [%d] tot [%d] req [%d]\n", i, ia->lvl, ia->view[0][i], g_lvlup[ia->lvl - 1][i]);
 		if (ia->view[0][i] < g_lvlup[ia->lvl - 1][i])
 			return (1);
 	}

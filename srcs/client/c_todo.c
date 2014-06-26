@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 21:48:43 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 00:56:14 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 13:40:29 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void		add_todo(t_env *e, void (*f)(), char *msg)
 	t_todo			*tmp;
 
 	new = (t_todo *)XV(NULL, malloc(sizeof(t_todo)), "malloc");
-	new->msg = msg;
+	new->msg = NULL;
+	if (msg)
+		new->msg = strdup(msg);
 	new->fct_send = f;
 	new->next = NULL;
 	tmp = e->user->player.ia.todo;
@@ -54,6 +56,13 @@ void		del_todo(t_env *e)
 	t_todo			*tmp;
 
 	tmp = e->user->player.ia.todo;
-	e->user->player.ia.todo = tmp->next;
-	free(tmp);
+	if (tmp)
+	{
+		e->user->player.ia.todo = tmp->next;
+		{
+			if (tmp->msg)
+				free(tmp->msg);
+			free(tmp);
+		}
+	}
 }

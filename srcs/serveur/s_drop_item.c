@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 19:47:23 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/25 23:20:55 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 12:12:35 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void			drop_item(t_env *e, int cs)
 	int			player_x;
 	int			player_y;
 
-	printf("drop_item\n");
 	item = e->users[cs]->player.acts[e->users[cs]->player.cur_aread].cmd;
 	player_x = e->users[cs]->player.x;
 	player_y = e->users[cs]->player.y;

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 04:30:33 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 15:08:46 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@ void	do_select(t_env *e, struct timeval *out)
 {
 	fd_set				*read;
 	fd_set				*write;
-	int					aw;
+//	int					aw;
 //	int					ar;
 
-	aw = e->user->player.cur_awrite;
+//	aw = e->user->player.cur_awrite;
 //	ar = e->user->player.cur_aread;
 	read = &e->fd_read;
 	write = &e->fd_write;
 	FD_SET(e->user->sock, read);
 	if (verify_bsn(&e->user->buf_write) == 1)
 		FD_SET(e->user->sock, write);
-	if (e->user->player.acts[aw].time == 0)
+//	if (e->user->player.acts[aw].time == 0)
 		e->r = select(e->user->sock + 1, read, write, NULL, out);
-	else
-		e->r = select(e->user->sock + 1, read, write, NULL, NULL);
+//	else
+//		e->r = select(e->user->sock + 1, read, write, NULL, NULL);
 }
 
 void	run_clt(t_env *e)

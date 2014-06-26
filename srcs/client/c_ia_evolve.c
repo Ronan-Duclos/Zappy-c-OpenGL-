@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 19:53:26 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 11:09:20 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 15:15:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		find_all_stone(t_env *e, t_ia *ia)
 
 int			player_ok(t_ia *ia)
 {
-	printf("PLAYER OK : nb have : [%d] nb need :[%d]\n", ia->view[0][_player] + 1,
+	printf("PLAYER OK : lvl [%d] nb have : [%d] nb need :[%d]\n", ia->lvl, ia->view[0][_player] + 1,
 		   g_lvlup[ia->lvl - 1][_player]);
 	if ((ia->view[0][_player] + 1) >= g_lvlup[ia->lvl - 1][_player])
 		return (1);
@@ -71,7 +71,7 @@ void		try_to_evolve(t_env *e, t_ia *ia)
 		if (stat == 1)
 		{
 			put_all_stone(e, ia);
-			add_todo(e, send_broadcast, make_broadcast(ia));
+//			add_todo(e, send_broadcast, make_broadcast(ia));
 		}
 		if (stat == 0 && player_ok(ia))
 		{

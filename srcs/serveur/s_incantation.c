@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 23:28:30 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 12:47:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,10 @@ void			incantation(t_env *e, int cs)
 	if (good == 1 && last_inc(e, cs) == 1)
 		end_incant(e, cs, good);
 	if (good == 1)
+	{
 		(*lvl)++;
+		printf("Client [%d] level up to %d\n", cs, *lvl);
+	}
 	gfx_send_npc(e, cs, gfx_plv);
 	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
 	tmp_to_bc(&e->users[cs]->buf_write, "", 1);

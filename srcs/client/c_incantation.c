@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:00:17 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 21:45:31 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 10:59:47 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	send_incantation(t_env *e)
 	acts->time = 1;
 	acts->fct_cmd = incantation;
 	tmp_to_bc(&e->user->buf_write, "incantation", 1);
+//	add_todo(e, send_fork, NULL);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;
 }

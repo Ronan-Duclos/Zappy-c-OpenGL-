@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 14:58:39 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/18 21:36:28 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:09:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ int				get_serv_opt(t_opt *opt, int argc, char **argv)
 	int						c;
 	static t_fct_opt		fct[] = {
 
-	get_port, get_x, get_y, get_name, get_client, get_time};
+	get_port, get_x, get_y, get_name, get_client, get_time, get_verbose};
 	i = 1;
+	opt->v = 0;
 	while (argv[i])
 		if (argv[i][0] == '-')
 		{

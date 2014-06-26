@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 17:46:11 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:10:01 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <common.h>
 # include <conf.h>
 
-# define 			OPT				"pxynct"
+# define 			OPT				"pxynctv"
 # define			GCMD_NB			4
 
 # define			FD_SRV			1
@@ -63,6 +63,7 @@ typedef struct		s_opt
 	char			**name;
 	int				client;
 	int				time;
+	int				v;
 }					t_opt;
 
 typedef struct		s_gfx
@@ -171,6 +172,7 @@ typedef int			(*t_fct_opt)(char **, t_opt *);
  */
 int					get_serv_opt(t_opt *opt, int argc, char **argv);
 int					get_port(char **argv, t_opt *opt);
+int					get_verbose(char **argv, t_opt *opt);
 int					get_x(char **argv, t_opt *opt);
 int					get_y(char **argv, t_opt *opt);
 int					get_client(char **argv, t_opt *opt);

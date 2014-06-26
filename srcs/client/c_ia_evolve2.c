@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 19:53:26 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 21:42:06 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:42:41 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void		try_to_evolve(t_env *e, t_ia *ia)
 		if (player_ok(ia))
 		{
 			put_all_stone(e, ia);
-			add_todo(e, send_incantation, "");
 		}
 		else
 			add_todo(e, send_broadcast, make_broadcast(ia));

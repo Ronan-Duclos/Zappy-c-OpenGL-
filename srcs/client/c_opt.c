@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:29:22 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/23 19:01:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:05:20 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ int				get_port(char **argv, t_opt *opt)
 int				get_name(char **argv, t_opt *opt)
 {
 	opt->name = ft_strdup(argv[1]);
+	return (1);
+}
+
+int				get_verbose(char **argv, t_opt *opt)
+{
+	(void)argv;
+	opt->v = 1;
 	return (1);
 }
 
@@ -63,12 +70,10 @@ int				get_clt_opt(t_opt *opt, int argc, char **argv)
 	int						c;
 	static t_fct_opt		fct[] = {
 
-	get_name,
-	get_port,
-	get_host,
-	};
+	get_name, get_verbose, get_port, get_host};
 	i = 1;
 	ft_bzero(opt, sizeof(opt));
+	opt->v = 0;
 	while (--argc && argv[i])
 	{
 		if (argv[i][0] == '-')

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:35:59 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 13:44:40 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:41:55 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			str_to_type(char *str)
 		return (_thystame);
 	else if (strcmp(str, "mendiane") == 0)
 		return (_mendiane);
-	else if (strcmp(str, "player") == 0)
+	else if (strcmp(str, "joueur") == 0)
 		return (_player);
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:24:20 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 21:18:06 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 11:59:39 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		check_word(char *str, char *str2)
 	}
 	return (0);
 }
-
+/*
 void	rcv_keyboard(t_env *e)
 {
 	char	*line;
@@ -61,14 +61,15 @@ void	rcv_keyboard(t_env *e)
 		send_connect_nbr(e);
 	free(line);
 }
-
+*/
 void	send_serveur(t_env *e)
 {
 	int		i;
 
 	bc_to_tmp(&e->user->buf_write, e->user->buf_write_tmp);
 	i = ft_strlen(e->user->buf_write_tmp);
-	printf("\033[32mSend : \033[0m%s", e->user->buf_write_tmp);
+	if (e->me.v)
+		printf("\033[32mSend : \033[0m%s", e->user->buf_write_tmp);
 	send(e->user->sock, e->user->buf_write_tmp, i, 0);
 	ft_bzero(e->user->buf_write_tmp, i);
 }

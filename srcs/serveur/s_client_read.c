@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 22:13:25 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 12:13:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ char			*get_cmd_arg(char *cmd)
 	char		*ret;
 
 	i = 0;
-	printf("get_cmd_arg %s\n", cmd);
 	ret = NULL;
 	while (cmd[i] != '\0' && cmd[i] != ' ')
 		i++;
@@ -131,7 +130,6 @@ char			*get_cmd_arg(char *cmd)
 	else
 		return (NULL);
 	ret = ft_strdup(cmd + i);
-	printf("get_cmd_arg: retL [%s]\n", ret);
 	return (ret);
 }
 
@@ -153,7 +151,6 @@ void			remove_actions(t_user *user, double time)
 	user->player.cur_aread = 0;
 	user->player.cur_awrite = 0;
 	read = 0;
-	printf("rem_act: %f\n", time);
 	acts[read].time = time;
 	acts[read].fct_cmd = g_tab[9].fct_cmd;
 	user->player.cur_awrite = 1;
@@ -258,7 +255,9 @@ void			client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			printf("Receive from %d : %s", cs, e->users[cs]->buf_read_tmp);
+			if (e->opt.v)
+				printf("\033[33mReceive from %d \033[0m: %s", 
+					cs, e->users[cs]->buf_read_tmp);
 			make_cmd(e, cs);
 			e->users[cs]->buf_read_tmp[0] = '\0';
 		}

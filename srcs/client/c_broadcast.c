@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:56:12 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 21:37:27 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 13:14:05 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ void	send_broadcast(t_env *e, char *msg)
 	static char		buf[BUF_SIZE];
 
 	bzero(buf, BUF_SIZE);
-	strcpy(buf, "broadcast ");
-	strcpy(buf + 10, msg);
+	sprintf(buf, "broadcast %s", msg);
 	a_write = e->user->player.cur_awrite;
 	acts = &e->user->player.acts[a_write];
 	acts->time = 0;
-	acts->cmd = ft_strdup(buf);
+	acts->cmd = strdup(buf);
 	acts->fct_cmd = receive_ok_only;
 	tmp_to_bc(&e->user->buf_write, buf, 1);
 	e->user->player.cur_awrite = (e->user->player.cur_awrite + 1) % 10;

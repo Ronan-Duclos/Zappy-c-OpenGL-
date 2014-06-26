@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 23:50:43 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 14:54:57 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static int			get_dir_broadcast(t_env *env, t_player *p1, t_player *p2)
 	res = abs(dx) < abs(dy) && dy > 0 ? 1 : res;
 	res = abs(dx) < abs(dy) && dy < 0 ? 5 : res;
 	res += p2->direc * 2;
-	printf("in bc : res [%d] dx [%d] dy[%d]\n", res, dx, dy);
 	return (res > 8 ? res - 8 : res);
 }
 
@@ -46,7 +45,7 @@ static int			broadcast_one(t_env *env, char *msg, int ori, int cs)
 	char		buf[4096];
 
 	bzero(buf, 4096);
-	sprintf(buf, "message %d, %s", get_dir_broadcast(env,
+	sprintf(buf, "message %d,%s", get_dir_broadcast(env,
 				&env->users[ori]->player, &env->users[cs]->player), msg);
 	tmp_to_bc(&env->users[cs]->buf_write, buf, 1);
 	return (0);

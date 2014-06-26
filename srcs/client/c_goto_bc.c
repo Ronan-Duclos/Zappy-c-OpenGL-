@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 18:39:05 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 00:00:00 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 13:00:30 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void		goto_bc(t_env *e)
 		add_todo(e, send_move_forward, NULL);
 	else if (dir == 0)
 		add_todo(e, send_incantation, NULL);
-	free(e->user->player.ia.msg);
+	if (e->user->player.ia.msg)
+		free(e->user->player.ia.msg);
 	e->user->player.ia.msg = NULL;
 	e->user->player.ia.bdc = -1;
 }

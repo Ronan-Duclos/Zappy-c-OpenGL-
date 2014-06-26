@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:28:45 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 18:34:00 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:17:13 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	normalize(GLdouble vec[3])
 	vec[2] /= mag;
 }
 
-/*
-**	Modifies direction dir[3] according to origin o[3].
-*/
 void	getdir(GLdouble o[3], GLdouble dir[3])
 {
 	dir[0] -= o[0];

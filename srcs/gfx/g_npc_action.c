@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 02:15:40 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 17:56:26 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:41:13 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@ void		add_mob(int npc, int x, int y, enum e_dir direc)
 	sq->mobs = new_link(sq->mobs, mob);
 }
 
-/*
-**	Moves a player npc from his current position to (x,y) and
-**	sets his orientation to dir. Of course, inits animations
-**	in order to reflect those transformations.
-*/
 void		move_mob(int npc, int x, int y, enum e_dir dir)
 {
 	t_npc	*player;

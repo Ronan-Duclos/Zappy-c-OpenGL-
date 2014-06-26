@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:39:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 05:28:58 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:09:53 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	init_tex_coord(GLfloat **texcoord)
 
 	j = 0;
 	i = 0;
-	*texcoord = (GLfloat *)XV(NULL, malloc(sizeof(GLfloat) * 2 * 4 * 8), "malloc");
+	*texcoord = (GLfloat *)XV(NULL, malloc(sizeof(GLfloat) * 2 * 4 * 8),
+							"malloc");
 	while (i < 64)
 	{
 		j = (i / 8) + 4 + ((i / 8) / 2 * 6);
@@ -43,7 +44,6 @@ static void	display_square(int i)
 	-1.0, 0.0, -1.0, 1.0, 0.0, -1.0, 1.0, 0.0, 1.0, -1.0, 0.0, 1.0,
 	0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0
 	};
-
 	if (!texcoord)
 		init_tex_coord(&texcoord);
 	glNormalPointer(GL_FLOAT, 0, vertices + 12);
@@ -59,27 +59,21 @@ static void	display_square(int i)
 	glEnd();
 }
 
-void	display_all_squares(void)
+void		display_all_squares(void)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	glCallList(g_env->lists[_white]);
 	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, g_env->maptex);
-	while (i < g_env->mapw * g_env->maph)
+	while (++i < g_env->mapw * g_env->maph)
 	{
 		if (g_env->realpos0y[0] > i % g_env->mapw * 2.0 + 3.0
 			|| g_env->realposxy[0] < i % g_env->mapw * 2.0 - 3.0
 			|| g_env->realposxy[2] > i / g_env->mapw * 2.0 + 3.0
 			|| g_env->realpos00[2] < i / g_env->mapw * 2.0 - 3.0)
-		{
-			i++;
 			continue ;
-		}
 		glPushMatrix();
 		if (i == g_env->selectcase)
 			glCallList(g_env->lists[_highlight]);
@@ -88,9 +82,5 @@ void	display_all_squares(void)
 		if (i == g_env->selectcase)
 			glCallList(g_env->lists[_white]);
 		glPopMatrix();
-		i++;
 	}
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

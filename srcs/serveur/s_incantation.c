@@ -13,16 +13,7 @@
 #include <serveur.h>
 #include <common.h>
 #include <libft.h>
-
-static int		g_lvlup[7][8] = {
-	{0, 1, 0, 0, 0, 0, 0, 1},
-	{0, 1, 1, 1, 0, 0, 0, 2},
-	{0, 2, 0, 1, 0, 2, 0, 2},
-	{0, 1, 1, 2, 0, 1, 0, 4},
-	{0, 1, 2, 1, 3, 0, 0, 4},
-	{0, 1, 2, 3, 0, 1, 0, 6},
-	{0, 2, 2, 2, 2, 2, 1, 6}
-};
+#include <global.h>
 
 static void	disperse_stone(t_env *e, int cs, int good)
 {
@@ -70,13 +61,18 @@ int				last_inc(t_env *e, int cs)
 	int			x;
 	int			y;
 	t_user		*tmp;
+	int			sock;
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
 	tmp = e->map[y][x].player;
-
+	sock = tmp->sock;
 	while (tmp && tmp->next != NULL)
+	{
+		if (tmp->sock > sock)
+			sock = tmp->sock;
 		tmp = tmp->next;
+	}
 	if (tmp->sock == cs)
 		return (1);
 	return (0);

@@ -68,7 +68,7 @@ void		try_to_evolve(t_env *e, t_ia *ia)
 		find_all_stone(e, ia);
 	else
 	{
-		if (stat != 0)
+		if (stat == 1)
 			put_all_stone(e, ia);
 		if (player_ok(ia))
 		{

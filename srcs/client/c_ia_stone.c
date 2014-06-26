@@ -42,9 +42,9 @@ int		cmp_inv_view(int good_view[7], int good_inv[7])
 		if (good_inv[i] == 0)
 			good2 = 0;
 	}
-	if (good1 == 0)
+	if (good1 == 1)
 		return (0);
-	else if (good2 == 0)
+	else if (good2 == 1)
 		return (1);
 	else
 		return (2);

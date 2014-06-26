@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/25 20:44:36 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/26 17:44:56 by caupetit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,12 @@ SERV_SRC=s_incantation.c \
 	s_opt2.c \
 	s_gfx.c \
 	s_gfx_cmd.c \
+	s_gfx_cmd_recv.c \
+	s_gfx_egg.c \
+	s_gfx_map.c \
+	s_gfx_npc.c \
+	s_gfx_npc_action.c \
+	s_gfx_send.c \
 	s_gfx_init.c \
 	s_gfx_lst.c \
 	s_generate_map.c \
@@ -96,6 +102,10 @@ GFX_SRC=g_main.c \
 	g_fds.c \
 	g_cmd_check.c \
 	g_cmd.c \
+	g_cmd_connect.c \
+	g_cmd_npc_action.c \
+	g_cmd_npc.c \
+	g_cmd_pnw.c \
 	g_cmd_send.c \
 	g_cmd_egg.c \
 	g_map.c \

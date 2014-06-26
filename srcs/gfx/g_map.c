@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 23:38:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 02:31:04 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:09:09 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void		map_init(void)
 	int		j;
 
 	size = g_env->mapw * g_env->maph;
-	g_env->sq = (t_square *)XV(NULL, malloc(sizeof(t_square) * (size + 1)), "map");
+	g_env->sq = (t_square *)XV(NULL,
+							malloc(sizeof(t_square) * (size + 1)), "map");
 	bzero(g_env->sq, sizeof(t_square) * (size + 1));
 	i = -1;
 	while (++i < size)

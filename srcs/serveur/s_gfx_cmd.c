@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 14:18:00 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 18:06:17 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:46:54 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static t_gcmd	*gfx_cmds_get(void)
 	static t_gcmd	cmd[GCMD_NB] =
 
 	{
-		{"pin", gcmd_pin},
-		{"plv", gcmd_plv},
-		{"smg", gcmd_smg},
-		{"sgt", gcmd_sgt}
+	{"pin", gcmd_pin},
+	{"plv", gcmd_plv},
+	{"smg", gcmd_smg},
+	{"sgt", gcmd_sgt}
 	};
 	return (cmd);
 }
@@ -43,52 +43,6 @@ int				get_next_int(int *nb, char *s)
 		i++;
 	}
 	return (i);
-}
-
-void			gcmd_pin(t_env *e, int cs, char *cmd)
-{
-	int		i;
-	int		npc;
-
-	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
-		i++;
-	i += get_next_int(&npc, &cmd[i]);
-	if (npc >= e->srv.max_fd || !e->users[npc]->ig)
-		return ;
-	gfx_pin(e, cs, npc);
-}
-
-void			gcmd_plv(t_env *e, int cs, char *cmd)
-{
-	int		i;
-	int		npc;
-
-	i = 0;
-	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
-		i++;
-	i += get_next_int(&npc, &cmd[i]);
-	if (npc >= e->srv.max_fd || !e->users[npc]->ig)
-		return ;
-	gfx_plv(e, cs, npc);
-}
-
-void			gcmd_smg(t_env *e, int cs, char *msg)
-{
-	int		i;
-
-	(void)cs;
-	i = 0;
-	while (msg[i] && (msg[i] == ' ' || msg[i] == '#'))
-		i++;
-	if (!strncmp(&msg[i], "GO", 3))
-		gfx_end_init(e);
-}
-
-void			gcmd_sgt(t_env *e, int cs, char *cmd)
-{
-	(void)cmd;
-	gfx_sgt(e, cs);
 }
 
 void			gfx_cmd_check(t_env *e, int cs, char *buf)

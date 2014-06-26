@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:53:33 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 21:32:40 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ t_anim	*new_anim(int frame, int time, void (*fct)(t_anim *))
 	return (new);
 }
 
-/*
-**	Animates a model: He moves upwards, turning on itself while shrinking.
-*/
 void	anim_rock(t_anim *a)
 {
 	double	i;
@@ -40,9 +37,6 @@ void	anim_rock(t_anim *a)
 		a->dead = 1;
 }
 
-/*
-**	I used a sin(frame) on the y axis to move the player up and down.
-*/
 void	anim_mob(t_anim *a)
 {
 	float	i;

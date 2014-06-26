@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 23:27:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:15:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void			send_start(t_env *e, int cs)
 	int				*ar;
 	char			buf[25];
 
+	put_user_on_map(e, cs);
 	ar = &e->users[cs]->player.cur_aread;
 	nb_connect = e->users[cs]->player.acts[*ar].cmd;
 	tmp_to_bc(&e->users[cs]->buf_write, nb_connect, 1);

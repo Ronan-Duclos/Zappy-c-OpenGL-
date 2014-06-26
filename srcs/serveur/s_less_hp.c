@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 22:03:06 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 18:57:07 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 23:29:00 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <common.h>
 #include <math.h>
 
-int		lost_food(int sig)
+int			lost_food(int sig)
 {
 	static int	food;
 
@@ -27,7 +27,7 @@ int		lost_food(int sig)
 	return (0);
 }
 
-void	generate_food(t_env *e)
+void		generate_food(t_env *e)
 {
 	int		nb;
 	int		x;
@@ -51,43 +51,49 @@ void	generate_food(t_env *e)
 	}
 }
 
+void		less_one_team(t_env *e, t_egg *egg, double now, int i)
+{
+	double		dec;
+
+	while (egg)
+	{
+		dec = now - egg->t_last;
+		if (now > egg->t_eclos && egg->eclos == 0)
+		{
+			egg->eclos = 1;
+			gfx_send_egg(e, egg, gfx_eht);
+		}
+		if (dec > 0 && (dec / ((double)(126 * 1000000) / e->opt.time)) > 1)
+		{
+			egg->t_last = now;
+			egg->food = egg->food - dec / (double)(126 * 1000000) / e->opt.time;
+		}
+		if (egg->food <= 0)
+		{
+			gfx_send_egg(e, egg, gfx_edi);
+			del_egg(&e->team[i]);
+			e->team[i].member--;
+		}
+		egg = egg->next;
+	}
+}
+
 void		less_hp_eggs(t_env *e)
 {
 	int			i;
 	t_egg		*egg;
 	double		now;
-	double		dec;
 
 	now = ft_usec_time();
 	i = -1;
 	while (e->opt.name[++i])
 	{
 		egg = e->team[i].eggs;
-		while (egg)
-		{
-			dec = now - egg->t_last;
-			if (now > egg->t_eclos && egg->eclos == 0)
-			{
-				egg->eclos = 1;
-				gfx_send_egg(e, egg, gfx_eht);
-			}
-			if (dec > 0 && (dec / ((double)(126 * 1000000) / e->opt.time)) > 1)
-			{
-				egg->t_last = now;
-				egg->food = egg->food - dec / (double)(126 * 1000000) / e->opt.time;
-			}
-			if (egg->food <= 0)
-			{
-				gfx_send_egg(e, egg, gfx_edi);
-				del_egg(&e->team[i]);
-				e->team[i].member--;
-			}
-			egg = egg->next;
-		}
+		less_one_team(e, egg, now, i);
 	}
 }
 
-int		less_hp(t_env *e, int cs)
+int			less_hp(t_env *e, int cs)
 {
 	double	now;
 	double	less;

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:57:09 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 04:22:02 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 23:32:38 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	drop_item(t_env *e)
 	}
 	acts->time = 0;
 }
-
 
 void	send_drop_item(t_env *e, char *item)
 {

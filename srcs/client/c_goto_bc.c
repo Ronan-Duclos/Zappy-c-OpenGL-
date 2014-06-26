@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 18:39:05 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 20:54:06 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:33:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void		goto_bc(t_env *e)
 {
 	int			dir;
+
 	dir = e->user->player.ia.bdc;
 	if (dir == 4 || dir == 5)
 		add_todo(e, send_turn_left, NULL);

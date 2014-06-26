@@ -6,10 +6,11 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:14:10 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 14:50:57 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:30:20 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <common.h>
 #include <sys/time.h>
 #include <time.h>
 #include <stdio.h>
@@ -18,7 +19,7 @@ double			ft_usec_time(void)
 {
 	struct timeval			tv;
 	struct timezone			tz;
-	struct tm				*tm;
+	t_tm					*tm;
 	double					my_time;
 
 	gettimeofday(&tv, &tz);

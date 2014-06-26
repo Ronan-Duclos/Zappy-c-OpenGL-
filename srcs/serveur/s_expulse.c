@@ -6,13 +6,13 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:22:16 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/16 23:22:56 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 23:07:29 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <serveur.h>
 #include <common.h>
 
-void	expulse_north(t_env *e, t_user *expulsed)
+void			expulse_north(t_env *e, t_user *expulsed)
 {
 	int		cs;
 	int		direc;
@@ -38,7 +38,7 @@ void	expulse_north(t_env *e, t_user *expulsed)
 	tmp_to_bc(&expulsed->buf_write, "\0", 1);
 }
 
-void	expulse_south(t_env *e, t_user *expulsed)
+void			expulse_south(t_env *e, t_user *expulsed)
 {
 	int		cs;
 	int		direc;
@@ -61,7 +61,7 @@ void	expulse_south(t_env *e, t_user *expulsed)
 	tmp_to_bc(&expulsed->buf_write, "\0", 1);
 }
 
-void	expulse_west(t_env *e, t_user *expulsed)
+void			expulse_west(t_env *e, t_user *expulsed)
 {
 	int		cs;
 	int		direc;
@@ -87,11 +87,11 @@ void	expulse_west(t_env *e, t_user *expulsed)
 	tmp_to_bc(&expulsed->buf_write, "\0", 1);
 }
 
-void	expulse_east(t_env *e, t_user *expulsed)
+void			expulse_east(t_env *e, t_user *expulsed)
 {
 	int		cs;
 	int		direc;
-	
+
 	cs = expulsed->sock;
 	direc = 5;
 	remove_user_on_map(e, cs);
@@ -110,12 +110,12 @@ void	expulse_east(t_env *e, t_user *expulsed)
 	tmp_to_bc(&expulsed->buf_write, "\0", 1);
 }
 
-void		expulse(t_env *e, int cs)
+void			expulse(t_env *e, int cs)
 {
-	t_player	*me;
-	t_user		*expulsed;
-	int			i;
-	void		(*fct_direc[4])() = {
+	t_player			*me;
+	t_user				*expulsed;
+	int					i;
+	static void			(*fct_direc[4])() = {
 
 	expulse_north,
 	expulse_east,

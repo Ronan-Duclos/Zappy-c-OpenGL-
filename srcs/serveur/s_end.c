@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/21 20:15:55 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/23 16:58:29 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:05:23 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	verify_win(t_env *e, int cs)
 			{
 				e->msg_end = 1;
 				gfx_send_npc(e, cs, gfx_seg);
-				// add cmd de fin de jeux serveur.
 			}
 		}
 	}

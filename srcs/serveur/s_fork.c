@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:49 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/24 01:19:39 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:12:09 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <common.h>
 #include <libft.h>
 
-void		del_egg(t_team *team)
+void			del_egg(t_team *team)
 {
 	t_egg			*egg;
 	t_egg			*tmp;
@@ -27,19 +27,20 @@ void		del_egg(t_team *team)
 		free(egg);
 	}
 }
-/*
-t_egg		*egg_available(double time, t_egg *lst)
+
+t_egg			*new_egg(int x, int y, int cs)
 {
-	while (lst)
-	{
-		if (lst->t_eclos > time)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
+	t_egg			*new;
+
+	new = (t_egg *)XV("NULL", malloc(sizeof(t_egg)), "malloc");
+	bzero(new, sizeof(t_egg));
+	new->x = x;
+	new->y = y;
+	new->cs = cs;
+	return (new);
 }
-*/
-void		add_egg(t_env *e, int cs)
+
+void			add_egg(t_env *e, int cs)
 {
 	t_egg			*new;
 	t_player		*p;
@@ -47,12 +48,8 @@ void		add_egg(t_env *e, int cs)
 	static int		id;
 	int				i;
 
-	new = (t_egg *)XV("NULL", malloc(sizeof(t_egg)), "malloc");
-	bzero(new, sizeof(t_egg));
 	p = &e->users[cs]->player;
-	new->x = p->x;
-	new->y = p->y;
-	new->cs = cs;
+	new = new_egg(p->x, p->y, cs);
 	new->food = NB_START_FOOD;
 	new->next = NULL;
 	new->t_eclos = ft_usec_time() + 600 * (1000000 / e->opt.time);
@@ -71,7 +68,7 @@ void		add_egg(t_env *e, int cs)
 	gfx_send_egg(e, new, gfx_enw);
 }
 
-void	my_fork(t_env *e, int cs)
+void			my_fork(t_env *e, int cs)
 {
 	int		i;
 
@@ -90,7 +87,7 @@ void	my_fork(t_env *e, int cs)
 		}
 }
 
-void	gfx_fork(t_env *e, int cs)
+void			gfx_fork(t_env *e, int cs)
 {
 	gfx_send_npc(e, cs, gfx_pfk);
 }

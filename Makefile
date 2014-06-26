@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/26 18:51:38 by tmielcza         ###   ########.fr        #
+#    Updated: 2014/06/26 23:38:53 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SERV_SRC=s_incantation.c \
 	s_gfx_lst.c \
 	s_generate_map.c \
 	s_init.c \
+	s_init2.c \
 	s_client_read.c \
 	s_client_write.c \
 	s_deal_fd.c \
@@ -74,6 +75,7 @@ CLT_SRC=c_main.c \
 	c_todo.c \
 	c_init.c \
 	c_opt.c \
+	c_opt2.c \
 	c_serveur_read.c \
 	c_serveur_write.c \
 	c_lex_inv.c \

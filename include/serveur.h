@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 17:44:26 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:04:01 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void				remove_actions(t_user *user, double time);
 /*
 **	s_deal_fd.c
 */
+void				check_actions(t_env *e, int cs);
 void				create_clt(t_env *e, int s);
 void				destroy_clt(t_env *e, int sock);
 void				init_fd(t_env *e);

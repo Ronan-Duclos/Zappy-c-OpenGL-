@@ -6,11 +6,10 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 17:44:55 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:21:42 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/resource.h> //linux
 #include "serveur.h"
 #include "common.h"
 #include "libft.h"
@@ -68,38 +67,35 @@ void	add_start_cal(t_env *e, int cs, int team)
 	act->start = 0;
 	act->fct_cmd = send_start;
 	act->fct_gfx = NULL;
-	*aw = (*aw + 1)  % 10;
+	*aw = (*aw + 1) % 10;
 }
 
 void	init_player(t_env *e, int cs, int team)
 {
-	t_player		*p;
 	double			time;
 	t_egg			*egg;
 
-	p = &e->users[cs]->player;
-	p->inc = 0;
-	p->direc = rand() % 4;
+	e->users[cs]->player.inc = 0;
+	e->users[cs]->player.direc = rand() % 4;
+	e->users[cs]->player.lvl = 1;
 	time = ft_usec_time();
 	if ((egg = e->team[team].eggs) == NULL)
 	{
-		p->x = rand() % e->opt.x;
-		p->y = rand() % e->opt.y;
-		p->inv[_food] = NB_START_FOOD;
+		e->users[cs]->player.x = rand() % e->opt.x;
+		e->users[cs]->player.y = rand() % e->opt.y;
+		e->users[cs]->player.inv[_food] = NB_START_FOOD;
 		e->users[cs]->time = time;
 	}
 	else
 	{
-		p->x = egg->x;
-		p->y = egg->y;
-		p->inv[_food] = egg->food;
+		e->users[cs]->player.x = egg->x;
+		e->users[cs]->player.y = egg->y;
+		e->users[cs]->player.inv[_food] = egg->food;
 		e->users[cs]->time = egg->t_eclos;
 		gfx_send_egg(e, egg, gfx_ebo);
 		del_egg(&e->team[team]);
 	}
-	p->lvl = 1;
 	add_start_cal(e, cs, team);
-	put_user_on_map(e, cs);
 }
 
 void	init_users(t_env *e)
@@ -127,18 +123,4 @@ void	init_users(t_env *e)
 		e->users[i]->fct_write = client_write;
 		i++;
 	}
-}
-
-void	init_serv(t_env *e)
-{
-	int		i;
-
-	e->srv.glst = NULL;
-	i = init_sock(e->opt.port, e);
-	e->repop = ft_usec_time() + ((126 * 1000000) / e->opt.time);
-	e->srv.time = 2000000000000;
-	e->users[i]->fct_read = create_clt;
-	e->users[i]->fct_write = client_write;
-	e->users[i]->type = FD_SRV;
-	e->end = 0;
 }

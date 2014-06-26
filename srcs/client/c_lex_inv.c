@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 14:47:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 02:44:12 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 23:36:15 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void		get_inventaire(t_env *e, char *str)
 
 	i = 1;
 	j = 0;
-/*	e->user->player.ia.cur_todo = e->user->player.ia.cur_todo->next;*/
 	bzero(e->user->player.ia.inv, sizeof(t_inv));
 	while (j++ < 6 + 1)
 	{
@@ -74,9 +73,6 @@ void		get_inventaire(t_env *e, char *str)
 			i++;
 		else if (str[i] == '}')
 			return ;
-		else
-			return ;
 	}
-	printf("INVENAIRE DONE\n");
 	return ;
 }

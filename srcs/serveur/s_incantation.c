@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 17:45:10 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:11:39 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		g_lvlup[7][8] = {
 	{0, 2, 2, 2, 2, 2, 1, 6}
 };
 
-static void	disperse_stone(t_env *e, int cs, int good)
+static void		disperse_stone(t_env *e, int cs, int good)
 {
 	int		nb_stone;
 	int		i;

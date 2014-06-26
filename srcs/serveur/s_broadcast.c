@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 16:44:34 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 23:28:12 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 22:58:50 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void				broadcast(t_env *env, int cs)
 	tmp_to_bc(&env->users[cs]->buf_write, "ok", 1);
 }
 
-void			gfx_broadcast(t_env *env, int cs)
+void				gfx_broadcast(t_env *env, int cs)
 {
 	char		*msg;
 

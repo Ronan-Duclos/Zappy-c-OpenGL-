@@ -6,11 +6,11 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 13:47:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:03:19 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <conf.h>
+#include <conf.h>
 #include "libft.h"
 #include <serveur.h>
 
@@ -77,10 +77,8 @@ void	check_actions(t_env *e, int cs)
 		{
 			e->users[cs]->player.acts[*nb_acts].fct_cmd(e, cs);
 			if (e->users[cs]->player.acts[*nb_acts].cmd != NULL)
-			{
 				free(e->users[cs]->player.acts[*nb_acts].cmd);
-				e->users[cs]->player.acts[*nb_acts].cmd = NULL;
-			}
+			e->users[cs]->player.acts[*nb_acts].cmd = NULL;
 			*nb_acts = (*nb_acts + 1) % 10;
 			acts->time = 0;
 		}
@@ -90,31 +88,6 @@ void	check_actions(t_env *e, int cs)
 				e->users[cs]->player.acts[*nb_acts].fct_gfx(e, cs);
 			acts->start = 0;
 		}
-	}
-}
-
-void	init_fd(t_env *e)
-{
-	int		i;
-
-	i = 0;
-	FD_ZERO(&e->srv.fd_read);
-	FD_ZERO(&e->srv.fd_write);
-	e->srv.max = 3;
-	while (i < (e->srv.max_fd))
-	{
-		if (e->users[i]->type != FD_FREE)
-		{
-			if (e->users[i]->type == FD_CLT && e->users[i]->ig == 1
-				&& !e->users[i]->gfx.gfx)
-				check_actions(e, i);
-			FD_SET(i, &e->srv.fd_read);
-			if (verify_bsn(&e->users[i]->buf_write) == 1)
-				FD_SET(i, &e->srv.fd_write);
-			if (e->srv.max < i)
-				e->srv.max = i;
-		}
-		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 12:10:01 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 15:30:44 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ void				gfx_turn_left(t_env *e, int cs);
 void				gfx_take_item(t_env *e, int cs);
 void				gfx_drop_item(t_env *e, int cs);
 void				gfx_fork(t_env *e, int cs);
+void				gfx_broadcast(t_env *env, int cs);
 void				make_incantations(t_env *e, int cs);
 
 /*

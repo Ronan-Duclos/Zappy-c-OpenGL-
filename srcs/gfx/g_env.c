@@ -6,13 +6,42 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 17:27:40 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/25 18:39:01 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/resource.h>
 #include <strings.h>
 #include "gfx_gl.h"
+
+static void	team_colors_init(GLfloat teamcol[TEAM_COLORS][3])
+{
+	int		i;
+	int		j;
+	int		k;
+	GLfloat	tmp;
+
+	i = 0;
+	j = -1;
+	while (i / 3 < TEAM_COLORS)
+	{
+		teamcol[i / 3][i % 3] = 0.25 * (i % 5);
+		teamcol[i / 3 + 1][(i + 1) % 3] = 0.25 * ((i + 1) / 5 % 5);
+		teamcol[i / 3 + 2][(i + 2) % 3] = 0.25 * ((i + 1) / 5 / 5);
+		i += 3;
+	}
+	while (++j < TEAM_COLORS)
+	{
+		i = -1;
+		k = rand() % TEAM_COLORS;
+		while (++i < 3)
+		{
+			tmp = teamcol[j][i];
+			teamcol[j][i] = teamcol[k][i];
+			teamcol[k][i] = tmp;
+		}
+	}
+}
 
 static void	lists_init(t_env *env)
 {
@@ -67,4 +96,5 @@ void		env_init(t_env *env)
 	list_pink_init();
 	list_cyan_init();
 	list_highlight_init();
+	team_colors_init(g_env->teamcol);
 }

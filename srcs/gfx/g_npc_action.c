@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 02:15:40 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 22:55:26 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:56:26 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,18 @@ void		lower_mob(int npc)
 	p = g_env->npc + npc;
 	move_init(((t_mob *)(*mob)->content)->move, p->x, -1, p->y);
 	((t_mob *)(*mob)->content)->move->fct = anim_move2;
+}
+
+void		broadcast(int npc)
+{
+	t_npc	*p;
+	t_anim	*a;
+	t_item	*item;
+	t_list	**anims;
+
+	p = g_env->npc + npc;
+	a = new_anim(0, T_BROADCAST * FPS / g_env->time, anim_rock);
+	item = new_item(g_env->lists[_init_talk], _mod_talk, a, display_any);
+	anims = &g_env->sq[p->x + p->y * g_env->mapw].anims;
+	*anims = new_link(*anims, item);
 }

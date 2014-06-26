@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/26 17:44:56 by caupetit         ###   ########.fr        #
+#    Updated: 2014/06/26 18:51:38 by tmielcza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,7 +141,8 @@ GFX_SRC=g_main.c \
 	g_npc.c \
 	g_display_players.c \
 	g_rot.c \
-	g_incant_action.c
+	g_incant_action.c \
+	g_display_hud.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	buf_circle2.c \

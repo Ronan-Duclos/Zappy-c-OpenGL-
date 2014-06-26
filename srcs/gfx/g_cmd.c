@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 16:44:39 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 18:52:09 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void		cmd_pcb(char *cmd)
 	while (cmd[i] && cmd[i] == ' ')
 		i++;
 	strcpy(buf, &cmd[i]);
+	broadcast(npc);
 	printf("cmd_pcb: %d [%s]\n", npc, buf);
 }

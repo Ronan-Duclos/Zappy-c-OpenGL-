@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 18:12:36 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 18:24:53 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:54:02 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@
 # define SQUARE(v)	(v * v)
 # define MAG(va)	(sqrt(SQUARE(va[0]) + SQUARE(va[1]) + SQUARE(va[2])))
 # define TORAD(a)	((float)a / 180 * PI)
+
+# define ACC_ITM(x)	((t_item *)(x)->content)
 
 enum					e_lists
 {

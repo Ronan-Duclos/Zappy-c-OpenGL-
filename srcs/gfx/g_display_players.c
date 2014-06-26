@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 18:12:27 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 22:59:58 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:03:09 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,25 @@ static void	team_color(int id)
 	glBlendColor(col[0], col[1], col[2], 0.0);
 }
 
-void		display_geos(void)
+static void	display_geo(enum e_models mod)
+{
+	int		size;
+
+	size = g_env->vbosizes[mod][_vbo_indx];
+	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[mod][_vbo_texp]);
+	glTexCoordPointer(2, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[mod][_vbo_vrtx]);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[mod][_vbo_nrms]);
+	glNormalPointer(GL_FLOAT, 0, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[mod][_vbo_indx]);
+	glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_SHORT, 0);
+}
+
+static void display_geos(void)
 {
 	glCallList(g_env->lists[_white]);
-	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl1][_vbo_texp]);
-	glTexCoordPointer(2, GL_FLOAT, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl1][_vbo_vrtx]);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl1][_vbo_nrms]);
-	glNormalPointer(GL_FLOAT, 0, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[_mod_owl1][_vbo_indx]);
-	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_owl1][_vbo_indx], GL_UNSIGNED_SHORT, 0);
-
+	display_geo(_mod_owl1);
 	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl2][_vbo_texp]);
 	glTexCoordPointer(2, GL_FLOAT, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl2][_vbo_vrtx]);
@@ -46,18 +53,12 @@ void		display_geos(void)
 	glNormalPointer(GL_FLOAT, 0, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[_mod_owl2][_vbo_indx]);
 	glBlendFunc(GL_CONSTANT_COLOR, GL_ZERO);
-	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_owl2][_vbo_indx], GL_UNSIGNED_SHORT, 0);
+	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_owl2][_vbo_indx],
+				GL_UNSIGNED_SHORT, 0);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_owl2][_vbo_indx], GL_UNSIGNED_SHORT, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl3][_vbo_texp]);
-	glTexCoordPointer(2, GL_FLOAT, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl3][_vbo_vrtx]);
-	glVertexPointer(3, GL_FLOAT, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, g_env->vbos[_mod_owl3][_vbo_nrms]);
-	glNormalPointer(GL_FLOAT, 0, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_env->vbos[_mod_owl3][_vbo_indx]);
-	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_owl3][_vbo_indx], GL_UNSIGNED_SHORT, 0);
+	glDrawElements(GL_TRIANGLES, g_env->vbosizes[_mod_owl2][_vbo_indx],
+				GL_UNSIGNED_SHORT, 0);
+	display_geo(_mod_owl3);
 }
 
 static void	display_mob(t_mob *mob)
@@ -71,7 +72,6 @@ static void	display_mob(t_mob *mob)
 	anim_rot(mob->rot);
 	display_geos();
 	glPopMatrix();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void		display_all_mobs(void)
@@ -79,32 +79,24 @@ void		display_all_mobs(void)
 	t_list	*list;
 	int		i;
 
-	i = 0;
+	i = -1;
 	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, g_env->zepptex);
-	while (i < g_env->mapw * g_env->maph)
+	while (++i < g_env->mapw * g_env->maph)
 	{
 		if (g_env->realpos0y[0] > i % g_env->mapw * 2.0 + 3.0
 			|| g_env->realposxy[0] < i % g_env->mapw * 2.0 - 3.0
 			|| g_env->realposxy[2] > i / g_env->mapw * 2.0 + 3.0
 			|| g_env->realpos00[2] < i / g_env->mapw * 2.0 - 3.0)
-		{
-			i++;
 			continue ;
-		}
 		list = g_env->sq[i].mobs;
 		while (list)
 		{
 			display_mob(list->content);
 			list = list->next;
 		}
-		i++;
 	}
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
 }

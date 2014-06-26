@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 21:08:23 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/15 20:57:39 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:59:26 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,67 +42,76 @@ FILE		*load_png(char *name)
 	return (fd);
 }
 
-int			fill_tex(FILE *fd)
+static int	init_png(png_structp *ppng, png_infop *pinfo, png_infop *pend)
 {
-	png_structp		png_ptr;
-	png_infop		info_ptr;
-	png_infop		end_ptr;
-	t_png_header	infos;
-	png_byte		*data;
-	png_bytep		*row_pointers;
-	uint32_t		i;
-
-	if (!(png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL)))
+	if (!(*ppng = png_create_read_struct(PNG_LIBPNG_VER_STRING,
+										NULL, NULL, NULL)))
 	{
 		fprintf(stderr, "error: png_create_read_struct failed.\n");
 		return (1);
 	}
-	if (!(info_ptr = png_create_info_struct(png_ptr)))
+	if (!(*pinfo = png_create_info_struct(*ppng)))
 	{
-		png_destroy_read_struct(&png_ptr, NULL, NULL);
+		png_destroy_read_struct(ppng, NULL, NULL);
 		fprintf(stderr, "error: png_create_info_struct failed.\n");
 		return (1);
 	}
-	if (!(end_ptr = png_create_info_struct(png_ptr)))
+	if (!(*pend = png_create_info_struct(*ppng)))
 	{
-		png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+		png_destroy_read_struct(ppng, pinfo, NULL);
 		fprintf(stderr, "error: png_create_info_struct failed.\n");
 		return (1);
 	}
-	if (setjmp(png_jmpbuf(png_ptr)))
+	if (setjmp(png_jmpbuf(*ppng)))
 	{
 		fprintf(stderr, "error from libpng.\n");
-		png_destroy_read_struct(&png_ptr, &info_ptr, &end_ptr);
+		png_destroy_read_struct(ppng, pinfo, pend);
 		return (1);
 	}
+	return (0);
+}
 
-	png_init_io(png_ptr, fd);
-	png_set_sig_bytes(png_ptr, 8);
-	png_read_info(png_ptr, info_ptr);
+void		png_my_ass(png_structp *ppng, png_infop *pinfo, png_infop *pend,
+	t_png_header infos)
+{
+	png_byte		*data;
+	png_bytep		*row_pointers;
+	uint32_t		i;
 
-	png_get_IHDR(png_ptr, info_ptr, &infos.wid, &infos.hgt, &infos.bit_dpt,
-				 &infos.col_type, NULL, NULL, NULL);
-
-	png_read_update_info(png_ptr, info_ptr);
-
-	data = (png_byte *)XV(NULL, malloc(infos.wid * infos.hgt * sizeof(uint32_t)), "malloc");
-
-	row_pointers = (png_bytep *)XV(NULL, malloc(infos.hgt * sizeof(png_bytep)), "malloc");
-
+	data = (png_byte *)XV(NULL, malloc(infos.wid * infos.hgt * sizeof(int)),
+						"malloc");
+	row_pointers = (png_bytep *)XV(NULL, malloc(infos.hgt * sizeof(png_bytep)),
+								"malloc");
 	i = 0;
 	while (i < infos.hgt)
 	{
 		row_pointers[i] = data + i * (infos.wid * sizeof(uint32_t));
 		i++;
 	}
-
-	png_read_image(png_ptr, row_pointers);
-
+	png_read_image(*ppng, row_pointers);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, infos.wid, infos.hgt, 1,
 				GL_RGBA, GL_UNSIGNED_BYTE, data);
-	png_destroy_read_struct(&png_ptr, &info_ptr, &end_ptr);
+	png_destroy_read_struct(ppng, pinfo, pend);
 	free(data);
 	free(row_pointers);
+}
+
+int			fill_tex(FILE *fd)
+{
+	png_structp		png_ptr;
+	png_infop		info_ptr;
+	png_infop		end_ptr;
+	t_png_header	infos;
+
+	if (init_png(&png_ptr, &info_ptr, &end_ptr))
+		return (1);
+	png_init_io(png_ptr, fd);
+	png_set_sig_bytes(png_ptr, 8);
+	png_read_info(png_ptr, info_ptr);
+	png_get_IHDR(png_ptr, info_ptr, &infos.wid, &infos.hgt, &infos.bit_dpt,
+				&infos.col_type, NULL, NULL, NULL);
+	png_read_update_info(png_ptr, info_ptr);
+	png_my_assC(&png_ptr, &info_ptr, &end_ptr, infos);
 	return (0);
 }
 

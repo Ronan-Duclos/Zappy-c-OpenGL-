@@ -6,13 +6,13 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:42:05 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 00:08:17 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:40:41 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_gl.h"
 
-static void	display_grid()
+static void	display_grid(void)
 {
 	static GLfloat	vertices[] = {
 
@@ -21,13 +21,14 @@ static void	display_grid()
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glBegin(GL_LINE_LOOP);
 	{
-		glColor3f(1.0, 1.0, 0.0);
+		glColor4f(1.0, 1.0, 0.0, 0.3);
 		glArrayElement(0);
 		glArrayElement(1);
 		glArrayElement(2);
 		glArrayElement(3);
 	}
 	glEnd();
+	glColor4f(1.0, 1.0, 0.0, 1.0);
 }
 
 void		display_all_grid(void)
@@ -37,7 +38,6 @@ void		display_all_grid(void)
 	i = 0;
 	glLineWidth(2.0);
 	glDisable(GL_TEXTURE_2D);
-	glEnableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_LIGHTING);
 	while (i < g_env->mapw * g_env->maph)
 	{
@@ -56,5 +56,4 @@ void		display_all_grid(void)
 		i++;
 	}
 	glEnable(GL_LIGHTING);
-	glDisableClientState(GL_VERTEX_ARRAY);
 }

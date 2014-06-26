@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:53:45 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:58:55 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:14:57 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ void	motion(int x, int y)
 	glGetDoublev(GL_MODELVIEW_MATRIX, model);
 	glGetDoublev(GL_PROJECTION_MATRIX, proj);
 	glGetIntegerv(GL_VIEWPORT, view);
-	gluUnProject(x, g_env->winy - y, 0, model, proj, view, posz0 + 0, posz0 + 1, posz0 + 2);
-	gluUnProject(x, g_env->winy - y, 1, model, proj, view, posz1 + 0, posz1 + 1, posz1 + 2);
+	gluUnProject(x, g_env->winy - y, 0, model, proj, view,
+				posz0 + 0, posz0 + 1, posz0 + 2);
+	gluUnProject(x, g_env->winy - y, 1, model, proj, view,
+				posz1 + 0, posz1 + 1, posz1 + 2);
 	map_intersection(pos, posz0, posz1);
 	x = (int)((pos[0] + 1) / 2);
 	y = (int)((pos[2] + 1) / 2);

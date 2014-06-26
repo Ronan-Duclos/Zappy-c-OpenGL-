@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 23:40:09 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 21:32:40 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,17 @@ t_anim	*new_anim(int frame, int time, void (*fct)(t_anim *))
 	return (new);
 }
 
-/*
-**	Animates a model: He moves upwards, turning on itself while shrinking.
-*/
 void	anim_rock(t_anim *a)
 {
 	double	i;
 
 	i = (double)a->frame;
-	glTranslatef(0.0, 0.0, 0.5 * i);
-	glScalef(1.0 - i / 500, 1.0 - i / 500, 1.0 - i / 500);
 	glRotatef(2.0 * i, 0.0, 0.0, 1.0);
 	a->frame++;
 	if (a->frame >= a->maxframe)
-		a->frame = 0;
+		a->dead = 1;
 }
 
-/*
-**	I used a sin(frame) on the y axis to move the player up and down.
-*/
 void	anim_mob(t_anim *a)
 {
 	float	i;

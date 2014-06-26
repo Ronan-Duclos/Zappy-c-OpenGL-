@@ -6,7 +6,7 @@
 /*   By: dmansour <dmansour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 18:24:39 by dmansour          #+#    #+#             */
-/*   Updated: 2014/06/25 19:45:51 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/26 23:22:28 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void			gfx_move_forward(t_env *e, int cs)
 		p->x--;
 	gfx_send_npc(e, cs, &gfx_ppo);
 	memcpy(&e->users[cs]->player, &tmp, sizeof(t_player));
-//	p = &e->users[cs]->player; innutile for printf debug
 }

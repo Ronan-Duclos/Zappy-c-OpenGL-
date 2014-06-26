@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/26 10:04:56 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/27 00:15:40 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,20 @@ SERV_SRC=s_incantation.c \
 	s_main.c \
 	s_opt1.c \
 	s_opt2.c \
+	s_opt3.c \
 	s_gfx.c \
 	s_gfx_cmd.c \
+	s_gfx_cmd_recv.c \
+	s_gfx_egg.c \
+	s_gfx_map.c \
+	s_gfx_npc.c \
+	s_gfx_npc_action.c \
+	s_gfx_send.c \
 	s_gfx_init.c \
 	s_gfx_lst.c \
 	s_generate_map.c \
 	s_init.c \
+	s_init2.c \
 	s_client_read.c \
 	s_client_write.c \
 	s_deal_fd.c \
@@ -68,6 +76,7 @@ CLT_SRC=c_main.c \
 	c_todo.c \
 	c_init.c \
 	c_opt.c \
+	c_opt2.c \
 	c_serveur_read.c \
 	c_serveur_write.c \
 	c_lex_inv.c \
@@ -96,6 +105,10 @@ GFX_SRC=g_main.c \
 	g_fds.c \
 	g_cmd_check.c \
 	g_cmd.c \
+	g_cmd_connect.c \
+	g_cmd_npc_action.c \
+	g_cmd_npc.c \
+	g_cmd_pnw.c \
 	g_cmd_send.c \
 	g_cmd_egg.c \
 	g_map.c \
@@ -131,7 +144,8 @@ GFX_SRC=g_main.c \
 	g_npc.c \
 	g_display_players.c \
 	g_rot.c \
-	g_incant_action.c
+	g_incant_action.c \
+	g_display_hud.c
 COMMON_SRC=functions.c \
 	buf_circle.c \
 	buf_circle2.c \

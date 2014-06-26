@@ -6,13 +6,13 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/12 12:09:51 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 15:08:46 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:54:57 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-int		create_clt(char *addr, int port)
+int				create_clt(char *addr, int port)
 {
 	int					s;
 	struct protoent		*prt;
@@ -27,7 +27,7 @@ int		create_clt(char *addr, int port)
 	return (s);
 }
 
-void	check_fd(t_env *e)
+void			check_fd(t_env *e)
 {
 	while (e->r != 0)
 	{
@@ -44,27 +44,25 @@ void	check_fd(t_env *e)
 	}
 }
 
-void	do_select(t_env *e, struct timeval *out)
+void			do_select(t_env *e, struct timeval *out)
 {
 	fd_set				*read;
 	fd_set				*write;
-//	int					aw;
-//	int					ar;
+	int					aw;
 
-//	aw = e->user->player.cur_awrite;
-//	ar = e->user->player.cur_aread;
+	aw = e->user->player.cur_awrite;
 	read = &e->fd_read;
 	write = &e->fd_write;
 	FD_SET(e->user->sock, read);
 	if (verify_bsn(&e->user->buf_write) == 1)
 		FD_SET(e->user->sock, write);
-//	if (e->user->player.acts[aw].time == 0)
+	if (e->user->player.acts[aw].time == 0)
 		e->r = select(e->user->sock + 1, read, write, NULL, out);
-//	else
-//		e->r = select(e->user->sock + 1, read, write, NULL, NULL);
+	else
+		e->r = select(e->user->sock + 1, read, write, NULL, NULL);
 }
 
-void	run_clt(t_env *e)
+void			run_clt(t_env *e)
 {
 	int					i;
 	struct timeval		out;
@@ -88,12 +86,12 @@ void	run_clt(t_env *e)
 	}
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_env	e;
 
 	if (get_clt_opt(&e.me, ac, av))
-		return(1);
+		return (1);
 	e.av = av;
 	run_clt(&e);
 	return (0);

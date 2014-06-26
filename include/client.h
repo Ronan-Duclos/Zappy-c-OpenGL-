@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 11:56:28 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:02:57 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ typedef struct		s_env
 /*
 **	c_opt.c
 */
+int					get_name(char **av, t_opt *opt);
+int					get_port(char **av, t_opt *opt);
+int					get_verbose(char **av, t_opt *opt);
 int					get_clt_opt(t_opt *opt, int argc, char **argv);
 /*
 **	c_client.c

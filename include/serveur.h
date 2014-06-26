@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 15:30:44 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:58:22 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ typedef struct		s_ponf_cmd
 
 typedef int			(*t_fct_opt)(char **, t_opt *);
 /*
- **	s_opt.c
- */
+**	s_opt.c
+*/
 int					get_serv_opt(t_opt *opt, int argc, char **argv);
 int					get_port(char **argv, t_opt *opt);
 int					get_verbose(char **argv, t_opt *opt);
@@ -181,28 +181,29 @@ int					get_time(char **argv, t_opt *opt);
 void				generate_map(t_env *env);
 
 /*
- **	s_client_read.c
- */
+**	s_client_read.c
+*/
 void				client_read(t_env *e, int cs);
 void				send_start(t_env *e, int cs);
 
 /*
- **	s_client_write.c
- */
+**	s_client_write.c
+*/
 void				client_write(t_env *e, int cs);
 void				remove_actions(t_user *user, double time);
 
 /*
- **	s_deal_fd.c
- */
+**	s_deal_fd.c
+*/
+void				check_actions(t_env *e, int cs);
 void				create_clt(t_env *e, int s);
 void				destroy_clt(t_env *e, int sock);
 void				init_fd(t_env *e);
 void				check_fd(t_env *e);
 
 /*
- **	s_init.c
- */
+**	s_init.c
+*/
 void				init_team(t_env *e);
 int					init_sock(int port, t_env *e);
 void				init_player(t_env *e, int cs, int team);
@@ -210,40 +211,60 @@ void				init_users(t_env *e);
 void				init_serv(t_env *e);
 
 /*
- **	serveur.c
- */
+**	serveur.c
+*/
 void				run_serv(t_env *e);
 void				send_inv(t_env *e, int id);
 /*
- **	s_user_on_map.c
- */
+**	s_user_on_map.c
+*/
 void				put_user_on_map(t_env *e, int cs);
 void				remove_user_on_map(t_env *e, int cs);
 
 /*
- **	s_gfx.c
- */
+**	s_gfx.c
+*/
 void				gfx_msz(t_env *e, int cs);
 void				gfx_sgt(t_env *e, int cs);
-void				gfx_bct(t_env *e, int cs, int x, int y);
-void				gfx_mct(t_env *e, int cs);
 void				gfx_tna(t_env *e, int cs);
-void				gfx_enw(t_env *e, int cs, t_egg *egg);
-void				gfx_eht(t_env *e, int cs, t_egg *egg);
-void				gfx_ebo(t_env *e, int cs, t_egg *egg);
-void				gfx_edi(t_env *e, int cs, t_egg *egg);
 void				gfx_seg(t_env *e, int cs, int clt);
-void				gfx_pnw(t_env *e, int cs, int clt);
-void				gfx_ppo(t_env *e, int cs, int clt);
+
+/*
+**	s_gfx_npc.c
+*/
 void				gfx_pin(t_env *e, int cs, int clt);
 void				gfx_pdi(t_env *e, int cs, int clt);
 void				gfx_plv(t_env *e, int cs, int clt);
+void				gfx_pcb(t_env *e, int cs, int clt, char *msg);
+
+/*
+**	s_gfx_npc_action.c
+*/
 void				gfx_pfk(t_env *e, int cs, int clt);
 void				gfx_pic(t_env *e, int cs, int clt);
 void				gfx_pie(t_env *e, int cs, int clt, int succes);
 void				gfx_pgt(t_env *e, int cs, int clt, int itm);
 void				gfx_pdr(t_env *e, int cs, int clt, int itm);
-void				gfx_pcb(t_env *e, int cs, int clt, char *msg);
+
+/*
+**	s_gfx_map.c
+*/
+void				gfx_bct(t_env *e, int cs, int x, int y);
+void				gfx_mct(t_env *e, int cs);
+void				gfx_pnw(t_env *e, int cs, int clt);
+void				gfx_ppo(t_env *e, int cs, int clt);
+
+/*
+**	s_gfx_egg.c
+*/
+void				gfx_enw(t_env *e, int cs, t_egg *egg);
+void				gfx_eht(t_env *e, int cs, t_egg *egg);
+void				gfx_ebo(t_env *e, int cs, t_egg *egg);
+void				gfx_edi(t_env *e, int cs, t_egg *egg);
+
+/*
+**	s_gfx_send.c
+*/
 void				gfx_send_pcb(t_env *e, int clt, char *msg, void (*fu)());
 void				gfx_send_egg(t_env *e, t_egg *egg, void (*fu)());
 void				gfx_send_npc(t_env *e, int clt, void (*fu)());
@@ -255,6 +276,10 @@ void				gfx_send_map(t_env *e, int x, int y, void (*fu)());
  */
 int					get_next_int(int *nb, char *s);
 void				gfx_cmd_check(t_env *e, int cs, char *buf);
+
+/*
+**	s_gfx_cmd_recv.c
+*/
 void				gcmd_pin(t_env *e, int cs, char *cmd);
 void				gcmd_plv(t_env *e, int cs, char *cmd);
 void				gcmd_sgt(t_env *e, int cs, char *cmd);

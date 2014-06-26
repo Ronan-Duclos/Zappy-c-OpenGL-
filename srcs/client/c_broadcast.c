@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 18:56:12 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/26 13:14:05 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:58:06 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*make_broadcast(t_ia *ia)
 	sprintf(buf, "%d", ia->lvl);
 	return (buf);
 }
-
 
 void	send_broadcast(t_env *e, char *msg)
 {

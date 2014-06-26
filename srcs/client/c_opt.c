@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:29:22 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 12:05:20 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:53:47 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include <client.h>
 #include <sys/socket.h>
 #include <netdb.h>
-
-
-int				get_port(char **argv, t_opt *opt)
-{
-	opt->port = ft_atoi(argv[1]);
-	return (1);
-}
-
-int				get_name(char **argv, t_opt *opt)
-{
-	opt->name = ft_strdup(argv[1]);
-	return (1);
-}
-
-int				get_verbose(char **argv, t_opt *opt)
-{
-	(void)argv;
-	opt->v = 1;
-	return (1);
-}
 
 int				get_host(char **argv, t_opt *opt)
 {

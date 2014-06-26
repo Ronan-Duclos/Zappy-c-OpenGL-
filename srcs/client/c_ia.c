@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 22:53:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 00:02:33 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:56:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,16 @@ int			check_end(t_ia *ia, int need)
 int			what_i_do(t_env *e)
 {
 	int				need;
+	static int		last_lvl;
 	static int		last = -1;
 
 	printf("in what i do : last [%d]\n", last);
+	if (last_lvl != e->user->player.ia.lvl)
+	{
+		last_lvl = e->user->player.ia.lvl;
+	//	add_todo(e, send_fork, NULL);
+		return (-1);
+	}
 	if (last == -1)
 		need = what_i_need(e, &e->user->player.ia);
 	else

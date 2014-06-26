@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 21:31:46 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 12:08:33 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 00:15:25 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ int				get_port(char **argv, t_opt *opt)
 int				get_x(char **argv, t_opt *opt)
 {
 	opt->x = ft_atoi(argv[1]);
-	return (1);
-}
-
-int				get_y(char **argv, t_opt *opt)
-{
-	opt->y = ft_atoi(argv[1]);
 	return (1);
 }
 

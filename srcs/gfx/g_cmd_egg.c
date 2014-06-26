@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 18:46:27 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 19:41:04 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:00:54 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		cmd_enw(char *cmd)
 	int		x;
 	int		y;
 
-	printf("cmd_enw: %s\n", cmd);	
+	printf("cmd_enw: %s\n", cmd);
 	new = (t_egg *)XV(NULL, malloc(sizeof(t_egg)), "cmd_enw");
 	bzero(new, sizeof(t_egg));
 	i = 0;
@@ -46,7 +46,6 @@ void		cmd_ebo(char *cmd)
 	int		i;
 	int		id;
 
-	printf("cmd_ebo: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
@@ -57,8 +56,6 @@ void		cmd_ebo(char *cmd)
 	if (!tmp)
 		return ;
 	egg = tmp->content;
-	// ici l'oeuf un joueur ce connecte pour l'oeuf, deal with it !
-	// surement innutile cette commande
 	printf("cmd_ebo: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
 }
 
@@ -80,11 +77,20 @@ void		cmd_eht(char *cmd)
 	if (!tmp)
 		return ;
 	egg = tmp->content;
-	// ici l'oeuf 'egg' eclos, deal with it !
-	// surement innutile cette commande
 	printf("cmd_eht: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
 }
 
+static int	edi_egg_get(t_list **egg, int id)
+{
+	t_list	**tmp;
+
+	tmp = egg;
+	while (*tmp && ((t_egg *)((*tmp)->content))->id != id)
+		tmp = &(*tmp)->next;
+	if (!*tmp)
+		return (0);
+	return (1);
+}
 
 void		cmd_edi(char *cmd)
 {
@@ -92,7 +98,6 @@ void		cmd_edi(char *cmd)
 	t_egg	*egg;
 	int		i;
 	int		id;
-
 
 	printf("cmd_edi: %s\n", cmd);
 	i = 0;
@@ -104,21 +109,11 @@ void		cmd_edi(char *cmd)
 		*tmp = (*tmp)->next;
 	if (!*tmp)
 		return ;
-	printf("here\n");
 	egg = (*tmp)->content;
-	tmp = &g_env->egg;
-	while (*tmp && ((t_egg *)((*tmp)->content))->id != id)
-		tmp = &(*tmp)->next;
-	if (!*tmp)
+	if (!edi_egg_get(&g_env->egg, id))
 		return ;
 	del_link(&(*tmp), NULL);
-	printf("here1\n");
-	tmp = &g_env->sq[egg->x + g_env->mapw * egg->y].egg;
-	while (*tmp && ((t_egg *)((*tmp)->content))->id != id)
-		tmp = &(*tmp)->next;
-	if (!(*tmp))
+	if (!edi_egg_get(&g_env->sq[egg->x + g_env->mapw * egg->y].egg, id))
 		return ;
 	del_link(&(*tmp), del_egg);
-	printf("here2\n");
-	//	supression automatique de l'oeuf pourri, rien a faire
 }

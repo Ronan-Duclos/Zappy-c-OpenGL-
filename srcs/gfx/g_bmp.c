@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:08:52 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 22:30:06 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 21:34:06 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static GLuint	new_tex(int w, int h, char *data)
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, w, h,
-				 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+				0, GL_BGR, GL_UNSIGNED_BYTE, data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	return (id);
 }
 
-GLuint	load_bmp_tex(char *file)
+GLuint			load_bmp_tex(char *file)
 {
 	int				fd;
 	char			*data;

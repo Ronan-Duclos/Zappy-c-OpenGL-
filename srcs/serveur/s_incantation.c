@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/26 12:47:22 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/26 23:46:30 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <global.h>
 
-static void	disperse_stone(t_env *e, int cs, int good)
+static void		disperse_stone(t_env *e, int cs, int good)
 {
 	int		nb_stone;
 	int		i;

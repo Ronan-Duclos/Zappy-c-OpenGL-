@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:53:45 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/21 03:15:01 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:58:55 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,4 @@ void	motion(int x, int y)
 		g_env->selectcase = -1;
 	else
 		g_env->selectcase = x + y * g_env->mapw;
-	if (g_env->selectcase >= 0) // A virer car c'est de la merde. Fils de pute.
-		take_stone(g_env->selectcase, _linemate);
 }

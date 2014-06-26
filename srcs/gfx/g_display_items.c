@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:26:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 05:31:36 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:33:01 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void		display_any(t_item *item)
 	GLuint	*vbos;
 	int		*sizes;
 
+	glDisable(GL_LIGHTING);
 	vbos = g_env->vbos[item->vbo];
 	sizes = g_env->vbosizes[item->vbo];
 	glBindBuffer(GL_ARRAY_BUFFER, vbos[_vbo_vrtx]);
@@ -88,11 +89,13 @@ void		display_any(t_item *item)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbos[_vbo_indx]);
 	glPushMatrix();
+	glBlendColor(1.0, 1.0, 0.0, 0.0);
 	glCallList(item->list);
 	item->anim->fct(item->anim);
 	glDrawElements(GL_TRIANGLES, sizes[_vbo_indx], GL_UNSIGNED_SHORT, 0);
 	glPopMatrix();
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glEnable(GL_LIGHTING);
 }
 
 static void	display_food(int i)

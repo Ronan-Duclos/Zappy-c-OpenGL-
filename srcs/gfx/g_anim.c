@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 20:55:44 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 01:01:10 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:53:33 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ void	anim_rock(t_anim *a)
 {
 	double	i;
 
-	printf("Pouet\n");
 	i = (double)a->frame;
-//	glScalef(5.0, 5.0, 5.0);
-	glTranslatef(0.0, 0.0, 250.0);
 	glRotatef(2.0 * i, 0.0, 0.0, 1.0);
 	a->frame++;
 	if (a->frame >= a->maxframe)

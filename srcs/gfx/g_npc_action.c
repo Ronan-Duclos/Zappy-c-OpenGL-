@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 02:15:40 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 00:56:31 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:56:26 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		broadcast(int npc)
 
 	p = g_env->npc + npc;
 	a = new_anim(0, T_BROADCAST * FPS / g_env->time, anim_rock);
-	item = new_item(g_env->lists[_init_item_pos], _mod_stone, a, display_any);
+	item = new_item(g_env->lists[_init_talk], _mod_talk, a, display_any);
 	anims = &g_env->sq[p->x + p->y * g_env->mapw].anims;
 	*anims = new_link(*anims, item);
 }

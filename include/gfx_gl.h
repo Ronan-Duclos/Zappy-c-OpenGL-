@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 05:43:02 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:34:13 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ enum			e_lists
 	_init_plant_pos,
 	_init_owl_pos,
 	_init_egg_pos,
+	_init_talk,
 	_lists_nb
 };
 
@@ -130,6 +131,7 @@ enum			e_models
 	_mod_owl3,
 	_mod_egg,
 	_mod_totem,
+	_mod_talk,
 	_mod_nb
 };
 

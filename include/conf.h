@@ -29,16 +29,16 @@
 # define				RATE_THYSTAME		50
 
 # define				NB_FOOD				1
-# define				NB_LINEMATE			10
-# define				NB_DERAUMERE		12
+# define				NB_LINEMATE			8
+# define				NB_DERAUMERE		10
 # define				NB_SIBUR			14
-# define				NB_MENDIANE			20
-# define				NB_PHIRAS			25
-# define				NB_THYSTAME			60
+# define				NB_MENDIANE			18
+# define				NB_PHIRAS			22
+# define				NB_THYSTAME			30
 
 /*
 **	Config Client
 */
-# define					MIN_FOOD			8
-# define					MIN_FOOD2			16
+# define					MIN_FOOD			11
+# define					MIN_FOOD2			45
 #endif

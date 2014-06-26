@@ -42,6 +42,11 @@ void	my_ia(t_env *e)
 
 	static int		i = -1;
 
+	if (e->user->player.ia.recolt == 1 && e->user->player.ia.view[0][_food] == 0)
+	{
+		add_todo(e, send_inventaire, NULL);
+		add_todo(e, send_watch_sight, NULL);
+	}
 	if (i == -1)
 	{
 		add_todo(e, send_inventaire, NULL);
@@ -71,7 +76,7 @@ int			check_end(t_ia *ia, int need)
 	if (need == _ia_food)
 	{
 		if (ia->inv[_food] > MIN_FOOD2)
-			return (-1);
+			return (_ia_evolve);
 		else
 			return (_ia_food);
 	}
@@ -90,19 +95,36 @@ int			what_i_do(t_env *e)
 		need = what_i_need(e, &e->user->player.ia);
 	else
 		need = last;
+	printf("in what i do : last2 [%d]\n", need);
 	if (need == _ia_food)
 		find_item(e, _food);
 	else if (need == _ia_evolve)
 		try_to_evolve(e, &e->user->player.ia);
-	printf("in whar i do : last [%d]\n", last);
+	else
+		printf("in what i do : lastPO [%d]\n", last);
+	printf("in what i do : last3 [%d]\n", last);
 	last = check_end(&e->user->player.ia, need);
 	return (last);
 }
 
 int			what_i_need(t_env *e, t_ia *ia)
 {
-	if (ia->inv[_food] < MIN_FOOD)
+	static int		last;
+
+	if (ia->inv[_food] > MIN_FOOD2)
+	{
+		last = 0;
+		if (ia->recolt == 1)
+			ia->recolt = 0;
+	}
+	if (last == -1 && ia->inv[_food] < MIN_FOOD2)
 		return (_ia_food);
+	else if (ia->inv[_food] < MIN_FOOD)
+	{
+		ia->recolt = 1;
+		last = -1;
+		return (_ia_food);
+	}
 	else
 		return (_ia_evolve);
 	(void)e;
@@ -194,6 +216,19 @@ void		go_to(t_env *e)
 	}
 }
 
+void	take_food(t_env *e, int type)
+{
+	int		i;
+
+	i = e->user->player.ia.view[0][_food];
+	add_todo(e, send_watch_sight, NULL);
+	while (i != 0)
+	{
+		add_todo(e, send_take_item, type_to_str(type));
+		i--;
+	}
+}
+
 int			find_item(t_env *e, int type)
 {
 	int			nb;
@@ -202,7 +237,10 @@ int			find_item(t_env *e, int type)
 	if (is_in_sight(e, type))
 	{
 		go_to(e);
-		add_todo(e, send_take_item, type_to_str(type));
+		if (type == _food)
+			take_food(e, type);
+		else
+			add_todo(e, send_take_item, type_to_str(type));
 	}
 	else
 	{

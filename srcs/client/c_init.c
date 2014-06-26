@@ -23,6 +23,7 @@ void	init_ia(t_env *e)
 	e->user->player.ia.need_stone[5] = 6;
 	e->user->player.ia.need_stone[6] = 1;
 	e->user->player.ia.lvl = 1;
+	e->user->player.ia.recolt = 0;
 	e->user->player.ia.expulsed = 0;
 	e->user->player.ia.my_exp = 0;
 	e->user->player.ia.c_nbr = 0;

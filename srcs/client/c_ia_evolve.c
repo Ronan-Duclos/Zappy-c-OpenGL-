@@ -1,60 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   c_ia_evolve.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/06/25 19:53:26 by rbernand          #+#    #+#             */
+/*   Updated: 2014/06/25 21:42:06 by rbernand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <client.h>
-#include <common.h>
 #include <global.h>
 
-//static int		g_need_stone[7] = {0, 9, 8, 10, 5, 6,  1};
-
-//decrementation du tableau a chaque lvl
-
-int		i_can_evolve(t_ia *ia)
+void		put_all_stone(t_env *e, t_ia *ia)
 {
-	if (ia->view[0][_player] > g_lvlup[ia->lvl - 1][_player])
-		return (1);
-	else
-		return (-1);
-}
-
-int		cmp_inv_view(int good_view[7], int good_inv[7])
-{
-	int				i;
-	int				good1;
-	int				good2;
+	int 			i;
 
 	i = 0;
-	good1 = 1;
-	good2 = 1;
-	while (++i < 7)
+	while (i < NB_STONE)
 	{
-		if (good_view[i] == 0 && good_inv[i] == 0)
-			return (-1);
-		if (good_view[i] == 0)
-			good1 = 0;
-		if (good_inv[i] == 0)
-			good2 = 0;
+		while (ia->view[0][i] < g_lvlup[ia->lvl - 1][i]
+				&& ia->inv[i])
+		{
+			ia->view[0][i]++;
+			ia->inv[i]--;
+			add_todo(e, send_drop_item, type_to_str(i));
+		}
+		i++;
 	}
-	if (good1 == 0)
-		return (0);
-	else if (good2 == 0)
-		return (1);
-	else
-		return (2);
 }
 
-int		i_have_stone(t_ia *ia)
+void		find_all_stone(t_env *e, t_ia *ia)
 {
-	int				i;
-	static int		good_inv[7] = {1, 1, 1, 1, 1, 1, 1};
-	static int		good_view[7] = {1, 1, 1, 1, 1, 1, 1};
-
+	int			i;
 
 	i = 0;
-	while (++i <  7)
+	while (++i < NB_STONE)
 	{
-		if (ia->inv[i] < g_lvlup[ia->lvl -1][i])
-			good_inv[i] = 0;
-		if (ia->view[0][i] < g_lvlup[ia->lvl - 1][i])
-			good_view[i] = 0;
+		if (g_lvlup[ia->lvl - 1][i] > ia->inv[i])
+		{
+			find_item(e, i);
+			break ;
+		}
 	}
-	return (cmp_inv_view(good_view, good_inv));
+}
+
+int			player_ok(t_ia *ia)
+{
+	printf("PLAYER OK : nb have : [%d] nb need :[%d]\n", ia->view[0][_player] + 1,
+		   g_lvlup[ia->lvl - 1][_player]);
+	if ((ia->view[0][_player] + 1) >= g_lvlup[ia->lvl - 1][_player])
+		return (1);
+	return (0);
+}
+
+void		try_to_evolve(t_env *e, t_ia *ia)
+{
+	int				stat;
+	static int		i;
+
+	stat = i_have_stone(ia);
+	printf("in try to evolve : stat [%d]\n", stat);
+	if (ia->msg && atoi(ia->msg) == ia->lvl)
+			goto_bc(e);
+	else if (stat == -1)
+		find_all_stone(e, ia);
+	else
+	{
+		if (stat != 0)
+			put_all_stone(e, ia);
+		if (player_ok(ia))
+		{
+			i = 0;
+			add_todo(e, send_incantation, NULL);
+		}
+		else
+		{
+			if (i == 0)
+			{
+				i = 1;
+				add_todo(e, send_fork, NULL);
+			}
+			add_todo(e, send_broadcast, make_broadcast(ia));
+		}
+	}
 }

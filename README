@@ -2,3 +2,6 @@ to works, only need Makefile, data, include, libft, libpng.tar, objs, src
 le reste a la poubelle
 
 Pensez a make ffclean avant de push (ca supprime aussi les libpng, ca differe pour chaque mac)
+
+
+J'ai fait plein de changement, ajout d'un systeme par periode quand il descend en dessous du premier seuil de nourriture il lance une grannde campagne de deforestation jusqu'a attendre le second seuil de la il commence a se lancer a chercher des pierres ou ecouter les broadcast, leger probleme que je ne comprend pas des fois il se met en boucle voir/inventaire et il ne fait plus rien, si non il y a un probleme coter serveur avec le redeploiement des pierres je vais tenter de le regler.

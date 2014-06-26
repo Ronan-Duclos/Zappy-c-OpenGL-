@@ -76,6 +76,7 @@ typedef struct		s_ia
 	int				lvl;
 	int				need_stone[7];
 	int				c_nbr;
+	int				recolt;
 	int				lvlup;
 	t_todo			*todo;
 	t_todo			*cur_todo;

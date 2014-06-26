@@ -28,6 +28,7 @@ int		cmp_inv_view(int good_view[7], int good_inv[7])
 {
 	int				good1;
 	int				good2;
+	int				i;
 
 	i = 0;
 	good1 = 1;
@@ -55,14 +56,14 @@ int		i_have_stone(t_ia *ia)
 	static int		good_inv[7] = {1, 1, 1, 1, 1, 1, 1};
 	static int		good_view[7] = {1, 1, 1, 1, 1, 1, 1};
 
-
-	i = 0;
-	while (++i <  7)
+	i = 1; /* pour suivre l'enum mat*/
+	while (i <  7)
 	{
 		if (ia->inv[i] < g_lvlup[ia->lvl -1][i])
 			good_inv[i] = 0;
 		if (ia->view[0][i] < g_lvlup[ia->lvl - 1][i])
 			good_view[i] = 0;
+		i++;
 	}
-	return (cmp_inv_view(ia));
+	return (cmp_inv_view(good_view, good_inv));
 }

@@ -15,25 +15,24 @@
 
 void	drop_item(t_env *e)
 {
-	int			a_read;
-	t_actions	*acts;
+	int				a_read;
+	t_actions		*acts;
+	char			cmd[7] = "nldsmpt";
+	int				i;
 
+	i = -1;
 	a_read = e->user->player.cur_aread;
 	acts = &e->user->player.acts[a_read];
 	if (acts->answer[0] == 'o' && acts->answer[1] == 'k')
 	{
-		if (acts->cmd[0] == 'l' && e->user->player.ia.inv[_linemate] != 0)
-			e->user->player.ia.inv[_linemate]--;
-		else if (acts->cmd[0] == 'd' && e->user->player.ia.inv[_linemate] != 0)
-			e->user->player.ia.inv[_deraumere]--;
-		else if (acts->cmd[0] == 's' && e->user->player.ia.inv[_deraumere] != 0)
-			e->user->player.ia.inv[_sibur]--;
-		else if (acts->cmd[0] == 'm' && e->user->player.ia.inv[_sibur] != 0)
-			e->user->player.ia.inv[_mendiane]--;
-		else if (acts->cmd[0] == 'p' && e->user->player.ia.inv[_mendiane] != 0)
-			e->user->player.ia.inv[_phiras]--;
-		else if (acts->cmd[0] == 't' && e->user->player.ia.inv[_phiras] != 0)
-			e->user->player.ia.inv[_thystame]--;
+		while (++i < 7)
+		{
+			if (acts->cmd[6] == cmd[i])
+			{
+				e->user->player.ia.inv[i]++;
+				break ;
+			}
+		}
 	}
 	acts->time = 0;
 }

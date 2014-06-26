@@ -61,8 +61,8 @@ SERV_SRC=s_incantation.c \
 	s_end.c \
 	s_broadcast.c
 CLT_SRC=c_main.c \
-	c_ia_evolve2.c \
 	c_ia_evolve.c \
+	c_ia_stone.c \
 	c_goto_bc.c \
 	c_ia.c \
 	c_todo.c \
@@ -202,7 +202,7 @@ $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
 	@echo "\033[2K--> Linking  $<"
-	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
+	@$(CC) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
 
 	@tput cuu1
 

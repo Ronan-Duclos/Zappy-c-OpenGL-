@@ -26,7 +26,6 @@ void	incantation(t_env *e)
 		e->user->player.ia.lvlup = 0;
 	else
 		e->user->player.ia.lvl = lvl;
-//	add_todo(e, send_fork, NULL);
 	act->time = 0;
 }
 

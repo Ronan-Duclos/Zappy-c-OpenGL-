@@ -17,23 +17,26 @@ void	take_item(t_env *e)
 {
 	int				a_read;
 	t_actions		*acts;
+	char			cmd[7] = "nldsmpt";
+	int				i;
 
+	i = -1;
 	a_read = e->user->player.cur_aread;
 	acts = &e->user->player.acts[a_read];
 	if (acts->answer[0] == 'o' && acts->answer[1] == 'k')
 	{
-		if (acts->cmd[0] == 'l')
-			e->user->player.ia.inv[_linemate]++;
-		else if (acts->cmd[0] == 'd')
-			e->user->player.ia.inv[_deraumere]++;
-		else if (acts->cmd[0] == 's')
-			e->user->player.ia.inv[_sibur]++;
-		else if (acts->cmd[0] == 'm')
-			e->user->player.ia.inv[_mendiane]++;
-		else if (acts->cmd[0] == 'p')
-			e->user->player.ia.inv[_phiras]++;
-		else if (acts->cmd[0] == 't')
-			e->user->player.ia.inv[_thystame]++;
+		while (++i < 7)
+		{
+			if (acts->cmd[6] == cmd[i])
+			{
+
+				printf("TAKE ITEM %d: %s, befor on : %d, with in my %d\n", i, acts->cmd,
+					   e->user->player.ia.view[0][i], e->user->player.ia.inv[i]);
+				e->user->player.ia.view[0][i]--;
+				e->user->player.ia.inv[i]++;
+				break ;
+			}
+		}
 	}
 	acts->time = 0;
 }

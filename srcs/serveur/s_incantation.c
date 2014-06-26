@@ -65,6 +65,23 @@ void			end_incant(t_env *e, int cs, int good)
 	e->users[cs]->player.inc = 0;
 }
 
+int				last_inc(t_env *e, int cs)
+{
+	int			x;
+	int			y;
+	t_user		*tmp;
+
+	x = e->users[cs]->player.x;
+	y = e->users[cs]->player.y;
+	tmp = e->map[y][x].player;
+
+	while (tmp && tmp->next != NULL)
+		tmp = tmp->next;
+	if (tmp->sock == cs)
+		return (1);
+	return (0);
+}
+
 void			incantation(t_env *e, int cs)
 {
 	int		x;
@@ -78,10 +95,10 @@ void			incantation(t_env *e, int cs)
 	lvl = &e->users[cs]->player.lvl;
 	good = 1;
 	i = 0;
-	while (++i < NB_STONE + 1)
+	while (++i < NB_STONE + 2)
 		if (e->map[y][x].ground[i] < g_lvlup[*lvl - 1][i])
 			good = -1;
-	if (good == 1 && e->users[cs]->player.inc == 1)
+	if (good == 1 && last_inc(e, cs) == 1)
 		end_incant(e, cs, good);
 	if (good == 1)
 		(*lvl)++;
@@ -97,11 +114,11 @@ static int		verify_cmd(t_user *user)
 
 	ar = user->player.cur_aread;
 	act = &user->player.acts[ar];
-	if (act->time != 0 || act->fct_cmd == move_forward)
+	if (act->time != 0 && act->fct_cmd == move_forward)
 		return (0);
-	if (act->fct_cmd == turn_left)
+	if (act->time != 0 && act->fct_cmd == turn_left)
 		return (0);
-	if (act->fct_cmd == turn_right)
+	if (act->time != 0 && act->fct_cmd == turn_right)
 		return (0);
 	return (1);
 }

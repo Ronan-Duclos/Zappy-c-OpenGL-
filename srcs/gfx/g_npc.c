@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:32:54 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/25 21:54:49 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 17:09:43 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 **	Finds a mob npc and returns a pointer on the pointer pointing on his link.
 */
-t_list	**find_mob(int npc)
+t_list		**find_mob(int npc)
 {
 	t_npc	*n;
 	t_list	**tmp;

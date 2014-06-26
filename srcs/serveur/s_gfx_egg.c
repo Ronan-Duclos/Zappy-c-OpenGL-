@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_gfx.c                                            :+:      :+:    :+:   */
+/*   s_gfx_egg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/11 16:54:11 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:46:17 by caupetit         ###   ########.fr       */
+/*   Created: 2014/06/26 17:19:00 by caupetit          #+#    #+#             */
+/*   Updated: 2014/06/26 17:47:27 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,40 @@
 #include "serveur.h"
 #include "libft.h"
 
-void		gfx_msz(t_env *e, int cs)
+void		gfx_enw(t_env *e, int cs, t_egg *egg)
 {
 	char	buf[BUF_SIZE];
 
-	ft_bzero(buf, BUF_SIZE);
-	sprintf(buf, "msz %d %d", e->opt.x, e->opt.y);
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "enw #%d #%d %d %d", egg->id, egg->cs,
+			e->users[egg->cs]->player.x,
+			e->users[egg->cs]->player.y);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
-void		gfx_sgt(t_env *e, int cs)
+void		gfx_eht(t_env *e, int cs, t_egg *egg)
 {
 	char	buf[BUF_SIZE];
 
-	ft_bzero(buf, BUF_SIZE);
-	sprintf(buf, "sgt %d", e->opt.time);
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "eht #%d", egg->id);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
-void		gfx_seg(t_env *e, int cs, int clt)
+void		gfx_ebo(t_env *e, int cs, t_egg *egg)
 {
 	char	buf[BUF_SIZE];
 
-	ft_bzero(buf, BUF_SIZE);
-	sprintf(buf, "seg %s", e->users[clt]->player.team);
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "ebo #%d", egg->id);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }
 
-void		gfx_tna(t_env *e, int cs)
+void		gfx_edi(t_env *e, int cs, t_egg *egg)
 {
 	char	buf[BUF_SIZE];
-	int		i;
 
-	i = -1;
-	while (e->opt.name[++i])
-	{
-		bzero(buf, BUF_SIZE);
-		sprintf(buf, "tna %s", e->opt.name[i]);
-		tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
-	}
+	bzero(buf, BUF_SIZE);
+	sprintf(buf, "edi #%d", egg->id);
+	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 }

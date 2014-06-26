@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 17:16:37 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 03:18:46 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:46:22 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,24 @@ static t_cmd	*cmds_tab_get(void)
 	static t_cmd	cmd[CMDS_NB] =
 
 	{
-		{"pnw", &cmd_pnw},
-		{"bct", &cmd_bct},
-		{"ppo", &cmd_ppo},
-		{"pin", &cmd_pin},
-		{"plv", &cmd_plv},
-		{"pgt", &cmd_pgt},
-		{"pdr", &cmd_pdr},
-		{"pdi", &cmd_pdi},
-		{"sgt", &cmd_sgt},
-		{"pfk", &cmd_pfk},
-		{"pic", &cmd_pic},
-		{"pie", &cmd_pie},
-		{"seg", &cmd_seg},
-		{"enw", &cmd_enw},
-		{"eht", &cmd_eht},
-		{"ebo", &cmd_ebo},
-		{"edi", &cmd_edi},
-		{"pcb", &cmd_pcb}
+	{"pnw", &cmd_pnw},
+	{"bct", &cmd_bct},
+	{"ppo", &cmd_ppo},
+	{"pin", &cmd_pin},
+	{"plv", &cmd_plv},
+	{"pgt", &cmd_pgt},
+	{"pdr", &cmd_pdr},
+	{"pdi", &cmd_pdi},
+	{"sgt", &cmd_sgt},
+	{"pfk", &cmd_pfk},
+	{"pic", &cmd_pic},
+	{"pie", &cmd_pie},
+	{"seg", &cmd_seg},
+	{"enw", &cmd_enw},
+	{"eht", &cmd_eht},
+	{"ebo", &cmd_ebo},
+	{"edi", &cmd_edi},
+	{"pcb", &cmd_pcb}
 	};
 	return (cmd);
 }

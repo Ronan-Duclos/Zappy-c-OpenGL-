@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/26 23:58:22 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 01:28:45 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_user
 {
 	int				type;
 	int				ig;
+	int				started;
 	t_gfx			gfx;
 	t_buf			buf_read;
 	t_buf			buf_write;

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:04:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/25 04:22:35 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/27 01:10:28 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	fork_my_egg(t_env *e)
 	act = &e->user->player.acts[ar];
 	if (act->answer[0] == 'o' && fork() == 0)
 	{
+		printf("coucouc t mort\n");
 		close(e->user->sock);
 		execve(e->av[0], e->av, NULL);
 	}

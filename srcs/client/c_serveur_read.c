@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/26 14:46:37 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 01:14:09 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	fork_one_user(t_env *e)
 
 void	launch_new_clt(t_env *e)
 {
-	if (e->user->buf_read_tmp[0] > '0')
+	printf("[retourconnect nbr] %s\n", e->user->buf_read_tmp);
+	if (atoi(e->user->buf_read_tmp) > 0)
 		fork_one_user(e);
 }
 

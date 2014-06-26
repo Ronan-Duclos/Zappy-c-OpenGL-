@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 19:08:44 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 00:59:43 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 01:31:28 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	init_player(t_env *e, int cs, int team)
 	}
 	else
 	{
-		printf("CLIENT CONNECTED ON EGG [%d][%d]\n", egg->x, egg->y);
+		printf("CLIENT CONNECTED ON EGG cs[%d] [%d][%d]\n", cs, egg->x, egg->y);
 		e->users[cs]->player.x = egg->x;
 		e->users[cs]->player.y = egg->y;
 		e->users[cs]->player.inv[_food] = NB_START_FOOD;
@@ -117,6 +117,7 @@ void	init_users(t_env *e)
 		e->users[i] = (t_user *)XV(NULL, malloc(sizeof(t_user)), "malloc");
 		e->users[i]->type = FD_FREE;
 		e->users[i]->player.team = NULL;
+		e->users[i]->started = 0;
 		init_bc(&e->users[i]->buf_read);
 		init_bc(&e->users[i]->buf_write);
 		e->users[i]->buf_read_tmp[0] = '\0';

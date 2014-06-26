@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/26 23:46:30 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 01:31:00 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void			make_incantations(t_env *e, int cs)
 	time = e->users[cs]->player.acts[ar].time;
 	while (tmp != NULL)
 	{
-		if ((e->users[cs]->player.lvl == tmp->player.lvl
+		if ((tmp->started && e->users[cs]->player.lvl == tmp->player.lvl
 			&& verify_cmd(tmp) == 1) || cs == tmp->sock)
 		{
 			if (tmp->sock != cs)

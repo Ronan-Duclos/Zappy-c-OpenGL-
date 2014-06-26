@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 22:53:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/27 00:56:27 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 01:03:07 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			what_i_do(t_env *e)
 	if (last_lvl != e->user->player.ia.lvl)
 	{
 		last_lvl = e->user->player.ia.lvl;
-	//	add_todo(e, send_fork, NULL);
+		add_todo(e, send_fork, NULL);
 		return (-1);
 	}
 	if (last == -1)

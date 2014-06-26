@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 21:08:23 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 00:59:26 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 01:49:13 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,31 @@
 #include "png2.h"
 #include "png.h"
 #include "common.h"
+
+void		png_my_ass(png_structp *ppng, png_infop *pinfo, png_infop *pend,
+	t_png_header infos)
+{
+	png_byte		*data;
+	png_bytep		*row_pointers;
+	uint32_t		i;
+
+	data = (png_byte *)XV(NULL, malloc(infos.wid * infos.hgt * sizeof(int)),
+						"malloc");
+	row_pointers = (png_bytep *)XV(NULL, malloc(infos.hgt * sizeof(png_bytep)),
+								"malloc");
+	i = 0;
+	while (i < infos.hgt)
+	{
+		row_pointers[i] = data + i * (infos.wid * sizeof(uint32_t));
+		i++;
+	}
+	png_read_image(*ppng, row_pointers);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, infos.wid, infos.hgt, 1,
+				GL_RGBA, GL_UNSIGNED_BYTE, data);
+	png_destroy_read_struct(ppng, pinfo, pend);
+	free(data);
+	free(row_pointers);
+}
 
 FILE		*load_png(char *name)
 {
@@ -71,31 +96,6 @@ static int	init_png(png_structp *ppng, png_infop *pinfo, png_infop *pend)
 	return (0);
 }
 
-void		png_my_ass(png_structp *ppng, png_infop *pinfo, png_infop *pend,
-	t_png_header infos)
-{
-	png_byte		*data;
-	png_bytep		*row_pointers;
-	uint32_t		i;
-
-	data = (png_byte *)XV(NULL, malloc(infos.wid * infos.hgt * sizeof(int)),
-						"malloc");
-	row_pointers = (png_bytep *)XV(NULL, malloc(infos.hgt * sizeof(png_bytep)),
-								"malloc");
-	i = 0;
-	while (i < infos.hgt)
-	{
-		row_pointers[i] = data + i * (infos.wid * sizeof(uint32_t));
-		i++;
-	}
-	png_read_image(*ppng, row_pointers);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, infos.wid, infos.hgt, 1,
-				GL_RGBA, GL_UNSIGNED_BYTE, data);
-	png_destroy_read_struct(ppng, pinfo, pend);
-	free(data);
-	free(row_pointers);
-}
-
 int			fill_tex(FILE *fd)
 {
 	png_structp		png_ptr;
@@ -111,7 +111,7 @@ int			fill_tex(FILE *fd)
 	png_get_IHDR(png_ptr, info_ptr, &infos.wid, &infos.hgt, &infos.bit_dpt,
 				&infos.col_type, NULL, NULL, NULL);
 	png_read_update_info(png_ptr, info_ptr);
-	png_my_assC(&png_ptr, &info_ptr, &end_ptr, infos);
+	png_my_ass(&png_ptr, &info_ptr, &end_ptr, infos);
 	return (0);
 }
 

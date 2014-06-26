@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:50:07 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/14 01:24:20 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 05:52:52 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	display(void)
 	glRotatef(40.0, 1.0, 0.0, 0.0);
 	glTranslatef(g_env->camtrans[0], g_env->camtrans[1], g_env->camtrans[2]);
 	if (g_env->maph)
+	{
 		display_map();
+		display_footer();
+	}
 	glutSwapBuffers();
 }

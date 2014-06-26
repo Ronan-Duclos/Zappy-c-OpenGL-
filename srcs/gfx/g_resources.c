@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:20:29 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 00:58:13 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 05:40:50 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		resources_load(t_env *env)
 	env->zepptex = texture_from_png("data/GoblinZeppelin.png");
 	env->textures[_tex_egg] = texture_from_png("data/ThunderLizardEgg.png");
 	env->textures[_tex_totem] = texture_from_png("data/Wards1.png");
+	env->textures[_ta] = texture_from_png("data/Police/am.png");
 	get_model_from_mdx("data/CrystalShard.mdx", &mdx);
 //	get_model_from_mdx("data/ThunderLizardEgg.mdx", &mdx);
 	ft_vbo_from_mdx(mdx.geosets->content, env->vbos[_mod_stone], env->vbosizes[_mod_stone]);

@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 00:27:41 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 05:43:02 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,12 @@ enum			e_lists
 
 enum			e_textures
 {
-	_text_lower,
-	_text_upper,
-	_text_symbols,
 	_tex_grass,
 	_tex_plant,
 	_tex_zepp,
 	_tex_egg,
 	_tex_totem,
+	_ta,
 	_tex_nb
 };
 
@@ -361,6 +359,7 @@ void			display_all_grid(void);
 /*
 **	g_display_items (1 static)
 */
+void			display_egg(int i);
 void			display_any(t_item *i);
 void			display_totem(t_item *i);
 void			display_items(int sq);
@@ -445,5 +444,10 @@ void			rot_init(t_rot *rot, enum e_dir dir);
 */
 void			cast_incant(int x, int y);
 void			repel_incant(int x, int y);
+
+/*
+**	g_display_hud.c
+*/
+void			display_footer(void);
 
 #endif

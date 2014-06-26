@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:26:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 01:11:18 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/26 05:31:36 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "gfx_gl.h"
 #include "mdx.h"
 
-static void	display_egg(int i)
+void		display_egg(int i)
 {
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);

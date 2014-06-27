@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 03:23:59 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 07:28:23 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:09:45 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		display_rect(int x, int y, int lettre)
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glTexCoordPointer(2, GL_FLOAT, 0, vertices + 12);
 	glBindTexture(GL_TEXTURE_2D, g_env->textures[lettre]);
-	glScalef(0.05, 0.05, 0);
+	glScalef(0.03, 0.03, 0);
 	glTranslatef(x, y, 0);
 	glBegin(GL_QUADS);
 	{
@@ -40,21 +40,25 @@ static void	display2(t_npc *npc)
 {
 	char	*str;
 
+	str = ft_itoa(npc->inv[_deraumere]);
+	display_words(-30, 24, "Deraumere");
+	display_words(-20, 24, str);
+	free(str);
 	str = ft_itoa(npc->inv[_sibur]);
-	display_words(-20, 15, "Sibur");
-	display_words(-10, 15, str);
+	display_words(-30, 23, "Sibur");
+	display_words(-20, 23, str);
 	free(str);
 	str = ft_itoa(npc->inv[_mendiane]);
-	display_words(-20, 14, "Mendiane");
-	display_words(-10, 14, str);
+	display_words(-30, 22, "Mendiane");
+	display_words(-20, 22, str);
 	free(str);
 	str = ft_itoa(npc->inv[_phiras]);
-	display_words(-20, 13, "Phiras");
-	display_words(-10, 13, str);
+	display_words(-30, 22, "Phiras");
+	display_words(-20, 22, str);
 	free(str);
 	str = ft_itoa(npc->inv[_thystame]);
-	display_words(-20, 12, "Thystame");
-	display_words(-10, 12, str);
+	display_words(-30, 21, "Thystame");
+	display_words(-20, 21, str);
 	free(str);
 }
 
@@ -67,20 +71,22 @@ static void	display_inv(void)
 	if (npc->lvl == 0)
 		return ;
 	str = ft_itoa(npc->id);
-	display_words(-20, 19, "ID");
-	display_words(-10, 19, str);
+	display_words(-30, 30, "ID");
+	display_words(-20, 30, str);
 	free(str);
+	str = ft_itoa(npc->lvl);
+	display_words(-30, 29, "Lvl");
+	display_words(-20, 29, str);
+	free(str);
+	display_words(-30, 28, "Team");
+	display_words(-20, 28, npc->team);
 	str = ft_itoa(npc->inv[_food]);
-	display_words(-20, 18, "Food");
-	display_words(-10, 18, str);
+	display_words(-30, 26, "Food");
+	display_words(-20, 26, str);
 	free(str);
 	str = ft_itoa(npc->inv[_linemate]);
-	display_words(-20, 17, "Linemate");
-	display_words(-10, 17, str);
-	free(str);
-	str = ft_itoa(npc->inv[_deraumere]);
-	display_words(-20, 16, "Deraumere");
-	display_words(-10, 16, str);
+	display_words(-30, 25, "Linemate");
+	display_words(-20, 25, str);
 	free(str);
 	display2(npc);
 }

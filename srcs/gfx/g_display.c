@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:50:07 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 05:52:52 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:15:02 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	display(void)
 	if (g_env->maph)
 	{
 		display_map();
-		display_footer();
+//		display_footer();
 	}
 	glutSwapBuffers();
 }

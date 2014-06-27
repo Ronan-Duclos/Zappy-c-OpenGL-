@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 12:05:30 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 18:52:09 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:33:29 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void		cmd_bct(char *cmd)
 
 	printf("cmd_bct: %s\n", cmd);
 	i = 0;
-	i += get_next_int(&y, &cmd[i]);
 	i += get_next_int(&x, &cmd[i]);
+	i += get_next_int(&y, &cmd[i]);
 	tab = g_env->sq[x + g_env->mapw * y].itms;
 	i += get_next_int(&tab[0], &cmd[i]);
 	i += get_next_int(&tab[1], &cmd[i]);

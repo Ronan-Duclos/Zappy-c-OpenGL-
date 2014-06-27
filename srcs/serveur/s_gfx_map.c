@@ -6,14 +6,14 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 17:32:56 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:48:05 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:32:35 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 #include "libft.h"
 
-void		gfx_bct(t_env *e, int cs, int x, int y)
+void		gfx_bct(t_env *e, int cs, int y, int x)
 {
 	char	buf[BUF_SIZE];
 
@@ -43,7 +43,7 @@ void		gfx_mct(t_env *e, int cs)
 		while (x < 20 && e->users[cs]->gfx.j < e->opt.y)
 		{
 			if (e->users[cs]->gfx.i < e->opt.x)
-				gfx_bct(e, cs, e->users[cs]->gfx.i, e->users[cs]->gfx.j);
+				gfx_bct(e, cs, e->users[cs]->gfx.j, e->users[cs]->gfx.i);
 			x++;
 			e->users[cs]->gfx.j++;
 			e->users[cs]->gfx.x++;

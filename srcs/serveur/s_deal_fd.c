@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/23 20:06:02 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 00:49:47 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:14:27 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void	create_clt(t_env *e, int s)
 	struct sockaddr_in		clt;
 
 	cs = X(-1, accept(s, (struct sockaddr *)&clt, &len), "accepte");
+	if (cs >= MAX_CONNEC)
+	{
+		close(cs);
+		return ;
+	}
 	e->users[cs]->type = FD_CLT;
 	e->users[cs]->sock = cs;
 	e->users[cs]->fct_read = client_read;
@@ -48,6 +53,7 @@ void	create_clt(t_env *e, int s)
 
 void	destroy_clt(t_env *e, int sock)
 {
+	e->nb_connec--;
 	if (e->users[sock]->ig == 1 && !e->users[sock]->gfx.gfx)
 		clear_player(e, sock);
 	if (e->users[sock]->player.team != NULL)

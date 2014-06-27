@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/06/27 11:25:36 by rbernand          #+#    #+#             */
+/*   Updated: 2014/06/27 11:25:38 by rbernand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 15:30:37 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/27 00:02:57 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:24:43 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,17 +152,17 @@ void				run_clt(t_env *e);
 /*
 **	c_tools1.c
 */
-int						my_exit(int sig, char *line);
-int						my_error(char c);
-void					rcv_keyboard(t_env *e);
-void					send_serveur(t_env *e);
-void					rcv_serveur(t_env *e);
+int					my_exit(int sig, char *line);
+int			i		my_error(char c);
+void				rcv_keyboard(t_env *e);
+void				send_serveur(t_env *e);
+void				rcv_serveur(t_env *e);
 
 /*
 **	Lexing functions
 */
-void					get_inventaire(t_env *e, char *str);
-void					get_vision(t_env *e, char *str);
+void				get_inventaire(t_env *e, char *str);
+void				get_vision(t_env *e, char *str);
 /*
 **	c_init.c
 */
@@ -163,7 +175,7 @@ void				take_item(t_env *e);
 void				incantation(t_env *e);
 int					death_clt(t_env *e);
 /*
-**	Fonctions "send" des commandes
+**	Fonctions send des commandes
 */
 void				send_broadcast(t_env *e, char *msg);
 void				send_connect_nbr(t_env *e);
@@ -179,41 +191,41 @@ void				send_turn_right(t_env *e);
 void				send_watch_sight(t_env *e);
 
 /*
-**	Fonctions "answer" des commandes
+**	Fonctions answer des commandes
 */
 void				receive_ok_only(t_env *e);
 /*
 **	IA
 */
-void			try_ia(t_env *e);
-void			my_ia(t_env *e);
+void				try_ia(t_env *e);
+void				my_ia(t_env *e);
 
 /*
 **	c_find_item.c
 */
-int			find_item(t_env *e, int type);
+int					find_item(t_env *e, int type);
 
 /*
 **	c_evolve.c
 */
-int		i_have_stone(t_ia *ia);
-void		try_to_evolve(t_env *e, t_ia *ia);
+int					i_have_stone(t_ia *ia);
+void				try_to_evolve(t_env *e, t_ia *ia);
 
 /*
 **	c_goto_bc.v
 */
-void		goto_bc(t_env *e);
+void				goto_bc(t_env *e);
 
 /*
 **	c_broadcas.c
 */
-char	*make_broadcast(t_ia *ia);
+char				*make_broadcast(t_ia *ia);
 
 /*
 **	c_todo.c
 */
 void				add_todo(t_env *e, void (*f)(), char *msg);
-void		todo_to_cal(t_env *e);
-void		del_todo(t_env *e);
+void				todo_to_cal(t_env *e);
+void				del_todo(t_env *e);
 
 #endif

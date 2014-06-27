@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/27 00:15:40 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/27 11:22:37 by rbernand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ DIROBJ=objs/
 DIRSRC=srcs/
 DIRBIN=bin/
 SERV_SRC=s_incantation.c \
+	s_disperse_stone.c \
 	s_main.c \
 	s_opt1.c \
 	s_opt2.c \

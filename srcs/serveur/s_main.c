@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 12:19:56 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/25 18:38:13 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:11:05 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			run_serv(t_env *e)
 
 int				my_init(t_env *e)
 {
+	e->nb_connec = 0;
 	init_users(e);
 	init_serv(e);
 	init_team(e);

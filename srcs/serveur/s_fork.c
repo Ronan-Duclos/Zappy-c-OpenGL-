@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 21:11:49 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 00:55:49 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:21:19 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_egg			*new_egg(int x, int y, int cs)
 	return (new);
 }
 
-void		add_egg(t_env *e, int cs)
+void			add_egg(t_env *e, int cs)
 {
 	t_egg			*new;
 	t_player		*p;

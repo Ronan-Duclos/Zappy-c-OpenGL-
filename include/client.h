@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/27 11:25:36 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/27 11:25:38 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:37:05 by rbernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void				run_clt(t_env *e);
 **	c_tools1.c
 */
 int					my_exit(int sig, char *line);
-int			i		my_error(char c);
+int					my_error(char c);
 void				rcv_keyboard(t_env *e);
 void				send_serveur(t_env *e);
 void				rcv_serveur(t_env *e);

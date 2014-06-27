@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/27 05:54:07 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/27 08:12:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct		s_inc
 {
 	int				id;
 	double			time;
+	int				css[255];
 	struct s_inc	*next;
 }					t_inc;
 
@@ -360,5 +361,12 @@ void				watch_south(t_env *e, int cs);
 void				watch_north(t_env *e, int cs);
 void				watch_east(t_env *e, int cs);
 void				watch_west(t_env *e, int cs);
+
+/*
+**	s_incantation_lc.c
+*/
+void				add_css_lc(t_env *e, int cs, int id);
+void				add_incs(t_env *e, int id, double time);
+void				remove_incs(t_env *e, int id);
 
 #endif

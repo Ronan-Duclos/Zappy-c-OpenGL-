@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 19:00:17 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 00:30:58 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 08:30:19 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	incantation(t_env *e)
 		e->user->player.ia.lvlup = 0;
 	else
 		e->user->player.ia.lvl = lvl;
+	e->user->player.ia.lvlup = 0;
 //	send_incantation(e);
 	act->time = 0;
 }

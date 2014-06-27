@@ -6,7 +6,7 @@
 #    By: rbernand <rbernand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/24 06:29:29 by rbernand          #+#    #+#              #
-#    Updated: 2014/06/27 00:15:40 by rbernand         ###   ########.fr        #
+#    Updated: 2014/06/27 07:56:46 by rduclos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SERV_SRC=s_incantation.c \
 	s_less_hp.c \
 	s_fork.c \
 	s_end.c \
+	s_incantations_lc.c \
 	s_broadcast.c
 CLT_SRC=c_main.c \
 	c_ia_evolve.c \

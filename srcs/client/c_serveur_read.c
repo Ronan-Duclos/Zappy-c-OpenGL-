@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 21:25:21 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 01:14:09 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 08:38:10 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,15 +131,19 @@ void	replace_calendar(t_env *e)
 
 void	receive_broadcast(t_env *e)
 {
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 
-	tmp = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
-	if (!tmp)
+	tmp1 = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
+	if (!tmp1)
 		return ;
-	tmp[1] = '\0';
-	e->user->player.ia.bdc = ft_atoi(tmp);
-	tmp += 2;
-	e->user->player.ia.msg = ft_strdup(tmp);
+	tmp1[1] = '\0';
+	tmp2 = tmp1 + 2;
+	if (e->user->player.ia.lvlup != 1 && ft_atoi(tmp2) == e->user->player.ia.lvl)
+	{
+		e->user->player.ia.bdc = ft_atoi(tmp1);
+		e->user->player.ia.msg = ft_strdup(tmp2);
+	}
 }
 
 void	make_cmd(t_env *e)

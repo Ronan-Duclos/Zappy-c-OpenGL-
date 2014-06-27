@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 04:06:04 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/27 08:49:39 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,9 @@ void			remove_actions(t_user *user, double time)
 			free(acts[i].cmd);
 		acts[i].cmd = NULL;
 	}
+	init_bc(user->buf_write);
+	init_bc(user->buf_read);
+	
 	user->player.cur_aread = 0;
 	user->player.cur_awrite = 1;
 	printf("PLAYER [%d] LVL AT : x [%d], y [%d], : %f\n", user->sock, x, y, time);
@@ -189,11 +192,45 @@ static double	get_start_time(t_env *e, int cs, int ca)
 	return (time);
 }
 
+void			make_my_incs(t_env *e, int cs, double time)
+{
+	static int      id;
+
+	add_incs(e, id, time);
+	add_css_lc(e, cs, id);
+	id = id > 255 ? 0 : id + 1;
+}
+
+double			make_queue(t_env *e, int cs, char *cmd, double time)
+{
+	int		j;
+	int		ca;
+
+	ca = e->users[cs]->player.cur_awrite;
+	j = get_action_value(cmd);
+	if (j != -1)
+	{
+		e->users[cs]->player.acts[ca].start = time;
+		time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
+		if (time < e->srv.time)
+			e->srv.time = time;
+		e->users[cs]->player.acts[ca].time = time;
+		e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd);
+		e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
+		e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
+		if (j == 9)
+			make_my_incs(e, cs, time);
+		e->users[cs]->player.cur_awrite = (ca + 1) % 10;
+	}
+	else
+		tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
+	return (time);
+}
+
 void			queue_actions(t_env *e, int cs)
 {
 	int		i;
 	double	time;
-	int		j;
 	char	**cmd;
 	int		ca;
 
@@ -203,22 +240,8 @@ void			queue_actions(t_env *e, int cs)
 	ca = e->users[cs]->player.cur_awrite;
 	time = get_start_time(e, cs, ca);
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
-{
-		j = get_action_value(cmd[i]);
-		if (j != -1)
-		{
-			e->users[cs]->player.acts[ca].start = time;
-			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
-			if (time < e->srv.time)
-				e->srv.time = time;
-			e->users[cs]->player.acts[ca].time = time;
-			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
-			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
-			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
-			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
-		}
-		else
-			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
+	{
+		time = make_queue(e, cs, cmd[i], time);
 		ca = e->users[cs]->player.cur_awrite;
 	}
 	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 18:09:14 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 05:53:41 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/27 08:50:01 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,24 @@ void			end_incant(t_env *e, int cs, int good)
 {
 	int		x;
 	int		y;
+	int		id;
+	t_inc	*tmp;
+	int		i;
 
+	id = e->users[cs]->player.lvlup;
+	tmp = e->incs;
+	while (tmp && tmp->id != id)
+		tmp = tmp->next;
+	if (tmp != NULL)
+	{
+		i = 0;
+		while (tmp->css[i] != 0)
+		{
+			e->users[tmp->css[i]]->player.end_inc = 0;
+			i++;
+		}
+	}
+	remove_incs(e, id);
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
 	gfx_send_act(e, cs, gfx_pie, good);
@@ -92,13 +109,11 @@ int				check_users_lvl(t_env *e, int cs)
 	y = e->users[cs]->player.y;
 	tmp = e->map[y][x].player;
 	lvlup = e->users[cs]->player.lvlup;
+	tmp->player.end_inc = 1;
 	while (tmp != NULL)
 	{
 		if (tmp->player.lvlup == lvlup)
-		{
 			good++;
-			tmp->player.end_inc = 1;
-		}
 		tmp = tmp->next;
 	}
 	printf("NB PLAYER TO LVLUP : [%d]\n", g_lvlup[e->users[cs]->player.lvl - 1][_player]);
@@ -151,49 +166,74 @@ static int		verify_cmd(t_user *user)
 	return (1);
 }
 
-int				find_incantation_cal(t_env *e, int cs)
+int				find_incantation_id(t_env *e, int cs)
 {
-	int				i;
-	t_actions		*act;
+	t_inc	*tmp;
+	int		i;
 
-	i = 0;
-	act = e->users[cs]->player.acts;
-	while (i < 10)
+	tmp = e->incs;
+	while (tmp != NULL)
 	{
-		if (act[i].time > 0 && act[i].fct_cmd == &incantation)
-			return (i);
-		i++;
+		i = 0;
+		while (tmp->css[i] != 0)
+		{
+			if (tmp->css[i] == cs)
+			{
+					e->users[cs]->player.lvlup = tmp->id;
+					return (tmp->id);
+			}
+			i++;
+		}
+		tmp = tmp->next;
 	}
 	return (-1);
+}
+
+double			find_incantation_time(t_env *e, int cs)
+{
+	int		id;
+	t_inc	*inc;
+
+	id = e->users[cs]->player.lvlup;
+	inc = e->incs;
+	while (inc != NULL)
+	{
+		if (inc->id == id)
+			return (inc->time);
+		inc = inc->next;
+	}
+	return (0);
 }
 
 void			make_incantations(t_env *e, int cs)
 {
 	int				x;
 	int				y;
+	int				id;
 	t_user			*tmp;
-	static int		id;
 	double			time;
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
 	e->users[cs]->player.inc = 1;
 	tmp = e->map[y][x].player;
-	time = e->users[cs]->player.acts[find_incantation_cal(e, cs)].time;
+	id = find_incantation_id(e, cs);
+	time = find_incantation_time(e, cs);
 	printf("PLAYER [%d] LVL AT : x [%d], y [%d], : %f\n", cs, x, y, time);
-//	add_incs(e, id, time);
 	while (tmp != NULL)
 	{
 		if (tmp->started && e->users[cs]->player.lvl == tmp->player.lvl
-			&& verify_cmd(tmp) == 1 && tmp->player.lvlup == 0)
+			&& verify_cmd(tmp) == 1 && (tmp->player.lvlup == 0 || tmp->sock == cs)
 		{
 			if (tmp->sock != cs)
+			{
 				remove_actions(tmp, time);
-			tmp->player.lvlup = id;
+				tmp->player.lvlup = id;
+				add_css_lc(e, tmp->sock, id);
+			}
 			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
 		}
 		tmp = tmp->next;
 	}
-	id = id > 255 ? 0 : id + 1;
 	gfx_send_npc(e, cs, gfx_pic);
 }

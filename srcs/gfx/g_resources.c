@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 22:20:29 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/27 03:06:02 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:31:29 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static void	mdx_load(char *name, enum e_models mod, int geos)
 
 void		resources_load2(t_env *env)
 {
-	char	str[19] ="data/Police/am.png\0";
-	char	str2[18] ="data/Police/A.png\0";
-	int		i;
+	static char	str[19] = "data/Police/am.png\0";
+	static char	str2[18] = "data/Police/A.png\0";
+	int			i;
 
 	i = _ta;
 	while (str[12] <= 'z')

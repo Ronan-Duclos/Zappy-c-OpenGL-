@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 16:27:15 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/27 00:45:29 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 08:41:16 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		del_egg(void *ct)
 	t_egg	*egg;
 
 	egg = (t_egg *)ct;
+	bzero(ct, sizeof(t_egg));
 	free(egg->team);
 	free(egg);
 }
@@ -26,13 +27,22 @@ static void	pnw_on_egg(t_npc *npc)
 	t_list	**tmp;
 
 	tmp = &g_env->egg;
-	while (*tmp && strcmp(((t_egg *)(*tmp)->content)->team, npc->team))
+	if (*tmp)
+	{
+		printf("CONTENT = %p \n", ((t_egg *)(*tmp)->content));
+		printf("PTR = %p \n", ((t_egg *)(*tmp)->content)->team);
+		printf("DATA = %d \n", ((t_egg *)(*tmp)->content)->x);
+		printf("DATA = %d \n", ((t_egg *)(*tmp)->content)->y);
+		printf("DATA = %d \n", ((t_egg *)(*tmp)->content)->id);
+		printf("DATA = %c \n", ((t_egg *)(*tmp)->content)->team[0]);
+	}
+	while (*tmp && !strcmp(((t_egg *)(*tmp)->content)->team, npc->team))
 		tmp = &(*tmp)->next;
 	if (!*tmp)
 		return ;
 	del_link(&(*tmp), NULL);
 	tmp = &g_env->sq[npc->x + g_env->mapw * npc->y].egg;
-	while (*tmp && strcmp(((t_egg *)((*tmp)->content))->team, npc->team))
+	while (*tmp && !strcmp(((t_egg *)((*tmp)->content))->team, npc->team))
 		tmp = &(*tmp)->next;
 	if (!(*tmp))
 		return ;

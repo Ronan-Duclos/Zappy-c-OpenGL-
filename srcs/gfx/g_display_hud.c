@@ -6,13 +6,13 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 03:23:59 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 06:56:06 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:28:23 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_gl.h"
 
-void	display_rect(int x, int y, int lettre)
+void		display_rect(int x, int y, int lettre)
 {
 	static GLfloat	vertices[] = {
 

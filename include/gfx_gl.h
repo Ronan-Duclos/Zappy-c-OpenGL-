@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 06:51:53 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:41:40 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,13 @@ void			display_any(t_item *i);
 void			display_totem(t_item *i);
 void			display_items(int sq);
 void			display_any(t_item *item);
+
+/*
+**	g_display_things.c
+*/
+void			display_all_food(t_square *sq);
+void			display_all_stones(t_square *sq);
+
 /*
 **	g_anim.c
 */

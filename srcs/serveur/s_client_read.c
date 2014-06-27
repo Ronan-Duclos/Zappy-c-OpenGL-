@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 01:30:19 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 04:06:04 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,12 @@ char			*get_cmd_arg(char *cmd)
 void			remove_actions(t_user *user, double time)
 {
 	t_actions	*acts;
-	int			read;
 	int			i;
+	int			x;
+	int			y;
 
+	x = user->player.x;
+	y = user->player.y;
 	i = -1;
 	acts = user->player.acts;
 	while (++i < 10)
@@ -150,10 +153,10 @@ void			remove_actions(t_user *user, double time)
 		acts[i].cmd = NULL;
 	}
 	user->player.cur_aread = 0;
-	user->player.cur_awrite = 0;
-	read = 0;
-	acts[read].time = time;
-	acts[read].fct_cmd = g_tab[9].fct_cmd;
+	user->player.cur_awrite = 1;
+	printf("PLAYER [%d] LVL AT : x [%d], y [%d], : %f\n", user->sock, x, y, time);
+	acts[0].time = time;
+	acts[0].fct_cmd = g_tab[9].fct_cmd;
 	user->player.cur_awrite = 1;
 }
 

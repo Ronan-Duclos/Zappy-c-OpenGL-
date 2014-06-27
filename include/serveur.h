@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/30 13:27:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/27 01:28:45 by rbernand         ###   ########.fr       */
+/*   Updated: 2014/06/27 05:54:07 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ typedef struct		s_player
 {
 	char			*team;
 	int				inc;
+	int				end_inc;
 	t_inv			inv;
 	t_actions		acts[10];
 	int				cur_aread;
 	int				cur_awrite;
 	int				lvl;
+	int				lvlup;
 	int				x;
 	int				y;
 	int				direc;
@@ -146,12 +148,20 @@ typedef struct		s_team
 	int				win;
 }					t_team;
 
+typedef struct		s_inc
+{
+	int				id;
+	double			time;
+	struct s_inc	*next;
+}					t_inc;
+
 typedef struct		s_env
 {
 	t_opt			opt;
 	t_case			**map;
 	double			repop;
 	t_team			*team;
+	t_inc			*incs;
 	int				nb_team;
 	t_srv			srv;
 	t_user			**users;

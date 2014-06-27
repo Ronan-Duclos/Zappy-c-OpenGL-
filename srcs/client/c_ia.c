@@ -6,7 +6,7 @@
 /*   By: rbernand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 22:53:51 by rbernand          #+#    #+#             */
-/*   Updated: 2014/06/27 08:30:59 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/27 09:05:19 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	try_ia(t_env *e)
 	ar = e->user->player.cur_aread;
 	if (e->user->ig == 1 && e->user->player.acts[aw].time == 0)
 	{
-		if (e->user->player.lvlup == 1)
+		if (e->user->player.ia.lvlup == 1)
 			;
 		else if (e->user->player.ia.todo != NULL)
 			todo_to_cal(e);

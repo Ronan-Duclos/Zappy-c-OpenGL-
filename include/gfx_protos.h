@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 18:12:36 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 05:49:52 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:54:15 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define NPCS_MAX				255
 # define TEAM_COLORS			125
 
-# define SCR_WID				640
-# define SCR_HGH				480
+# define SCR_WID				1280
+# define SCR_HGH				960
 # define FPS					60
 
 # define FOOD_PER_SQUARE		45

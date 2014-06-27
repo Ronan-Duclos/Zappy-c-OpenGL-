@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:56:36 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 20:17:53 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:48:14 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	idle(void)
 			g_env->camtrans[2] += 0.2;
 		if (g_env->keys & FLAG_DOWN)
 			g_env->camtrans[2] += -0.2;
-		if (g_env->keys)
-			transpose();
 		glutPostRedisplay();
 	}
 }

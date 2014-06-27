@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 18:34:03 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 07:41:40 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,15 @@ void			light_init(void);
 **	g_display.c
 */
 void			display(void);
+void			display_rect(int x, int y, int lettre);
+void			display_words(float x, float y, char *str);
 
 /*
 **	g_input.c
 */
 void			speckeyup(int key, int xmouse, int ymouse);
 void			speckey(int key, int xmouse, int ymouse);
+void			keykey(unsigned char key, int xmouse, int ymouse);
 void			motion(int x, int y);
 
 /*
@@ -122,6 +125,13 @@ void			display_any(t_item *i);
 void			display_totem(t_item *i);
 void			display_items(int sq);
 void			display_any(t_item *item);
+
+/*
+**	g_display_things.c
+*/
+void			display_all_food(t_square *sq);
+void			display_all_stones(t_square *sq);
+
 /*
 **	g_anim.c
 */

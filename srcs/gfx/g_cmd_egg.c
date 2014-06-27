@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 18:46:27 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:00:54 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 08:31:24 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void		cmd_enw(char *cmd)
 	new->x = x;
 	new->y = y;
 	new->team = strdup(g_env->npc[npc].team);
+	printf("newx = %d, newy = %d, newteam = %s\n", new->x, new->y, new->team);
 	add_link_end(&g_env->egg, new);
 	add_link_end(&g_env->sq[x + g_env->mapw * y].egg, new);
 }

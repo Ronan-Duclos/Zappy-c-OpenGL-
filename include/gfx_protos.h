@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 18:12:36 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 23:54:02 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:54:15 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define NPCS_MAX				255
 # define TEAM_COLORS			125
 
-# define SCR_WID				640
-# define SCR_HGH				480
+# define SCR_WID				1280
+# define SCR_HGH				960
 # define FPS					60
 
 # define FOOD_PER_SQUARE		45
@@ -121,6 +121,67 @@ enum					e_textures
 	_tex_egg,
 	_tex_totem,
 	_ta,
+	_tb,
+	_tc,
+	_td,
+	_te,
+	_tf,
+	_tg,
+	_th,
+	_ti,
+	_tj,
+	_tk,
+	_tl,
+	_tm,
+	_tn,
+	_to,
+	_tp,
+	_tq,
+	_tr,
+	_ts,
+	_tt,
+	_tu,
+	_tv,
+	_tw,
+	_tx,
+	_ty,
+	_tz,
+	_tA,
+	_tB,
+	_tC,
+	_tD,
+	_tE,
+	_tF,
+	_tG,
+	_tH,
+	_tI,
+	_tJ,
+	_tK,
+	_tL,
+	_tM,
+	_tN,
+	_tO,
+	_tP,
+	_tQ,
+	_tR,
+	_tS,
+	_tT,
+	_tU,
+	_tV,
+	_tW,
+	_tX,
+	_tY,
+	_tZ,
+	_t0,
+	_t1,
+	_t2,
+	_t3,
+	_t4,
+	_t5,
+	_t6,
+	_t7,
+	_t8,
+	_t9,
 	_tex_nb
 };
 
@@ -261,8 +322,15 @@ typedef struct			s_env
 	GLuint		maptex;
 	GLuint		zepptex;
 	t_npc		*npc;
+	int			curr_npc;
 	GLfloat		teamcol[TEAM_COLORS][3];
 }						t_env;
+
+typedef struct			s_pol
+{
+	char				c;
+	int					n;
+}						t_pol;
 
 t_env					*g_env;
 

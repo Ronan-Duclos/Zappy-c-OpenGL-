@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 18:12:27 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 00:03:09 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 11:23:55 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,15 @@ static void	display_mob(t_mob *mob)
 	team_color(mob->id);
 	glCallList(g_env->lists[_red]);
 	glCallList(g_env->lists[_init_owl_pos]);
+	if (mob->id == g_env->curr_npc)
+	{
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+		glScalef(1.5, 1.5, 1.5);
+	}
 	anim_rot(mob->rot);
 	display_geos();
+	if (mob->id == g_env->curr_npc)
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glPopMatrix();
 }
 

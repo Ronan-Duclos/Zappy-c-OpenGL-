@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:50:07 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 05:52:52 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:47:25 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	display(void)
 	glTranslatef(g_env->camtrans[0], g_env->camtrans[1], g_env->camtrans[2]);
 	if (g_env->maph)
 	{
+		transpose();
 		display_map();
 		display_footer();
 	}

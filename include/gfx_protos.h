@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 18:12:36 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 04:38:34 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/27 05:49:52 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,7 @@ typedef struct			s_env
 	GLuint		maptex;
 	GLuint		zepptex;
 	t_npc		*npc;
+	int			curr_npc;
 	GLfloat		teamcol[TEAM_COLORS][3];
 }						t_env;
 

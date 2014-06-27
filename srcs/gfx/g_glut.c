@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:15:31 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/13 19:16:08 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 05:19:09 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_glut(int ac, char **av)
 	glutCreateWindow("*HOSHI* TESUTO DA YO NE~ *HOSHI*");
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keykey);
 	glutSpecialFunc(speckey);
 	glutSpecialUpFunc(speckeyup);
 	glutPassiveMotionFunc(motion);

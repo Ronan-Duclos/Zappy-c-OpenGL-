@@ -6,11 +6,19 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 19:53:45 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/27 00:14:57 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 06:06:16 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_gl.h"
+
+void	keykey(unsigned char key, int x, int y)
+{
+	(void)x;
+	(void)y;
+	if (key == 'd')
+		g_env->curr_npc += 1;
+}
 
 void	speckey(int key, int xmouse, int ymouse)
 {

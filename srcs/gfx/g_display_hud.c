@@ -6,81 +6,13 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 03:23:59 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 04:38:21 by dmansour         ###   ########.fr       */
+/*   Updated: 2014/06/27 06:56:06 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gfx_gl.h"
 
-t_pol		g_police[] =
-{
-	{'a', _ta},
-	{'b', _tb},
-	{'c', _tc},
-	{'d', _td},
-	{'e', _te},
-	{'f', _tf},
-	{'g', _tg},
-	{'h', _th},
-	{'i', _ti},
-	{'j', _tj},
-	{'k', _tk},
-	{'l', _tl},
-	{'m', _tm},
-	{'n', _tn},
-	{'o', _to},
-	{'p', _tp},
-	{'q', _tq},
-	{'r', _tr},
-	{'s', _ts},
-	{'t', _tt},
-	{'u', _tu},
-	{'v', _tv},
-	{'w', _tw},
-	{'x', _tx},
-	{'y', _ty},
-	{'z', _tz},
-	{'A', _tA},
-	{'B', _tB},
-	{'C', _tC},
-	{'D', _tD},
-	{'E', _tE},
-	{'F', _tF},
-	{'G', _tG},
-	{'H', _tH},
-	{'I', _tI},
-	{'J', _tJ},
-	{'K', _tK},
-	{'L', _tL},
-	{'M', _tM},
-	{'N', _tN},
-	{'O', _tO},
-	{'P', _tP},
-	{'Q', _tQ},
-	{'R', _tR},
-	{'S', _tS},
-	{'T', _tT},
-	{'U', _tU},
-	{'V', _tV},
-	{'W', _tW},
-	{'X', _tX},
-	{'Y', _tY},
-	{'Z', _tZ},
-	{'0', _t0},
-	{'1', _t1},
-	{'2', _t2},
-	{'3', _t3},
-	{'4', _t4},
-	{'5', _t5},
-	{'6', _t6},
-	{'7', _t7},
-	{'8', _t8},
-	{'9', _t9},
-	{' ', 1},
-};
-
-
-static void	display_rect(int x, int y, int lettre)
+void	display_rect(int x, int y, int lettre)
 {
 	static GLfloat	vertices[] = {
 
@@ -104,24 +36,72 @@ static void	display_rect(int x, int y, int lettre)
 	glPopMatrix();
 }
 
-static void	display_words(float x, float y, char *str)
+static void	display2(t_npc *npc)
+{
+	char	*str;
+
+	str = ft_itoa(npc->inv[_sibur]);
+	display_words(-20, 15, "Sibur");
+	display_words(-10, 15, str);
+	free(str);
+	str = ft_itoa(npc->inv[_mendiane]);
+	display_words(-20, 14, "Mendiane");
+	display_words(-10, 14, str);
+	free(str);
+	str = ft_itoa(npc->inv[_phiras]);
+	display_words(-20, 13, "Phiras");
+	display_words(-10, 13, str);
+	free(str);
+	str = ft_itoa(npc->inv[_thystame]);
+	display_words(-20, 12, "Thystame");
+	display_words(-10, 12, str);
+	free(str);
+}
+
+static void	display_inv(void)
+{
+	t_npc	*npc;
+	char	*str;
+
+	npc = &g_env->npc[g_env->curr_npc];
+	if (npc->lvl == 0)
+		return ;
+	str = ft_itoa(npc->id);
+	display_words(-20, 19, "ID");
+	display_words(-10, 19, str);
+	free(str);
+	str = ft_itoa(npc->inv[_food]);
+	display_words(-20, 18, "Food");
+	display_words(-10, 18, str);
+	free(str);
+	str = ft_itoa(npc->inv[_linemate]);
+	display_words(-20, 17, "Linemate");
+	display_words(-10, 17, str);
+	free(str);
+	str = ft_itoa(npc->inv[_deraumere]);
+	display_words(-20, 16, "Deraumere");
+	display_words(-10, 16, str);
+	free(str);
+	display2(npc);
+}
+
+static void	select_player(void)
 {
 	int		i;
 
-	while (*str)
-	{
+	if (g_env->curr_npc == 0)
 		i = 0;
-		while (g_police[i].c != *str && g_police[i].c != ' ')
-			i++;
-		if (g_police[i].c == ' ')
-		{
-			x++;
-			str++;
-			continue;
-		}
-		display_rect(x++, y, g_police[i].n);
-		str++;
+	else
+		i = g_env->curr_npc;
+	if (g_env->npc[i].lvl != 0)
+		return ;
+	i++;
+	while (i != g_env->curr_npc && g_env->npc[i].lvl == 0)
+	{
+		i = (i + 1) % NPCS_MAX;
 	}
+	g_env->curr_npc = i;
+	return ;
 }
 
 void		display_footer(void)
@@ -133,7 +113,8 @@ void		display_footer(void)
 	glLoadIdentity();
 	glOrtho(-1, 1, -1, 1, 0, 100);
 	glMatrixMode(GL_MODELVIEW);
-	display_words(-20, 19, "connasse!!!pute");
+	select_player();
+	display_inv();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);

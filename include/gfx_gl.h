@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 22:15:42 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/26 18:34:03 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 06:51:53 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,15 @@ void			light_init(void);
 **	g_display.c
 */
 void			display(void);
+void			display_rect(int x, int y, int lettre);
+void			display_words(float x, float y, char *str);
 
 /*
 **	g_input.c
 */
 void			speckeyup(int key, int xmouse, int ymouse);
 void			speckey(int key, int xmouse, int ymouse);
+void			keykey(unsigned char key, int xmouse, int ymouse);
 void			motion(int x, int y);
 
 /*

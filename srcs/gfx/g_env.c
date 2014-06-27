@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 18:17:50 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/25 18:39:01 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 06:00:28 by dmansour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		env_init(t_env *env)
 {
 	g_env = env;
 	bzero(env, sizeof(*env));
+	env->curr_npc = 0;
 	env->selectcase = -1;
 	env->camtrans[0] = -0.5;
 	env->camtrans[1] = -10.1;

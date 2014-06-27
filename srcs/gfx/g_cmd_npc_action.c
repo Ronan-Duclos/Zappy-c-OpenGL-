@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 16:32:27 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/27 07:36:20 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:23:26 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ void		cmd_ppo(char *cmd)
 	i += get_next_int(&g_env->npc[npc].y, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].x, &cmd[i]);
 	i += get_next_int(&g_env->npc[npc].dir, &cmd[i]);
-//	g_env->npc[npc].dir += 1;
-//	g_env->npc[npc].dir %= 4;
-	printf("cmd_ppo: %d, %d %d, %d\n", npc,
-		g_env->npc[npc].x,
-		g_env->npc[npc].y,
-		g_env->npc[npc].dir);
 	move_mob(npc, g_env->npc[npc].x, g_env->npc[npc].y, g_env->npc[npc].dir);
 }
 
@@ -72,7 +66,6 @@ void		cmd_pgt(char *cmd)
 		return ;
 	i += get_next_int(&itm, &cmd[i]);
 	lower_mob(npc);
-	printf("cmd_pgt: %d %d\n", npc, itm);
 }
 
 void		cmd_pdr(char *cmd)
@@ -89,5 +82,4 @@ void		cmd_pdr(char *cmd)
 		return ;
 	i += get_next_int(&itm, &cmd[i]);
 	lower_mob(npc);
-	printf("cmd_pdr: %d %d\n", npc, itm);
 }

@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 18:46:27 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/27 08:31:24 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:21:45 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		cmd_enw(char *cmd)
 	int		x;
 	int		y;
 
-	printf("cmd_enw: %s\n", cmd);
 	new = (t_egg *)XV(NULL, malloc(sizeof(t_egg)), "cmd_enw");
 	bzero(new, sizeof(t_egg));
 	i = 0;
@@ -35,7 +34,6 @@ void		cmd_enw(char *cmd)
 	new->x = x;
 	new->y = y;
 	new->team = strdup(g_env->npc[npc].team);
-	printf("newx = %d, newy = %d, newteam = %s\n", new->x, new->y, new->team);
 	add_link_end(&g_env->egg, new);
 	add_link_end(&g_env->sq[x + g_env->mapw * y].egg, new);
 }
@@ -57,7 +55,7 @@ void		cmd_ebo(char *cmd)
 	if (!tmp)
 		return ;
 	egg = tmp->content;
-	printf("cmd_ebo: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
+	(void)egg;
 }
 
 void		cmd_eht(char *cmd)
@@ -67,7 +65,6 @@ void		cmd_eht(char *cmd)
 	int		i;
 	int		id;
 
-	printf("cmd_eht: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;
@@ -78,7 +75,7 @@ void		cmd_eht(char *cmd)
 	if (!tmp)
 		return ;
 	egg = tmp->content;
-	printf("cmd_eht: egg: id %d, %d %d\n", egg->id, egg->x, egg->y);
+	(void)egg;
 }
 
 static int	edi_egg_get(t_list **egg, int id)
@@ -91,6 +88,7 @@ static int	edi_egg_get(t_list **egg, int id)
 	if (!*tmp)
 		return (0);
 	return (1);
+	(void)egg;
 }
 
 void		cmd_edi(char *cmd)
@@ -100,7 +98,6 @@ void		cmd_edi(char *cmd)
 	int		i;
 	int		id;
 
-	printf("cmd_edi: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && (cmd[i] == ' ' || cmd[i] == '#'))
 		i++;

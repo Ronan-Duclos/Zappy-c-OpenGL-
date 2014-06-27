@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 16:36:16 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:01:27 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:22:15 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		cmd_pie(char *cmd)
 	i = 0;
 	i += get_next_int(&y, &cmd[i]);
 	i += get_next_int(&x, &cmd[i]);
-	printf("pie: %d %d\n", x, y);
 	repel_incant(x, y);
 }
 
@@ -37,7 +36,6 @@ void		cmd_plv(char *cmd)
 	if (npc >= NPCS_MAX || !g_env->npc[npc].id)
 		return ;
 	i += get_next_int(&g_env->npc[npc].lvl, &cmd[i]);
-	printf("cmd_plv: %d %d\n", npc, g_env->npc[npc].lvl);
 }
 
 void		cmd_pdi(char *cmd)

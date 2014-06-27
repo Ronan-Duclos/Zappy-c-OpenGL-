@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 16:24:35 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:10:38 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:28:42 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void		srv_read(t_ipv *ipv)
 	if (!r)
 		exit(0);
 	cmd_check(ipv, buf);
-	printf("after cmd_check\n");
 }
 
 void		srv_write(t_ipv *ipv)
@@ -63,7 +62,6 @@ void		srv_write(t_ipv *ipv)
 
 	bzero(buf, BUF_SIZE);
 	bc_to_tmp(&ipv->fd.buf_write, buf);
-	printf("send: [%s]\n", buf);
 	send(ipv->sock, buf, strlen(buf), 0);
 }
 

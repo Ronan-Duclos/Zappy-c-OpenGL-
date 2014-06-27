@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 15:28:15 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/24 20:00:50 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:27:15 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int			main(int ac, char **av)
 	light_init();
 	srv_connect(&ipv, av);
 	thread_ipv(&ipv);
-	printf("starting drawing\n");
 	glutMainLoop();
 	pthread_exit(ipv.th);
 	return (0);

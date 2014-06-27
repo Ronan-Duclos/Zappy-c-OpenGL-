@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/13 13:44:17 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:07:14 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:26:04 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static void	connect_error(int sock, char *func, int step)
 {
-	fprintf(stderr, "Serveur fucked us: %s, step %d\n", func, step);
+	fprintf(stderr, "Serveur send wrong message: %s, step %d\n", func, step);
 	X(-1, close(sock), "close");
 	exit(0);
 }

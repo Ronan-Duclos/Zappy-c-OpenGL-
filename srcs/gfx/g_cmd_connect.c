@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 16:29:04 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 16:59:02 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:19:49 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		cmd_msz(char *cmd)
 {
 	int		i;
 
-	printf("cmd_msz: %s\n", cmd);
 	i = 3;
 	i += get_next_int(&g_env->mapw, &cmd[i]);
 	i += get_next_int(&g_env->maph, &cmd[i]);
@@ -36,7 +35,6 @@ void		cmd_seg(char *cmd)
 {
 	int		i;
 
-	printf("cmd_seg: %s\n", cmd);
 	i = 0;
 	while (cmd[i] && cmd[i] == ' ')
 		i++;

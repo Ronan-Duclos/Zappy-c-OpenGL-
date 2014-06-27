@@ -6,7 +6,7 @@
 /*   By: tmielcza <tmielcza@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/14 23:52:52 by tmielcza          #+#    #+#             */
-/*   Updated: 2014/06/27 08:14:47 by tmielcza         ###   ########.fr       */
+/*   Updated: 2014/06/27 10:26:56 by caupetit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	add_link_end(t_list **list, void *content)
 {
 	t_list	*new;
 
-	printf("\033[33mDEL_LINK\033[0m");
 	new = (t_list *)XV(NULL, malloc(sizeof(t_list)), "malloc");
 	new->next = NULL;
 	new->content = content;

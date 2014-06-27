@@ -6,7 +6,7 @@
 /*   By: caupetit <caupetit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 18:46:27 by caupetit          #+#    #+#             */
-/*   Updated: 2014/06/26 17:00:54 by caupetit         ###   ########.fr       */
+/*   Updated: 2014/06/27 02:34:30 by tmielcza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void		cmd_enw(char *cmd)
 	i += get_next_int(&x, &cmd[i]);
 	new->x = x;
 	new->y = y;
+	if (!g_env->npc[npc].id)
+		return ;
 	new->team = strdup(g_env->npc[npc].team);
 	add_link_end(&g_env->egg, new);
 	add_link_end(&g_env->sq[x + g_env->mapw * y].egg, new);
@@ -110,10 +112,8 @@ void		cmd_edi(char *cmd)
 	if (!*tmp)
 		return ;
 	egg = (*tmp)->content;
-	if (!edi_egg_get(&g_env->egg, id))
-		return ;
-	del_link(&(*tmp), NULL);
-	if (!edi_egg_get(&g_env->sq[egg->x + g_env->mapw * egg->y].egg, id))
-		return ;
-	del_link(&(*tmp), del_egg);
+	if (edi_egg_get(&g_env->egg, id))
+		del_link(&(*tmp), NULL);
+	if (edi_egg_get(&g_env->sq[egg->x + g_env->mapw * egg->y].egg, id))
+		del_link(&(*tmp), del_egg);
 }

@@ -6,7 +6,7 @@
 /*   By: rduclos <rduclos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 16:58:15 by rduclos           #+#    #+#             */
-/*   Updated: 2014/06/27 08:49:39 by rduclos          ###   ########.fr       */
+/*   Updated: 2014/06/27 11:14:53 by rduclos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ void			remove_actions(t_user *user, double time)
 			free(acts[i].cmd);
 		acts[i].cmd = NULL;
 	}
-	init_bc(user->buf_write);
-	init_bc(user->buf_read);
+	init_bc(&user->buf_write);
+	init_bc(&user->buf_read);
 	
 	user->player.cur_aread = 0;
 	user->player.cur_awrite = 1;

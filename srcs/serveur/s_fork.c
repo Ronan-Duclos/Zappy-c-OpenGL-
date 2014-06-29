@@ -76,7 +76,7 @@ void			my_fork(t_env *e, int cs)
 	while (e->opt.name[++i] != NULL)
 		if (ft_strcmp(e->users[cs]->player.team, e->team[i].name) == 0)
 		{
-			if (e->team[i].member < ((e->srv.max_fd - 4) / 3))
+			if (e->team[i].member < ((e->srv.max_fd - 10) / (e->nb_team + 1))
 			{
 				tmp_to_bc(&e->users[cs]->buf_write, "ok", 1);
 				e->team[i].member++;

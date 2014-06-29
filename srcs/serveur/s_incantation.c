@@ -15,9 +15,10 @@
 #include <libft.h>
 #include <global.h>
 
-void			make_lvlup(t_env *e, t_user *tmp)
+void			make_lvlup(t_env *e, t_user *tmp, int good)
 {
-	tmp->player.lvl++;
+	if (good == 1)
+		tmp->player.lvl++;
 	gfx_send_npc(e, tmp->sock, gfx_plv);
 	tmp_to_bc(&e->users[tmp->sock]->buf_write, "niveau actuel : ", 0);
 	char_to_bc(&e->users[tmp->sock]->buf_write, '0' + tmp->player.lvl);
@@ -30,20 +31,36 @@ void			end_incant(t_env *e, int cs, int good)
 {
 	int		x;
 	int		y;
+	int		i;
 	t_user	*tmp;
 
+	i = 0;
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
-	tmp = e->map[x][y].player;
+	tmp = e->map[y][x].player;
 	while (tmp != NULL)
 	{
 		if (tmp->player.lvlup_good == 1)
-			make_lvlup(e, tmp);
+		{
+			printf("Players GOOD [%d] lvl up from : [%d]", tmp->sock, e->users[cs]->player.lvl);
+			make_lvlup(e, tmp, 1);
+			printf(", to : [%d]\n", e->users[cs]->player.lvl);
+			i++;
+		}
+		else if (tmp->player.lvlup == 1)
+		{
+			printf("Players BAD [%d] lvl up from : [%d]", tmp->sock, e->users[cs]->player.lvl);
+			make_lvlup(e, tmp, 0);
+			printf(", to : [%d]\n", e->users[cs]->player.lvl);
+		}
 		tmp = tmp->next;
 	}
-	gfx_send_act(e, cs, gfx_pie, good);
-	disperse_stone(e, cs, good);
-	gfx_send_map(e, x, y, gfx_bct);
+	if (i > 0)
+	{
+		gfx_send_act(e, cs, gfx_pie, good);
+		disperse_stone(e, cs, good);
+		gfx_send_map(e, x, y, gfx_bct);
+	}
 }
 
 int				last_inc(t_env *e, int cs)
@@ -63,6 +80,7 @@ int				last_inc(t_env *e, int cs)
 			sock = tmp->sock;
 		tmp = tmp->next;
 	}
+	printf("TMP->sock : [%d], CS : [%d]\n", tmp->sock, cs);
 	if (tmp->sock == cs)
 		return (1);
 	return (0);
@@ -90,22 +108,26 @@ void			incantation(t_env *e, int cs)
 {
 	int		x;
 	int		y;
-	int		*lvl;
+	int		lvl;
 	int		good;
 	int		i;
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
-	lvl = &e->users[cs]->player.lvl;
+	lvl = e->users[cs]->player.lvl;
 	good = 1;
 	i = 0;
+	printf("Player [%d] lvl [%d] at [%d][%d] ask to lvl up\n", cs, lvl, y, x);
 	while (++i < NB_STONE + 1)
-		if (e->map[y][x].ground[i] < g_lvlup[*lvl - 1][i])
+		if (e->map[y][x].ground[i] < g_lvlup[lvl - 1][i])
 			good = -1;
+	printf("for Stones good is : [%d]\n", good);
 	if (good == 1)
 		good = check_lvl_users(e, cs, x, y);
+	printf("for Players good is : [%d]\n", good);
 	if (good == 1)
 		e->users[cs]->player.lvlup_good = 1;
+	printf("for Players good is : [%d]\n", e->users[cs]->player.lvlup_good);
 	if (good == 1 && last_inc(e, cs) == 1)
 		end_incant(e, cs, good);
 }

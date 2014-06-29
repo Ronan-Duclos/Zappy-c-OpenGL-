@@ -15,11 +15,11 @@
 
 void	find_north_line(t_env *e, int xy[2])
 {
-	if (xy[0] == 0)
+	if (xy[0] <= 0)
 		xy[0] = e->opt.x - 1;
 	else
 		xy[0]--;
-	if (xy[1] == 0)
+	if (xy[1] <= 0)
 		xy[1] = e->opt.y - 1;
 	else
 		xy[1]--;

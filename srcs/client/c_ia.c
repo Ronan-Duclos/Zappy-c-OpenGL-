@@ -77,28 +77,19 @@ int			check_end(t_ia *ia, int need)
 int			what_i_do(t_env *e)
 {
 	int				need;
-	static int		last_lvl;
 	static int		last = -1;
 
-//	printf("in what i do : last [%d]\n", last);
-	if (last_lvl != e->user->player.ia.lvl)
-	{
-		last_lvl = e->user->player.ia.lvl;
-		add_todo(e, send_fork, NULL);
-		return (-1);
-	}
+	printf("in what i do : last [%d]\n", last);
 	if (last == -1)
 		need = what_i_need(e, &e->user->player.ia);
 	else
 		need = last;
-//	printf("in what i do : last2 [%d]\n", need);
+	printf("in what i do : last2 [%d]\n", need);
 	if (need == _ia_food)
 		find_item(e, _food);
 	else if (need == _ia_evolve)
 		try_to_evolve(e, &e->user->player.ia);
-//	else
-//		printf("in what i do : lastPO [%d]\n", last);
-//	printf("in what i do : last3 [%d]\n", last);
+	printf("in what i do : last3 [%d]\n", last);
 	last = check_end(&e->user->player.ia, need);
 	return (last);
 }

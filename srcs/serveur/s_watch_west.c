@@ -15,11 +15,11 @@
 
 void	find_west_line(t_env *e, int xy[2])
 {
-	xy[1] = (xy[1] + 1) % e->opt.x;
-	if (xy[0] == 0)
+	if (xy[0] <= 0)
 		xy[0] = e->opt.x - 1;
 	else
 		xy[0]--;
+	xy[1] = (xy[1] + 1) % e->opt.y;
 }
 
 void	west_case(t_env *e, int cs, int nb_case, int xy[2])

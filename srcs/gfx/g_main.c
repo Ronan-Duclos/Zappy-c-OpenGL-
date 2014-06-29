@@ -24,7 +24,11 @@ void		thread_ipv(t_ipv *ipv)
 int			main(int ac, char **av)
 {
 	t_ipv	ipv;
+	char	*av2[3];
 
+	av2[0] = ft_strdup(av[0]);
+	av2[1] = ft_strdup(av[1]);
+	av2[2] = ft_strdup(av[2]);
 	srand(time(NULL));
 	ipv_init(&ipv, ac, av);
 	init_glut(ac, av);
@@ -32,7 +36,7 @@ int			main(int ac, char **av)
 	resources_load(&ipv.env);
 	gl_init();
 	light_init();
-	srv_connect(&ipv, av);
+	srv_connect(&ipv, av2);
 	thread_ipv(&ipv);
 	printf("starting drawing\n");
 	glutMainLoop();

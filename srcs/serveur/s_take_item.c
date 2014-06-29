@@ -28,14 +28,16 @@ void			take_item(t_env *e, int cs)
 		tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 	else
 	{
-		if (e->map[player_y][player_x].ground[resource] == 0)
-			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
-		else
+		printf("ressource : [%s] ou [%d], nb_resource ground : [%d]\n",
+			item, resource, e->map[player_y][player_x].ground[resource]);
+		if (e->map[player_y][player_x].ground[resource] > 0)
 		{
 			e->map[player_y][player_x].ground[resource]--;
 			e->users[cs]->player.inv[resource]++;
 			tmp_to_bc(&e->users[cs]->buf_write, "ok", 1);
 		}
+		else
+			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 	}
 	gfx_send_npc(e, cs, gfx_pin);
 	gfx_send_map(e, player_x, player_y, gfx_bct);

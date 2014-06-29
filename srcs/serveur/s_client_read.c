@@ -189,11 +189,9 @@ double			make_queue(t_env *e, int cs , char *cmd, double time)
 	if (j != -1)
 	{
 		e->users[cs]->player.acts[ca].start = time;
-		printf("start time : [%f]\n", time);
 		time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
 		if (time < e->srv.time)
 			e->srv.time = time;
-		printf("end time : [%f]\n", time);
 		e->users[cs]->player.acts[ca].time = time;
 		e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd);
 		e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
@@ -259,7 +257,7 @@ void			client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-//			if (e->opt.v)
+			if (e->opt.v)
 			printf("\033[33mReceive from %d \033[0m: %s", 
 					cs, e->users[cs]->buf_read_tmp);
 			make_cmd(e, cs);

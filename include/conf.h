@@ -22,7 +22,7 @@
 # define				TIME_FOOD			126
 # define				LVL_MAX				8
 
-# define				RATE_FOOD			80
+# define				RATE_FOOD			100
 # define				RATE_LINEMATE		100
 # define				RATE_DERAUMERE		90
 # define				RATE_SIBUR			80
@@ -30,7 +30,7 @@
 # define				RATE_PHIRAS			60
 # define				RATE_THYSTAME		50
 
-# define				NB_FOOD				20
+# define				NB_FOOD				4
 # define				NB_LINEMATE			8
 # define				NB_DERAUMERE		10
 # define				NB_SIBUR			14

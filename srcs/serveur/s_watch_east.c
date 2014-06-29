@@ -15,11 +15,11 @@
 
 void	find_east_line(t_env *e, int xy[2])
 {
-	if (xy[0] == 0)
-		xy[0] = e->opt.x - 1;
+	xy[0] = (xy[0] + 1) % e->opt.x;
+	if (xy[1] <= 0)
+		xy[1] = e->opt.y - 1;
 	else
-		xy[0]--;
-	xy[1] = (xy[1] + 1) % e->opt.y;
+		xy[1]--;
 }
 
 void	east_case(t_env *e, int cs, int nb_case, int xy[2])

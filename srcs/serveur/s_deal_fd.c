@@ -54,7 +54,8 @@ void	create_clt(t_env *e, int s)
 void	destroy_clt(t_env *e, int sock)
 {
 	e->nb_connec--;
-	if (e->users[sock]->ig == 1 && !e->users[sock]->gfx.gfx)
+	if ((e->users[sock]->ig == -1 || e->users[sock]->ig == 1)
+		&& !e->users[sock]->gfx.gfx)
 		clear_player(e, sock);
 	if (e->users[sock]->player.team != NULL)
 		free(e->users[sock]->player.team);

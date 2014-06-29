@@ -18,15 +18,15 @@ void	incantation(t_env *e)
 	int			ar;
 	t_actions	*act;
 	int			lvl;
+	char		*tmp;
 
 	ar = e->user->player.cur_aread;
 	act = &e->user->player.acts[ar];
-	lvl = ft_atoi(act->answer);
-	if (lvl == e->user->player.ia.lvl)
-		e->user->player.ia.lvlup = 0;
-	else
+	tmp = ft_strchr(act->answer, ':') + 1;
+	lvl = ft_atoi(tmp);
+	if (lvl != e->user->player.ia.lvl)
 		e->user->player.ia.lvl = lvl;
-//	send_incantation(e);
+	e->user->player.ia.lvlup = 0;
 	act->time = 0;
 }
 

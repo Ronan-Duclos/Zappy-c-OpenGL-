@@ -28,8 +28,9 @@ void	send_one_case(t_env *e, int cs, int x, int y)
 			&& e->users[cs]->player.x == x
 			&& e->users[cs]->player.y == y)
 			quantity--;
-		while (quantity--)
+		while (quantity > 0)
 		{
+			quantity--;
 			if (i != 0)
 				char_to_bc(&e->users[cs]->buf_write, ' ');
 			tmp_to_bc(&e->users[cs]->buf_write, type_to_str(type), 0);

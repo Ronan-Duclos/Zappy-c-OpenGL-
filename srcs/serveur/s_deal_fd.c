@@ -46,9 +46,9 @@ void	create_clt(t_env *e, int s)
 	bzero(&e->users[cs]->player, sizeof(t_player));
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
 	if (!e->users[cs]->gfx.gfx)
-		printf("Gfx connected : %d\n", cs);
+		printf("\033[32mClient connected\033[0m : %d\n", cs);
 	else
-		printf("Client connected : %d\n", cs);
+		printf("\033[32mGfx connected\033[0m : %d\n", cs);
 }
 
 void	destroy_clt(t_env *e, int sock)
@@ -68,7 +68,7 @@ void	destroy_clt(t_env *e, int sock)
 	bzero(&e->users[sock]->gfx, sizeof(t_gfx));
 	e->users[sock]->ig = 0;
 	e->users[sock]->type = FD_FREE;
-	printf("\033[31mClient disconnected \033[0m: %d\n", sock);
+	printf("\033[31mClient disconnected\033[0m : %d\n", sock);
 }
 
 void	check_actions(t_env *e, int cs)

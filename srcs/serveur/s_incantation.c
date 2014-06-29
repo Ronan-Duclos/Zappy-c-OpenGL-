@@ -15,17 +15,35 @@
 #include <libft.h>
 #include <global.h>
 
+void			make_lvlup(t_env *e, t_user *tmp)
+{
+	tmp->player.lvl++;
+	gfx_send_npc(e, tmp->sock, gfx_plv);
+	tmp_to_bc(&e->users[tmp->sock]->buf_write, "niveau actuel : ", 0);
+	char_to_bc(&e->users[tmp->sock]->buf_write, '0' + tmp->player.lvl);
+	tmp_to_bc(&e->users[tmp->sock]->buf_write, "", 1);
+	tmp->player.lvlup = 0;
+	tmp->player.lvlup_good = 0;
+}
+
 void			end_incant(t_env *e, int cs, int good)
 {
 	int		x;
 	int		y;
+	t_user	*tmp;
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
+	tmp = e->map[x][y].player;
+	while (tmp != NULL)
+	{
+		if (tmp->player.lvlup_good == 1)
+			make_lvlup(e, tmp);
+		tmp = tmp->next;
+	}
 	gfx_send_act(e, cs, gfx_pie, good);
 	disperse_stone(e, cs, good);
 	gfx_send_map(e, x, y, gfx_bct);
-	e->users[cs]->player.inc = 0;
 }
 
 int				last_inc(t_env *e, int cs)
@@ -50,6 +68,24 @@ int				last_inc(t_env *e, int cs)
 	return (0);
 }
 
+int				check_lvl_users(t_env *e, int cs, int x, int y)
+{
+	t_user	*tmp;
+	int		good;
+
+	good = 0;
+	tmp = e->map[y][x].player;
+	while (tmp != NULL)
+	{
+		if (tmp->player.lvlup == 1)
+			good++;
+		tmp = tmp->next;
+	}
+	if (good >= g_lvlup[e->users[cs]->player.lvl - 1][_player])
+		return (1);
+	return (-1);
+}
+
 void			incantation(t_env *e, int cs)
 {
 	int		x;
@@ -63,19 +99,15 @@ void			incantation(t_env *e, int cs)
 	lvl = &e->users[cs]->player.lvl;
 	good = 1;
 	i = 0;
-	while (++i < NB_STONE + 2)
+	while (++i < NB_STONE + 1)
 		if (e->map[y][x].ground[i] < g_lvlup[*lvl - 1][i])
 			good = -1;
+	if (good == 1)
+		good = check_lvl_users(e, cs, x, y);
+	if (good == 1)
+		e->users[cs]->player.lvlup_good = 1;
 	if (good == 1 && last_inc(e, cs) == 1)
 		end_incant(e, cs, good);
-	if (good == 1)
-	{
-		(*lvl)++;
-		printf("Client [%d] level up to %d\n", cs, *lvl);
-	}
-	gfx_send_npc(e, cs, gfx_plv);
-	char_to_bc(&e->users[cs]->buf_write, '0' + *lvl);
-	tmp_to_bc(&e->users[cs]->buf_write, "", 1);
 }
 
 static int		verify_cmd(t_user *user)
@@ -104,7 +136,6 @@ void			make_incantations(t_env *e, int cs)
 
 	x = e->users[cs]->player.x;
 	y = e->users[cs]->player.y;
-	e->users[cs]->player.inc = 1;
 	tmp = e->map[y][x].player;
 	ar = e->users[cs]->player.cur_aread;
 	time = e->users[cs]->player.acts[ar].time;
@@ -115,6 +146,7 @@ void			make_incantations(t_env *e, int cs)
 		{
 			if (tmp->sock != cs)
 				remove_actions(tmp, time);
+			tmp->player.lvlup = 1;
 			tmp_to_bc(&tmp->buf_write, "elevation en cours", 1);
 		}
 		tmp = tmp->next;

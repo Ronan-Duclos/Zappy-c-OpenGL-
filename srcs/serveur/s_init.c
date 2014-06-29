@@ -75,9 +75,10 @@ void	init_player(t_env *e, int cs, int team)
 	double			time;
 	t_egg			*egg;
 
-	e->users[cs]->player.inc = 0;
 	e->users[cs]->player.direc = rand() % 4;
 	e->users[cs]->player.lvl = 1;
+	e->users[cs]->player.lvlup = 0;
+	e->users[cs]->player.lvlup_good = 0;
 	time = ft_usec_time();
 	if ((egg = e->team[team].eggs) == NULL)
 	{

@@ -84,6 +84,8 @@ typedef struct		s_player
 	int				cur_aread;
 	int				cur_awrite;
 	int				lvl;
+	int				lvlup;
+	int				lvlup_good;
 	int				x;
 	int				y;
 	int				direc;

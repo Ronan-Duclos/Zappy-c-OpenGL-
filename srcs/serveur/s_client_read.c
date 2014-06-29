@@ -112,11 +112,6 @@ int				get_action_value(char *cmd)
 	return (i);
 }
 
-void			ma_fct_cmd(t_env *e, int cs)
-{
-	tmp_to_bc(&e->users[cs]->buf_write, "Not done yet", 1);
-}
-
 char			*get_cmd_arg(char *cmd)
 {
 	int			i;
@@ -137,7 +132,6 @@ char			*get_cmd_arg(char *cmd)
 void			remove_actions(t_user *user, double time)
 {
 	t_actions	*acts;
-	int			read;
 	int			i;
 
 	i = -1;
@@ -145,16 +139,15 @@ void			remove_actions(t_user *user, double time)
 	while (++i < 10)
 	{
 		acts[i].time = 0;
+		acts[i].start = 0;
 		if (acts[i].cmd != NULL)
 			free(acts[i].cmd);
 		acts[i].cmd = NULL;
 	}
 	user->player.cur_aread = 0;
-	user->player.cur_awrite = 0;
-	read = 0;
-	acts[read].time = time;
-	acts[read].fct_cmd = g_tab[9].fct_cmd;
 	user->player.cur_awrite = 1;
+	acts[0].time = time;
+	acts[0].fct_cmd = g_tab[9].fct_cmd;
 }
 
 void			start_action(t_env *e, int cs)
@@ -173,16 +166,42 @@ void			start_action(t_env *e, int cs)
 /*
 **	Add By clem to update calendar start time before adding in it.
 */
-static double	get_start_time(t_env *e, int cs, int ca)
+static double	get_time_of_start(t_env *e, int cs, int ca)
 {
 	double	time;
 
-	time = e->users[cs]->player.acts[ca].start;
-	if (!time)
-	{
+	if (ca > 0 && e->users[cs]->player.acts[ca - 1].time > 0)
+		time = e->users[cs]->player.acts[ca - 1].time;
+	else if (e->users[cs]->player.acts[9].time > 0)
+		time = e->users[cs]->player.acts[9].time;
+	else
 		time = ft_usec_time();
+	return (time);
+}
+
+double			make_queue(t_env *e, int cs , char *cmd, double time)
+{
+	int		j;
+	int		ca;
+
+	ca = e->users[cs]->player.cur_awrite;
+	j = get_action_value(cmd);
+	if (j != -1)
+	{
 		e->users[cs]->player.acts[ca].start = time;
+		printf("start time : [%f]\n", time);
+		time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
+		if (time < e->srv.time)
+			e->srv.time = time;
+		printf("end time : [%f]\n", time);
+		e->users[cs]->player.acts[ca].time = time;
+		e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd);
+		e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
+		e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
+		e->users[cs]->player.cur_awrite = (ca + 1) % 10;
 	}
+	else
+		tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 	return (time);
 }
 
@@ -190,32 +209,16 @@ void			queue_actions(t_env *e, int cs)
 {
 	int		i;
 	double	time;
-	int		j;
 	char	**cmd;
 	int		ca;
 
-	start_action(e, cs);
-	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	i = -1;
+	cmd = ft_strsplit(e->users[cs]->buf_read_tmp, '\n');
 	ca = e->users[cs]->player.cur_awrite;
-	time = get_start_time(e, cs, ca);
+	time = get_time_of_start(e, cs, ca);
 	while (cmd[++i] && e->users[cs]->player.acts[ca].time == 0)
-{
-		j = get_action_value(cmd[i]);
-		if (j != -1)
-		{
-			e->users[cs]->player.acts[ca].start = time;
-			time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
-			if (time < e->srv.time)
-				e->srv.time = time;
-			e->users[cs]->player.acts[ca].time = time;
-			e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd[i]);
-			e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;
-			e->users[cs]->player.acts[ca].fct_gfx = g_tab[j].fct_gfx;
-			e->users[cs]->player.cur_awrite = (ca + 1) % 10;
-		}
-		else
-			tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
+	{
+		time = make_queue(e, cs, cmd[i], time);
 		ca = e->users[cs]->player.cur_awrite;
 	}
 	bzero(e->users[cs]->buf_read_tmp, BC_SIZE);
@@ -256,8 +259,8 @@ void			client_read(t_env *e, int cs)
 		if (verify_bsn(&e->users[cs]->buf_read) == 1)
 		{
 			bc_to_tmp(&e->users[cs]->buf_read, e->users[cs]->buf_read_tmp);
-			if (e->opt.v)
-				printf("\033[33mReceive from %d \033[0m: %s", 
+//			if (e->opt.v)
+			printf("\033[33mReceive from %d \033[0m: %s", 
 					cs, e->users[cs]->buf_read_tmp);
 			make_cmd(e, cs);
 			e->users[cs]->buf_read_tmp[0] = '\0';

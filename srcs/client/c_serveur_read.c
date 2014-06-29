@@ -26,7 +26,6 @@ void	fork_one_user(t_env *e)
 
 void	launch_new_clt(t_env *e)
 {
-	printf("[retourconnect nbr] %s\n", e->user->buf_read_tmp);
 	if (atoi(e->user->buf_read_tmp) > 0)
 		fork_one_user(e);
 }
@@ -162,8 +161,9 @@ void	make_cmd(t_env *e)
 				receive_broadcast(e);
 			else if (verify_word(e->user->buf_read_tmp, "mort") == 0)
 			{
-				printf("t mort boule\n");
-				exit(0);
+
+				close(e->user->sock);
+				my_exit(0, "mort");
 			}
 			else
 				queue_actions(e);

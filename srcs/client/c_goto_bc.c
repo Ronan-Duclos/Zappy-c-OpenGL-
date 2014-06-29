@@ -30,7 +30,12 @@ void		goto_bc(t_env *e)
 	if (dir == 1 || dir == 3 || dir == 7 || dir == 5)
 		add_todo(e, send_move_forward, NULL);
 	else if (dir == 0)
-		add_todo(e, send_incantation, NULL);
+	{
+		if (player_ok(&e->user->player.ia))
+			add_todo(e, send_incantation, NULL);
+		else
+			add_todo(e, send_broadcast, make_broadcast(&e->user->player.ia));
+	}
 	if (e->user->player.ia.msg)
 		free(e->user->player.ia.msg);
 	e->user->player.ia.msg = NULL;

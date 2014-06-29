@@ -20,8 +20,7 @@ void		put_all_stone(t_env *e, t_ia *ia)
 	i = 0;
 	while (i < NB_STONE)
 	{
-		while (ia->view[0][i] < g_lvlup[ia->lvl - 1][i]
-				&& ia->inv[i])
+		while (ia->view[0][i] < g_lvlup[ia->lvl - 1][i] && ia->inv[i])
 		{
 			ia->view[0][i]++;
 			ia->inv[i]--;
@@ -48,8 +47,8 @@ void		find_all_stone(t_env *e, t_ia *ia)
 
 int			player_ok(t_ia *ia)
 {
-	printf("PLAYER OK : lvl [%d] nb have : [%d] nb need :[%d]\n", ia->lvl, ia->view[0][_player] + 1,
-		   g_lvlup[ia->lvl - 1][_player]);
+//	printf("PLAYER OK : lvl [%d] nb have : [%d] nb need :[%d]\n", ia->lvl, ia->view[0][_player] + 1,
+//		   g_lvlup[ia->lvl - 1][_player]);
 	if ((ia->view[0][_player] + 1) >= g_lvlup[ia->lvl - 1][_player])
 		return (1);
 	return (0);
@@ -61,7 +60,7 @@ void		try_to_evolve(t_env *e, t_ia *ia)
 	static int		i;
 
 	stat = i_have_stone(ia);
-	printf("in try to evolve : stat [%d]\n", stat);
+//	printf("in try to evolve : stat [%d]\n", stat);
 	if (ia->msg && atoi(ia->msg) == ia->lvl)
 		goto_bc(e);
 	else if (stat == -1)
@@ -69,22 +68,17 @@ void		try_to_evolve(t_env *e, t_ia *ia)
 	else
 	{
 		if (stat == 1)
-		{
 			put_all_stone(e, ia);
-//			add_todo(e, send_broadcast, make_broadcast(ia));
-		}
-		if (stat == 0 && player_ok(ia))
+		if (player_ok(ia))
 		{
-			i = 0;
 			add_todo(e, send_incantation, NULL);
+			i = 0;
 		}
 		else
 		{
 			if (i == 0)
-			{
-				i = 1;
-//				add_todo(e, send_fork, NULL);
-			}
+				add_todo(e, send_fork, NULL);
+			i = 1;
 			add_todo(e, send_broadcast, make_broadcast(ia));
 		}
 	}

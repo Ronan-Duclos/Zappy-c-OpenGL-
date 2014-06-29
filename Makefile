@@ -96,9 +96,6 @@ CLT_SRC=c_main.c \
 	c_turn_right.c \
 	c_watch_sight.c \
 	c_receive_answer.c \
-	c_ia_search_food.c \
-	c_ia_search_p_to_lvlup.c \
-	c_ia_search_s_to_lvlup.c \
 	c_tools1.c
 GFX_SRC=g_main.c \
 	g_ipv.c \
@@ -219,7 +216,7 @@ $(DIROBJ)c_%.o: $(DIRSRC)$(CLT_NAME)/c_%.c $(INCLUDES)
 
 $(DIROBJ)g_%.o: $(DIRSRC)$(GFX_NAME)/g_%.c $(INCLUDES)
 	@echo "\033[2K--> Linking  $<"
-	@$(CC) $(FLAGS) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
+	@$(CC) $(FLAG_OPENGL) -o $@ -c $< -I$(INCLUDES) -g -I$(LIB_PNG_DIR)
 
 	@tput cuu1
 

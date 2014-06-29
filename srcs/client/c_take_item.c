@@ -29,9 +29,6 @@ void	take_item(t_env *e)
 		{
 			if (acts->cmd[6] == cmd[i])
 			{
-
-				printf("TAKE ITEM %d: %s, befor on : %d, with in my %d\n", i, acts->cmd,
-					   e->user->player.ia.view[0][i], e->user->player.ia.inv[i]);
 				e->user->player.ia.view[0][i]--;
 				e->user->player.ia.inv[i]++;
 				break ;

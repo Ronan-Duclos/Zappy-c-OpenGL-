@@ -208,6 +208,7 @@ int					find_item(t_env *e, int type);
 /*
 **	c_evolve.c
 */
+int					player_ok(t_ia *ia);
 int					i_have_stone(t_ia *ia);
 void				try_to_evolve(t_env *e, t_ia *ia);
 

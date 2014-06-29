@@ -22,7 +22,6 @@ void	fork_my_egg(t_env *e)
 	act = &e->user->player.acts[ar];
 	if (act->answer[0] == 'o' && fork() == 0)
 	{
-		printf("coucouc t mort\n");
 		close(e->user->sock);
 		execve(e->av[0], e->av, NULL);
 	}

@@ -43,6 +43,7 @@ void			send_start(t_env *e, int cs)
 	sprintf(buf, "%d %d", e->opt.x, e->opt.y);
 	tmp_to_bc(&e->users[cs]->buf_write, buf, 1);
 	e->users[cs]->player.acts[*ar].time = 0;
+	put_user_on_map(e, cs);
 	gfx_send_npc(e, cs, gfx_pnw);
 }
 

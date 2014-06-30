@@ -61,6 +61,5 @@ void	init_player(t_env *e, int cs, int team)
 	}
 	else
 		init_egg(e, cs, egg, team);
-	put_user_on_map(e, cs);
 	add_start_cal(e, cs, team);
 }

@@ -50,13 +50,14 @@ void	ask_to_play(t_env *e)
 		tmp_to_bc(&e->user->buf_write, e->me.name, 1);
 		i++;
 	}
-	else
+	else if (i == 1)
 	{
 		launch_new_clt(e);
 		size_map(e);
 		e->user->player.ia.x = e->me.x / 2;
 		e->user->player.ia.y = e->me.y / 2;
 		e->user->ig = 1;
+		i++;
 	}
 }
 

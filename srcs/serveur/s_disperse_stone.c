@@ -27,7 +27,7 @@ void			disperse_stone(t_env *e, int cs, int good)
 	{
 		x = e->users[cs]->player.x;
 		y = e->users[cs]->player.y;
-		nb_stone = g_lvlup[e->users[cs]->player.lvl - 1][i];
+		nb_stone = g_lvlup[e->users[cs]->player.lvl][i];
 		while (nb_stone != 0)
 		{
 			e->map[y][x].ground[i]--;

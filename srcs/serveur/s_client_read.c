@@ -164,9 +164,6 @@ void			start_action(t_env *e, int cs)
 		e->users[cs]->player.acts[st].start = ft_usec_time();
 }
 
-/*
-**	Add By clem to update calendar start time before adding in it.
-*/
 static double	get_time_of_start(t_env *e, int cs, int ca)
 {
 	double	time;

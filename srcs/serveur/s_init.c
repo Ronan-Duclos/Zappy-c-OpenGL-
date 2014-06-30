@@ -10,32 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "serveur.h"
-#include "common.h"
-#include "libft.h"
-
-void	init_team(t_env *e)
-{
-	char	**team;
-	int		i;
-
-	i = 0;
-	team = e->opt.name;
-	while (team[i] != NULL)
-		i++;
-	e->team = (t_team *)malloc(sizeof(t_team) * (i + 1));
-	bzero(e->team, sizeof(t_team) * (i + 1));
-	i = 0;
-	while (team[i] != NULL)
-	{
-		e->team[i].eggs = NULL;
-		e->team[i].name = team[i];
-		e->team[i].member = e->opt.client;
-		e->team[i].win = 0;
-		i++;
-	}
-	e->nb_team = i;
-}
+#include <serveur.h>
+#include <common.h>
+#include <libft.h>
 
 int		init_sock(int port, t_env *e)
 {
@@ -54,50 +31,18 @@ int		init_sock(int port, t_env *e)
 	return (sock);
 }
 
-void	add_start_cal(t_env *e, int cs, int team)
+void	init_serv(t_env *e)
 {
-	int				*aw;
-	t_actions		*act;
+	int		i;
 
-	aw = &e->users[cs]->player.cur_awrite;
-	act = &e->users[cs]->player.acts[*aw];
-	act->cmd = ft_itoa(e->team[team].member);
-	act->answer = NULL;
-	act->time = e->users[cs]->time;
-	act->start = 0;
-	act->fct_cmd = send_start;
-	act->fct_gfx = NULL;
-	*aw = (*aw + 1) % 10;
-}
-
-void	init_player(t_env *e, int cs, int team)
-{
-	double			time;
-	t_egg			*egg;
-
-	e->users[cs]->player.direc = rand() % 4;
-	e->users[cs]->player.lvl = 1;
-	e->users[cs]->player.lvlup = 0;
-	e->users[cs]->player.lvlup_good = 0;
-	time = ft_usec_time();
-	if ((egg = e->team[team].eggs) == NULL)
-	{
-		e->users[cs]->player.x = rand() % e->opt.x;
-		e->users[cs]->player.y = rand() % e->opt.y;
-		e->users[cs]->player.inv[_food] = NB_START_FOOD;
-		e->users[cs]->time = time;
-	}
-	else
-	{
-		e->users[cs]->player.x = egg->x;
-		e->users[cs]->player.y = egg->y;
-		e->users[cs]->player.inv[_food] = NB_START_FOOD;
-		e->users[cs]->time = egg->t_eclos;
-		gfx_send_egg(e, egg, gfx_ebo);
-		del_egg(&e->team[team]);
-	}
-	put_user_on_map(e, cs);
-	add_start_cal(e, cs, team);
+	e->srv.glst = NULL;
+	i = init_sock(e->opt.port, e);
+	e->repop = ft_usec_time() + ((126 * 1000000) / e->opt.time);
+	e->srv.time = 2000000000000;
+	e->users[i]->fct_read = create_clt;
+	e->users[i]->fct_write = client_write;
+	e->users[i]->type = FD_SRV;
+	e->end = 0;
 }
 
 void	init_users(t_env *e)
@@ -126,4 +71,27 @@ void	init_users(t_env *e)
 		e->users[i]->fct_write = client_write;
 		i++;
 	}
+}
+
+void	init_team(t_env *e)
+{
+	char	**team;
+	int		i;
+
+	i = 0;
+	team = e->opt.name;
+	while (team[i] != NULL)
+		i++;
+	e->team = (t_team *)malloc(sizeof(t_team) * (i + 1));
+	bzero(e->team, sizeof(t_team) * (i + 1));
+	i = 0;
+	while (team[i] != NULL)
+	{
+		e->team[i].eggs = NULL;
+		e->team[i].name = team[i];
+		e->team[i].member = e->opt.client;
+		e->team[i].win = 0;
+		i++;
+	}
+	e->nb_team = i;
 }

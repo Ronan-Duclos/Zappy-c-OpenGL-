@@ -137,7 +137,7 @@ void	receive_broadcast(t_env *e)
 		return ;
 	tmp[1] = '\0';
 	e->user->player.ia.bdc = ft_atoi(tmp);
-	tmp += 2;
+	tmp += 3;
 	e->user->player.ia.msg = ft_strdup(tmp);
 }
 

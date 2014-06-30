@@ -55,7 +55,7 @@ void			end_incant(t_env *e, int cs, int good)
 			dont_lvlup(e, tmp);
 		tmp = tmp->next;
 	}
-	if (i > 0)
+	if (good == 1)
 	{
 		gfx_send_act(e, cs, gfx_pie, good);
 		disperse_stone(e, cs, good);
@@ -125,7 +125,7 @@ void			incantation(t_env *e, int cs)
 		good = check_lvl_users(e, cs, x, y);
 	if (good == 1)
 		e->users[cs]->player.lvlup_good = 1;
-	if (good == 1 && last_inc(e, cs) == 1)
+	if (last_inc(e, cs) == 1)
 		end_incant(e, cs, good);
 }
 

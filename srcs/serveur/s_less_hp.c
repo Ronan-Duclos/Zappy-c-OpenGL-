@@ -105,6 +105,7 @@ int			less_hp(t_env *e, int cs)
 		less = fmod(less, (double)((126 * 1000000) / e->opt.time));
 		e->users[cs]->player.inv[_food] = e->users[cs]->player.inv[_food] - 1;
 		e->users[cs]->time = now - less;
+		gfx_send_npc(e, cs, gfx_pin);
 		lost_food(1);
 		if (e->users[cs]->player.inv[_food] < 0)
 		{

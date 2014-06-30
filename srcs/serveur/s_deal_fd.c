@@ -45,10 +45,7 @@ void	create_clt(t_env *e, int s)
 	e->users[cs]->fct_write = client_write;
 	bzero(&e->users[cs]->player, sizeof(t_player));
 	tmp_to_bc(&e->users[cs]->buf_write, "BIENVENUE", 1);
-	if (!e->users[cs]->gfx.gfx)
-		printf("\033[32mClient connected\033[0m : %d\n", cs);
-	else
-		printf("\033[32mGfx connected\033[0m : %d\n", cs);
+	printf("\033[32mClient connected\033[0m : %d\n", cs);
 }
 
 void	destroy_clt(t_env *e, int sock)
@@ -105,6 +102,33 @@ void	check_actions(t_env *e, int cs, double now)
 				e->users[cs]->player.acts[*nb_acts].fct_gfx(e, cs);
 			acts->start = 0;
 		}
+	}
+}
+
+void	init_fd(t_env *e)
+{
+	int		i;
+	double	now;
+
+	i = 0;
+	FD_ZERO(&e->srv.fd_read);
+	FD_ZERO(&e->srv.fd_write);
+	e->srv.max = 3;
+	now = ft_usec_time();
+	while (i < (e->srv.max_fd))
+	{
+		if (e->users[i]->type != FD_FREE)
+		{
+			if (e->users[i]->type == FD_CLT && e->users[i]->ig == 1
+				&& !e->users[i]->gfx.gfx)
+				check_actions(e, i, now);
+			FD_SET(i, &e->srv.fd_read);
+			if (verify_bsn(&e->users[i]->buf_write) == 1)
+				FD_SET(i, &e->srv.fd_write);
+			if (e->srv.max < i)
+				e->srv.max = i;
+		}
+		i++;
 	}
 }
 

@@ -79,10 +79,12 @@ void		try_to_evolve(t_env *e, t_ia *ia)
 //			if (i == 0)
 //				add_todo(e, send_fork, NULL);
 //			else
-			if (stat == 1)
-				put_all_stone(e, ia);
-			add_todo(e, send_broadcast, make_broadcast(ia));
-			i = 1;
+//			{
+				if (stat == 1)
+					put_all_stone(e, ia);
+				add_todo(e, send_broadcast, make_broadcast(ia));
+				i = 1;
+//			}
 		}
 	}
 }

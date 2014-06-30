@@ -52,7 +52,7 @@ void			add_egg(t_env *e, int cs)
 	new = new_egg(p->x, p->y, cs);
 	new->food = NB_START_FOOD;
 	new->next = NULL;
-	new->t_eclos = ft_usec_time() + 600 * (1000000 / e->opt.time);
+	new->t_eclos = ft_usec_time() + (600 * 1000000) / e->opt.time;
 	new->t_last = ft_usec_time();
 	i = 0;
 	while (strcmp(e->team[i].name, p->team) != 0)

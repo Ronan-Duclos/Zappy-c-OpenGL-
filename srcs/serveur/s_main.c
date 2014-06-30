@@ -30,16 +30,27 @@ void			run_serv(t_env *e)
 {
 	t_srv			*s;
 	struct timeval	out;
+	double			wait;
 
 	s = &e->srv;
-	out.tv_usec = 0;
-	out.tv_sec = 0;
 	while (e->end == 0)
 	{
 		init_fd(e);
 		less_hp_eggs(e);
 		generate_food(e);
-		s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &out);
+		wait = e->srv.time;
+		out.tv_usec = fmod(wait, 1000000);
+		out.tv_sec = wait / 1000000;
+		if (e->srv.time > 1900000000000)
+		{
+			printf("Here = NULL : [%f]\n", e->srv.time);
+			s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, NULL);
+		}
+		else
+		{
+			printf("Here = out : [%f]\n", e->srv.time);
+			s->r = select(s->max + 1, &s->fd_read, &s->fd_write, NULL, &out);
+		}
 		init_end(e);
 		check_fd(e);
 	}

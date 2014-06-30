@@ -189,8 +189,6 @@ double			make_queue(t_env *e, int cs , char *cmd, double time)
 	{
 		e->users[cs]->player.acts[ca].start = time;
 		time = time + ((double)g_tab[j].value * 1000000) / (double)e->opt.time;
-		if (time < e->srv.time)
-			e->srv.time = time;
 		e->users[cs]->player.acts[ca].time = time;
 		e->users[cs]->player.acts[ca].cmd = get_cmd_arg(cmd);
 		e->users[cs]->player.acts[ca].fct_cmd = g_tab[j].fct_cmd;

@@ -105,6 +105,35 @@ void	check_actions(t_env *e, int cs, double now)
 	}
 }
 
+void	check_time(t_env *e, int cs, double now)
+{
+	int		ar;
+
+	if (e->users[cs]->type == FD_CLT && !e->users[cs]->gfx.gfx)
+	{
+		if (e->users[cs]->ig == -1)
+		{
+			e->srv.time = 0;
+			return ;
+		}
+		ar = e->users[cs]->player.cur_aread;
+		if (e->users[cs]->player.acts[ar].start == 0 ||
+			e->users[cs]->player.acts[ar].start < now)
+		{
+			if (e->users[cs]->player.acts[ar].time != 0)
+			{
+				if (e->srv.time > (e->users[cs]->player.acts[ar].time - now))
+					e->srv.time = e->users[cs]->player.acts[ar].time - now;
+			}
+		}
+		else
+		{
+			if (e->srv.time > e->users[cs]->player.acts[ar].start - now)
+				e->srv.time = e->users[cs]->player.acts[ar].start - now;
+		}
+	}
+}
+
 void	init_fd(t_env *e)
 {
 	int		i;
@@ -114,6 +143,7 @@ void	init_fd(t_env *e)
 	FD_ZERO(&e->srv.fd_read);
 	FD_ZERO(&e->srv.fd_write);
 	e->srv.max = 3;
+	e->srv.time = 2000000000000;
 	now = ft_usec_time();
 	while (i < (e->srv.max_fd))
 	{
@@ -127,6 +157,7 @@ void	init_fd(t_env *e)
 				FD_SET(i, &e->srv.fd_write);
 			if (e->srv.max < i)
 				e->srv.max = i;
+			check_time(e, i, now);
 		}
 		i++;
 	}

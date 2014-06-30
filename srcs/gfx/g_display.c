@@ -22,7 +22,7 @@ void	display(void)
 	{
 		transpose();
 		display_map();
-//s		display_footer();
+		display_footer();
 	}
 	glutSwapBuffers();
 }

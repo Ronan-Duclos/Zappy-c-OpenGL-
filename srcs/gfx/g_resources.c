@@ -73,5 +73,5 @@ void		resources_load(t_env *env)
 	mdx_load("data/ThunderLizardEgg.mdx", _mod_egg, 0);
 	mdx_load("data/StasisTotem.mdx", _mod_totem, 3);
 	mdx_load("data/TalkToMe.mdx", _mod_talk, 0);
-//	resources_load2(env);
+	resources_load2(env);
 }

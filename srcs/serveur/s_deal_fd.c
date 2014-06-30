@@ -72,18 +72,25 @@ void	destroy_clt(t_env *e, int sock)
 	printf("\033[31mClient disconnected\033[0m : %d\n", sock);
 }
 
-void	check_actions(t_env *e, int cs)
+int		check_incant(t_env *e, int cs, t_actions *act)
+{
+	if (e->users[cs]->player.lvlup == 1 && act->fct_cmd == &incantation)
+		return (1);
+	else if (e->users[cs]->player.lvlup != 1)
+		return (1);
+	return (0);
+}
+
+void	check_actions(t_env *e, int cs, double now)
 {
 	t_actions	*acts;
-	double		now;
 	int			*nb_acts;
 
 	if (less_hp(e, cs) != -1)
 	{
 		nb_acts = &e->users[cs]->player.cur_aread;
 		acts = &e->users[cs]->player.acts[*nb_acts];
-		now = ft_usec_time();
-		if (acts->time != 0 && acts->time <= now)
+		if (check_incant(e, cs, acts) == 1 && acts->time != 0 && acts->time <= now)
 		{
 			e->users[cs]->player.acts[*nb_acts].fct_cmd(e, cs);
 			if (e->users[cs]->player.acts[*nb_acts].cmd != NULL)
@@ -92,7 +99,7 @@ void	check_actions(t_env *e, int cs)
 			*nb_acts = (*nb_acts + 1) % 10;
 			acts->time = 0;
 		}
-		else if (acts->start != 0 && acts->start <= now)
+		else if (check_incant(e, cs, acts) == 1 && acts->start != 0 && acts->start <= now)
 		{
 			if (e->users[cs]->player.acts[*nb_acts].fct_gfx)
 				e->users[cs]->player.acts[*nb_acts].fct_gfx(e, cs);

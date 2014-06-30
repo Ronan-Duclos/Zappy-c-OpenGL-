@@ -199,7 +199,7 @@ void				remove_actions(t_user *user, double time);
 /*
 **	s_deal_fd.c
 */
-void				check_actions(t_env *e, int cs);
+void				check_actions(t_env *e, int cs, double now);
 void				create_clt(t_env *e, int s);
 void				destroy_clt(t_env *e, int sock);
 void				init_fd(t_env *e);

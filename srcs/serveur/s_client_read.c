@@ -148,6 +148,7 @@ void			remove_actions(t_user *user, double time)
 	user->player.cur_awrite = 1;
 	acts[0].time = time;
 	acts[0].fct_cmd = g_tab[9].fct_cmd;
+	acts[0].cmd = ft_strdup("incantation");
 }
 
 void			start_action(t_env *e, int cs)

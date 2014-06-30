@@ -15,18 +15,20 @@
 void	init_fd(t_env *e)
 {
 	int		i;
+	double	now;
 
 	i = 0;
 	FD_ZERO(&e->srv.fd_read);
 	FD_ZERO(&e->srv.fd_write);
 	e->srv.max = 3;
+	now = ft_usec_time();
 	while (i < (e->srv.max_fd))
 	{
 		if (e->users[i]->type != FD_FREE)
 		{
 			if (e->users[i]->type == FD_CLT && e->users[i]->ig == 1
 				&& !e->users[i]->gfx.gfx)
-				check_actions(e, i);
+				check_actions(e, i, now);
 			FD_SET(i, &e->srv.fd_read);
 			if (verify_bsn(&e->users[i]->buf_write) == 1)
 				FD_SET(i, &e->srv.fd_write);

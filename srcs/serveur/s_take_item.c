@@ -28,8 +28,6 @@ void			take_item(t_env *e, int cs)
 		tmp_to_bc(&e->users[cs]->buf_write, "ko", 1);
 	else
 	{
-		printf("ressource : [%s] ou [%d], nb_resource ground : [%d]\n",
-			item, resource, e->map[player_y][player_x].ground[resource]);
 		if (e->map[player_y][player_x].ground[resource] > 0)
 		{
 			e->map[player_y][player_x].ground[resource]--;

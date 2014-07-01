@@ -208,6 +208,7 @@ void				check_fd(t_env *e);
 /*
 **	s_init.c
 */
+void				add_start_cal(t_env *e, int cs, int team);
 void				init_team(t_env *e);
 int					init_sock(int port, t_env *e);
 void				init_player(t_env *e, int cs, int team);

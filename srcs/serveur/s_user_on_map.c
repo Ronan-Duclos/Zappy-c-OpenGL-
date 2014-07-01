@@ -45,14 +45,20 @@ void	remove_user_on_map(t_env *e, int cs)
 	y = e->users[cs]->player.y;
 	e->map[y][x].ground[_player]--;
 	tmp = e->map[y][x].player;
-	if (tmp->sock == cs)
+	if (tmp && tmp->sock == cs)
 		e->map[y][x].player = e->map[y][x].player->next;
 	else
 	{
-		while (tmp->next->sock != cs)
+		while (tmp != NULL && tmp->next != NULL && tmp->next->sock != cs)
 			tmp = tmp->next;
-		me = tmp->next;
-		tmp->next = me->next;
-		me->next = NULL;
+		if (tmp)
+		{
+			me = tmp->next;
+			if (me != NULL)
+			{
+				tmp->next = me->next;
+				me->next = NULL;
+			}
+		}
 	}
 }

@@ -92,7 +92,6 @@ typedef struct		s_ia
 	int				recolt;
 	int				lvlup;
 	t_todo			*todo;
-	t_todo			*cur_todo;
 	int				x;
 	int				y;
 	int				quantity;

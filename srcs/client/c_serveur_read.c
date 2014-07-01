@@ -131,15 +131,19 @@ void	replace_calendar(t_env *e)
 
 void	receive_broadcast(t_env *e)
 {
-	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
 
-	tmp = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
-	if (!tmp)
+	tmp1 = ft_strchr(e->user->buf_read_tmp, ' ') + 1;
+	if (!tmp1)
 		return ;
-	tmp[1] = '\0';
-	e->user->player.ia.bdc = ft_atoi(tmp);
-	tmp += 3;
-	e->user->player.ia.msg = ft_strdup(tmp);
+	tmp1[1] = '\0';
+	tmp2 = tmp1 + 3;
+	if (e->user->player.ia.todo == NULL && ft_atoi(tmp2) == e->user->player.ia.lvl)
+	{
+		e->user->player.ia.bdc = ft_atoi(tmp1);
+		e->user->player.ia.msg = ft_strdup(tmp2);
+	}
 }
 
 void	make_cmd(t_env *e)
@@ -181,6 +185,7 @@ void	rcv_serveur(t_env *e)
 	if (r <= 0)
 	{
 		close(e->user->sock);
+		my_exit(0, "mort");
 		exit(0);
 	}
 	e->user->buf_read_tmp[r] = '\0';

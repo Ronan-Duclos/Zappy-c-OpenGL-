@@ -46,7 +46,7 @@ static int			broadcast_one(t_env *env, char *msg, int ori, int cs)
 	char		buf[4096];
 
 	bzero(buf, 4096);
-//	printf("Direction [%d] player [%d] from broadcaster [%d] \n", get_dir_broadcast(env, &env->users[ori]->player, &env->users[cs]->player), cs, ori);
+	printf("Direction [%d] player [%d] from broadcaster [%d] \n", get_dir_broadcast(env, &env->users[ori]->player, &env->users[cs]->player), cs, ori);
 	sprintf(buf, "message %d, %s", get_dir_broadcast(env,
 				&env->users[ori]->player, &env->users[cs]->player), msg);
 	tmp_to_bc(&env->users[cs]->buf_write, buf, 1);
